@@ -1,3 +1,9 @@
+# customized items
+.DS_Store
+*.pem
+uploads/*.jpg
+uploads/*.jpeg
+uploads/*.png
 # Logs
 logs
 *.log
