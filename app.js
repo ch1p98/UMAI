@@ -25,6 +25,7 @@ const elasticClient = new Client({
     password: process.env.ES_PASSWORD,
   },
 });
+const test = "test git config";
 
 const port = 3000;
 
