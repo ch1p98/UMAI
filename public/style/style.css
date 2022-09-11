@@ -1,0 +1,61 @@
+* {
+  padding: 0;
+  margin: 0;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+* input::-webkit-outer-spin-button,
+* input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+* input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+header.nav_header {
+  background-color: #DD0000;
+  padding: 20px 40px;
+  width: 100vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+header.nav_header nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+header.nav_header nav div.nav_item {
+  -ms-flex-preferred-size: 150px;
+      flex-basis: 150px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+header.nav_header nav div.nav_item a {
+  text-decoration: none;
+}
+
+header.nav_header nav div.logo {
+  font-size: 2rem;
+}
+
+.js-example-basic-multiple {
+  width: 75%;
+}
+/*# sourceMappingURL=style.css.map */

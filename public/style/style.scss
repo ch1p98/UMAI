@@ -1,0 +1,40 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Noto Sans TC", sans-serif;
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+}
+
+header.nav_header {
+    background-color: #DD0000;
+    padding: 20px 40px;
+    width: 100vw;
+    display: flex;
+    justify-content: space-between;
+    nav {
+        display: flex;
+        align-items: center;
+        div.nav_item {
+            flex-basis: 150px;
+            display: flex;
+            justify-content: center;
+            a {
+                text-decoration: none;
+            }
+        }
+        div.logo {
+            font-size: 2rem;
+        }
+    }
+}
+
+.js-example-basic-multiple {
+    width: 75%;
+}

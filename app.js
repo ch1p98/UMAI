@@ -9,6 +9,8 @@ const { LanguageServiceClient } = require("@google-cloud/language").v1;
 const creds = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 const axios = require("axios");
 const fs = require("fs");
+const cors = require("cors");
+
 //const languageClient = new LanguageServiceClient({ credentials: creds });
 const languageClient = new LanguageServiceClient();
 //const mapsClient = new Client({});
@@ -27,8 +29,49 @@ const elasticClient = new Client({
 });
 
 const port = 3000;
+app.use(cors());
 
-app.get("/search", async (req, res) => {
+app.get("");
+
+app.post("/search_experiment", async (req, res) => {
+  console.log(req.body);
+  console.log(Object.keys(req.body));
+
+  res.send(ok);
+  // const q1 = req.body.first ? req.body.first : "新北";
+  // const q2 = req.body.second ? req.body.second : "花枝";
+  // const q3 = req.body.third ? req.body.third : "2300";
+  // console.log("queries:", q1, q2, q3);
+  // const result = await elasticClient
+  //   .search({
+  //     index: "food_alpha",
+  //     size: 32,
+  //     //query: { match: { formatted_address: "仁愛路" } },
+  //     query: {
+  //       bool: {
+  //         must: [
+  //           {
+  //             match: {
+  //               formatted_address: q1,
+  //             },
+  //           },
+  //           {
+  //             match: { "reviews.text": q2 },
+  //           },
+  //           {
+  //             match: { "opening_hours.periods.close.time": q3 },
+  //           },
+  //         ],
+  //       },
+  //     },
+  //   })
+  //   .catch((err) => {
+  //     res.json({ error: err, result: "search failed" });
+  //   });
+  // res.json(result);
+});
+
+app.get("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({
       index: "food_alpha",
@@ -46,7 +89,7 @@ app.get("/search", async (req, res) => {
               match: { "reviews.text": "櫻花" },
             },
             {
-              match: { "opening_hours.periods.close.time": "2330" },
+              match: { "opening_hours.periods.close.time": "2200" },
             },
           ],
         },
@@ -55,7 +98,6 @@ app.get("/search", async (req, res) => {
     .catch((err) => {
       res.json({ error: err, result: "search failed" });
     });
-
   res.json(result);
 });
 
