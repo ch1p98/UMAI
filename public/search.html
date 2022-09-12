@@ -202,6 +202,9 @@
     </div>
     <script>
         let cnt = 0;
+        let hits_arr = [];
+        let page_len = 0;
+
         $(document).ready(() => {
             $(".js-example-basic-multiple").select2();
         });
@@ -258,7 +261,7 @@
         //             console.log("finally");
         //         });
         // });
-        $("#test_selected_fire").click((e) => {
+        $("#test_selected_fire").click((event) => {
             let place_arr = [];
             let selected_place = place.find(":selected");
             for (i of selected_place) {
@@ -348,22 +351,93 @@
                     const data = response.data;
                     //$("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
                     console.log(data);
-                    const hits_arr = [];
-                    data.hits.hits.forEach((element) => {
+                    hits_arr = [];
+                    page_len = data.hits.hits.length;
+                    data.hits.hits.forEach((element, index) => {
+                        // if (index !== 0) {
+                        //     return;
+                        // }
                         hits_arr.push(element._source);
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
                     let cnt = 0;
+                    let div_container = $("<div></div>").attr({
+                        id: "restaurant_container",
+                    });
+                    $("#root").append(div_container);
+
                     for (h of hits_arr) {
-                        let divbox = $("<div></div>").attr("id", `h${cnt}`);
-                        $("#root").append(divbox);
+                        let div_box = $("<div></div>").attr({
+                            id: `h${cnt}`,
+                            class: "restaurant_box",
+                        });
+                        $("#restaurant_container").append(div_box);
 
-                        divbox.append(`<p>${h.name}</p>`);
-                        divbox.append(`<p>${h.formatted_address}</p>`);
-                        divbox.append(`<p>${h.rating}</p>`);
-                        divbox.append(`<p>${h.price_level}</p>`);
+                        div_box.append(
+                            `<p class="item_name" id="item_title_${cnt}">名稱：${h.name}</p>`
+                        );
 
-                        $("#root").append(`<p>-----------我是分隔線-----------</p>`);
+                        div_box.append(
+                            `<p class="item_address">地址：${h.formatted_address}</p>`
+                        );
+                        div_box.append(`<p class="item_rating">評分：${h.rating}</p>`);
+
+                        let plv = h.price_level;
+                        if (!plv) {
+                            plv = 0;
+                        } else {
+                            const plv_cnt = plv;
+                            plv = "";
+                            for (i = 0; i < plv_cnt; i++) {
+                                plv += "$";
+                            }
+                        }
+                        div_box.append(`<p class="item_pricing">價位：${plv}</p>`);
+
+                        let opening_hours;
+                        try {
+                            opening_hours = h.opening_hours.weekday_text;
+                        } catch (err) {
+                            console.log(
+                                "An error occurred, might haven't caught data weekday_text correctly:",
+                                err
+                            );
+                            opening_hours = "無資料";
+                        }
+
+                        div_box.append(
+                            `<p class="item_ophour">營業時間：${opening_hours}</p>`
+                        );
+                        let today = new Date();
+                        today = today.getDay();
+                        let opendays = new Set();
+                        try {
+                            const period = h.opening_hours.periods;
+                            for (p of period) {
+                                for (k of Object.keys(p)) {
+                                    if (p[k]["day"]) {
+                                        //console.log("p[k]['day']: ", p[k]["day"]);
+                                        opendays.add(p[k]["day"]);
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            console.log(
+                                "An error occurred, might haven't caught data periods correctly:",
+                                err,
+                                "will set all days open for the time being"
+                            );
+                            opendays.add(-2147483648);
+                        }
+                        //console.log("opendays: ", opendays);
+                        div_box.append(
+                            `<p class="item_ophour">營業日：${Array.from(opendays).join(
+                  "-"
+                )}</p>`
+                        );
+                        div_box.append(`<p>今天星期${today}</p>`);
+
+                        cnt++;
                     }
                     $("#filters").remove();
                     console.log("success");
@@ -404,6 +478,108 @@
             // $("#root").append(`<p>${text_select_1.length}</p>`);
             // $("#root").append(`<p>${text_select_2.length}</p>`);
         });
+        let test_cnt = 0;
+        // for (let i = 0; i < page_len; i++) {
+        for (let i = 0; i < 10; i++) {
+            $(document).on("click", `#item_title_${i}`, () => {
+                let detail_data = hits_arr[i];
+                //console.log("the data is: ", JSON.stringify(detail_data));
+                let detail_layout = $("<div></div>").attr({
+                    id: "detail_display",
+                });
+                $("#root").append(detail_layout);
+                detail_layout.append(
+                    `<p id="detail_name">名稱：${detail_data.name}</p>`
+                );
+                detail_layout.append(
+                    `<p class="item_address">地址：${detail_data.formatted_address}</p>`
+                );
+                detail_layout.append(
+                    `<p class="item_rating">評分：${detail_data.rating}</p>`
+                );
+                let plv = detail_data.price_level;
+                if (!plv) {
+                    plv = 0;
+                } else {
+                    const plv_cnt = plv;
+                    plv = "";
+                    for (i = 0; i < plv_cnt; i++) {
+                        plv += "$";
+                    }
+                }
+                detail_layout.append(`<p class="item_pricing">價位：${plv}</p>`);
+                let opening_hours;
+                try {
+                    opening_hours = detail_data.opening_hours.weekday_text;
+                } catch (err) {
+                    console.log(
+                        "An error occurred, might haven't caught data weekday_text correctly:",
+                        err
+                    );
+                    opening_hours = "無資料";
+                }
+
+                detail_layout.append(
+                    `<p class="item_ophour">營業時間：${opening_hours}</p>`
+                );
+                let today = new Date();
+                today = today.getDay();
+                let opendays = new Set();
+                try {
+                    const period = detail_data.opening_hours.periods;
+                    for (p of period) {
+                        for (k of Object.keys(p)) {
+                            if (Object.prototype.hasOwnProperty.call(p[k], "day")) {
+                                //console.log("p[k]['day']: ", p[k]["day"]);
+                                opendays.add(p[k]["day"]);
+                            }
+                        }
+                    }
+                } catch (err) {
+                    console.log(
+                        "An error occurred, might haven't caught data periods correctly:",
+                        err,
+                        "will set all days open for the time being"
+                    );
+                    opendays.add(-2147483648);
+                }
+                //console.log("opendays: ", opendays);
+                detail_layout.append(
+                    `<p class="item_ophour">營業日：${Array.from(opendays).join(
+              "-"
+            )}</p>`
+                );
+                detail_layout.append(`<p>今天星期${today}</p>`);
+                detail_layout.append("<br>");
+                detail_layout.append("<br>");
+                detail_layout.append(
+                    `<p>電話：${detail_data.formatted_phone_number}</p>`
+                );
+                detail_layout.append(`<p>網站：${detail_data.website}</p>`);
+
+                let reviews_div = $("<div></div>").attr({
+                    id: `reviews_container`,
+                });
+                detail_layout.append(reviews_div);
+                let cnt = 0;
+                for (r of detail_data.reviews) {
+                    let single_review = $("<div></div>").attr({
+                        id: `reviews_no_${cnt}`,
+                        class: "review_box",
+                    });
+                    reviews_div.append(single_review);
+                    //
+                    single_review.append(`<p>姓名：${r.author_name}</p>`);
+                    single_review.append(`<p>評分：${r.rating}</p>`);
+                    single_review.append(`<p>評論：${r.text}</p>`);
+                    cnt += 1;
+                }
+
+                //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
+
+                $("#restaurant_container").remove();
+            });
+        }
     </script>
 </body>
 

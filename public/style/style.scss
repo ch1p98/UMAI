@@ -44,3 +44,34 @@ header.nav_header {
 .js-example-basic-multiple {
     width: 75%;
 }
+
+.restaurant_box {
+    border: solid 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.review_box {
+    border: solid 4px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#restaurant_container {
+    padding: 10vh 10vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#detail_name {
+    color: red;
+}
+
+#detail_display {
+    padding: 10vh 10vw;
+    border: solid 4px;
+    display: flex;
+    flex-direction: column;
+}

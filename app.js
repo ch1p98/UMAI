@@ -158,7 +158,7 @@ app.post("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({
       index: "food_alpha",
-      size: 20,
+      size: 10,
       //query: { match: { formatted_address: "仁愛路" } },
       query: {
         bool: {
@@ -168,6 +168,7 @@ app.post("/search_experiment", async (req, res) => {
     })
     .catch((err) => {
       res.json({ error: err, result: "search failed" });
+      return;
     });
   res.json(result);
 });
