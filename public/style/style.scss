@@ -61,8 +61,32 @@ header.nav_header {
     flex-direction: column;
 }
 
+.pagination {
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    &,
+    * {
+        user-select: none;
+    }
+    a {
+        display: inline-block;
+        padding: 0 10px;
+        cursor: pointer;
+        &.disabled {
+            opacity: .3;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+        &.current {
+            background: #f3f3f3;
+        }
+    }
+}
+
 #restaurant_container {
-    padding: 10vh 10vw;
+    padding: 4vh 10vw;
     display: flex;
     flex-direction: column;
 }

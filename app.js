@@ -90,24 +90,24 @@ app.post("/search_experiment", async (req, res) => {
         });
       }
     }
-    // if (queries.pricelv) {
-    //   for (i of queries.place) {
-    //     es_queries_list.push({
-    //       match: {
-    //         [price_field]: i,
-    //       },
-    //     });
-    //   }
-    // }
-    // if (queries.rating) {
-    //   for (i of queries.place) {
-    //     es_queries_list.push({
-    //       match: {
-    //         [rating_field]: i,
-    //       },
-    //     });
-    //   }
-    // }
+    if (queries.pricelv) {
+      for (i of queries.pricelv) {
+        es_queries_list.push({
+          range: {
+            [price_field]: { lte: i.length },
+          },
+        });
+      }
+    }
+    if (queries.rating) {
+      for (i of queries.rating) {
+        es_queries_list.push({
+          range: {
+            [rating_field]: { gte: i, boost: 2.0 },
+          },
+        });
+      }
+    }
     if (queries.ophour) {
       for (i of queries.ophour) {
         es_queries_list.push({

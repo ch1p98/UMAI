@@ -93,8 +93,46 @@ header.nav_header nav div.logo a.logolonk :visited {
           flex-direction: column;
 }
 
+.pagination {
+  padding: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination,
+.pagination * {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+.pagination a {
+  display: inline-block;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+.pagination a.disabled {
+  opacity: .3;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.pagination a.current {
+  background: #f3f3f3;
+}
+
 #restaurant_container {
-  padding: 10vh 10vw;
+  padding: 4vh 10vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

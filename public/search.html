@@ -12,6 +12,8 @@
     <!--Select2-->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script> -->
 
     <!--axios-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.20.0/axios.js"></script>
@@ -198,7 +200,7 @@
           </label>
             </div>
             <div>
-                <button id="test_selected_fire">Test Button</button>
+                <button id="selected_fire">SORA!!</button>
             </div>
         </div>
     </div>
@@ -212,6 +214,8 @@
                 tags: true,
             });
         });
+        $("#hide_search").hide();
+        $("#modify_search").hide();
 
         // $("html").dblclick(() => {
         //     cnt = 0;
@@ -265,7 +269,7 @@
         //             console.log("finally");
         //         });
         // });
-        $("#test_selected_fire").click((event) => {
+        $("#selected_fire").click((event) => {
             let place_arr = [];
             let selected_place = place.find(":selected");
             for (i of selected_place) {
@@ -371,7 +375,11 @@
                     let div_container = $("<div></div>").attr({
                         id: "restaurant_container",
                     });
+                    let div_membrane = $("<div></div>").attr({
+                        id: "restaurant_membrane",
+                    });
                     $("#root").append(div_container);
+                    $("#restaurant_container").append(div_membrane);
 
                     for (h of hits_arr) {
                         let div_box = $("<div></div>").attr({
@@ -379,7 +387,7 @@
                             class: "restaurant_box",
                         });
                         //$("#restaurant_container").append(div_box);
-                        div_container.append(div_box);
+                        div_membrane.append(div_box);
 
                         div_box.append(
                             `<p class="item_name" id="item_title_${cnt}">名稱：${cnt + 1}.${
@@ -449,6 +457,141 @@
 
                         cnt++;
                     }
+                    (function($) {
+                        let pagify = {
+                            items: {},
+                            container: null,
+                            totalPages: 1,
+                            perPage: 3,
+                            currentPage: 0,
+                            createNavigation: function() {
+                                this.totalPages = Math.ceil(this.items.length / this.perPage);
+                                console.log("total pages: ", this.totalPages);
+
+                                $(".pagination", this.container.parent()).remove();
+                                let pagination = $(
+                                    '<div class="pagination" id="pagination"></div>'
+                                ).append(
+                                    '<a class="nav prev disabled" data-next="false"><</a>'
+                                );
+
+                                for (let i = 0; i < this.totalPages; i++) {
+                                    let pageElClass = "page";
+                                    if (!i) pageElClass = "page current";
+                                    let pageEl =
+                                        '<a class="' +
+                                        pageElClass +
+                                        '" data-page="' +
+                                        (i + 1) +
+                                        '">' +
+                                        (i + 1) +
+                                        "</a>";
+                                    pagination.append(pageEl);
+                                }
+                                pagination.append(
+                                    '<a class="nav next" data-next="true">></a>'
+                                );
+
+                                this.container.after(pagination);
+
+                                let that = this;
+                                $("body").off("click", ".nav");
+                                this.navigator = $("body").on("click", ".nav", function() {
+                                    let el = $(this);
+                                    that.navigate(el.data("next"));
+                                });
+
+                                $("body").off("click", ".page");
+                                this.pageNavigator = $("body").on(
+                                    "click",
+                                    ".page",
+                                    function() {
+                                        let el = $(this);
+                                        that.goToPage(el.data("page"));
+                                    }
+                                );
+                            },
+                            navigate: function(next) {
+                                // default perPage to 5
+                                if (isNaN(next) || next === undefined) {
+                                    next = true;
+                                }
+                                $(".pagination .nav").removeClass("disabled");
+                                if (next) {
+                                    this.currentPage++;
+                                    if (this.currentPage > this.totalPages - 1)
+                                        this.currentPage = this.totalPages - 1;
+                                    if (this.currentPage == this.totalPages - 1)
+                                        $(".pagination .nav.next").addClass("disabled");
+                                } else {
+                                    this.currentPage--;
+                                    if (this.currentPage < 0) this.currentPage = 0;
+                                    if (this.currentPage == 0)
+                                        $(".pagination .nav.prev").addClass("disabled");
+                                }
+
+                                this.showItems();
+                            },
+                            updateNavigation: function() {
+                                let pages = $(".pagination .page");
+                                pages.removeClass("current");
+                                $(
+                                    '.pagination .page[data-page="' +
+                                    (this.currentPage + 1) +
+                                    '"]'
+                                ).addClass("current");
+                            },
+                            goToPage: function(page) {
+                                this.currentPage = page - 1;
+
+                                $(".pagination .nav").removeClass("disabled");
+                                if (this.currentPage == this.totalPages - 1)
+                                    $(".pagination .nav.next").addClass("disabled");
+
+                                if (this.currentPage == 0)
+                                    $(".pagination .nav.prev").addClass("disabled");
+                                this.showItems();
+                            },
+                            showItems: function() {
+                                this.items.hide();
+                                let base = this.perPage * this.currentPage;
+                                this.items.slice(base, base + this.perPage).show();
+
+                                this.updateNavigation();
+                            },
+                            init: function(container, items, perPage) {
+                                this.container = container;
+                                this.currentPage = 0;
+                                this.totalPages = 1;
+                                this.perPage = perPage;
+                                this.items = items;
+                                this.createNavigation();
+                                this.showItems();
+                            },
+                        };
+
+                        // stuff it all into a jQuery method!
+                        $.fn.pagify = function(perPage, itemSelector) {
+                            let el = $(this);
+                            let items = $(itemSelector, el);
+
+                            // default perPage to 5
+                            if (isNaN(perPage) || perPage === undefined) {
+                                perPage = 3;
+                            }
+
+                            // don't fire if fewer items than perPage
+                            if (items.length <= perPage) {
+                                return true;
+                            }
+
+                            pagify.init(el, items, perPage);
+                        };
+                    })(jQuery);
+
+                    $("#restaurant_container").pagify(10, ".restaurant_box");
+                    $("#hide_search").show();
+                    $("#modify_search").show();
                     $("#filters").hide();
                     console.log("success");
                 })
@@ -614,8 +757,11 @@
                 //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
 
                 $("#restaurant_container").remove();
+                $("#pagination").remove();
             });
         }
+        // let container = $("#filters");
+        // container.pagination
     </script>
 </body>
 
