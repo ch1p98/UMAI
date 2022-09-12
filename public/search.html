@@ -270,6 +270,7 @@
         //         });
         // });
         $("#selected_fire").click((event) => {
+            $(".pagination").remove();
             let place_arr = [];
             let selected_place = place.find(":selected");
             for (i of selected_place) {
@@ -589,6 +590,13 @@
                         };
                     })(jQuery);
 
+                    if (hits_arr.length === 0) {
+                        let empty_reminder_box = $("<div></div>");
+                        let empty_reminder_p = $("<p>沒有你要找的餐廳</p>");
+                        empty_reminder_box.append(empty_reminder_p);
+                        div_membrane.append(empty_reminder_box);
+                    }
+
                     $("#restaurant_container").pagify(10, ".restaurant_box");
                     $("#hide_search").show();
                     $("#modify_search").show();
@@ -638,8 +646,10 @@
             $("#filters").hide();
         });
         let test_cnt = 0;
-        // for (let i = 0; i < page_len; i++) {
-        for (let i = 0; i < 10; i++) {
+        // for (let i = 0; i < page_len; i++) is not gonna working
+        // The value 100 here is correspondent with the size of results elasticsearch returns.
+        // Try enable assigning value to it in runtime in the future.
+        for (let i = 0; i < 100; i++) {
             $(document).on("click", `#item_title_${i}`, () => {
                 let detail_data = hits_arr[i];
                 //console.log("the data is: ", JSON.stringify(detail_data));
