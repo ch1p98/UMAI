@@ -31,6 +31,12 @@ header.nav_header {
         }
         div.logo {
             font-size: 2rem;
+            a.logolonk {
+                text-decoration: none;
+                 :visited {
+                    text-decoration: none;
+                }
+            }
         }
     }
 }

@@ -34,43 +34,145 @@ app.use(cors());
 app.get("");
 
 app.post("/search_experiment", async (req, res) => {
-  console.log(req.body);
-  console.log(Object.keys(req.body));
-
-  res.send(ok);
+  //console.log(req.body);
+  //console.log(Object.keys(req.body));
+  const queries = req.body;
+  const es_queries_list = [];
   // const q1 = req.body.first ? req.body.first : "新北";
   // const q2 = req.body.second ? req.body.second : "花枝";
   // const q3 = req.body.third ? req.body.third : "2300";
   // console.log("queries:", q1, q2, q3);
-  // const result = await elasticClient
-  //   .search({
-  //     index: "food_alpha",
-  //     size: 32,
-  //     //query: { match: { formatted_address: "仁愛路" } },
-  //     query: {
-  //       bool: {
-  //         must: [
-  //           {
-  //             match: {
-  //               formatted_address: q1,
-  //             },
-  //           },
-  //           {
-  //             match: { "reviews.text": q2 },
-  //           },
-  //           {
-  //             match: { "opening_hours.periods.close.time": q3 },
-  //           },
-  //         ],
-  //       },
-  //     },
-  //   })
-  //   .catch((err) => {
-  //     res.json({ error: err, result: "search failed" });
-  //   });
-  // res.json(result);
+  const address_field = "formatted_address";
+  const reviews_field = "reviews.text";
+  const price_field = "price_level";
+  const rating_field = "rating";
+  const opening_field = "opening_hours.periods"; //incomplete
+
+  // const q1_v = "高雄";
+  // const q2_k = "reviews.text";
+  // const q2_v = "櫻花";
+  // const q3_k = "reviews.text";
+  // const q3_v = "炒飯";
+  try {
+    if (queries.place) {
+      for (i of queries.place) {
+        es_queries_list.push({
+          match: {
+            [address_field]: i,
+          },
+        });
+      }
+    }
+    if (queries.exotic) {
+      for (i of queries.exotic) {
+        es_queries_list.push({
+          match: {
+            [reviews_field]: i,
+          },
+        });
+      }
+    }
+    if (queries.estab) {
+      for (i of queries.estab) {
+        es_queries_list.push({
+          match: {
+            [reviews_field]: i,
+          },
+        });
+      }
+    }
+    if (queries.menu) {
+      for (i of queries.menu) {
+        es_queries_list.push({
+          match: {
+            [reviews_field]: i,
+          },
+        });
+      }
+    }
+    // if (queries.pricelv) {
+    //   for (i of queries.place) {
+    //     es_queries_list.push({
+    //       match: {
+    //         [price_field]: i,
+    //       },
+    //     });
+    //   }
+    // }
+    // if (queries.rating) {
+    //   for (i of queries.place) {
+    //     es_queries_list.push({
+    //       match: {
+    //         [rating_field]: i,
+    //       },
+    //     });
+    //   }
+    // }
+    if (queries.ophour) {
+      for (i of queries.ophour) {
+        es_queries_list.push({
+          match: {
+            [reviews_field]: i,
+          },
+        });
+      }
+    }
+    if (queries.amenit) {
+      for (i of queries.amenit) {
+        es_queries_list.push({
+          match: {
+            [reviews_field]: i,
+          },
+        });
+      }
+    }
+
+    // incomplete
+    // if (queries.opennow) {
+    //   es_queries_list.push({
+    //     match: {
+    //       [opening_field]: queries.opennow,
+    //     },
+    //   });
+    // }
+  } catch (err) {
+    console.log("an error occurred: ", err);
+  }
+
+  console.log(es_queries_list);
+  // const must_cond1 = {
+  //   match: {
+  //     [q1_k]: q1_v,
+  //   },
+  // };
+  // const must_cond2 = {
+  //   match: {
+  //     [q2_k]: q2_v,
+  //   },
+  // };
+  // const must_cond3 = {
+  //   match: {
+  //     [q3_k]: q3_v,
+  //   },
+  // };
+  const result = await elasticClient
+    .search({
+      index: "food_alpha",
+      size: 20,
+      //query: { match: { formatted_address: "仁愛路" } },
+      query: {
+        bool: {
+          must: es_queries_list,
+        },
+      },
+    })
+    .catch((err) => {
+      res.json({ error: err, result: "search failed" });
+    });
+  res.json(result);
 });
 
+// deprecated
 app.get("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({
@@ -149,6 +251,29 @@ app.get("/pydemo", async (req, res) => {
 
 app.post("/es_search", async (req, res) => {
   res.json({ name: "restaurant1", star: 4.2, tag: "店內價" });
+});
+
+app.get("/get_photo_from_google", async (req, res) => {
+  // axios({
+  //   method: "get",
+  //   url: "http://bit.ly/2mTM3nY",
+  //   responseType: "stream",
+  // }).then(function (response) {
+  //   response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
+  // });
+  const gmaps_key = process.env.GOOGLE_MAPS_API_KEY;
+  const photo = await axios
+    .get(
+      `https://maps.googleapis.com/maps/api/place/photo?photo_reference=AeJbb3f_2-nRsfQaKaaDIBZH9zKDDbZwBa3Hmcq_NxCaaotQeDp-RhFdSmwxKF2KMNullvl0U2bLn-vcSLn-27Lk3V8r698eU-sDngwCZidMcdG8f9gpzlVEDnwSFBvhTcYX1el6VNK40w_GKBEKDxHZeOwMFVm5loptjPY4E7RM1OAhBfHW&key=${gmaps_key}&maxwidth=600`
+    )
+    .then(function (response) {
+      // handle success
+      console.log(response);
+    })
+    .catch(function (error) {
+      // handle error
+      console.log("error:", err);
+    });
 });
 
 app.listen(port, () => {

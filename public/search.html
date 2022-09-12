@@ -21,11 +21,12 @@
     <header class="nav_header">
         <nav>
             <div class="logo">
-                <p>SORA</p>
+                <a class="logolink" href="./search.html">SORA</a>
             </div>
         </nav>
     </header>
-    <div>
+    <!--prototype filter-->
+    <!-- <div>
         <form action="/search_experiment" method="post">
             <label for="first">Option 1</label>
             <input type="text" name="first" value="高雄" />
@@ -35,164 +36,170 @@
             <input type="text" name="third" value="2300" />
             <button id="fire">Search</button>
         </form>
+    </div> -->
+
+    <div id="root">
+        <div id="filters">
+            <div>
+                <label for="id_label_1">
+            地點
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_1"
+            >
+              <option value="TPE">台北</option>
+              <option value="KAO">高雄</option>
+              <option value="NTP">新北</option>
+              <option value="TAN">台南</option>
+              <option value="HSC">新竹</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_2">
+            異國料理
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_2"
+            >
+              <option value="TPE">日式</option>
+              <option value="KAO">中式</option>
+              <option value="NTP">韓式</option>
+              <option value="TAN">美式</option>
+              <option value="HSC">泰式</option>
+              <option value="HSC">港式</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_3">
+            餐廳類型
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_3"
+            >
+              <option value="TPE">咖啡廳</option>
+              <option value="KAO">居酒屋</option>
+              <option value="NTP">餐酒館</option>
+              <option value="TAN">酒吧</option>
+              <option value="HSC">甜點店</option>
+              <option value="HSC">火鍋店</option>
+              <option value="TAN">茶館</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_4">
+            餐點名稱
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_4"
+            >
+              <option value="TAN">炸魚薯條</option>
+              <option value="TPE">炸豬排</option>
+              <option value="KAO">松鼠桂魚</option>
+              <option value="NTP">麻婆豆腐</option>
+              <option value="TAN">時雨煮</option>
+              <option value="HSC">三種起司披薩</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_5">
+            價位
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_5"
+            >
+              <option value="TPE">$</option>
+              <option value="KAO">$$</option>
+              <option value="NTP">$$$</option>
+              <option value="TAN">$$$$</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_6">
+            評價(幾分以上)
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_6"
+            >
+              <option value="TPE">1</option>
+              <option value="KAO">2</option>
+              <option value="NTP">3</option>
+              <option value="TAN">4</option>
+              <option value="HSC">4.5</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_7">
+            供餐時段
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_7"
+            >
+              <option value="TPE">早餐</option>
+              <option value="KAO">早午餐</option>
+              <option value="NTP">午餐</option>
+              <option value="TAN">下午茶</option>
+              <option value="HSC">晚餐</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_8">
+            服務
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_8"
+            >
+              <option value="TPE">外帶</option>
+              <option value="KAO">外送</option>
+              <option value="NTP">寵物友善</option>
+              <option value="TAN">兒童座椅</option>
+              <option value="HSC">停車場</option>
+              <option value="PLUG">插座</option>
+              <option value="PLUG">吃到飽</option>
+              <option value="PLUG">預約制</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <label for="id_label_9">
+            營業中
+            <select
+              class="js-example-basic-single"
+              name="states"
+              id="id_label_9"
+            >
+              <option value="TRUE">是</option>
+              <option value="FALSE">否</option>
+            </select>
+          </label>
+            </div>
+            <div>
+                <button id="test_selected_fire">Test Button</button>
+            </div>
+        </div>
     </div>
-    <div>
-        <div>
-            <label for="id_label_1">
-          地點
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_1"
-          >
-            <option value="TPE">台北</option>
-            <option value="KAO">高雄</option>
-            <option value="NTP">新北</option>
-            <option value="TAN">台南</option>
-            <option value="HSC">新竹</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_2">
-          異國料理
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_2"
-          >
-            <option value="TPE">日式</option>
-            <option value="KAO">中式</option>
-            <option value="NTP">韓式</option>
-            <option value="TAN">美式</option>
-            <option value="HSC">泰式</option>
-            <option value="HSC">港式</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_3">
-          餐廳類型
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_3"
-          >
-            <option value="TPE">咖啡廳</option>
-            <option value="KAO">居酒屋</option>
-            <option value="NTP">餐酒館</option>
-            <option value="TAN">酒吧</option>
-            <option value="HSC">甜點店</option>
-            <option value="HSC">火鍋店</option>
-            <option value="TAN">茶館</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_4">
-          餐點名稱
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_4"
-          >
-            <option value="TAN">炸魚薯條</option>
-            <option value="TPE">炸豬排</option>
-            <option value="KAO">松鼠桂魚</option>
-            <option value="NTP">麻婆豆腐</option>
-            <option value="TAN">時雨煮</option>
-            <option value="HSC">三種起司披薩</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_5">
-          價位
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_5"
-          >
-            <option value="TPE">$</option>
-            <option value="KAO">$$</option>
-            <option value="NTP">$$$</option>
-            <option value="TAN">$$$$</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_6">
-          評價(幾分以上)
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_6"
-          >
-            <option value="TPE">1</option>
-            <option value="KAO">2</option>
-            <option value="NTP">3</option>
-            <option value="TAN">4</option>
-            <option value="HSC">4.5</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_7">
-          供餐時段
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_7"
-          >
-            <option value="TPE">早餐</option>
-            <option value="KAO">早午餐</option>
-            <option value="NTP">午餐</option>
-            <option value="TAN">下午茶</option>
-            <option value="HSC">晚餐</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_8">
-          服務
-          <select
-            class="js-example-basic-multiple"
-            name="states[]"
-            multiple="multiple"
-            id="id_label_8"
-          >
-            <option value="TPE">外帶</option>
-            <option value="KAO">外送</option>
-            <option value="NTP">寵物友善</option>
-            <option value="TAN">兒童座椅</option>
-            <option value="HSC">停車場</option>
-            <option value="PLUG">插座</option>
-            <option value="PLUG">吃到飽</option>
-            <option value="PLUG">預約制</option>
-          </select>
-        </label>
-        </div>
-        <div>
-            <label for="id_label_9">
-          營業中
-          <select class="js-example-basic-single" name="states" id="id_label_9">
-            <option value="TRUE">是</option>
-            <option value="FALSE">否</option>
-          </select>
-        </label>
-        </div>
-    </div>
-    <div>
-        <button id="test_selected_fire">Test Button</button>
-    </div>
-    <div id="root"></div>
     <script>
         let cnt = 0;
         $(document).ready(() => {
@@ -219,18 +226,117 @@
             amenit = $("#id_label_8"),
             opennow = $("#id_label_9");
 
-        $("#fire").click((e) => {
-            e.preventDefault();
-            //console.log("first input: ", $('input[name="first"]').val());
+        // $("#fire").click((e) => {
+        //     e.preventDefault();
+        //     //console.log("first input: ", $('input[name="first"]').val());
+        //     axios
+        //         .post(
+        //             "http://localhost:3000/search_experiment", {
+        //                 // first: "高雄",
+        //                 // second: "櫻花",
+        //                 // third: "2200",
+        //                 first: $('input[name="first"]').val(),
+        //                 second: $('input[name="second"]').val(),
+        //                 third: $('input[name="third"]').val(),
+        //             }, {
+        //                 Headers: {
+        //                     "Access-Control-Allow-Origin": "*",
+        //                     "Content-Type": "application/json",
+        //                 },
+        //             }
+        //         )
+        //         .then((response) => {
+        //             const data = response.data;
+        //             $("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
+        //             console.log(data);
+        //             console.log("success");
+        //         })
+        //         .catch((error) => {
+        //             console.log("An error occurred:", error);
+        //         })
+        //         .finally(() => {
+        //             console.log("finally");
+        //         });
+        // });
+        $("#test_selected_fire").click((e) => {
+            let place_arr = [];
+            let selected_place = place.find(":selected");
+            for (i of selected_place) {
+                place_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let exotic_arr = [];
+            let selected_exotic = exotic.find(":selected");
+            for (i of selected_exotic) {
+                exotic_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let estab_arr = [];
+            let selected_estab = estab.find(":selected");
+            for (i of selected_estab) {
+                estab_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let menu_arr = [];
+            let selected_menu = menu.find(":selected");
+            for (i of selected_menu) {
+                menu_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let pricelv_arr = [];
+            let selected_pricelv = pricelv.find(":selected");
+            for (i of selected_pricelv) {
+                pricelv_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let rating_arr = [];
+            let selected_rating = rating.find(":selected");
+            for (i of selected_rating) {
+                rating_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let ophour_arr = [];
+            let selected_ophour = ophour.find(":selected");
+            for (i of selected_ophour) {
+                ophour_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let amenit_arr = [];
+            let selected_amenit = amenit.find(":selected");
+            for (i of selected_amenit) {
+                amenit_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            let opennow_arr = [];
+            let selected_opennow = opennow.find(":selected");
+            for (i of selected_opennow) {
+                opennow_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
+
+            // console.log("sel_place: ", sel_place);
+            // $("#root").append(`<p>${sel_place}</p>`);
+
             axios
                 .post(
                     "http://localhost:3000/search_experiment", {
-                        // first: "高雄",
-                        // second: "櫻花",
-                        // third: "2200",
-                        first: $('input[name="first"]').val(),
-                        second: $('input[name="second"]').val(),
-                        third: $('input[name="third"]').val(),
+                        place: place_arr, //formatted_address
+                        exotic: exotic_arr, //reviews.text
+                        estab: estab_arr, //reviews.text
+                        menu: menu_arr, //reviews.text
+                        pricelv: pricelv_arr,
+                        rating: rating_arr,
+                        ophour: ophour_arr, ////reviews.text e.g.早餐，午餐，晚餐
+                        amenit: amenit_arr, //reviews.text
+                        opennow: opennow_arr, //
                     }, {
                         Headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -240,8 +346,26 @@
                 )
                 .then((response) => {
                     const data = response.data;
-                    $("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
+                    //$("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
                     console.log(data);
+                    const hits_arr = [];
+                    data.hits.hits.forEach((element) => {
+                        hits_arr.push(element._source);
+                    });
+                    console.log("length of hits_arr: ", hits_arr.length);
+                    let cnt = 0;
+                    for (h of hits_arr) {
+                        let divbox = $("<div></div>").attr("id", `h${cnt}`);
+                        $("#root").append(divbox);
+
+                        divbox.append(`<p>${h.name}</p>`);
+                        divbox.append(`<p>${h.formatted_address}</p>`);
+                        divbox.append(`<p>${h.rating}</p>`);
+                        divbox.append(`<p>${h.price_level}</p>`);
+
+                        $("#root").append(`<p>-----------我是分隔線-----------</p>`);
+                    }
+                    $("#filters").remove();
                     console.log("success");
                 })
                 .catch((error) => {
@@ -250,109 +374,6 @@
                 .finally(() => {
                     console.log("finally");
                 });
-        });
-        $("#test_selected_fire").click((e) => {
-            // let val_select_1 = input_of_select_1.val(),
-            //     val_select_2 = input_of_select_2.val(),
-            //     val_select_3 = input_of_select_3.val(),
-            //     val_select_4 = input_of_select_4.value.val(),
-            //     val_select_5 = input_of_select_5.value.val(),
-            //     val_select_6 = input_of_select_6.value.val(),
-            //     val_select_7 = input_of_select_7.value.val(),
-            //     val_select_8 = input_of_select_8.value.val(),
-            //     val_select_9 = input_of_select_9.value.val();
-
-            // insignificant test code
-            // console.log("sel_place: ", sel_place);
-            // console.log("sel_place[0]: ", sel_place[0]);
-
-            // $("#root").append(`<p>${sel_place}</p>`);
-            // $("#root").append(`<p>${sel_place.length}</p>`);
-            // $("#root").append(`<p>${sel_place[0]}</p>`);
-            // $("#root").append(`<p>${sel_place[0].innerHTML}</p>`);
-
-            let sel_place = [];
-            let place_data_each = place.find(":selected");
-            for (i of place_data_each) {
-                sel_place.push(i);
-                console.log("i.innerHTML: ", i.innerHTML);
-            }
-            console.log("sel_place:", sel_place);
-            $("#root").append(`<p>sel_place: ${sel_place}</p>`);
-
-            // let place_data = place.find(":selected").text();
-            // console.log("place_data: ", place_data);
-            // $("#root").append(`<p>sel_place${place_data}</p>`);
-
-            let sel_exotic = [];
-            exotic.find(":selected").each((element) => {
-                sel_exotic.push($(element).innerHTML);
-            });
-            let sel_estab = [];
-            estab.find(":selected").each((element) => {
-                sel_estab.push($(element).innerHTML);
-            });
-            let sel_menu = [];
-            menu.find(":selected").each((element) => {
-                sel_menu.push($(element).innerHTML);
-            });
-            let sel_pricelv = [];
-            pricelv.find(":selected").each((element) => {
-                sel_pricelv.push($(element).innerHTML);
-            });
-            let sel_rating = [];
-            rating.find(":selected").each((element) => {
-                sel_rating.push($(element).innerHTML);
-            });
-            let sel_ophour = [];
-            ophour.find(":selected").each((element) => {
-                sel_ophour.push($(element).innerHTML);
-            });
-            let sel_amenit = [];
-            amenit.find(":selected").each((element) => {
-                sel_amenit.push($(element).innerHTML);
-            });
-            let sel_opennow = [];
-            opennow.find(":selected").each((element) => {
-                sel_opennow.push($(element).innerHTML);
-            });
-            // console.log("sel_place: ", sel_place);
-            // $("#root").append(`<p>${sel_place}</p>`);
-
-            // axios
-            //     .post(
-            //         "http://localhost:3000/search_experiment", {
-            //             // first: "高雄",
-            //             // second: "櫻花",
-            //             // third: "2200",
-            //             place: sel_place,
-            //             exotic: sel_exotic,
-            //             estab: sel_estab,
-            //             menu: sel_menu,
-            //             pricelv: sel_pricelv,
-            //             rating: sel_rating,
-            //             ophour: sel_ophour,
-            //             amenit: sel_amenit,
-            //             opennow: sel_opennow,
-            //         }, {
-            //             Headers: {
-            //                 "Access-Control-Allow-Origin": "*",
-            //                 "Content-Type": "application/json",
-            //             },
-            //         }
-            //     )
-            //     .then((response) => {
-            //         const data = response.data;
-            //         $("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
-            //         console.log(data);
-            //         console.log("success");
-            //     })
-            //     .catch((error) => {
-            //         console.log("An error occurred:", error);
-            //     })
-            //     .finally(() => {
-            //         console.log("finally");
-            //     });
 
             // const print_data = `text_select_1: ,
             //   ${text_select_1},

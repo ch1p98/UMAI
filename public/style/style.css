@@ -55,6 +55,14 @@ header.nav_header nav div.logo {
   font-size: 2rem;
 }
 
+header.nav_header nav div.logo a.logolonk {
+  text-decoration: none;
+}
+
+header.nav_header nav div.logo a.logolonk :visited {
+  text-decoration: none;
+}
+
 .js-example-basic-multiple {
   width: 75%;
 }
