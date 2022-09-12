@@ -23,6 +23,8 @@
             <div class="logo">
                 <a class="logolink" href="./search.html">SORA</a>
             </div>
+            <div class="modify_search" id="modify_search">修改搜尋條件</div>
+            <div id="hide_search">隱藏搜尋條件</div>
         </nav>
     </header>
     <!--prototype filter-->
@@ -206,7 +208,9 @@
         let page_len = 0;
 
         $(document).ready(() => {
-            $(".js-example-basic-multiple").select2();
+            $(".js-example-basic-multiple").select2({
+                tags: true,
+            });
         });
 
         // $("html").dblclick(() => {
@@ -351,6 +355,9 @@
                     const data = response.data;
                     //$("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
                     console.log(data);
+                    $("#restaurant_container").remove();
+                    $("#detail_display").remove();
+
                     hits_arr = [];
                     page_len = data.hits.hits.length;
                     data.hits.hits.forEach((element, index) => {
@@ -371,10 +378,13 @@
                             id: `h${cnt}`,
                             class: "restaurant_box",
                         });
-                        $("#restaurant_container").append(div_box);
+                        //$("#restaurant_container").append(div_box);
+                        div_container.append(div_box);
 
                         div_box.append(
-                            `<p class="item_name" id="item_title_${cnt}">名稱：${h.name}</p>`
+                            `<p class="item_name" id="item_title_${cnt}">名稱：${cnt + 1}.${
+                  h.name
+                }</p>`
                         );
 
                         div_box.append(
@@ -439,7 +449,7 @@
 
                         cnt++;
                     }
-                    $("#filters").remove();
+                    $("#filters").hide();
                     console.log("success");
                 })
                 .catch((error) => {
@@ -477,6 +487,12 @@
             //get length of selected options
             // $("#root").append(`<p>${text_select_1.length}</p>`);
             // $("#root").append(`<p>${text_select_2.length}</p>`);
+        });
+        $("#modify_search").click((event) => {
+            $("#filters").show();
+        });
+        $("#hide_search").click((event) => {
+            $("#filters").hide();
         });
         let test_cnt = 0;
         // for (let i = 0; i < page_len; i++) {
@@ -552,27 +568,47 @@
                 detail_layout.append(`<p>今天星期${today}</p>`);
                 detail_layout.append("<br>");
                 detail_layout.append("<br>");
-                detail_layout.append(
-                    `<p>電話：${detail_data.formatted_phone_number}</p>`
-                );
-                detail_layout.append(`<p>網站：${detail_data.website}</p>`);
+                if (detail_data.formatted_phone_number != undefined) {
+                    detail_layout.append(
+                        `<p>電話：${detail_data.formatted_phone_number}</p>`
+                    );
+                } else {
+                    detail_layout.append(`<p>電話：沒有資料</p>`);
+                }
+
+                if (detail_data.website != undefined) {
+                    detail_layout.append(`<p>網站：${detail_data.website}</p>`);
+                } else {
+                    detail_layout.append(`<p>網站：沒有資料</p>`);
+                }
 
                 let reviews_div = $("<div></div>").attr({
                     id: `reviews_container`,
                 });
                 detail_layout.append(reviews_div);
                 let cnt = 0;
-                for (r of detail_data.reviews) {
+                try {
+                    for (r of detail_data.reviews) {
+                        let single_review = $("<div></div>").attr({
+                            id: `reviews_no_${cnt}`,
+                            class: "review_box",
+                        });
+                        reviews_div.append(single_review);
+                        //
+                        single_review.append(`<p>姓名：${r.author_name}</p>`);
+                        single_review.append(`<p>評分：${r.rating}</p>`);
+                        single_review.append(`<p>評論：${r.text}</p>`);
+                        cnt += 1;
+                    }
+                } catch (err) {
+                    console.log("An error occurred while rendering reviews:", err);
+
                     let single_review = $("<div></div>").attr({
                         id: `reviews_no_${cnt}`,
                         class: "review_box",
                     });
                     reviews_div.append(single_review);
-                    //
-                    single_review.append(`<p>姓名：${r.author_name}</p>`);
-                    single_review.append(`<p>評分：${r.rating}</p>`);
-                    single_review.append(`<p>評論：${r.text}</p>`);
-                    cnt += 1;
+                    single_review.append(`<p>目前還沒有評論~</p>`);
                 }
 
                 //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);

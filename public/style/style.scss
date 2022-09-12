@@ -20,11 +20,13 @@ header.nav_header {
     justify-content: space-between;
     nav {
         display: flex;
-        align-items: center;
+        width: 100vw;
+        display: flex;
+        justify-content: space-between;
         div.nav_item {
             flex-basis: 150px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             a {
                 text-decoration: none;
             }
