@@ -214,14 +214,14 @@
         });
 
         // $("html").dblclick(() => {
-        //     cnt = 0;
+        //     c nt = 0;
         // });
         // $("#root").html("panzer vor!");
         // $("#root").html("panzer vor!");
         // let intervalID = setInterval(() => {
-        //     $("#root").append(`<p>${cnt}</p>`);
-        //     cnt++;
-        //     if (cnt > 10) window.clearInterval(intervalID);
+        //     $("#root").append(`<p>${c nt}</p>`);
+        //     c nt++;
+        //     if (c nt > 10) window.clearInterval(intervalID);
         // }, 1000);
         let place = $("#id_label_1"),
             exotic = $("#id_label_2"),
@@ -367,7 +367,7 @@
                         hits_arr.push(element._source);
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
-                    let cnt = 0;
+                    cnt = 0;
                     let div_container = $("<div></div>").attr({
                         id: "restaurant_container",
                     });
@@ -398,7 +398,7 @@
                         } else {
                             const plv_cnt = plv;
                             plv = "";
-                            for (i = 0; i < plv_cnt; i++) {
+                            for (plv_i = 0; plv_i < plv_cnt; plv_i++) {
                                 plv += "$";
                             }
                         }
@@ -495,10 +495,11 @@
             $("#filters").hide();
         });
         let test_cnt = 0;
-        // for (let i = 0; i < page_len; i++) {
-        for (let i = 0; i < 10; i++) {
-            $(document).on("click", `#item_title_${i}`, () => {
-                let detail_data = hits_arr[i];
+        // for (let i_ = 0; i < page_len; i++) {
+        for (let hits_i = 0; hits_i < 10; hits_i++) {
+            console.log("current hooked i: ", hits_i);
+            $(document).on("dblclick", `#item_title_${hits_i}`, () => {
+                let detail_data = hits_arr[hits_i];
                 //console.log("the data is: ", JSON.stringify(detail_data));
                 let detail_layout = $("<div></div>").attr({
                     id: "detail_display",
@@ -507,6 +508,8 @@
                 detail_layout.append(
                     `<p id="detail_name">名稱：${detail_data.name}</p>`
                 );
+                // ddeebbuugg!!!!
+                console.log(`The ${i}th item is retrieved: ${detail_data.name}`);
                 detail_layout.append(
                     `<p class="item_address">地址：${detail_data.formatted_address}</p>`
                 );
@@ -519,7 +522,7 @@
                 } else {
                     const plv_cnt = plv;
                     plv = "";
-                    for (i = 0; i < plv_cnt; i++) {
+                    for (_ = 0; _ < plv_cnt; _++) {
                         plv += "$";
                     }
                 }
@@ -586,11 +589,11 @@
                     id: `reviews_container`,
                 });
                 detail_layout.append(reviews_div);
-                let cnt = 0;
+                let review_cnt = 0;
                 try {
                     for (r of detail_data.reviews) {
                         let single_review = $("<div></div>").attr({
-                            id: `reviews_no_${cnt}`,
+                            id: `reviews_no_${review_cnt}`,
                             class: "review_box",
                         });
                         reviews_div.append(single_review);
@@ -598,13 +601,13 @@
                         single_review.append(`<p>姓名：${r.author_name}</p>`);
                         single_review.append(`<p>評分：${r.rating}</p>`);
                         single_review.append(`<p>評論：${r.text}</p>`);
-                        cnt += 1;
+                        review_cnt++;
                     }
                 } catch (err) {
                     console.log("An error occurred while rendering reviews:", err);
 
                     let single_review = $("<div></div>").attr({
-                        id: `reviews_no_${cnt}`,
+                        id: `reviews_no_${review_cnt}`,
                         class: "review_box",
                     });
                     reviews_div.append(single_review);
