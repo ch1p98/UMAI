@@ -101,3 +101,13 @@ header.nav_header {
     display: flex;
     flex-direction: column;
 }
+
+#selected_fire {
+    width: 7vw;
+    height: 4vw;
+}
+
+#selected_fire_container {
+    display: flex;
+    justify-content: center;
+}

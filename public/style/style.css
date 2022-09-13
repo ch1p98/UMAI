@@ -157,4 +157,18 @@ header.nav_header nav div.logo a.logolonk :visited {
       -ms-flex-direction: column;
           flex-direction: column;
 }
+
+#selected_fire {
+  width: 7vw;
+  height: 4vw;
+}
+
+#selected_fire_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
 /*# sourceMappingURL=style.css.map */
