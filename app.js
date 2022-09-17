@@ -1,15 +1,24 @@
 require("dotenv").config();
 const express = require("express");
+//
+const favicon = require("serve-favicon");
+const path = require("path");
+//
 const app = express();
 app.use(express.static("public"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 const { spawn } = require("child_process");
+const jwt = require("jsonwebtoken");
+const private_key = process.env.PRIVATE_KEY;
 const { LanguageServiceClient } = require("@google-cloud/language").v1;
 const creds = process.env.GOOGLE_APPLICATION_CREDENTIALS;
 const axios = require("axios");
 const fs = require("fs");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const bcrypt = require("bcrypt");
+const profile_route = require("./routes/profile");
 
 //const languageClient = new LanguageServiceClient({ credentials: creds });
 const languageClient = new LanguageServiceClient();
@@ -17,7 +26,10 @@ const languageClient = new LanguageServiceClient();
 
 // note how to deal with Client namespace here
 //const { Client } = require("@googlemaps/google-maps-services-js");
+
+// elasticsearch client
 const { Client } = require("@elastic/elasticsearch");
+const { restart } = require("nodemon");
 const elasticClient = new Client({
   cloud: {
     id: process.env.ES_CLOUD_ID,
@@ -28,10 +40,283 @@ const elasticClient = new Client({
   },
 });
 
+// mongoDB client
+mongoose
+  .connect(process.env.MONGO_DB_CONNECT, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("connected to mongodb atlas");
+  })
+  .catch((err) => {
+    console.log("Failed connecting to mongodb atlas:", err);
+  });
+
 const port = 3000;
 app.use(cors());
+app.use(favicon(path.join(__dirname, "public", "miho_icon.jpg")));
+//app.use("/profile", profile_route);
 
-app.get("");
+const UserSchema = new mongoose.Schema({
+  provider: {
+    type: String,
+    required: true,
+    default: "native",
+  },
+  name: {
+    type: String,
+    required: true,
+    minLength: 2,
+    maxLength: 127,
+  },
+  email: {
+    type: String,
+  },
+  // 入會時間
+  date: {
+    type: Date,
+    default: Date.now,
+  },
+  level: {
+    type: Number,
+    default: 1,
+  },
+  // optional content, not requested when registering
+  birthday: {
+    type: String,
+  },
+
+  birthplace: {
+    type: String,
+  },
+  hobbies: {
+    type: String,
+  },
+
+  occupation: {
+    type: String,
+  },
+  age: {
+    type: Number,
+  },
+  // password
+  password: {
+    type: String,
+    maxLength: 1024,
+  },
+  // recorded by system
+  // unidirection relationship
+  following_user: {
+    type: Array,
+    default: undefined,
+  },
+  // bidirection relationship
+  friends: {
+    type: Array,
+    default: undefined,
+  },
+  // favorite restaurant
+  favorite: {
+    type: Array,
+    default: undefined,
+  },
+  history: {
+    type: Array,
+    default: undefined,
+  },
+});
+
+const User = mongoose.model("user", UserSchema, "altUser");
+//const nsUser = mongoose.model("user", Any);
+
+app.post("/test", async (req, res) => {
+  let result = await User.find({ name: { $in: ["Mai Fuchigami", "alex"] } });
+  console.log("result:", result);
+  res.send(`result: ${result}`);
+});
+
+app.post("/setdata", async (req, res) => {
+  const filter = { name: /Mai/i };
+  const update = { age: req.body.age, occupation: req.body.occupation };
+  console.log("req.body: ", req.body);
+  let user;
+  try {
+    user = await User.findOneAndUpdate(filter, update, { new: true }).exec();
+    console.log(`updated user name:${user.name} \ ${user.age}`);
+    res.json(user);
+  } catch (err) {
+    console.log("error occurred: ", err);
+    res.json({ err });
+  }
+});
+
+app.get("/get_set_get_friend", async (req, res) => {
+  const filter = { name: /Fuchigami/i };
+  let users = await User.find(filter).exec();
+  users = users.map((x) => (x._id ? x._id : "0"));
+  console.log("found users: ", users);
+  const target = { name: /alex/i };
+  const update = { friends: users };
+  let update_result = await User.findOneAndUpdate(target, update, {
+    new: true,
+  }).exec();
+
+  let final_arr = [];
+  for (u of users) {
+    let one = await User.findOne({ _id: u }, "name").exec();
+    final_arr.push(one);
+  }
+  res.send({
+    state: "ok",
+    data_retrieved: users,
+    updated_data: update_result,
+    get_one_by_one: final_arr,
+  });
+});
+
+// list of user APIs:
+// POST set secondary user_data(e.g. birthday, hobbies, occupation, age, etc)
+// GET get friend_list
+// POST add a friend to friend_list
+// POST delete a friend from friend_list
+// GET get favorite_list (restaurant)
+// POST save restaurants to favorite_list
+// POST delete restaurants from favorite_list
+// POST comments to restaurants
+
+// list of restaurant APIs:
+// GET comments
+
+// collections list
+// restaurant, comment of restaurant(?),
+
+app.post("/signup", async (req, res) => {
+  console.log("req.body: ");
+  console.log(req.body);
+  let { name, email, password } = req.body;
+  let user = { name, email };
+  const email_existed = await User.findOne({ email });
+
+  if (email_existed) {
+    // return error
+    console.log("email_existed: ", email_existed);
+  } else {
+    const token = jwt.sign(user, private_key, { expiresIn: "24h" });
+    const hashed_password = await bcrypt.hash(password, 10);
+    let new_user = new User({ name, email, password: hashed_password });
+    // console.log("new_user:", new_user);
+    // console.log("new_user._id:", new_user._id);
+    // console.log("typeof new_user._id:", typeof new_user._id);
+    try {
+      await new_user.save();
+      console.log("successful");
+      res.json({ state: "successful", token });
+    } catch (err) {
+      console.log("failed");
+
+      res.json({ state: "failed", error: err });
+    }
+  }
+});
+
+app.post("/verify_token", async (req, res) => {
+  let rule_out_token, decoded;
+
+  try {
+    //succeed
+    //console.log("req.headers:", req.headers);
+    //console.log("req.body:", req.body);
+    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+    decoded = jwt.verify(rule_out_token, private_key);
+  } catch (err) {
+    //fail
+    console.log("An error occurred in verifying token: ", err);
+
+    res.status(403).json({ state: "failed verifying token" });
+    return;
+  }
+  const new_token = jwt.sign(
+    { provider: decoded.provider, name: decoded.name, email: decoded.email },
+    private_key,
+    { expiresIn: "24h" }
+  );
+  console.log("signed in already; sent renewed token");
+  res.status(200).json({ state: "signed in already", new_token });
+});
+
+app.post("/signin", async (req, res) => {
+  console.log("req.body: ");
+  console.log(req.body);
+  let { email, password } = req.body;
+  const email_existed = await User.findOne({ email });
+  console.log("req.headers:", req.headers);
+  console.log("req.body:", req.body);
+
+  if (!email_existed) {
+    // please sign up first
+    res.status(403).json({ state: "no such user, or input data is incorrect" });
+  } else {
+    const token = jwt.sign(
+      {
+        name: email_existed.name,
+        email: email_existed.email,
+        provider: email_existed.provider,
+      },
+      private_key,
+      { expiresIn: "24h" }
+    );
+    console.log("email_existed:", JSON.stringify(email_existed));
+    const bcrypted_password = email_existed.password;
+    // check password
+    const is_valid = await bcrypt.compare(password, bcrypted_password);
+    //console.log("is_valid:", is_valid);
+    if (!is_valid) {
+      res
+        .status(403)
+        .json({ state: "no such user, or input data is incorrect" });
+    } else {
+      res.status(200).json({ state: "successfully signed in!", token });
+    }
+  }
+});
+
+app.get("/profile", async (req, res) => {
+  console.log("217");
+  try {
+    console.log("219");
+
+    token = req.headers.authorization.replace("Bearer ", "");
+    //console.log("token: ", token);
+    if (token === "null") throw "token is empty";
+  } catch (err) {
+    console.log("no token or token not set correctly");
+    res.status(401).json({ state: "no token" });
+    return;
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, private_key);
+    //do something with data in decoded
+  } catch (err) {
+    console.log("Invalid token: ", err);
+    res.status(403).json({ state: "Invalid token" });
+    return;
+  }
+
+  // authentication successful. return some data for profile rendering
+  res.status(200).json({ state: "successful", profile: decoded });
+});
+
+app.get("/ad_hoc_find", async (req, res) => {
+  try {
+    const result = await User.findOne({ name: "Mai Fuchigami" });
+    res.send(`result: ${result}, result is true:, ${!!result}`);
+  } catch (err) {
+    res.send("delete failed");
+  }
+});
 
 app.post("/search_experiment", async (req, res) => {
   //console.log(req.body);

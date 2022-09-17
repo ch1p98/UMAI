@@ -27,21 +27,50 @@
             </div>
             <div class="modify_search" id="modify_search">修改搜尋條件</div>
             <div id="hide_search">隱藏搜尋條件</div>
+            <div id="div_profile">
+                <div>
+                    <button id="trigger_profile">會員資料</button>
+                </div>
+            </div>
+
+            <!--Sign Up-->
+            <div id="div_signup">
+                <div>
+                    <p>註冊</p>
+                </div>
+                <div>
+                    <label for="name">name</label>
+                    <input type="text" name="name" id="signup_input_name" />
+                </div>
+                <div>
+                    <label for="email">email</label>
+                    <input type="text" name="email" id="signup_input_email" />
+                </div>
+                <div>
+                    <label for="password">password</label>
+                    <input type="password" name="password" id="signup_input_password" />
+                </div>
+                <button id="trigger_signup">Submit</button>
+            </div>
+            <div id="div_signin">
+                <div>
+                    <p>登入</p>
+                </div>
+                <div>
+                    <label for="email">email</label>
+                    <input type="text" name="email" id="signin_input_email" />
+                </div>
+                <div>
+                    <label for="password">password</label>
+                    <input type="password" name="password" id="signin_input_password" />
+                </div>
+                <button id="trigger_signin">Submit</button>
+            </div>
+            <div id="div_signout">
+                <button id="trigger_signout">登出</button>
+            </div>
         </nav>
     </header>
-    <!--prototype filter-->
-    <!-- <div>
-        <form action="/search_experiment" method="post">
-            <label for="first">Option 1</label>
-            <input type="text" name="first" value="高雄" />
-            <label for="second">Option 2</label>
-            <input type="text" name="second" value="櫻花" />
-            <label for="third">Option 3</label>
-            <input type="text" name="third" value="2300" />
-            <button id="fire">Search</button>
-        </form>
-    </div> -->
-
     <div id="root">
         <div id="filters">
             <div>
@@ -218,19 +247,226 @@
                 tags: true,
             });
         });
+
         $("#hide_search").hide();
         $("#modify_search").hide();
 
-        // $("html").dblclick(() => {
-        //     c nt = 0;
-        // });
-        // $("#root").html("panzer vor!");
-        // $("#root").html("panzer vor!");
-        // let intervalID = setInterval(() => {
-        //     $("#root").append(`<p>${c nt}</p>`);
-        //     c nt++;
-        //     if (c nt > 10) window.clearInterval(intervalID);
-        // }, 1000);
+        // initial check: if token is there
+        const token = localStorage.getItem("jwt");
+        if (!token) {
+            $("#div_signout").hide();
+            $("#div_profile").hide();
+        } else {
+            axios
+                .post(
+                    "http://localhost:3000/verify_token", {}, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    if (response.data.new_token) {
+                        localStorage.setItem("jwt", response.data.new_token);
+                        // successfully signed in initially
+                        $("#div_signup").hide();
+                        $("#div_signin").hide();
+                        $("#div_signout").show();
+                    } else {
+                        console.log(JSON.stringify(response.data.state));
+                        $("#div_signout").hide();
+                        $("#div_profile").hide();
+                    }
+                })
+                .catch((err) => {
+                    console.log("error: ", err);
+                    $("#div_signout").hide();
+                    $("#div_profile").hide();
+                });
+        }
+        // if so, use axios post to validate the token
+        //   if token is valid:
+
+        $("#trigger_signup").click((event) => {
+            axios
+                .post(
+                    "http://localhost:3000/signup", {
+                        name: $("#signup_input_name").val(),
+                        email: $("#signup_input_email").val(),
+                        password: $("#signup_input_password").val(),
+                    }, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then((response) => {
+                    console.log(JSON.stringify(response.data.state));
+                    const token = response.data.token;
+                    if (!token) {
+                        console.log("error: did not receive token");
+                    } else {
+                        localStorage.setItem("jwt", token);
+                        $("#div_signup").hide();
+                        $("#div_signin").hide();
+                        $("#div_signout").show();
+                    }
+                })
+                .catch((err) => {
+                    console.log("An error occurred:", err);
+                })
+                .finally(() => {
+                    $("#signup_input_name").val("");
+                    $("#signup_input_email").val("");
+                    $("#signup_input_password").val("");
+                    console.log("finally");
+                });
+        });
+
+        $("#trigger_signin").click((event) => {
+            axios
+                .post(
+                    "http://localhost:3000/signin", {
+                        email: $("#signin_input_email").val(),
+                        password: $("#signin_input_password").val(),
+                    }, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                        },
+                    }
+                )
+                .then((response) => {
+                    console.log("response.data: ", response.data);
+                    if (response.data.token) {
+                        const token = response.data.token;
+                        localStorage.setItem("jwt", token);
+                        $("#div_signup").hide();
+                        $("#div_signin").hide();
+                        $("#div_signout").show();
+                        $("#div_profile").show();
+                    } else {
+                        // failed signing in
+                        alert("");
+                    }
+                    console.log(JSON.stringify(response.data.state));
+                })
+                .catch((err) => {
+                    console.log("An error occurred:", err);
+                })
+                .finally(() => {
+                    $("#signin_input_name").val("");
+                    $("#signin_input_email").val("");
+                    $("#signin_input_password").val("");
+                    console.log("finally");
+                });
+        });
+
+        $("#div_signout").click((event) => {
+            localStorage.removeItem("jwt");
+            $("#div_signup").show();
+            $("#div_signin").show();
+        });
+
+        $("#trigger_profile").click(async(event) => {
+            $("#profile_container").remove();
+            const token = localStorage.getItem("jwt");
+            let profile_flag = 0;
+            profile_flag = await (async function() {
+                if (!token) {
+                    $("#div_signout").hide();
+                    return 0;
+                }
+                return axios
+                    .post(
+                        "http://localhost:3000/verify_token", {}, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        if (response.data.new_token) {
+                            // do we really need to renew token everytime?
+                            // considering add parameter(s) to verify_token API
+                            // to judge if we would renew the token when verifying.
+                            localStorage.setItem("jwt", response.data.new_token);
+
+                            // authenticated; positive
+                            $("#div_signup").hide();
+                            $("#div_signin").hide();
+                            $("#div_signout").show();
+                            //display profile for user
+                            return 1;
+                        } else {
+                            // authenticated; negative
+                            console.log(JSON.stringify(response.data.state));
+                            $("#div_signup").show();
+                            $("#div_signin").show();
+                            $("#div_signout").hide();
+                            return 0;
+                        }
+                    })
+                    .catch((err) => {
+                        // authenticated; negative
+                        console.log("error: ", err);
+                        console.log(JSON.stringify(response.data.state));
+                        $("#div_signup").show();
+                        $("#div_signin").show();
+                        $("#div_signout").hide();
+                        return 0;
+                    });
+            })();
+            // status check
+            // console.log("profile_flag: ", profile_flag);
+            if (profile_flag === 0) {
+                // failed
+            } else {
+                // profile_flag === 1
+                const profile_data = axios
+                    .get("http://localhost:3000/profile", {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then(
+                        (response) => {
+                            $("#filters").hide();
+                            $("#restaurant_container").hide();
+                            $("#detail_display").hide();
+                            const req_status = response.data.state;
+                            console.log("response.data:", response.data);
+                            console.log("response:", response);
+                            //debugging msg
+                            console.log("Get profile status:", req_status);
+                            const profile_data = response.data.profile;
+                            let div_profile = $("<div></div>").attr({
+                                id: "profile_container",
+                            });
+                            $("#root").append(div_profile);
+                            for (k of Object.keys(profile_data)) {
+                                let profile_key = $("<p></p>").attr({
+                                    id: `profile_div_${k}`,
+                                });
+                                profile_key.html(`${k}: ${profile_data[k]}`);
+                                div_profile.append(profile_key);
+                            }
+                        }
+                        // verify successful
+                    )
+                    .catch((err) => {
+                        // verify failed
+                    });
+            }
+        });
+
         let place = $("#id_label_1"),
             exotic = $("#id_label_2"),
             estab = $("#id_label_3"),
@@ -241,38 +477,6 @@
             amenit = $("#id_label_8"),
             opennow = $("#id_label_9");
 
-        // $("#fire").click((e) => {
-        //     e.preventDefault();
-        //     //console.log("first input: ", $('input[name="first"]').val());
-        //     axios
-        //         .post(
-        //             "http://localhost:3000/search_experiment", {
-        //                 // first: "高雄",
-        //                 // second: "櫻花",
-        //                 // third: "2200",
-        //                 first: $('input[name="first"]').val(),
-        //                 second: $('input[name="second"]').val(),
-        //                 third: $('input[name="third"]').val(),
-        //             }, {
-        //                 Headers: {
-        //                     "Access-Control-Allow-Origin": "*",
-        //                     "Content-Type": "application/json",
-        //                 },
-        //             }
-        //         )
-        //         .then((response) => {
-        //             const data = response.data;
-        //             $("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
-        //             console.log(data);
-        //             console.log("success");
-        //         })
-        //         .catch((error) => {
-        //             console.log("An error occurred:", error);
-        //         })
-        //         .finally(() => {
-        //             console.log("finally");
-        //         });
-        // });
         $("#selected_fire").click((event) => {
             $(".pagination").remove();
             let place_arr = [];
@@ -354,7 +558,7 @@
                         amenit: amenit_arr, //reviews.text
                         opennow: opennow_arr, //
                     }, {
-                        Headers: {
+                        headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
                         },
@@ -653,7 +857,7 @@
 
         // for (let i_ = 0; i < page_len; i++) {
         for (let hits_i = 0; hits_i < 100; hits_i++) {
-            console.log("current hooked i: ", hits_i);
+            //console.log("current hooked i: ", hits_i);
             $(document).on("dblclick", `#item_title_${hits_i}`, () => {
                 let detail_data = hits_arr[hits_i];
                 //console.log("the data is: ", JSON.stringify(detail_data));
