@@ -241,7 +241,15 @@
         let cnt = 0;
         let hits_arr = [];
         let page_len = 0;
-
+        const user_features = new Set([
+            "level",
+            "birthday",
+            "birthplace",
+            "hobbies",
+            "occupation",
+            "age",
+            "gender",
+        ]);
         $(document).ready(() => {
             $(".js-example-basic-multiple").select2({
                 tags: true,
@@ -451,6 +459,7 @@
                                 id: "profile_container",
                             });
                             $("#root").append(div_profile);
+                            // display available features
                             for (k of Object.keys(profile_data)) {
                                 let profile_key = $("<p></p>").attr({
                                     id: `profile_div_${k}`,
@@ -458,6 +467,73 @@
                                 profile_key.html(`${k}: ${profile_data[k]}`);
                                 div_profile.append(profile_key);
                             }
+                            //display features not available yet
+
+                            // first remove those we already have on browser
+                            let residual_feature = new Set(user_features);
+                            for (i of Object.keys(profile_data)) {
+                                residual_feature.delete(i);
+                            }
+
+                            let extra_profile = $("<div></div>").attr({
+                                id: `extra_profile`,
+                            });
+                            div_profile.append(extra_profile);
+                            let form = $("<form></form>").attr({
+                                method: "post",
+                                action: "javascript:console.log('oh~oh~oh');",
+                            });
+                            extra_profile.append(form);
+                            for (i of residual_feature) {
+                                let label = $("<label></label>").attr({
+                                    for: `${i}`,
+                                });
+                                label.html(`${i}:`);
+                                let input = $("<input></input>").attr({
+                                    name: `${i}`,
+                                    type: "text",
+                                    class: "update_feature",
+                                    //id: `update_feature_${i}`,
+                                });
+                                form.append(label);
+                                form.append(input);
+                                form.append("<br />");
+                            }
+                            let update_profile_btn = $(
+                                "<button id='cool'>更新資料</button>"
+                            );
+                            form.append(update_profile_btn);
+
+                            let update_body = {};
+
+                            $(document).on("click", "#cool", () => {
+                                console.log("very cool");
+                                $("input.update_feature").each(function(index, element) {
+                                    // console.log(Object.keys(element));
+                                    // console.log(typeof element.name);
+                                    update_body[`${element.name}`] = `${element.value}`;
+                                    // console.log("element:");
+                                    //
+                                    // this is not gonna work:
+                                    // console.log(`${element.attr("name")}`);
+                                });
+                                // console.log("update_body: ", JSON.stringify(update_body));
+                                const token = localStorage.getItem("jwt");
+                                axios
+                                    .post("http://localhost:3000/profile", update_body, {
+                                        headers: {
+                                            "Access-Control-Allow-Origin": "*",
+                                            "Content-Type": "application/json",
+                                            Authorization: `Bearer ${token}`,
+                                        },
+                                    })
+                                    .then((response) => {})
+                                    .catch((err) => {});
+                            });
+                            //update_profile_btn prevent default
+                            //post data to server
+                            // if failed: do something
+                            //if successful: rerender page
                         }
                         // verify successful
                     )

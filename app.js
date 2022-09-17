@@ -100,6 +100,11 @@ const UserSchema = new mongoose.Schema({
   age: {
     type: Number,
   },
+  gender: {
+    type: String,
+    enum: ["Male", "Female", "Trans", "Else", "PNTT"],
+    default: "unknown",
+  },
   // password
   password: {
     type: String,
@@ -122,6 +127,7 @@ const UserSchema = new mongoose.Schema({
     default: undefined,
   },
   history: {
+    //browsing history
     type: Array,
     default: undefined,
   },
@@ -175,6 +181,38 @@ app.get("/get_set_get_friend", async (req, res) => {
   });
 });
 
+app.post("/profile", async (req, res) => {
+  // 你有要區分回401, 403嗎？ 現在只有403
+  try {
+    //succeed
+    //console.log("req.headers:", req.headers);
+    //console.log("req.body:", req.body);
+    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+    decoded = jwt.verify(rule_out_token, private_key);
+  } catch (err) {
+    //fail
+    console.log("An error occurred in verifying token: ", err);
+
+    res.status(403).json({ state: "failed verifying token" });
+    return;
+  }
+  // token verified
+  // 可能還要再對一下token資料跟前端頁面上的會員身份是否一致。
+  const update = req.body;
+  const filter = { email: decoded.email };
+  try {
+    console.log("update:", JSON.stringify(update));
+    const result = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    }).exec();
+    console.log("Update successful...?");
+    res.json({ result });
+  } catch (err) {
+    console.log("an error occurred when updating data");
+    res.json({ error: err });
+  }
+});
+
 // list of user APIs:
 // POST set secondary user_data(e.g. birthday, hobbies, occupation, age, etc)
 // GET get friend_list
@@ -195,7 +233,7 @@ app.post("/signup", async (req, res) => {
   console.log("req.body: ");
   console.log(req.body);
   let { name, email, password } = req.body;
-  let user = { name, email };
+  let user = { name, email, provider: "native" };
   const email_existed = await User.findOne({ email });
 
   if (email_existed) {
