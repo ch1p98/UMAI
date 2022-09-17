@@ -182,7 +182,7 @@ app.get("/get_set_get_friend", async (req, res) => {
 });
 
 app.post("/profile", async (req, res) => {
-  // 你有要區分回401, 403嗎？ 現在只有403
+  // QQQ.你有要區分回401, 403嗎？ 現在只有403
   try {
     //succeed
     //console.log("req.headers:", req.headers);
@@ -211,6 +211,46 @@ app.post("/profile", async (req, res) => {
     console.log("an error occurred when updating data");
     res.json({ error: err });
   }
+});
+
+app.get("/profile", async (req, res) => {
+  //console.log("217");
+  try {
+    //console.log("219");
+
+    token = req.headers.authorization.replace("Bearer ", "");
+    //console.log("token: ", token);
+    if (token === "null") throw "token is empty";
+  } catch (err) {
+    console.log("no token or token not set correctly");
+    res.status(401).json({ state: "no token" });
+    return;
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(token, private_key);
+    //do something with data in decoded
+  } catch (err) {
+    console.log("Invalid token: ", err);
+    res.status(403).json({ state: "Invalid token" });
+    return;
+  }
+
+  // query db for complete personal data
+  try {
+    let one = await User.findOne(
+      { email: decoded.email },
+      "-password -__v -_id"
+    ).exec();
+    if (!one) throw "No user data!!";
+    res.status(200).json({ state: "successful", profile: one });
+  } catch (err) {
+    res.status(404).json({ state: "failed" }); //send an error
+    return;
+  }
+
+  // authentication successful. return some data for profile rendering
 });
 
 // list of user APIs:
@@ -317,34 +357,6 @@ app.post("/signin", async (req, res) => {
       res.status(200).json({ state: "successfully signed in!", token });
     }
   }
-});
-
-app.get("/profile", async (req, res) => {
-  console.log("217");
-  try {
-    console.log("219");
-
-    token = req.headers.authorization.replace("Bearer ", "");
-    //console.log("token: ", token);
-    if (token === "null") throw "token is empty";
-  } catch (err) {
-    console.log("no token or token not set correctly");
-    res.status(401).json({ state: "no token" });
-    return;
-  }
-
-  let decoded;
-  try {
-    decoded = jwt.verify(token, private_key);
-    //do something with data in decoded
-  } catch (err) {
-    console.log("Invalid token: ", err);
-    res.status(403).json({ state: "Invalid token" });
-    return;
-  }
-
-  // authentication successful. return some data for profile rendering
-  res.status(200).json({ state: "successful", profile: decoded });
 });
 
 app.get("/ad_hoc_find", async (req, res) => {

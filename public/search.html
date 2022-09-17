@@ -242,6 +242,7 @@
         let hits_arr = [];
         let page_len = 0;
         const user_features = new Set([
+            "name",
             "level",
             "birthday",
             "birthplace",
@@ -379,10 +380,13 @@
             $("#div_signin").show();
         });
 
+        // QQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
             $("#profile_container").remove();
             const token = localStorage.getItem("jwt");
             let profile_flag = 0;
+
+            // verify token first and set flag
             profile_flag = await (async function() {
                 if (!token) {
                     $("#div_signout").hide();
@@ -436,7 +440,8 @@
                 // failed
             } else {
                 // profile_flag === 1
-                const profile_data = axios
+                // QQQ.你也知道verify_token沒用，那第一次應該也不用打了
+                const obj = axios
                     .get("http://localhost:3000/profile", {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
@@ -452,9 +457,11 @@
                             const req_status = response.data.state;
                             console.log("response.data:", response.data);
                             console.log("response:", response);
-                            //debugging msg
+                            // debugging msg
                             console.log("Get profile status:", req_status);
+                            // profile_data contains only data decoded from token
                             const profile_data = response.data.profile;
+                            // if not profile_data應該要處理一下，雖然目前應該不會發生
                             let div_profile = $("<div></div>").attr({
                                 id: "profile_container",
                             });
@@ -471,9 +478,10 @@
 
                             // first remove those we already have on browser
                             let residual_feature = new Set(user_features);
-                            for (i of Object.keys(profile_data)) {
-                                residual_feature.delete(i);
-                            }
+                            // for (i of Object.keys(profile_data)) {
+                            //     residual_feature.delete(i);
+                            // }
+                            residual_feature.delete("email");
 
                             let extra_profile = $("<div></div>").attr({
                                 id: `extra_profile`,
@@ -500,13 +508,14 @@
                                 form.append("<br />");
                             }
                             let update_profile_btn = $(
-                                "<button id='cool'>更新資料</button>"
+                                "<button id='update_profile'>更新資料</button>"
                             );
                             form.append(update_profile_btn);
 
                             let update_body = {};
 
-                            $(document).on("click", "#cool", () => {
+                            // when pressing 更新資料
+                            $(document).on("click", "#update_profile", () => {
                                 console.log("very cool");
                                 $("input.update_feature").each(function(index, element) {
                                     // console.log(Object.keys(element));
