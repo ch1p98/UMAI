@@ -138,6 +138,30 @@ const User = mongoose.model("user", UserSchema, "altUser");
 
 app.get("/friends", async (req, res) => {
   const email = req.query.email;
+  console.log("req query email: ", email);
+  let rule_out_token;
+  try {
+    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+  } catch (err) {
+    console.log("err:", err);
+    res.status(401).json({ state: "No token", err });
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(rule_out_token, private_key);
+    //do something with data in decoded
+  } catch (err) {
+    console.log("Invalid token: ", err);
+    res.status(403).json({ state: "Invalid token" });
+    return;
+  }
+
+  // token解出來的email跟前端給的email不合
+  if (decoded.email !== email) {
+    res.status(403).json({ state: "Invalid token" });
+  }
+
   //uri: /friends?email=alextai@gmail%2Ecom
   // console.log("email: ", email);
   const aggregate = User.aggregate([
@@ -187,7 +211,87 @@ app.get("/friends", async (req, res) => {
   res.json(result);
 });
 
-app.post("/favorite", async (req, res) => {});
+// POST favorite
+app.post("/favorite", async (req, res) => {
+  const email = req.body.personal_token;
+  const data = req.body.restaurant_obj;
+  let rule_out_token;
+  try {
+    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+  } catch (err) {
+    console.log("err:", err);
+    res.status(401).json({ state: "No token", err });
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(rule_out_token, private_key);
+    //do something with data in decoded
+  } catch (err) {
+    console.log("Invalid token: ", err);
+    res.status(403).json({ state: "Invalid token" });
+    return;
+  }
+  if (decoded.email !== email) {
+    console.log("email unmatched:");
+    console.log("decoded email: ", decoded.email);
+    console.log("email: ", email);
+    res.status(403).json({ state: "Invalid token" });
+  }
+  console.log("email matched:");
+  console.log("decoded email: ", decoded.email);
+  console.log("email: ", email);
+
+  let result;
+  const filter = { email };
+  const update = { $push: { favorite: { data } } };
+
+  try {
+    result = await User.findOneAndUpdate(filter, update, {
+      new: true,
+    }).exec();
+    res
+      .status(200)
+      .json({ state: "successful append favorite to user data", result });
+  } catch (err) {
+    console.log("err in posting favorite: ", err);
+    res.status(500).json({ err });
+  }
+});
+
+app.get("/favorite", async (req, res) => {
+  const email = req.query.email;
+  let rule_out_token;
+  try {
+    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+  } catch (err) {
+    console.log("err:", err);
+    res.status(401).json({ state: "No token", err });
+  }
+
+  let decoded;
+  try {
+    decoded = jwt.verify(rule_out_token, private_key);
+    //do something with data in decoded
+  } catch (err) {
+    console.log("Invalid token: ", err);
+    res.status(403).json({ state: "Invalid token" });
+    return;
+  }
+
+  // token解出來的email跟前端給的email不合
+  if (decoded.email !== email) {
+    res.status(403).json({ state: "Invalid token" });
+  }
+
+  //uri: /friends?email=alextai@gmail%2Ecom
+  // console.log("email: ", email);
+
+  const result = await User.findOne({ email }).exec();
+
+  console.log(JSON.stringify(result));
+  res.json(result);
+});
 
 app.post("/setdata", async (req, res) => {
   const filter = { name: /Mai/i };
@@ -244,7 +348,7 @@ app.post("/profile", async (req, res) => {
     return;
   }
   // token verified
-  // 可能還要再對一下token資料跟前端頁面上的會員身份是否一致。
+  // QQQ.可能還要再對一下token資料跟前端頁面上的會員身份是否一致。
   const update = req.body;
   const filter = { email: decoded.email };
   try {
@@ -348,6 +452,7 @@ app.post("/signup", async (req, res) => {
 app.post("/verify_token", async (req, res) => {
   let rule_out_token, decoded;
 
+  // QQQ. 你這邊現在偷懶把401跟403放在一起，之後要改掉
   try {
     //succeed
     //console.log("req.headers:", req.headers);
@@ -367,7 +472,11 @@ app.post("/verify_token", async (req, res) => {
     { expiresIn: "24h" }
   );
   console.log("signed in already; sent renewed token");
-  res.status(200).json({ state: "signed in already", new_token });
+  res.status(200).json({
+    state: "signed in already",
+    new_token,
+    personal_token: decoded.email,
+  });
 });
 
 app.post("/signin", async (req, res) => {

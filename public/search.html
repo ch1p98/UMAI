@@ -241,6 +241,7 @@
         let cnt = 0;
         let hits_arr = [];
         let page_len = 0;
+        let personal_token;
         const user_features = new Set([
             "name",
             "level",
@@ -279,6 +280,7 @@
                 .then((response) => {
                     if (response.data.new_token) {
                         localStorage.setItem("jwt", response.data.new_token);
+                        personal_token = response.data.personal_token;
                         // successfully signed in initially
                         $("#div_signup").hide();
                         $("#div_signin").hide();
@@ -483,7 +485,13 @@
                             $("#root").append(div_profile);
                             $("#root").append(div_friend);
                             $("#root").append(div_favorite);
+
+                            //set personal token for more purposes
+                            personal_token = profile_data["email"] ?
+                                profile_data["email"] :
+                                "";
                             // display available features of user
+
                             for (k of Object.keys(profile_data)) {
                                 // 這2個keys暫時不處理；放到其他按鈕來處理
                                 if (k === "friends") {
@@ -602,8 +610,15 @@
                 $("#div_signout").hide();
                 $("#div_profile").hide();
             } else {
+                let email;
+                try {
+                    email = personal_token.replace(".", "%2E");
+                } catch (err) {
+                    console.log("error occurred when urlencoding email:", err);
+                    return;
+                }
                 axios
-                    .get("http://localhost:3000/friends?email=alextai@gmail%2Ecom", {
+                    .get(`http://localhost:3000/friends?email=${email}`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -657,23 +672,54 @@
                     });
             }
         });
-        $(add_favorite).on("click", "#add_favorite", () => {
+        $(document).on("click", "#add_favorite", () => {
             const token = localStorage.getItem("jwt");
             if (!token) {
                 // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
                 $("#div_signout").hide();
                 $("#div_profile").hide();
             } else {
+                const rid = $("#add_favorite").siblings(".rid").text();
+                let rname = $("#add_favorite").siblings("#detail_name").text();
+                rname = rname.replace("名稱：", "");
+                const restaurant_obj = {
+                    rid,
+                    rname,
+                };
+
+                console.log("current rid: ", rid);
+                console.log("current rname: ", rname.replace("名稱：", ""));
+
                 axios
-                    .post("http://localhost:3000/favorite", {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
+                    .post(
+                        "http://localhost:3000/favorite", {
+                            personal_token,
+                            restaurant_obj,
+                        }, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        const data = response.data;
+                        //log state
+                        console.log(
+                            "add favorite successful response:",
+                            JSON.stringify(response)
+                        );
+
+                        $("#add_favorite").addClass("highlighted_btn");
                     })
-                    .then((response) => {})
-                    .catch((err) => {});
+                    .catch((err) => {
+                        // log error
+                        console.log(
+                            "add favorite Unsuccessful response:",
+                            JSON.stringify(err)
+                        );
+                    });
             }
         });
         let place = $("#id_label_1"),
@@ -686,6 +732,7 @@
             amenit = $("#id_label_8"),
             opennow = $("#id_label_9");
 
+        // QQQ. 按照現在的邏輯，按下搜尋時要把profile(div_profile) 藏起來
         $("#selected_fire").click((event) => {
             $(".pagination").remove();
             let place_arr = [];
@@ -786,7 +833,10 @@
                         // if (index !== 0) {
                         //     return;
                         // }
-                        hits_arr.push(element._source);
+                        hits_arr.push({
+                            data: element._source,
+                            id: element._id,
+                        });
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
                     cnt = 0;
@@ -799,7 +849,9 @@
                     $("#root").append(div_container);
                     $("#restaurant_container").append(div_membrane);
 
-                    for (h of hits_arr) {
+                    for (ho of hits_arr) {
+                        const h = ho.data;
+                        //console.log(ho.id);
                         let div_box = $("<div></div>").attr({
                             id: `h${cnt}`,
                             class: "restaurant_box",
@@ -1068,7 +1120,9 @@
         for (let hits_i = 0; hits_i < 100; hits_i++) {
             //console.log("current hooked i: ", hits_i);
             $(document).on("dblclick", `#item_title_${hits_i}`, () => {
-                let detail_data = hits_arr[hits_i];
+                let detail_data = hits_arr[hits_i].data;
+                const rid = hits_arr[hits_i].id;
+                //console.log("rid: ", rid);
                 //console.log("the data is: ", JSON.stringify(detail_data));
                 let detail_layout = $("<div></div>").attr({
                     id: "detail_display",
@@ -1076,6 +1130,7 @@
                 $("#root").append(detail_layout);
                 // add to favorite
                 detail_layout.append(`<div id="add_favorite">加入收藏</div>`);
+                detail_layout.append(`<div class="rid">${rid}</div>`);
                 detail_layout.append(
                     `<p id="detail_name">名稱：${detail_data.name}</p>`
                 );

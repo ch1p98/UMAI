@@ -69,6 +69,10 @@ header.nav_header nav div.logo a.logolonk :visited {
   width: 75%;
 }
 
+.rid {
+  display: none;
+}
+
 .friend_box {
   padding: 10px;
   display: -webkit-box;
@@ -90,6 +94,10 @@ header.nav_header nav div.logo a.logolonk :visited {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+}
+
+.highlighted_btn {
+  background-color: aqua;
 }
 
 .review_box {

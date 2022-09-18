@@ -47,6 +47,10 @@ header.nav_header {
     width: 75%;
 }
 
+.rid {
+    display: none;
+}
+
 .friend_box {
     padding: 10px;
     display: flex;
@@ -58,6 +62,10 @@ header.nav_header {
     padding: 10px;
     display: flex;
     flex-direction: column;
+}
+
+.highlighted_btn {
+    background-color: aqua;
 }
 
 .review_box {
