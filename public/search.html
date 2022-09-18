@@ -364,7 +364,9 @@
                     console.log(JSON.stringify(response.data.state));
                 })
                 .catch((err) => {
+                    console.log("response.data: ", response.data);
                     console.log("An error occurred:", err);
+                    console.log(JSON.stringify(response.data.state));
                 })
                 .finally(() => {
                     $("#signin_input_name").val("");
@@ -383,6 +385,9 @@
         // QQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
             $("#profile_container").remove();
+            $("#friend_container").remove();
+            $("#favorite_container").remove();
+
             const token = localStorage.getItem("jwt");
             let profile_flag = 0;
 
@@ -453,6 +458,8 @@
                         (response) => {
                             $("#filters").hide();
                             $("#restaurant_container").hide();
+                            $("#pagination").hide();
+
                             $("#detail_display").hide();
                             const req_status = response.data.state;
                             console.log("response.data:", response.data);
@@ -465,22 +472,52 @@
                             let div_profile = $("<div></div>").attr({
                                 id: "profile_container",
                             });
+                            // friend list
+                            let div_friend = $("<div></div>").attr({
+                                id: "friend_container",
+                            });
+                            // favorite restaurants/collection
+                            let div_favorite = $("<div></div>").attr({
+                                id: "favorite_container",
+                            });
                             $("#root").append(div_profile);
-                            // display available features
+                            $("#root").append(div_friend);
+                            $("#root").append(div_favorite);
+                            // display available features of user
                             for (k of Object.keys(profile_data)) {
+                                // 這2個keys暫時不處理；放到其他按鈕來處理
+                                if (k === "friends") {
+                                    continue;
+                                } else if (k === "favorite") {
+                                    continue;
+                                }
                                 let profile_key = $("<p></p>").attr({
                                     id: `profile_div_${k}`,
                                 });
                                 profile_key.html(`${k}: ${profile_data[k]}`);
                                 div_profile.append(profile_key);
                             }
-                            //display features not available yet
+                            div_friend.append(
+                                $("<button id='show_friend'>美食同好</button>")
+                            );
+                            div_favorite.append(
+                                $("<button id='show_favorite'>口袋名單</button>")
+                            );
+                            // display features not available yet:
 
                             // first remove those we already have on browser
                             let residual_feature = new Set(user_features);
+                            // 舊的做法：當前資料有的欄位就不顯示在input讓人修改
+                            // 顯然不合理
                             // for (i of Object.keys(profile_data)) {
                             //     residual_feature.delete(i);
                             // }
+                            // email目前不能修改
+
+                            // for (i of Object.keys(profile_data)) {
+                            //     residual_feature.delete(i);
+                            // }
+                            // email目前不能修改
                             residual_feature.delete("email");
 
                             let extra_profile = $("<div></div>").attr({
@@ -492,6 +529,7 @@
                                 action: "javascript:console.log('oh~oh~oh');",
                             });
                             extra_profile.append(form);
+                            //
                             for (i of residual_feature) {
                                 let label = $("<label></label>").attr({
                                     for: `${i}`,
@@ -501,6 +539,7 @@
                                     name: `${i}`,
                                     type: "text",
                                     class: "update_feature",
+                                    value: `${profile_data[i] ? profile_data[i] : ""}`,
                                     //id: `update_feature_${i}`,
                                 });
                                 form.append(label);
@@ -513,7 +552,7 @@
                             form.append(update_profile_btn);
 
                             let update_body = {};
-
+                            // QQQ.成功更新資料之後應該要刷新頁面
                             // when pressing 更新資料
                             $(document).on("click", "#update_profile", () => {
                                 console.log("very cool");
@@ -552,6 +591,91 @@
             }
         });
 
+        // 美食同好 按鈕
+        //口袋名單 按鈕
+        // QQQ. toggle: 顯示/隱藏
+        const friend_toggle = 0;
+        $(document).on("click", "#show_friend", () => {
+            const token = localStorage.getItem("jwt");
+            if (!token) {
+                // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+                $("#div_signout").hide();
+                $("#div_profile").hide();
+            } else {
+                axios
+                    .get("http://localhost:3000/friends?email=alextai@gmail%2Ecom", {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        try {
+                            const data = response.data;
+                            console.log("response data: ", data);
+                            for (d of data) {
+                                const friend = $("<div></div>").attr({
+                                    class: "friend_box",
+                                });
+                                $("#friend_container").append(friend);
+                                const name = d.name ? d.name : "ANONYMOUS_USER";
+                                const date = d.date ? d.date : Date.now();
+                                const name_box = $("<div></div>");
+                                const name_p = $("<p></p>").text(`name:${name}`);
+                                name_box.append(name_p);
+                                const date_box = $("<div></div>");
+                                const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                                date_box.append(date_p);
+                                friend.append(name_box);
+                                friend.append(date_box);
+                            }
+                        } catch (err) {}
+                    })
+                    .catch((err) => {});
+            }
+        });
+        $(document).on("click", "#show_favorite", () => {
+            const token = localStorage.getItem("jwt");
+            if (!token) {
+                $("#div_signout").hide();
+                $("#div_profile").hide();
+            } else {
+                axios
+                    .get("http://localhost:3000/favorite", {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {
+                        // display favorite restaurants
+                    })
+                    .catch((err) => {
+                        // display error
+                    });
+            }
+        });
+        $(add_favorite).on("click", "#add_favorite", () => {
+            const token = localStorage.getItem("jwt");
+            if (!token) {
+                // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+                $("#div_signout").hide();
+                $("#div_profile").hide();
+            } else {
+                axios
+                    .post("http://localhost:3000/favorite", {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    })
+                    .then((response) => {})
+                    .catch((err) => {});
+            }
+        });
         let place = $("#id_label_1"),
             exotic = $("#id_label_2"),
             estab = $("#id_label_3"),
@@ -950,6 +1074,8 @@
                     id: "detail_display",
                 });
                 $("#root").append(detail_layout);
+                // add to favorite
+                detail_layout.append(`<div id="add_favorite">加入收藏</div>`);
                 detail_layout.append(
                     `<p id="detail_name">名稱：${detail_data.name}</p>`
                 );

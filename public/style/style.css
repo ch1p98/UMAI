@@ -69,6 +69,17 @@ header.nav_header nav div.logo a.logolonk :visited {
   width: 75%;
 }
 
+.friend_box {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .restaurant_box {
   border: solid 4px;
   padding: 10px;
@@ -170,5 +181,15 @@ header.nav_header nav div.logo a.logolonk :visited {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+}
+
+#extra_profile {
+  border: solid 2px;
+}
+
+#friend_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=style.css.map */

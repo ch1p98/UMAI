@@ -47,6 +47,12 @@ header.nav_header {
     width: 75%;
 }
 
+.friend_box {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .restaurant_box {
     border: solid 4px;
     padding: 10px;
@@ -110,4 +116,12 @@ header.nav_header {
 #selected_fire_container {
     display: flex;
     justify-content: center;
+}
+
+#extra_profile {
+    border: solid 2px;
+}
+
+#friend_container {
+    display: flex;
 }

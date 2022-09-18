@@ -102,8 +102,8 @@ const UserSchema = new mongoose.Schema({
   },
   gender: {
     type: String,
-    enum: ["Male", "Female", "Trans", "Else", "PNTT"],
-    default: "unknown",
+    enum: ["Male", "Female", "Trans", "Else", "PNTT", "Unknown"],
+    default: "Unknown",
   },
   // password
   password: {
@@ -136,11 +136,58 @@ const UserSchema = new mongoose.Schema({
 const User = mongoose.model("user", UserSchema, "altUser");
 //const nsUser = mongoose.model("user", Any);
 
-app.post("/test", async (req, res) => {
-  let result = await User.find({ name: { $in: ["Mai Fuchigami", "alex"] } });
-  console.log("result:", result);
-  res.send(`result: ${result}`);
+app.get("/friends", async (req, res) => {
+  const email = req.query.email;
+  //uri: /friends?email=alextai@gmail%2Ecom
+  // console.log("email: ", email);
+  const aggregate = User.aggregate([
+    {
+      $match: {
+        email,
+      },
+    },
+    {
+      $project: {
+        friends: 1,
+        _id: 0,
+      },
+    },
+    {
+      $unwind: {
+        path: "$friends",
+      },
+    },
+    {
+      $lookup: {
+        from: "altUser",
+        localField: "friends",
+        foreignField: "_id",
+        as: "result",
+      },
+    },
+    {
+      $project: {
+        _id: "$friends",
+        name: {
+          $arrayElemAt: ["$result", 0],
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        name: "$name.name",
+        date: "$name.date",
+      },
+    },
+  ]);
+  const result = await aggregate.exec();
+
+  console.log(JSON.stringify(result));
+  res.json(result);
 });
+
+app.post("/favorite", async (req, res) => {});
 
 app.post("/setdata", async (req, res) => {
   const filter = { name: /Mai/i };
@@ -275,23 +322,23 @@ app.post("/signup", async (req, res) => {
   let { name, email, password } = req.body;
   let user = { name, email, provider: "native" };
   const email_existed = await User.findOne({ email });
-
+  console.log("if email_existed, iw shall fail: ", email_existed);
   if (email_existed) {
     // return error
-    console.log("email_existed: ", email_existed);
+    //console.log("email_existed: ", email_existed);
   } else {
     const token = jwt.sign(user, private_key, { expiresIn: "24h" });
     const hashed_password = await bcrypt.hash(password, 10);
     let new_user = new User({ name, email, password: hashed_password });
-    // console.log("new_user:", new_user);
-    // console.log("new_user._id:", new_user._id);
-    // console.log("typeof new_user._id:", typeof new_user._id);
+    console.log("new_user:", new_user);
+    console.log("new_user._id:", new_user._id);
+    console.log("typeof new_user._id:", typeof new_user._id);
     try {
       await new_user.save();
       console.log("successful");
       res.json({ state: "successful", token });
     } catch (err) {
-      console.log("failed");
+      console.log("sign up failed because:", err);
 
       res.json({ state: "failed", error: err });
     }
@@ -344,7 +391,7 @@ app.post("/signin", async (req, res) => {
       private_key,
       { expiresIn: "24h" }
     );
-    console.log("email_existed:", JSON.stringify(email_existed));
+    //console.log("email_existed:", JSON.stringify(email_existed));
     const bcrypted_password = email_existed.password;
     // check password
     const is_valid = await bcrypt.compare(password, bcrypted_password);
