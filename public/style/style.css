@@ -28,6 +28,7 @@ header.nav_header {
 }
 
 header.nav_header nav {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

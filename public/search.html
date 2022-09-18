@@ -9,6 +9,28 @@
     <!-- (BOOTSTRAP)CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
 
+    <!--bootstrap-->
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/bootstrap/css/bootstrap.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/animate/animate.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/css-hamburgers/hamburgers.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/animsition/css/animsition.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/select2/select2.min.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./vendor/daterangepicker/daterangepicker.css" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="./css/util.css" />
+    <link rel="stylesheet" type="text/css" href="./css/main.css" />
+    <!--===============================================================================================-->
+
     <!--my own css-->
     <link rel="stylesheet" href="./style/style.css" />
 
@@ -39,9 +61,19 @@
                     <button id="trigger_profile">會員資料</button>
                 </div>
             </div>
+            <div id="show_signin">
+                <div>
+                    <button id="trigger_show_signin">登入</button>
+                </div>
+            </div>
+            <div id="show_signup">
+                <div>
+                    <button id="trigger_show_signup">註冊</button>
+                </div>
+            </div>
 
             <!--Sign Up-->
-            <div id="div_signup">
+            <!-- <div id="div_signup">
                 <div>
                     <p>註冊</p>
                 </div>
@@ -58,8 +90,57 @@
                     <input type="password" name="password" id="signup_input_password" />
                 </div>
                 <button id="trigger_signup">Submit</button>
+            </div> -->
+            <div class="container-login100" id="id_container-login100">
+                <div class="wrap-login100 p-t-30 p-b-50">
+                    <span class="login100-form-title p-b-41"> Account Login </span>
+                    <div class="login100-form validate-form p-b-33 p-t-5">
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" id="signin_input_email" type="text" name="username" placeholder="User Email" />
+                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <input class="input100" id="signin_input_password" type="password" name="pass" placeholder="Password" />
+                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button class="login100-form-btn" id="trigger_signin">
+                  Login
+                </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="div_signin">
+            <div class="container-login100" id="id_container-register100">
+                <div class="wrap-login100 p-t-30 p-b-50">
+                    <span class="login100-form-title p-b-41"> Register </span>
+                    <div class="login100-form validate-form p-b-33 p-t-5">
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" id="signup_input_name" type="text" name="username" placeholder="User Name" />
+                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                        </div>
+                        <div class="wrap-input100 validate-input" data-validate="Enter username">
+                            <input class="input100" id="signup_input_email" type="text" name="useremail" placeholder="User Email" />
+                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                        </div>
+
+                        <div class="wrap-input100 validate-input" data-validate="Enter password">
+                            <input class="input100" id="signup_input_password" type="password" name="pass" placeholder="Password" />
+                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                        </div>
+
+                        <div class="container-login100-form-btn m-t-32">
+                            <button class="login100-form-btn" id="trigger_signup">
+                  Register
+                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div id="div_signin">
                 <div>
                     <p>登入</p>
                 </div>
@@ -72,7 +153,7 @@
                     <input type="password" name="password" id="signin_input_password" />
                 </div>
                 <button id="trigger_signin">Submit</button>
-            </div>
+            </div> -->
             <div id="div_signout">
                 <button id="trigger_signout">登出</button>
             </div>
@@ -80,6 +161,18 @@
     </header>
     <div id="root">
         <div id="filters">
+            <div>
+                <label for="id_label_0">
+            店名
+            <select
+              class="js-example-basic-multiple"
+              name="states[]"
+              multiple="multiple"
+              id="id_label_0"
+            ></select>
+          </label>
+            </div>
+
             <div>
                 <label for="id_label_1">
             地點
@@ -244,6 +337,24 @@
             </div>
         </div>
     </div>
+    <!--Bootstrap-->
+    <!--===============================================================================================-->
+    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/bootstrap/js/popper.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/daterangepicker/moment.min.js"></script>
+    <script src="vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="js/main.js"></script>
+
     <script>
         let cnt = 0;
         let hits_arr = [];
@@ -264,9 +375,12 @@
                 tags: true,
             });
         });
+        console.log("initial setting start...");
 
         $("#hide_search").hide();
         $("#modify_search").hide();
+        $("#id_container-login100").hide();
+        $("#id_container-register100").hide();
 
         // initial check: if token is there
         const token = localStorage.getItem("jwt");
@@ -286,19 +400,23 @@
                 )
                 .then((response) => {
                     if (response.data.new_token) {
+                        // there is a valid token
                         localStorage.setItem("jwt", response.data.new_token);
                         personal_token = response.data.personal_token;
                         // successfully signed in initially
-                        $("#div_signup").hide();
-                        $("#div_signin").hide();
+                        $("#show_signin").hide();
+                        $("#show_signup").hide();
                         $("#div_signout").show();
+                        console.log("valid token present; signed in currently.");
                     } else {
+                        // token is invalid
                         console.log(JSON.stringify(response.data.state));
                         $("#div_signout").hide();
                         $("#div_profile").hide();
                     }
                 })
                 .catch((err) => {
+                    // other error
                     console.log("error: ", err);
                     $("#div_signout").hide();
                     $("#div_profile").hide();
@@ -308,6 +426,8 @@
         //   if token is valid:
 
         $("#trigger_signup").click((event) => {
+            console.log("pressed sign up");
+            $("#id_container-register100").hide();
             axios
                 .post(
                     "http://localhost:3000/signup", {
@@ -322,29 +442,43 @@
                     }
                 )
                 .then((response) => {
-                    console.log(JSON.stringify(response.data.state));
+                    //console.log(JSON.stringify(response.data.state));
                     const token = response.data.token;
                     if (!token) {
+                        //failed signing up
+                        alert("註冊失敗: 沒有取得JWT");
                         console.log("error: did not receive token");
+                        //console.log("response.data: ", response.data);
                     } else {
+                        //signed up successfully
+                        const token = response.data.token;
                         localStorage.setItem("jwt", token);
-                        $("#div_signup").hide();
-                        $("#div_signin").hide();
+                        //$("#div_signup").hide();
+                        //$("#div_signin").hide();
+                        $("#show_signin").hide();
+                        $("#show_signup").hide();
                         $("#div_signout").show();
+                        $("#div_profile").show();
                     }
                 })
                 .catch((err) => {
+                    //failed signing up
+                    alert("註冊失敗: 其他原因");
+                    $("#id_container-register100").hide();
+
                     console.log("An error occurred:", err);
                 })
                 .finally(() => {
                     $("#signup_input_name").val("");
                     $("#signup_input_email").val("");
                     $("#signup_input_password").val("");
-                    console.log("finally");
+                    console.log("finally of signing up");
                 });
         });
 
         $("#trigger_signin").click((event) => {
+            console.log("pressed sign in");
+            $("#id_container-login100").hide();
             axios
                 .post(
                     "http://localhost:3000/signin", {
@@ -358,24 +492,25 @@
                     }
                 )
                 .then((response) => {
-                    console.log("response.data: ", response.data);
-                    if (response.data.token) {
+                    // receive JWT; signed in successfully
+                    //console.log("response.data: ", response.data);
+                    if (!response.data.token) {
+                        // failed signing in
+                        // QQQ. 後端要再確認一下：這邊註冊跟登入前端流程一樣，失敗時，alert結果卻不同。why?
+                        alert("登入失敗: 未取得JWT");
+                    } else {
                         const token = response.data.token;
                         localStorage.setItem("jwt", token);
-                        $("#div_signup").hide();
-                        $("#div_signin").hide();
+                        $("#show_signin").hide();
+                        $("#show_signup").hide();
                         $("#div_signout").show();
                         $("#div_profile").show();
-                    } else {
-                        // failed signing in
-                        alert("");
                     }
                     console.log(JSON.stringify(response.data.state));
                 })
                 .catch((err) => {
-                    console.log("response.data: ", response.data);
                     console.log("An error occurred:", err);
-                    console.log(JSON.stringify(response.data.state));
+                    alert("登入失敗: 其他原因");
                 })
                 .finally(() => {
                     $("#signin_input_name").val("");
@@ -388,11 +523,16 @@
         $("#trigger_signout").click((event) => {
             console.log("press sign out");
             localStorage.removeItem("jwt");
-            $("#div_signup").show();
-            $("#div_signin").show();
+            //$("#div_signup").show();
+            //$("#div_signin").show();
+            $("#show_signin").show();
+            $("#show_signup").show();
             $("#profile_container").remove();
             $("#friend_container").remove();
             $("#favorite_container").remove();
+            $("#div_signout").hide();
+            $("#div_profile").hide();
+            $("#filters").show();
             personal_token = "";
         });
 
@@ -423,15 +563,18 @@
                     )
                     .then((response) => {
                         if (response.data.new_token) {
+                            // successfully verifying token
                             // do we really need to renew token everytime?
                             // considering add parameter(s) to verify_token API
                             // to judge if we would renew the token when verifying.
                             localStorage.setItem("jwt", response.data.new_token);
 
                             // authenticated; positive
-                            $("#div_signup").hide();
-                            $("#div_signin").hide();
-                            $("#div_signout").show();
+                            //$("#div_signup").hide();
+                            //$("#div_signin").hide();
+                            //$("#id_container-login100").hide();
+
+                            //$("#div_signout").show();
                             //display profile for user
                             return 1;
                         } else {
@@ -1288,8 +1431,22 @@
                 $("#pagination").remove();
             });
         }
+
+        $("#trigger_show_signin").click((event) => {
+            $("#id_container-login100").show();
+        });
+        $("#trigger_show_signup").click((event) => {
+            $("#id_container-register100").show();
+        });
         // let container = $("#filters");
         // container.pagination
+        $("body").click((event) => {
+            console.log("oh~oh");
+
+            if ($(event.target).attr("class") === "container-login100") {
+                $(".container-login100").hide();
+            }
+        });
     </script>
 </body>
 
