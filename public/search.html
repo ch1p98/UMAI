@@ -5,8 +5,15 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./style/style.css" />
     <title>SORA</title>
+    <!-- (BOOTSTRAP)CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+
+    <!--my own css-->
+    <link rel="stylesheet" href="./style/style.css" />
+
+    <!-- (BOOTSTRAP)JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <!--jQuery here-->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
     <!--Select2-->
@@ -378,10 +385,15 @@
                 });
         });
 
-        $("#div_signout").click((event) => {
+        $("#trigger_signout").click((event) => {
+            console.log("press sign out");
             localStorage.removeItem("jwt");
             $("#div_signup").show();
             $("#div_signin").show();
+            $("#profile_container").remove();
+            $("#friend_container").remove();
+            $("#favorite_container").remove();
+            personal_token = "";
         });
 
         // QQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
@@ -635,17 +647,20 @@
                                 });
                                 $("#friend_container").append(friend);
                                 const name = d.name ? d.name : "ANONYMOUS_USER";
-                                const date = d.date ? d.date : Date.now();
                                 const name_box = $("<div></div>");
                                 const name_p = $("<p></p>").text(`name:${name}`);
                                 name_box.append(name_p);
+                                friend.append(name_box);
+
+                                const date = d.date ? d.date : Date.now();
                                 const date_box = $("<div></div>");
                                 const date_p = $("<p></p>").text(`Joined on: ${date}`);
                                 date_box.append(date_p);
-                                friend.append(name_box);
                                 friend.append(date_box);
                             }
-                        } catch (err) {}
+                        } catch (err) {
+                            console.log("err in expanding friend data: ", err);
+                        }
                     })
                     .catch((err) => {});
             }
@@ -656,8 +671,15 @@
                 $("#div_signout").hide();
                 $("#div_profile").hide();
             } else {
+                let email;
+                try {
+                    email = personal_token.replace(".", "%2E");
+                } catch (err) {
+                    console.log("error occurred when urlencoding email:", err);
+                    return;
+                }
                 axios
-                    .get("http://localhost:3000/favorite", {
+                    .get(`http://localhost:3000/favorite?email=${email}`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -665,10 +687,30 @@
                         },
                     })
                     .then((response) => {
+                        console.log("response:", response);
+                        try {
+                            const data = response.data.favorite;
+                            console.log("response data: ", data);
+                            for (d of data) {
+                                const item = d.data;
+                                const favorite = $("<div></div>").attr({
+                                    class: "favorite_box",
+                                });
+                                $("#favorite_container").append(favorite);
+                                const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
+                                const name_box = $("<div></div>");
+                                const name_p = $("<p></p>").text(`name:${name}`);
+                                name_box.append(name_p);
+                                favorite.append(name_box);
+                            }
+                        } catch (err) {
+                            console.log("err in expanding friend data: ", err);
+                        }
                         // display favorite restaurants
                     })
                     .catch((err) => {
                         // display error
+                        console.log("error in get favorite: ", err);
                     });
             }
         });

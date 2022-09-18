@@ -84,6 +84,17 @@ header.nav_header nav div.logo a.logolonk :visited {
           flex-direction: column;
 }
 
+.favorite_box {
+  padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
 .restaurant_box {
   border: solid 4px;
   padding: 10px;
@@ -196,6 +207,12 @@ header.nav_header nav div.logo a.logolonk :visited {
 }
 
 #friend_container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+#favorite_container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

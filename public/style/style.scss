@@ -57,6 +57,12 @@ header.nav_header {
     flex-direction: column;
 }
 
+.favorite_box {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
 .restaurant_box {
     border: solid 4px;
     padding: 10px;
@@ -131,5 +137,9 @@ header.nav_header {
 }
 
 #friend_container {
+    display: flex;
+}
+
+#favorite_container {
     display: flex;
 }

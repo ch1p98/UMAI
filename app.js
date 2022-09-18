@@ -267,6 +267,7 @@ app.get("/favorite", async (req, res) => {
   } catch (err) {
     console.log("err:", err);
     res.status(401).json({ state: "No token", err });
+    return;
   }
 
   let decoded;
@@ -280,17 +281,20 @@ app.get("/favorite", async (req, res) => {
   }
 
   // token解出來的email跟前端給的email不合
+  console.log("email:", email);
+  console.log("decoded email:", decoded.email);
   if (decoded.email !== email) {
     res.status(403).json({ state: "Invalid token" });
+    return;
   }
 
   //uri: /friends?email=alextai@gmail%2Ecom
   // console.log("email: ", email);
 
-  const result = await User.findOne({ email }).exec();
+  const result = await User.findOne({ email }, "favorite").exec();
 
   console.log(JSON.stringify(result));
-  res.json(result);
+  res.status(200).json(result);
 });
 
 app.post("/setdata", async (req, res) => {
