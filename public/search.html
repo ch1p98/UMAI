@@ -412,6 +412,7 @@
                         // there is a valid token
                         localStorage.setItem("jwt", response.data.new_token);
                         personal_token = response.data.personal_token;
+                        // personal_token is email
                         // successfully signed in initially
                         $("#show_signin").hide();
                         $("#show_signup").hide();
@@ -583,12 +584,14 @@
                             // considering add parameter(s) to verify_token API
                             // to judge if we would renew the token when verifying.
                             localStorage.setItem("jwt", response.data.new_token);
-
+                            personal_token = response.data.personal_token;
                             // authenticated; positive
                             //$("#div_signup").hide();
                             //$("#div_signin").hide();
                             //$("#id_container-login100").hide();
-
+                            $("#show_signin").hide();
+                            $("#show_signup").hide();
+                            $("#div_signout").show();
                             //$("#div_signout").show();
                             //display profile for user
                             return 1;
