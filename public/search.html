@@ -390,52 +390,54 @@
         $("#id_container-register100").hide();
 
         // initial check: if token is there
-        const token = localStorage.getItem("jwt");
-        if (!token) {
-            $("#div_signout").hide();
-            $("#div_profile").hide();
-            $("#show_signin").show();
-            $("#show_signup").show();
-        } else {
-            axios
-                .post(
-                    `${main_host}/verify_token`, {}, {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                )
-                .then((response) => {
-                    if (response.data.new_token) {
-                        // there is a valid token
-                        localStorage.setItem("jwt", response.data.new_token);
-                        personal_token = response.data.personal_token;
-                        // personal_token is email
-                        // successfully signed in initially
-                        $("#show_signin").hide();
-                        $("#show_signup").hide();
-                        $("#div_signout").show();
-                        console.log("valid token present; signed in currently.");
-                    } else {
-                        // token is invalid
-                        console.log(JSON.stringify(response.data.state));
-                        $("#div_signout").hide();
-                        $("#div_profile").hide();
-                        $("#show_signin").show();
-                        $("#show_signup").show();
-                    }
-                })
-                .catch((err) => {
-                    // other error
-                    console.log("error: ", err);
-                    $("#div_signout").hide();
-                    $("#div_profile").hide();
-                    $("#show_signin").show();
-                    $("#show_signup").show();
-                });
-        }
+        $("#trigger_profile").trigger("click");
+
+        // const token = localStorage.getItem("jwt");
+        // if (!token) {
+        //     $("#div_signout").hide();
+        //     $("#div_profile").hide();
+        //     $("#show_signin").show();
+        //     $("#show_signup").show();
+        // } else {
+        //     axios
+        //         .post(
+        //             `${main_host}/verify_token`, {}, {
+        //                 headers: {
+        //                     "Access-Control-Allow-Origin": "*",
+        //                     "Content-Type": "application/json",
+        //                     Authorization: `Bearer ${token}`,
+        //                 },
+        //             }
+        //         )
+        //         .then((response) => {
+        //             if (response.data.new_token) {
+        //                 // there is a valid token
+        //                 localStorage.setItem("jwt", response.data.new_token);
+        //                 personal_token = response.data.personal_token;
+        //                 // personal_token is email
+        //                 // successfully signed in initially
+        //                 $("#show_signin").hide();
+        //                 $("#show_signup").hide();
+        //                 $("#div_signout").show();
+        //                 console.log("valid token present; signed in currently.");
+        //             } else {
+        //                 // token is invalid
+        //                 console.log(JSON.stringify(response.data.state));
+        //                 $("#div_signout").hide();
+        //                 $("#div_profile").hide();
+        //                 $("#show_signin").show();
+        //                 $("#show_signup").show();
+        //             }
+        //         })
+        //         .catch((err) => {
+        //             // other error
+        //             console.log("error: ", err);
+        //             $("#div_signout").hide();
+        //             $("#div_profile").hide();
+        //             $("#show_signin").show();
+        //             $("#show_signup").show();
+        //         });
+        // }
         // if so, use axios post to validate the token
         //   if token is valid:
 
@@ -513,6 +515,7 @@
                         // QQQ. 後端要再確認一下：這邊註冊跟登入前端流程一樣，失敗時，alert結果卻不同。why?
                         alert("登入失敗: 未取得JWT");
                     } else {
+                        // 成功登入
                         $("#trigger_profile").trigger("click");
                         const token = response.data.token;
                         localStorage.setItem("jwt", token);
