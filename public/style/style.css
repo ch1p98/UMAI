@@ -263,4 +263,8 @@ form input {
       -ms-flex-pack: center;
           justify-content: center;
 }
+
+#update_profile {
+  border: #999999 4px solid;
+}
 /*# sourceMappingURL=style.css.map */
