@@ -361,8 +361,9 @@
         let hits_arr = [];
         let page_len = 0;
         let personal_token;
-        let friends = new Set(),
-            favorite = new Set();
+        let friends_set = new Set(),
+            favorite_set = new Set();
+        const main_host = "http://100.20.151.176";
 
         // QQQ.目前是寫死的，不過之後要看看要不要改。畢竟feature可能會改。
         // 不過這次專案就這樣也可以
@@ -393,10 +394,12 @@
         if (!token) {
             $("#div_signout").hide();
             $("#div_profile").hide();
+            $("#show_signin").show();
+            $("#show_signup").show();
         } else {
             axios
                 .post(
-                    `${process.env.HOST}/verify_token`, {}, {
+                    `${main_host}/verify_token`, {}, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -419,6 +422,8 @@
                         console.log(JSON.stringify(response.data.state));
                         $("#div_signout").hide();
                         $("#div_profile").hide();
+                        $("#show_signin").show();
+                        $("#show_signup").show();
                     }
                 })
                 .catch((err) => {
@@ -426,6 +431,8 @@
                     console.log("error: ", err);
                     $("#div_signout").hide();
                     $("#div_profile").hide();
+                    $("#show_signin").show();
+                    $("#show_signup").show();
                 });
         }
         // if so, use axios post to validate the token
@@ -436,7 +443,7 @@
             $("#id_container-register100").hide();
             axios
                 .post(
-                    `${process.env.HOST}/signup`, {
+                    `${main_host}/signup`, {
                         name: $("#signup_input_name").val(),
                         email: $("#signup_input_email").val(),
                         password: $("#signup_input_password").val(),
@@ -487,7 +494,7 @@
             $("#id_container-login100").hide();
             axios
                 .post(
-                    `${process.env.HOST}/signin`, {
+                    `${main_host}/signin`, {
                         email: $("#signin_input_email").val(),
                         password: $("#signin_input_password").val(),
                     }, {
@@ -561,7 +568,7 @@
                 }
                 return axios
                     .post(
-                        `${process.env.HOST}/verify_token`, {}, {
+                        `${main_host}/verify_token`, {}, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -614,7 +621,7 @@
                 // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
                 // 這樣或許比較好
                 const obj = axios
-                    .get(`${process.env.HOST}/profile`, {
+                    .get(`${main_host}/profile`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -689,7 +696,7 @@
 
                             // get friend list here
                             axios
-                                .get(`${process.env.HOST}/friends?email=${email}`, {
+                                .get(`${main_host}/friends?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -713,7 +720,7 @@
                                             const fid = d._id ? d._id : -1;
                                             //console.log("_id", fid);
                                             //console.log("typeof _id", typeof fid);
-                                            friends.add(fid);
+                                            friends_set.add(fid);
 
                                             const name = d.name ? d.name : "ANONYMOUS_USER";
                                             const name_box = $("<div></div>");
@@ -739,7 +746,7 @@
 
                             // get favorite list here
                             axios
-                                .get(`${process.env.HOST}/favorite?email=${email}`, {
+                                .get(`${main_host}/favorite?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -761,7 +768,7 @@
 
                                             const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
                                             const rid = item.rid ? item.rid : -1;
-                                            favorite.add(rid);
+                                            favorite_set.add(rid);
                                             console.log("get favorite list: ", favorite);
                                             const favorite_case = $("<div></div>").attr({
                                                 class: "favorite_case",
@@ -847,7 +854,7 @@
                                 // console.log("update_body: ", JSON.stringify(update_body));
                                 const token = localStorage.getItem("jwt");
                                 axios
-                                    .post(`${process.env.HOST}/profile`, update_body, {
+                                    .post(`${main_host}/profile`, update_body, {
                                         headers: {
                                             "Access-Control-Allow-Origin": "*",
                                             "Content-Type": "application/json",
@@ -897,7 +904,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`${process.env.HOST}/friends?email=${email}`, {
+            //         .get(`${main_host}/friends?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -955,7 +962,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`${process.env.HOST}/favorite?email=${email}`, {
+            //         .get(`${main_host}/favorite?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -991,8 +998,6 @@
             // }
         });
 
-        $(document).on("click", ".favorite_ff", (event) => {});
-
         // 細節頁的收藏按鈕
         $(document).on("click", "#add_favorite", () => {
             const token = localStorage.getItem("jwt");
@@ -1014,11 +1019,11 @@
                 console.log("current rid: ", rid);
                 console.log("current rname: ", rname.replace("名稱：", ""));
 
-                let is_favorite = favorite.has(rid);
+                let is_favorite = favorite_set.has(rid);
                 if (1) {
                     axios
                         .post(
-                            `${process.env.HOST}/favorite`, {
+                            `${main_host}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1036,12 +1041,12 @@
                             console.log("is_favorite: ", is_favorite);
                             if (is_favorite) {
                                 // 移除高光
-                                favorite.delete(rid);
+                                favorite_set.delete(rid);
                                 $("#add_favorite").removeClass("favorite_store_t");
                                 $("#add_favorite").addClass("favorite_store_f");
                             } else {
                                 //顯示高光
-                                favorite.add(rid);
+                                favorite_set.add(rid);
                                 $("#add_favorite").removeClass("favorite_store_f");
                                 $("#add_favorite").addClass("favorite_store_t");
                             }
@@ -1085,12 +1090,12 @@
                 console.log("current rid: ", rid);
                 console.log("current rname: ", rname.replace("名稱：", ""));
 
-                let is_favorite = favorite.has(rid);
+                let is_favorite = favorite_set.has(rid);
                 //console.log("is_favorite:", is_favorite);
                 if (1) {
                     axios
                         .post(
-                            `${process.env.HOST}/favorite`, {
+                            `${main_host}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1108,12 +1113,12 @@
                             //console.log("is_favorite: ", is_favorite);
                             if (is_favorite) {
                                 // 移除高光
-                                favorite.delete(rid);
+                                favorite_set.delete(rid);
                                 target.removeClass("favorite_store_t");
                                 target.addClass("favorite_store_f");
                             } else {
                                 //顯示高光
-                                favorite.add(rid);
+                                favorite_set.add(rid);
                                 target.removeClass("favorite_store_f");
                                 target.addClass("favorite_store_t");
                             }
@@ -1215,7 +1220,7 @@
 
             axios
                 .post(
-                    `${process.env.HOST}/search_experiment`, {
+                    `${main_host}/search_experiment`, {
                         place: place_arr, //formatted_address
                         exotic: exotic_arr, //reviews.text
                         estab: estab_arr, //reviews.text
@@ -1271,7 +1276,7 @@
                         });
                         //$("#restaurant_container").append(div_box);
                         div_membrane.append(div_box);
-                        is_favorite = favorite.has(ho.id);
+                        is_favorite = favorite_set.has(ho.id);
                         const starred = $("<div>收</div>").attr({
                             class: is_favorite ? "favorite_store_t" : "favorite_store_f",
                         });
