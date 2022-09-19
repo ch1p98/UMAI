@@ -390,7 +390,64 @@
         $("#id_container-register100").hide();
 
         // initial check: if token is there
-        $("#trigger_profile").trigger("click");
+        $("#profile_container").remove();
+        $("#friend_container").remove();
+        $("#favorite_container").remove();
+
+        const token = localStorage.getItem("jwt");
+        let profile_flag = 0;
+        if (!token) {
+            $("#div_signout").hide();
+            //profile hide
+        } else {
+            axios
+                .post(
+                    `${main_host}/verify_token`, {}, {
+                        headers: {
+                            "Access-Control-Allow-Origin": "*",
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                )
+                .then((response) => {
+                    if (response.data.new_token) {
+                        // successfully verifying token
+                        // do we really need to renew token everytime?
+                        // considering add parameter(s) to verify_token API
+                        // to judge if we would renew the token when verifying.
+                        localStorage.setItem("jwt", response.data.new_token);
+                        personal_token = response.data.personal_token;
+                        // authenticated; positive
+                        //$("#div_signup").hide();
+                        //$("#div_signin").hide();
+                        //$("#id_container-login100").hide();
+                        $("#show_signin").hide();
+                        $("#show_signup").hide();
+                        $("#div_signout").show();
+                        //$("#div_signout").show();
+                        //display profile for user
+                        console.log("status checked, signed in");
+                        return 1;
+                    } else {
+                        // authenticated; negative
+                        console.log(JSON.stringify(response.data.state));
+                        $("#div_signup").show();
+                        $("#div_signin").show();
+                        $("#div_signout").hide();
+                        return 0;
+                    }
+                })
+                .catch((err) => {
+                    // authenticated; negative
+                    console.log("error: ", err);
+                    console.log(JSON.stringify(response.data.state));
+                    $("#div_signup").show();
+                    $("#div_signin").show();
+                    $("#div_signout").hide();
+                    return 0;
+                });
+        }
 
         // const token = localStorage.getItem("jwt");
         // if (!token) {
@@ -597,6 +654,7 @@
                             $("#div_signout").show();
                             //$("#div_signout").show();
                             //display profile for user
+                            console.log("status checked, signed in");
                             return 1;
                         } else {
                             // authenticated; negative
