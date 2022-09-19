@@ -390,15 +390,13 @@
         $("#id_container-register100").hide();
 
         // initial check: if token is there
-        $("#profile_container").remove();
-        $("#friend_container").remove();
-        $("#favorite_container").remove();
 
         const token = localStorage.getItem("jwt");
-        let profile_flag = 0;
         if (!token) {
             $("#div_signout").hide();
-            //profile hide
+            $("#div_profile").hide();
+            $("#show_signin").show();
+            $("#show_signup").show();
         } else {
             axios
                 .post(
@@ -412,89 +410,33 @@
                 )
                 .then((response) => {
                     if (response.data.new_token) {
-                        // successfully verifying token
-                        // do we really need to renew token everytime?
-                        // considering add parameter(s) to verify_token API
-                        // to judge if we would renew the token when verifying.
+                        // there is a valid token
                         localStorage.setItem("jwt", response.data.new_token);
                         personal_token = response.data.personal_token;
-                        // authenticated; positive
-                        //$("#div_signup").hide();
-                        //$("#div_signin").hide();
-                        //$("#id_container-login100").hide();
+                        // personal_token is email
+                        // successfully signed in initially
                         $("#show_signin").hide();
                         $("#show_signup").hide();
                         $("#div_signout").show();
-                        //$("#div_signout").show();
-                        //display profile for user
-                        console.log("status checked, signed in");
-                        return 1;
+                        console.log("valid token present; signed in currently.");
                     } else {
-                        // authenticated; negative
+                        // token is invalid
                         console.log(JSON.stringify(response.data.state));
-                        $("#div_signup").show();
-                        $("#div_signin").show();
                         $("#div_signout").hide();
-                        return 0;
+                        $("#div_profile").hide();
+                        $("#show_signin").show();
+                        $("#show_signup").show();
                     }
                 })
                 .catch((err) => {
-                    // authenticated; negative
+                    // other error
                     console.log("error: ", err);
-                    console.log(JSON.stringify(response.data.state));
-                    $("#div_signup").show();
-                    $("#div_signin").show();
                     $("#div_signout").hide();
-                    return 0;
+                    $("#div_profile").hide();
+                    $("#show_signin").show();
+                    $("#show_signup").show();
                 });
         }
-
-        // const token = localStorage.getItem("jwt");
-        // if (!token) {
-        //     $("#div_signout").hide();
-        //     $("#div_profile").hide();
-        //     $("#show_signin").show();
-        //     $("#show_signup").show();
-        // } else {
-        //     axios
-        //         .post(
-        //             `${main_host}/verify_token`, {}, {
-        //                 headers: {
-        //                     "Access-Control-Allow-Origin": "*",
-        //                     "Content-Type": "application/json",
-        //                     Authorization: `Bearer ${token}`,
-        //                 },
-        //             }
-        //         )
-        //         .then((response) => {
-        //             if (response.data.new_token) {
-        //                 // there is a valid token
-        //                 localStorage.setItem("jwt", response.data.new_token);
-        //                 personal_token = response.data.personal_token;
-        //                 // personal_token is email
-        //                 // successfully signed in initially
-        //                 $("#show_signin").hide();
-        //                 $("#show_signup").hide();
-        //                 $("#div_signout").show();
-        //                 console.log("valid token present; signed in currently.");
-        //             } else {
-        //                 // token is invalid
-        //                 console.log(JSON.stringify(response.data.state));
-        //                 $("#div_signout").hide();
-        //                 $("#div_profile").hide();
-        //                 $("#show_signin").show();
-        //                 $("#show_signup").show();
-        //             }
-        //         })
-        //         .catch((err) => {
-        //             // other error
-        //             console.log("error: ", err);
-        //             $("#div_signout").hide();
-        //             $("#div_profile").hide();
-        //             $("#show_signin").show();
-        //             $("#show_signup").show();
-        //         });
-        // }
         // if so, use axios post to validate the token
         //   if token is valid:
 
@@ -659,8 +601,8 @@
                         } else {
                             // authenticated; negative
                             console.log(JSON.stringify(response.data.state));
-                            $("#div_signup").show();
-                            $("#div_signin").show();
+                            $("#show_signup").show();
+                            $("#show_signin").show();
                             $("#div_signout").hide();
                             return 0;
                         }
@@ -669,8 +611,8 @@
                         // authenticated; negative
                         console.log("error: ", err);
                         console.log(JSON.stringify(response.data.state));
-                        $("#div_signup").show();
-                        $("#div_signin").show();
+                        $("#show_signup").show();
+                        $("#show_signin").show();
                         $("#div_signout").hide();
                         return 0;
                     });
