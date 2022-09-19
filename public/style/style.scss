@@ -55,13 +55,33 @@ header.nav_header {
 .friend_box {
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
 .favorite_box {
     padding: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.friend_case {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.favorite_case {
+    border: 1px solid;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.favorite_store_t {
+    background-color: goldenrod;
+}
+
+.favorite_store_f {
+    background-color: grey;
 }
 
 .restaurant_box {
@@ -69,10 +89,6 @@ header.nav_header {
     padding: 10px;
     display: flex;
     flex-direction: column;
-}
-
-.highlighted_btn {
-    background-color: aqua;
 }
 
 .review_box {
@@ -107,7 +123,7 @@ header.nav_header {
 }
 
 #restaurant_container {
-    padding: 4vh 10vw;
+    padding: 4vh 15vw;
     display: flex;
     flex-direction: column;
 }
@@ -117,7 +133,7 @@ header.nav_header {
 }
 
 #detail_display {
-    padding: 10vh 10vw;
+    padding: 8vh 15vw;
     border: solid 4px;
     display: flex;
     flex-direction: column;
@@ -143,4 +159,16 @@ header.nav_header {
 
 #favorite_container {
     display: flex;
+}
+
+#filters {
+    padding: 8vh 15vw;
+    display: flex;
+    flex-direction: column;
+}
+
+#root {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }

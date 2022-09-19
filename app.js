@@ -39,6 +39,7 @@ const elasticClient = new Client({
     password: process.env.ES_PASSWORD,
   },
 });
+const INDEX_NAME = "food_beta";
 
 // mongoDB client
 mongoose
@@ -213,8 +214,11 @@ app.get("/friends", async (req, res) => {
 
 // POST favorite
 app.post("/favorite", async (req, res) => {
+  //console.log("post favorite");
   const email = req.body.personal_token;
-  const data = req.body.restaurant_obj;
+  const u_data = req.body.restaurant_obj;
+  const action = req.body.action;
+  console.log("action: ", action);
   let rule_out_token;
   try {
     rule_out_token = req.headers.authorization.replace("Bearer ", "");
@@ -243,20 +247,53 @@ app.post("/favorite", async (req, res) => {
   console.log("email: ", email);
 
   let result;
+  let ddd = u_data.rid;
+  console.log("data.rid: ", u_data.rid);
   const filter = { email };
-  const update = { $push: { favorite: { data } } };
+  const update_push = { $push: { favorite: { data: u_data } } };
+  // const update_pull = {
+  //   $pull: { favorite: { data: { rid: ddd } } },
+  // };
 
-  try {
-    result = await User.findOneAndUpdate(filter, update, {
+  //const update = action ? update_push : update_pull;
+  if (action != 1 && action != 0) {
+    res.status(500).json({ err: "invalid action code" });
+    return;
+  }
+
+  // add
+  if (action === 1) {
+    result = await User.findOneAndUpdate(filter, update_push, {
       new: true,
     }).exec();
+    //console.log("result:", result);
     res
       .status(200)
       .json({ state: "successful append favorite to user data", result });
-  } catch (err) {
-    console.log("err in posting favorite: ", err);
-    res.status(500).json({ err });
+  } else {
+    // action === 0; remove
+    result = await User.findOne(filter, "favorite").exec();
+    const favorite = result.favorite;
+    //console.log("0 resul.favorite: ", favorite);
+
+    let final_favorite = [];
+    for (it of favorite) {
+      if (it.data.rid !== ddd) final_favorite.push(it);
+    }
+
+    //console.log("final_favorite:", final_favorite);
+    result = await User.findOneAndUpdate(filter, {
+      favorite: final_favorite,
+    }).exec();
+
+    res.send(result);
   }
+
+  //catch (err) {
+  // console.log("err in posting favorite: ", err);
+  // res.status(500).json({ err });
+
+  // remove
 });
 
 app.get("/favorite", async (req, res) => {
@@ -666,7 +703,7 @@ app.post("/search_experiment", async (req, res) => {
   // };
   const result = await elasticClient
     .search({
-      index: "food_alpha",
+      index: INDEX_NAME,
       size: 100,
       //query: { match: { formatted_address: "仁愛路" } },
       query: {
@@ -682,7 +719,7 @@ app.post("/search_experiment", async (req, res) => {
   res.json(result);
 });
 
-// deprecated
+// DEPRECATED
 app.get("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({

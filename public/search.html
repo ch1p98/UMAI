@@ -12,21 +12,18 @@
     <!--bootstrap-->
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="./vendor/bootstrap/css/bootstrap.min.css" />
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="./fonts/font-awesome-4.7.0/css/font-awesome.min.css" />
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="./fonts/Linearicons-Free-v1.0.0/icon-font.min.css" />
-    <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="./vendor/animate/animate.css" />
-    <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="./vendor/css-hamburgers/hamburgers.min.css" />
-    <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="./vendor/animsition/css/animsition.min.css" />
-    <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="./vendor/select2/select2.min.css" />
-    <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="./vendor/daterangepicker/daterangepicker.css" />
-    <!--===============================================================================================-->
+
     <link rel="stylesheet" type="text/css" href="./css/util.css" />
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <!--===============================================================================================-->
@@ -164,6 +161,7 @@
             <div>
                 <label for="id_label_0">
             店名
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -176,6 +174,7 @@
             <div>
                 <label for="id_label_1">
             地點
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -195,6 +194,7 @@
             <div>
                 <label for="id_label_2">
             異國料理
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -213,6 +213,7 @@
             <div>
                 <label for="id_label_3">
             餐廳類型
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -232,6 +233,7 @@
             <div>
                 <label for="id_label_4">
             餐點名稱
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -252,6 +254,7 @@
             <div>
                 <label for="id_label_5">
             價位
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -268,6 +271,7 @@
             <div>
                 <label for="id_label_6">
             評價(3分往上)
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -285,6 +289,7 @@
             <div>
                 <label for="id_label_7">
             供餐時段
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -302,6 +307,7 @@
             <div>
                 <label for="id_label_8">
             服務
+            <br />
             <select
               class="js-example-basic-multiple"
               name="states[]"
@@ -322,6 +328,7 @@
             <div>
                 <label for="id_label_9">
             營業中
+            <br />
             <select
               class="js-example-basic-single"
               name="states"
@@ -339,27 +346,26 @@
     </div>
     <!--Bootstrap-->
     <!--===============================================================================================-->
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <!--===============================================================================================-->
+    <!-- <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
     <script src="vendor/animsition/js/animsition.min.js"></script>
-    <!--===============================================================================================-->
     <script src="vendor/bootstrap/js/popper.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <!--===============================================================================================-->
     <script src="vendor/select2/select2.min.js"></script>
-    <!--===============================================================================================-->
     <script src="vendor/daterangepicker/moment.min.js"></script>
     <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <!--===============================================================================================-->
     <script src="vendor/countdowntime/countdowntime.js"></script>
-    <!--===============================================================================================-->
-    <script src="js/main.js"></script>
+    <script src="js/main.js"></script> -->
 
     <script>
         let cnt = 0;
         let hits_arr = [];
         let page_len = 0;
         let personal_token;
+        let friends = new Set(),
+            favorite = new Set();
+
+        // QQQ.目前是寫死的，不過之後要看看要不要改。畢竟feature可能會改。
+        // 不過這次專案就這樣也可以
         const user_features = new Set([
             "name",
             "level",
@@ -499,6 +505,7 @@
                         // QQQ. 後端要再確認一下：這邊註冊跟登入前端流程一樣，失敗時，alert結果卻不同。why?
                         alert("登入失敗: 未取得JWT");
                     } else {
+                        $("#trigger_profile").trigger("click");
                         const token = response.data.token;
                         localStorage.setItem("jwt", token);
                         $("#show_signin").hide();
@@ -538,6 +545,7 @@
 
         // QQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
+            console.log("trigger profile");
             $("#profile_container").remove();
             $("#friend_container").remove();
             $("#favorite_container").remove();
@@ -602,7 +610,9 @@
                 // failed
             } else {
                 // profile_flag === 1
-                // QQQ.你也知道verify_token沒用，那第一次應該也不用打了
+                // QSQQ.你也知道verify_token沒用，那第一次應該也不用打了
+                // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
+                // 這樣或許比較好
                 const obj = axios
                     .get("http://localhost:3000/profile", {
                         headers: {
@@ -666,6 +676,112 @@
                             div_favorite.append(
                                 $("<button id='show_favorite'>口袋名單</button>")
                             );
+                            // get friend and favorite here
+                            // UPDATE: friend done;
+                            // should have token here
+                            let email;
+                            try {
+                                email = personal_token.replace(".", "%2E");
+                            } catch (err) {
+                                console.log("error occurred when urlencoding email:", err);
+                                return;
+                            }
+
+                            // get friend list here
+                            axios
+                                .get(`http://localhost:3000/friends?email=${email}`, {
+                                    headers: {
+                                        "Access-Control-Allow-Origin": "*",
+                                        "Content-Type": "application/json",
+                                        Authorization: `Bearer ${token}`,
+                                    },
+                                })
+                                .then((response) => {
+                                    try {
+                                        const data = response.data;
+                                        console.log("response data: ", data);
+                                        const friend_box = $("<div></div>").attr({
+                                            class: "friend_box",
+                                        });
+                                        $("#friend_container").append(friend_box);
+
+                                        for (d of data) {
+                                            const friend_case = $("<div></div>").attr({
+                                                class: "friend_case",
+                                            });
+
+                                            const fid = d._id ? d._id : -1;
+                                            //console.log("_id", fid);
+                                            //console.log("typeof _id", typeof fid);
+                                            friends.add(fid);
+
+                                            const name = d.name ? d.name : "ANONYMOUS_USER";
+                                            const name_box = $("<div></div>");
+                                            const name_p = $("<p></p>").text(`name:${name}`);
+                                            name_box.append(name_p);
+                                            friend_case.append(name_box);
+
+                                            const date = d.date ? d.date : Date.now();
+                                            const date_box = $("<div></div>");
+                                            const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                                            date_box.append(date_p);
+                                            friend_case.append(date_box);
+                                            friend_box.append(friend_case);
+                                        }
+                                        $(".friend_box").hide();
+                                    } catch (err) {
+                                        console.log("err in expanding friend data: ", err);
+                                    }
+                                })
+                                .catch((err) => {
+                                    console.log("err:", err);
+                                });
+
+                            // get favorite list here
+                            axios
+                                .get(`http://localhost:3000/favorite?email=${email}`, {
+                                    headers: {
+                                        "Access-Control-Allow-Origin": "*",
+                                        "Content-Type": "application/json",
+                                        Authorization: `Bearer ${token}`,
+                                    },
+                                })
+                                .then((response) => {
+                                    console.log("response:", response);
+                                    try {
+                                        const data = response.data.favorite;
+                                        console.log("response data: ", data);
+                                        const favorite = $("<div></div>").attr({
+                                            class: "favorite_box",
+                                        });
+                                        $("#favorite_container").append(favorite);
+
+                                        for (d of data) {
+                                            const item = d.data;
+
+                                            const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
+                                            const rid = item.rid ? item.rid : -1;
+                                            favorite.add(rid);
+                                            console.log("get favorite list: ", favorite);
+                                            const favorite_case = $("<div></div>").attr({
+                                                class: "favorite_case",
+                                            });
+                                            favorite.append(favorite_case);
+                                            const name_box = $("<div></div>");
+                                            const name_p = $("<p></p>").text(`name:${name}`);
+                                            name_box.append(name_p);
+                                            favorite_case.append(name_box);
+                                        }
+                                        $(".favorite_box").hide();
+                                    } catch (err) {
+                                        console.log("err in expanding friend data: ", err);
+                                    }
+                                    // display favorite restaurants
+                                })
+                                .catch((err) => {
+                                    // display error
+                                    console.log("error in get favorite: ", err);
+                                });
                             // display features not available yet:
 
                             // first remove those we already have on browser
@@ -757,112 +873,136 @@
         // 美食同好 按鈕
         //口袋名單 按鈕
         // QQQ. toggle: 顯示/隱藏
-        const friend_toggle = 0;
+        let friend_toggle = 0;
         $(document).on("click", "#show_friend", () => {
-            const token = localStorage.getItem("jwt");
-            if (!token) {
-                // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
-                $("#div_signout").hide();
-                $("#div_profile").hide();
+            if (friend_toggle === 0) {
+                $(".friend_box").show();
+                friend_toggle = 1;
             } else {
-                let email;
-                try {
-                    email = personal_token.replace(".", "%2E");
-                } catch (err) {
-                    console.log("error occurred when urlencoding email:", err);
-                    return;
-                }
-                axios
-                    .get(`http://localhost:3000/friends?email=${email}`, {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                    .then((response) => {
-                        try {
-                            const data = response.data;
-                            console.log("response data: ", data);
-                            for (d of data) {
-                                const friend = $("<div></div>").attr({
-                                    class: "friend_box",
-                                });
-                                $("#friend_container").append(friend);
-                                const name = d.name ? d.name : "ANONYMOUS_USER";
-                                const name_box = $("<div></div>");
-                                const name_p = $("<p></p>").text(`name:${name}`);
-                                name_box.append(name_p);
-                                friend.append(name_box);
+                $(".friend_box").hide();
+                friend_toggle = 0;
+            }
 
-                                const date = d.date ? d.date : Date.now();
-                                const date_box = $("<div></div>");
-                                const date_p = $("<p></p>").text(`Joined on: ${date}`);
-                                date_box.append(date_p);
-                                friend.append(date_box);
-                            }
-                        } catch (err) {
-                            console.log("err in expanding friend data: ", err);
-                        }
-                    })
-                    .catch((err) => {});
-            }
+            // const token = localStorage.getItem("jwt");
+            // if (!token) {
+            //     // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+            //     $("#div_signout").hide();
+            //     $("#div_profile").hide();
+            // } else {
+            //     let email;
+            //     try {
+            //         email = personal_token.replace(".", "%2E");
+            //     } catch (err) {
+            //         console.log("error occurred when urlencoding email:", err);
+            //         return;
+            //     }
+            //     axios
+            //         .get(`http://localhost:3000/friends?email=${email}`, {
+            //             headers: {
+            //                 "Access-Control-Allow-Origin": "*",
+            //                 "Content-Type": "application/json",
+            //                 Authorization: `Bearer ${token}`,
+            //             },
+            //         })
+            //         .then((response) => {
+            //             try {
+            //                 const data = response.data;
+            //                 console.log("response data: ", data);
+            //                 for (d of data) {
+            //                     const friend = $("<div></div>").attr({
+            //                         class: "friend_box",
+            //                     });
+            //                     $("#friend_container").append(friend);
+            //                     const name = d.name ? d.name : "ANONYMOUS_USER";
+            //                     const name_box = $("<div></div>");
+            //                     const name_p = $("<p></p>").text(`name:${name}`);
+            //                     name_box.append(name_p);
+            //                     friend.append(name_box);
+
+            //                     const date = d.date ? d.date : Date.now();
+            //                     const date_box = $("<div></div>");
+            //                     const date_p = $("<p></p>").text(`Joined on: ${date}`);
+            //                     date_box.append(date_p);
+            //                     friend.append(date_box);
+            //                 }
+            //             } catch (err) {
+            //                 console.log("err in expanding friend data: ", err);
+            //             }
+            //         })
+            //         .catch((err) => {});
+            // }
         });
+        let favorite_toggle = 0;
         $(document).on("click", "#show_favorite", () => {
-            const token = localStorage.getItem("jwt");
-            if (!token) {
-                $("#div_signout").hide();
-                $("#div_profile").hide();
+            if (favorite_toggle === 0) {
+                $(".favorite_box").show();
+                favorite_toggle = 1;
             } else {
-                let email;
-                try {
-                    email = personal_token.replace(".", "%2E");
-                } catch (err) {
-                    console.log("error occurred when urlencoding email:", err);
-                    return;
-                }
-                axios
-                    .get(`http://localhost:3000/favorite?email=${email}`, {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    })
-                    .then((response) => {
-                        console.log("response:", response);
-                        try {
-                            const data = response.data.favorite;
-                            console.log("response data: ", data);
-                            for (d of data) {
-                                const item = d.data;
-                                const favorite = $("<div></div>").attr({
-                                    class: "favorite_box",
-                                });
-                                $("#favorite_container").append(favorite);
-                                const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
-                                const name_box = $("<div></div>");
-                                const name_p = $("<p></p>").text(`name:${name}`);
-                                name_box.append(name_p);
-                                favorite.append(name_box);
-                            }
-                        } catch (err) {
-                            console.log("err in expanding friend data: ", err);
-                        }
-                        // display favorite restaurants
-                    })
-                    .catch((err) => {
-                        // display error
-                        console.log("error in get favorite: ", err);
-                    });
+                $(".favorite_box").hide();
+                favorite_toggle = 0;
             }
+
+            // const token = localStorage.getItem("jwt");
+            // if (!token) {
+            //     $("#div_signout").hide();
+            //     $("#div_profile").hide();
+            // } else {
+            //     let email;
+            //     try {
+            //         email = personal_token.replace(".", "%2E");
+            //     } catch (err) {
+            //         console.log("error occurred when urlencoding email:", err);
+            //         return;
+            //     }
+            //     axios
+            //         .get(`http://localhost:3000/favorite?email=${email}`, {
+            //             headers: {
+            //                 "Access-Control-Allow-Origin": "*",
+            //                 "Content-Type": "application/json",
+            //                 Authorization: `Bearer ${token}`,
+            //             },
+            //         })
+            //         .then((response) => {
+            //             console.log("response:", response);
+            //             try {
+            //                 const data = response.data.favorite;
+            //                 console.log("response data: ", data);
+            //                 for (d of data) {
+            //                     const item = d.data;
+            //                     const favorite = $("<div></div>").attr({
+            //                         class: "favorite_box",
+            //                     });
+            //                     $("#favorite_container").append(favorite);
+            //                     const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
+            //                     const name_box = $("<div></div>");
+            //                     const name_p = $("<p></p>").text(`name:${name}`);
+            //                     name_box.append(name_p);
+            //                     favorite.append(name_box);
+            //                 }
+            //             } catch (err) {
+            //                 console.log("err in expanding friend data: ", err);
+            //             }
+            //             // display favorite restaurants
+            //         })
+            //         .catch((err) => {
+            //             // display error
+            //             console.log("error in get favorite: ", err);
+            //         });
+            // }
         });
+
+        $(document).on("click", ".favorite_ff", (event) => {});
+
+        // 細節頁的收藏按鈕
         $(document).on("click", "#add_favorite", () => {
             const token = localStorage.getItem("jwt");
             if (!token) {
                 // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+                // R: 已經加了，之後再確認別的地方
                 $("#div_signout").hide();
                 $("#div_profile").hide();
+                $("#show_signin").show();
+                $("#show_signup").show();
             } else {
                 const rid = $("#add_favorite").siblings(".rid").text();
                 let rname = $("#add_favorite").siblings("#detail_name").text();
@@ -871,42 +1011,129 @@
                     rid,
                     rname,
                 };
-
                 console.log("current rid: ", rid);
                 console.log("current rname: ", rname.replace("名稱：", ""));
 
-                axios
-                    .post(
-                        "http://localhost:3000/favorite", {
-                            personal_token,
-                            restaurant_obj,
-                        }, {
-                            headers: {
-                                "Access-Control-Allow-Origin": "*",
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    )
-                    .then((response) => {
-                        const data = response.data;
-                        //log state
-                        console.log(
-                            "add favorite successful response:",
-                            JSON.stringify(response)
-                        );
+                let is_favorite = favorite.has(rid);
+                if (1) {
+                    axios
+                        .post(
+                            "http://localhost:3000/favorite", {
+                                personal_token,
+                                restaurant_obj,
+                                action: is_favorite ? 0 : 1, //0: remove; 1: add
+                            }, {
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            }
+                        )
+                        .then((response) => {
+                            const data = response.data;
+                            //log state
+                            console.log("is_favorite: ", is_favorite);
+                            if (is_favorite) {
+                                // 移除高光
+                                favorite.delete(rid);
+                                $("#add_favorite").removeClass("favorite_store_t");
+                                $("#add_favorite").addClass("favorite_store_f");
+                            } else {
+                                //顯示高光
+                                favorite.add(rid);
+                                $("#add_favorite").removeClass("favorite_store_f");
+                                $("#add_favorite").addClass("favorite_store_t");
+                            }
 
-                        $("#add_favorite").addClass("highlighted_btn");
-                    })
-                    .catch((err) => {
-                        // log error
-                        console.log(
-                            "add favorite Unsuccessful response:",
-                            JSON.stringify(err)
-                        );
-                    });
+                            // console.log(
+                            //     "add favorite successful response:",
+                            //     JSON.stringify(response)
+                            // );
+                        })
+                        .catch((err) => {
+                            // log error
+                            console.log(
+                                "add favorite Unsuccessful response:",
+                                JSON.stringify(err)
+                            );
+                        });
+                }
             }
         });
+
+        // 結果頁的收藏按鈕
+        $(document).on("click", ".favorite_ff", (event) => {
+            const token = localStorage.getItem("jwt");
+            if (!token) {
+                // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+                // R: 已經加了，之後再確認別的地方
+                $("#div_signout").hide();
+                $("#div_profile").hide();
+                $("#show_signin").show();
+                $("#show_signup").show();
+            } else {
+                const target = $(event.target);
+                // console.log("target: ", target);
+                // console.log("event.target", event.target);
+                const rid = target.children("p").text();
+                const rname = target.siblings(".item_real_name").text();
+                const restaurant_obj = {
+                    rid,
+                    rname,
+                };
+                console.log("current rid: ", rid);
+                console.log("current rname: ", rname.replace("名稱：", ""));
+
+                let is_favorite = favorite.has(rid);
+                //console.log("is_favorite:", is_favorite);
+                if (1) {
+                    axios
+                        .post(
+                            "http://localhost:3000/favorite", {
+                                personal_token,
+                                restaurant_obj,
+                                action: is_favorite ? 0 : 1, //0: remove; 1: add
+                            }, {
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            }
+                        )
+                        .then((response) => {
+                            const data = response.data;
+                            //log state
+                            //console.log("is_favorite: ", is_favorite);
+                            if (is_favorite) {
+                                // 移除高光
+                                favorite.delete(rid);
+                                target.removeClass("favorite_store_t");
+                                target.addClass("favorite_store_f");
+                            } else {
+                                //顯示高光
+                                favorite.add(rid);
+                                target.removeClass("favorite_store_f");
+                                target.addClass("favorite_store_t");
+                            }
+
+                            // console.log(
+                            //     "add favorite successful response:",
+                            //     JSON.stringify(response)
+                            // );
+                        })
+                        .catch((err) => {
+                            // log error
+                            console.log(
+                                "add favorite Unsuccessful response:",
+                                JSON.stringify(err)
+                            );
+                        });
+                }
+            }
+        });
+
         let place = $("#id_label_1"),
             exotic = $("#id_label_2"),
             estab = $("#id_label_3"),
@@ -1034,6 +1261,7 @@
                     $("#root").append(div_container);
                     $("#restaurant_container").append(div_membrane);
 
+                    let is_favorite = 0;
                     for (ho of hits_arr) {
                         const h = ho.data;
                         //console.log(ho.id);
@@ -1043,11 +1271,21 @@
                         });
                         //$("#restaurant_container").append(div_box);
                         div_membrane.append(div_box);
-
+                        is_favorite = favorite.has(ho.id);
+                        const starred = $("<div>收</div>").attr({
+                            class: is_favorite ? "favorite_store_t" : "favorite_store_f",
+                        });
+                        starred.addClass("favorite_ff");
+                        const id_content = $(`<p>${ho.id}</p>`).css("display", "none");
+                        starred.append(id_content);
+                        div_box.append(starred);
                         div_box.append(
                             `<p class="item_name" id="item_title_${cnt}">名稱：${cnt + 1}.${
                   h.name
                 }</p>`
+                        );
+                        div_box.append(
+                            `<p class="item_real_name" style="display:none">${h.name}</p>`
                         );
 
                         div_box.append(

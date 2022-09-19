@@ -79,10 +79,10 @@ header.nav_header nav div.logo a.logolonk :visited {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
 }
 
 .favorite_box {
@@ -90,10 +90,30 @@ header.nav_header nav div.logo a.logolonk :visited {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.friend_case {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.favorite_case {
+  border: 1px solid;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.favorite_store_t {
+  background-color: goldenrod;
+}
+
+.favorite_store_f {
+  background-color: grey;
 }
 
 .restaurant_box {
@@ -106,10 +126,6 @@ header.nav_header nav div.logo a.logolonk :visited {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-}
-
-.highlighted_btn {
-  background-color: aqua;
 }
 
 .review_box {
@@ -163,7 +179,7 @@ header.nav_header nav div.logo a.logolonk :visited {
 }
 
 #restaurant_container {
-  padding: 4vh 10vw;
+  padding: 4vh 15vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -178,7 +194,7 @@ header.nav_header nav div.logo a.logolonk :visited {
 }
 
 #detail_display {
-  padding: 10vh 10vw;
+  padding: 8vh 15vw;
   border: solid 4px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -217,5 +233,29 @@ header.nav_header nav div.logo a.logolonk :visited {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+#filters {
+  padding: 8vh 15vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+#root {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 /*# sourceMappingURL=style.css.map */
