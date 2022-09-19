@@ -217,7 +217,8 @@ iframe {
     padding: 15px;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: #0988f2;
+    background-color: #0989f225;
+    border-radius: 10px;
     background-size: cover;
     z-index: 1;
     top: 25vh;
@@ -233,7 +234,7 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #880c9b77;
+    background-color: #0000001c;
 }
 
 .wrap-login100 {
