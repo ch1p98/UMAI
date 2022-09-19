@@ -44,6 +44,13 @@ header.nav_header {
     }
 }
 
+form {
+    input {
+        border: #999999 1px solid;
+        border-radius: 4px;
+    }
+}
+
 .js-example-basic-multiple {
     width: 75%;
 }
