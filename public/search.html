@@ -396,7 +396,7 @@
         } else {
             axios
                 .post(
-                    "http://localhost:3000/verify_token", {}, {
+                    `${process.env.HOST}/verify_token`, {}, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -436,7 +436,7 @@
             $("#id_container-register100").hide();
             axios
                 .post(
-                    "http://localhost:3000/signup", {
+                    `${process.env.HOST}/signup`, {
                         name: $("#signup_input_name").val(),
                         email: $("#signup_input_email").val(),
                         password: $("#signup_input_password").val(),
@@ -487,7 +487,7 @@
             $("#id_container-login100").hide();
             axios
                 .post(
-                    "http://localhost:3000/signin", {
+                    `${process.env.HOST}/signin`, {
                         email: $("#signin_input_email").val(),
                         password: $("#signin_input_password").val(),
                     }, {
@@ -561,7 +561,7 @@
                 }
                 return axios
                     .post(
-                        "http://localhost:3000/verify_token", {}, {
+                        `${process.env.HOST}/verify_token`, {}, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -614,7 +614,7 @@
                 // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
                 // 這樣或許比較好
                 const obj = axios
-                    .get("http://localhost:3000/profile", {
+                    .get(`${process.env.HOST}/profile`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -689,7 +689,7 @@
 
                             // get friend list here
                             axios
-                                .get(`http://localhost:3000/friends?email=${email}`, {
+                                .get(`${process.env.HOST}/friends?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -739,7 +739,7 @@
 
                             // get favorite list here
                             axios
-                                .get(`http://localhost:3000/favorite?email=${email}`, {
+                                .get(`${process.env.HOST}/favorite?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -847,7 +847,7 @@
                                 // console.log("update_body: ", JSON.stringify(update_body));
                                 const token = localStorage.getItem("jwt");
                                 axios
-                                    .post("http://localhost:3000/profile", update_body, {
+                                    .post(`${process.env.HOST}/profile`, update_body, {
                                         headers: {
                                             "Access-Control-Allow-Origin": "*",
                                             "Content-Type": "application/json",
@@ -897,7 +897,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`http://localhost:3000/friends?email=${email}`, {
+            //         .get(`${process.env.HOST}/friends?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -955,7 +955,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`http://localhost:3000/favorite?email=${email}`, {
+            //         .get(`${process.env.HOST}/favorite?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -1018,7 +1018,7 @@
                 if (1) {
                     axios
                         .post(
-                            "http://localhost:3000/favorite", {
+                            `${process.env.HOST}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1090,7 +1090,7 @@
                 if (1) {
                     axios
                         .post(
-                            "http://localhost:3000/favorite", {
+                            `${process.env.HOST}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1215,7 +1215,7 @@
 
             axios
                 .post(
-                    "http://localhost:3000/search_experiment", {
+                    `${process.env.HOST}/search_experiment`, {
                         place: place_arr, //formatted_address
                         exotic: exotic_arr, //reviews.text
                         estab: estab_arr, //reviews.text

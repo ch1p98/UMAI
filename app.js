@@ -824,7 +824,7 @@ app.get("/get_photo_from_google", async (req, res) => {
 });
 
 app.listen(port, () => {
-  console.log("The server is running on localhost:3000");
+  console.log("The server is running on server");
 });
 
 //use this on terminal: export GOOGLE_APPLICATION_CREDENTIALS="../bustling-nomad-361302-e29175b9daac.json"
