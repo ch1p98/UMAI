@@ -28,6 +28,10 @@
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <!--===============================================================================================-->
 
+    <link href="./styles/bootstrap.min.css" rel="stylesheet" />
+    <link href="./styles/buttons.css" rel="stylesheet" />
+    <link href="./styles/style_1.css" rel="stylesheet" />
+
     <!--my own css-->
     <link rel="stylesheet" href="./style/style.css" />
 
@@ -340,7 +344,10 @@
           </label>
             </div>
             <div id="selected_fire_container">
-                <button id="selected_fire">SORA!!</button>
+                <!-- <button id="selected_fire">SORA!!</button> -->
+                <button type="button" id="selected_fire" class="btn btn-warning btn-lg">
+            S O R A
+          </button>
             </div>
         </div>
     </div>
@@ -1288,7 +1295,9 @@
                         //$("#restaurant_container").append(div_box);
                         div_membrane.append(div_box);
                         is_favorite = favorite_set.has(ho.id);
-                        const starred = $("<div>收</div>").attr({
+                        const starred = $(
+                            "<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
+                        ).attr({
                             class: is_favorite ? "favorite_store_t" : "favorite_store_f",
                         });
                         starred.addClass("favorite_ff");
