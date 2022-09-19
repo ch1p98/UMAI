@@ -1244,6 +1244,11 @@
                     $("#restaurant_container").remove();
                     $("#detail_display").remove();
 
+                    // QQQ.我覺得這要再考慮一下。可能設個計時器，超過時間才remove，不然hide就好。
+                    $("#profile_container").remove();
+                    $("#friend_container").remove();
+                    $("#favorite_container").remove();
+
                     hits_arr = [];
                     page_len = data.hits.hits.length;
                     data.hits.hits.forEach((element, index) => {
