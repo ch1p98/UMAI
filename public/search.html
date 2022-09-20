@@ -733,6 +733,14 @@
         // SQQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
             console.log("trigger profile");
+            if (0) {
+                //  時間之內
+                $("#profile_container").show();
+                $("#friend_container").show();
+                $("#favorite_container").show();
+
+                return;
+            }
             $("#profile_container").remove();
             $("#friend_container").remove();
             $("#favorite_container").remove();
@@ -815,7 +823,6 @@
                         (response) => {
                             $("#filters").hide();
                             $("#modify_search").show();
-
                             $("#restaurant_container").hide();
                             $("#pagination").hide();
 
@@ -1057,6 +1064,9 @@
                             //post data to server
                             // if failed: do something
                             //if successful: rerender page
+                            const return_result = $("<div>回到搜尋結果</div>").attr({
+                                id: "return_result",
+                            });
                         }
                         // verify successful
                     )
@@ -1326,6 +1336,14 @@
                         });
                 }
             }
+        });
+
+        $(document).on("click", "#return_result", (event) => {
+            $("#restaurant_container").show();
+            $("#pagination").show();
+            $("#profile_container").hide();
+            $("#friend_container").hide();
+            $("#favorite_container").hide();
         });
 
         let place = $("#id_label_1"),
