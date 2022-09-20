@@ -5,7 +5,8 @@ const favicon = require("serve-favicon");
 const path = require("path");
 //
 const app = express();
-app.use(express.static("public"));
+const public = "public";
+app.use(express.static(public));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 const { spawn } = require("child_process");
@@ -821,6 +822,10 @@ app.get("/get_photo_from_google", async (req, res) => {
       // handle error
       console.log("error:", err);
     });
+});
+
+app.get("/", async (req, res) => {
+  res.sendFile("search.html", { root: path.join(__dirname, "./" + public) });
 });
 
 app.listen(port, () => {

@@ -28,9 +28,9 @@
     <link rel="stylesheet" type="text/css" href="./css/main.css" />
     <!--===============================================================================================-->
 
-    <link href="./styles/bootstrap.min.css" rel="stylesheet" />
-    <link href="./styles/buttons.css" rel="stylesheet" />
-    <link href="./styles/style_1.css" rel="stylesheet" />
+    <link href="./styles/bootstrap.min.css" type="text/css" rel="stylesheet" />
+    <link href="./styles/buttons.css" type="text/css" rel="stylesheet" />
+    <link href="./styles/style_1.css" type="text/css" rel="stylesheet" />
 
     <!--my own css-->
     <link rel="stylesheet" href="./style/style.css" />
@@ -630,7 +630,7 @@
                 // failed
             } else {
                 // profile_flag === 1
-                // QSQQ.你也知道verify_token沒用，那第一次應該也不用打了
+                // SQQQ.你也知道verify_token沒用，那第一次應該也不用打了
                 // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
                 // 這樣或許比較好
                 const obj = axios
@@ -1295,9 +1295,8 @@
                         //$("#restaurant_container").append(div_box);
                         div_membrane.append(div_box);
                         is_favorite = favorite_set.has(ho.id);
-                        const starred = $(
-                            "<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
-                        ).attr({
+                        //"<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
+                        const starred = $("<div>收藏</div>").attr({
                             class: is_favorite ? "favorite_store_t" : "favorite_store_f",
                         });
                         starred.addClass("favorite_ff");
