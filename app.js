@@ -406,7 +406,7 @@ app.post("/profile", async (req, res) => {
   }
 });
 
-app.get("/profile/:demand", async (req, res) => {
+app.get("/profile", async (req, res) => {
   //console.log("217");
   try {
     //console.log("219");
