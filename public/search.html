@@ -55,7 +55,7 @@
             <div class="logo">
                 <a class="logolink" href="#">SORA</a>
             </div>
-            <div class="modify_search" id="modify_search">修改搜尋條件</div>
+            <div id="modify_search" class="modify_search">修改搜尋條件</div>
             <div id="hide_search">隱藏搜尋條件</div>
             <div id="div_profile">
                 <div>
@@ -1067,6 +1067,7 @@
                             const return_result = $("<div>回到搜尋結果</div>").attr({
                                 id: "return_result",
                             });
+                            $("#hide_search").after(return_result);
                         }
                         // verify successful
                     )
