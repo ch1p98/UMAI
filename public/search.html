@@ -370,8 +370,9 @@
         let personal_token;
         let friends_set = new Set(),
             favorite_set = new Set();
-        const main_host = "https://chipmunk.vip";
-
+        const MAIN_HOST = "https://chipmunk.vip";
+        let _stamp = Date.now();
+        const LATENCY = 900000;
         // QQQ.目前是寫死的，不過之後要看看要不要改。畢竟feature可能會改。
         // 不過這次專案就這樣也可以
         const user_features = new Set([
@@ -407,7 +408,7 @@
         } else {
             axios
                 .post(
-                    `${main_host}/verify_token`, {}, {
+                    `${MAIN_HOST}/verify_token`, {}, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -446,7 +447,7 @@
         }
 
         const obj = axios
-            .get(`${main_host}/profile`, {
+            .get(`${MAIN_HOST}/profile`, {
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
@@ -512,7 +513,7 @@
 
                     // get friend list here
                     axios
-                        .get(`${main_host}/friends?email=${email}`, {
+                        .get(`${MAIN_HOST}/friends?email=${email}`, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -562,7 +563,7 @@
 
                     // get favorite list here
                     axios
-                        .get(`${main_host}/favorite?email=${email}`, {
+                        .get(`${MAIN_HOST}/favorite?email=${email}`, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -622,7 +623,7 @@
             $("#id_container-register100").hide();
             axios
                 .post(
-                    `${main_host}/signup`, {
+                    `${MAIN_HOST}/signup`, {
                         name: $("#signup_input_name").val(),
                         email: $("#signup_input_email").val(),
                         password: $("#signup_input_password").val(),
@@ -673,7 +674,7 @@
             $("#id_container-login100").hide();
             axios
                 .post(
-                    `${main_host}/signin`, {
+                    `${MAIN_HOST}/signin`, {
                         email: $("#signin_input_email").val(),
                         password: $("#signin_input_password").val(),
                     }, {
@@ -733,12 +734,12 @@
         // SQQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
             console.log("trigger profile");
-            if (0) {
+            if (Date.now() - _stamp < LATENCY) {
                 //  時間之內
                 $("#profile_container").show();
                 $("#friend_container").show();
                 $("#favorite_container").show();
-
+                _stamp = Date.now();
                 return;
             }
             $("#profile_container").remove();
@@ -756,7 +757,7 @@
                 }
                 return axios
                     .post(
-                        `${main_host}/verify_token`, {}, {
+                        `${MAIN_HOST}/verify_token`, {}, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -812,7 +813,7 @@
                 // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
                 // 這樣或許比較好
                 const obj = axios
-                    .get(`${main_host}/profile`, {
+                    .get(`${MAIN_HOST}/profile`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -888,7 +889,7 @@
 
                             // get friend list here
                             axios
-                                .get(`${main_host}/friends?email=${email}`, {
+                                .get(`${MAIN_HOST}/friends?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -938,7 +939,7 @@
 
                             // get favorite list here
                             axios
-                                .get(`${main_host}/favorite?email=${email}`, {
+                                .get(`${MAIN_HOST}/favorite?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -1046,7 +1047,7 @@
                                 // console.log("update_body: ", JSON.stringify(update_body));
                                 const token = localStorage.getItem("jwt");
                                 axios
-                                    .post(`${main_host}/profile`, update_body, {
+                                    .post(`${MAIN_HOST}/profile`, update_body, {
                                         headers: {
                                             "Access-Control-Allow-Origin": "*",
                                             "Content-Type": "application/json",
@@ -1105,7 +1106,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`${main_host}/friends?email=${email}`, {
+            //         .get(`${MAIN_HOST}/friends?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -1163,7 +1164,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`${main_host}/favorite?email=${email}`, {
+            //         .get(`${MAIN_HOST}/favorite?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -1224,7 +1225,7 @@
                 if (1) {
                     axios
                         .post(
-                            `${main_host}/favorite`, {
+                            `${MAIN_HOST}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1296,7 +1297,7 @@
                 if (1) {
                     axios
                         .post(
-                            `${main_host}/favorite`, {
+                            `${MAIN_HOST}/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -1429,7 +1430,7 @@
 
             axios
                 .post(
-                    `${main_host}/search_experiment`, {
+                    `${MAIN_HOST}/search_experiment`, {
                         place: place_arr, //formatted_address
                         exotic: exotic_arr, //reviews.text
                         estab: estab_arr, //reviews.text
