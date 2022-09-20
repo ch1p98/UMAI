@@ -53,7 +53,7 @@
     <header class="nav_header">
         <nav>
             <div class="logo">
-                <a class="logolink" href="./search.html">SORA</a>
+                <a class="logolink" href="#">SORA</a>
             </div>
             <div class="modify_search" id="modify_search">修改搜尋條件</div>
             <div id="hide_search">隱藏搜尋條件</div>
@@ -396,9 +396,9 @@
         $("#id_container-login100").hide();
         $("#id_container-register100").hide();
 
-        // initial check: if token is there
-
+        // INITIAL CHECK: if token is there
         const token = localStorage.getItem("jwt");
+        // check token and renew it if present
         if (!token) {
             $("#div_signout").hide();
             $("#div_profile").hide();
@@ -444,9 +444,174 @@
                     $("#show_signup").show();
                 });
         }
-        // if so, use axios post to validate the token
-        //   if token is valid:
 
+        const obj = axios
+            .get(`${main_host}/profile`, {
+                headers: {
+                    "Access-Control-Allow-Origin": "*",
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+            .then(
+                (response) => {
+                    const req_status = response.data.state;
+                    console.log("response.data:", response.data);
+                    // debugging msg
+                    // profile_data contains only data decoded from token
+                    const profile_data = response.data.profile;
+                    // if not profile_data應該要處理一下，雖然目前應該不會發生
+                    // let div_profile = $("<div></div>").attr({
+                    //     id: "profile_container",
+                    // });
+                    // // friend list
+                    // let div_friend = $("<div></div>").attr({
+                    //     id: "friend_container",
+                    // });
+                    // // favorite restaurants/collection
+                    // let div_favorite = $("<div></div>").attr({
+                    //     id: "favorite_container",
+                    // });
+                    // $("#root").append(div_profile);
+                    // $("#root").append(div_friend);
+                    // $("#root").append(div_favorite);
+
+                    //set personal token for more purposes
+                    personal_token = profile_data["email"] ? profile_data["email"] : "";
+                    // display available features of user
+
+                    // for (k of Object.keys(profile_data)) {
+                    // 這2個keys暫時不處理；放到其他按鈕來處理
+                    //     if (k === "friends") {
+                    //         continue;
+                    //     } else if (k === "favorite") {
+                    //         continue;
+                    //     }
+                    //     let profile_key = $("<p></p>").attr({
+                    //         id: `profile_div_${k}`,
+                    //     });
+                    //     profile_key.html(`${k}: ${profile_data[k]}`);
+                    //     div_profile.append(profile_key);
+                    // }
+                    // div_friend.append(
+                    //     $("<button id='show_friend'>美食同好</button>")
+                    // );
+                    // div_favorite.append(
+                    //     $("<button id='show_favorite'>口袋名單</button>")
+                    // );
+                    // get friend and favorite here
+                    // UPDATE: friend done;
+                    // should have token here
+                    let email;
+                    try {
+                        email = personal_token.replace(".", "%2E");
+                    } catch (err) {
+                        console.log("error occurred when urlencoding email:", err);
+                        return;
+                    }
+
+                    // get friend list here
+                    axios
+                        .get(`${main_host}/friends?email=${email}`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        })
+                        .then((response) => {
+                            try {
+                                // const data = response.data;
+                                // console.log("response data: ", data);
+                                // const friend_box = $("<div></div>").attr({
+                                //     class: "friend_box",
+                                // });
+                                // $("#friend_container").append(friend_box);
+
+                                for (d of data) {
+                                    // const friend_case = $("<div></div>").attr({
+                                    //     class: "friend_case",
+                                    // });
+
+                                    const fid = d._id ? d._id : -1;
+                                    //console.log("_id", fid);
+                                    //console.log("typeof _id", typeof fid);
+                                    friends_set.add(fid);
+
+                                    // const name = d.name ? d.name : "ANONYMOUS_USER";
+                                    // const name_box = $("<div></div>");
+                                    // const name_p = $("<p></p>").text(`name:${name}`);
+                                    // name_box.append(name_p);
+                                    // friend_case.append(name_box);
+
+                                    // const date = d.date ? d.date : Date.now();
+                                    // const date_box = $("<div></div>");
+                                    // const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                                    // date_box.append(date_p);
+                                    // friend_case.append(date_box);
+                                    // friend_box.append(friend_case);
+                                }
+                                // $(".friend_box").hide();
+                            } catch (err) {
+                                console.log("err in expanding friend data: ", err);
+                            }
+                        })
+                        .catch((err) => {
+                            console.log("err:", err);
+                        });
+
+                    // get favorite list here
+                    axios
+                        .get(`${main_host}/favorite?email=${email}`, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        })
+                        .then((response) => {
+                            try {
+                                const data = response.data.favorite;
+                                console.log("response data: ", data);
+                                // const favorite = $("<div></div>").attr({
+                                //     class: "favorite_box",
+                                // });
+                                // $("#favorite_container").append(favorite);
+
+                                for (d of data) {
+                                    const item = d.data;
+
+                                    // const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
+                                    const rid = item.rid ? item.rid : -1;
+                                    favorite_set.add(rid);
+                                    console.log("get favorite list: ", favorite);
+                                    // const favorite_case = $("<div></div>").attr({
+                                    //     class: "favorite_case",
+                                    // });
+                                    // favorite.append(favorite_case);
+                                    // const name_box = $("<div></div>");
+                                    // const name_p = $("<p></p>").text(`name:${name}`);
+                                    // name_box.append(name_p);
+                                    // favorite_case.append(name_box);
+                                }
+                                // $(".favorite_box").hide();
+                            } catch (err) {
+                                console.log("err in expanding friend data: ", err);
+                            }
+                            // display favorite restaurants
+                        })
+                        .catch((err) => {
+                            // display error
+                            console.log("error in get favorite: ", err);
+                        });
+                }
+                // verify successful
+            )
+            .catch((err) => {
+                // verify failed
+            });
+
+        ////
         $("#trigger_signup").click((event) => {
             console.log("pressed sign up");
             $("#id_container-register100").hide();
@@ -560,7 +725,7 @@
             personal_token = "";
         });
 
-        // QQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
+        // SQQQ.你拿profile為什麼要打兩次API? 應該一次就夠了
         $("#trigger_profile").click(async(event) => {
             console.log("trigger profile");
             $("#profile_container").remove();
@@ -874,8 +1039,12 @@
                                             Authorization: `Bearer ${token}`,
                                         },
                                     })
-                                    .then((response) => {})
-                                    .catch((err) => {});
+                                    .then((response) => {
+                                        alert("資料修改成功");
+                                    })
+                                    .catch((err) => {
+                                        alert("更改資料失敗");
+                                    });
                             });
                             //update_profile_btn prevent default
                             //post data to server

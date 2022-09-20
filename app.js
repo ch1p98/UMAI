@@ -406,7 +406,7 @@ app.post("/profile", async (req, res) => {
   }
 });
 
-app.get("/profile", async (req, res) => {
+app.get("/profile/:demand", async (req, res) => {
   //console.log("217");
   try {
     //console.log("219");
@@ -431,16 +431,21 @@ app.get("/profile", async (req, res) => {
   }
 
   // query db for complete personal data
-  try {
-    let one = await User.findOne(
-      { email: decoded.email },
-      "-password -__v -_id"
-    ).exec();
-    if (!one) throw "No user data!!";
-    res.status(200).json({ state: "successful", profile: one });
-  } catch (err) {
-    res.status(404).json({ state: "failed" }); //send an error
-    return;
+  if (!req.params.demand) {
+    try {
+      let one = await User.findOne(
+        { email: decoded.email },
+        "-password -__v -_id"
+      ).exec();
+      if (!one) throw "No user data!!";
+      res.status(200).json({ state: "successful", profile: one });
+    } catch (err) {
+      res.status(404).json({ state: "failed" }); //send an error
+      return;
+    }
+  } else {
+    // depends on which data are requested
+    console.log("req.params: ", req.params);
   }
 
   // authentication successful. return some data for profile rendering
