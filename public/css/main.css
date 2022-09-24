@@ -66,9 +66,9 @@ h6 {
 
 p {
     font-family: Ubuntu-Regular;
-    font-size: 14px;
+    font-size: 1.2rem;
     line-height: 1.7;
-    color: #666666;
+    color: #000000;
     margin: 0px;
 }
 
@@ -234,7 +234,7 @@ iframe {
     height: 100%;
     top: 0;
     left: 0;
-    background-color: #0000001c;
+    background-color: #151515c5;
 }
 
 .wrap-login100 {

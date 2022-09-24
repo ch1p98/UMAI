@@ -208,7 +208,7 @@ app.get("/friends", async (req, res) => {
     },
   ]);
   const result = await aggregate.exec();
-
+  // result直接用(response.data)
   console.log(JSON.stringify(result));
   res.json(result);
 });
@@ -330,6 +330,7 @@ app.get("/favorite", async (req, res) => {
   // console.log("email: ", email);
 
   const result = await User.findOne({ email }, "favorite").exec();
+  // 用result.favorite來接.(response.data)
 
   console.log(JSON.stringify(result));
   res.status(200).json(result);

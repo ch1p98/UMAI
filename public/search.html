@@ -31,6 +31,17 @@
     <link rel="stylesheet" href="./style/style_1.css" type="text/css" />
     <link rel="stylesheet" href="./vendor/select2/select2.min.css" type="text/css" />
 
+    <!--Icecream css/font-->
+    <!-- Google Web Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- <link rel="stylesheet" href="./css/style.min.css" /> -->
+    <link rel="stylesheet" href="./css/style.css" />
+
     <!--my own css-->
     <link rel="stylesheet" href="./style/style.css" />
 
@@ -49,298 +60,388 @@
 </head>
 
 <body>
-    <header class="nav_header">
-        <nav>
-            <div class="logo">
-                <a class="logolink" href="#">SORA</a>
-            </div>
-            <div id="modify_search" class="modify_search">修改搜尋條件</div>
-            <div id="hide_search">隱藏搜尋條件</div>
-            <div id="div_profile">
-                <div>
-                    <button id="trigger_profile">會員資料</button>
-                </div>
-            </div>
-            <div id="show_signin">
-                <div>
-                    <button id="trigger_show_signin">登入</button>
-                </div>
-            </div>
-            <div id="show_signup">
-                <div>
-                    <button id="trigger_show_signup">註冊</button>
-                </div>
-            </div>
-            <div class="container-login100" id="id_container-login100">
-                <div class="wrap-login100 p-t-30 p-b-50">
-                    <span class="login100-form-title p-b-41"> Account Login </span>
-                    <div class="login100-form validate-form p-b-33 p-t-5">
-                        <div class="wrap-input100 validate-input" data-validate="Enter username">
-                            <input class="input100" id="signin_input_email" type="text" name="username" placeholder="User Email" />
-                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+    <div id="header_container">
+        <header class="container-fluid bg-primary py-3 d-none d-md-block">
+            <nav class="container">
+                <div class="row">
+                    <div class="col-md-6 text-center text-lg-left mb-2 mb-lg-0">
+                        <div class="d-inline-flex align-items-center">
+                            <a class="text-white pr-3" href="">FAQs</a>
+                            <span class="text-white">|</span>
+                            <a class="text-white px-3" href="">Help</a>
+                            <span class="text-white">|</span>
+                            <a class="text-white pl-3" href="">Support</a>
                         </div>
-
-                        <div class="wrap-input100 validate-input" data-validate="Enter password">
-                            <input class="input100" id="signin_input_password" type="password" name="pass" placeholder="Password" />
-                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
-                        </div>
-
-                        <div class="container-login100-form-btn m-t-32">
-                            <button class="login100-form-btn" id="trigger_signin">
-                  Login
-                </button>
+                    </div>
+                    <div class="col-md-6 text-center text-lg-right">
+                        <div class="d-inline-flex align-items-center">
+                            <a class="text-white px-3" href="">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a class="text-white px-3" href="">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a class="text-white px-3" href="">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a class="text-white px-3" href="">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <a class="text-white pl-3" href="">
+                                <i class="fab fa-youtube"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="container-login100" id="id_container-register100">
-                <div class="wrap-login100 p-t-30 p-b-50">
-                    <span class="login100-form-title p-b-41"> Register </span>
-                    <div class="login100-form validate-form p-b-33 p-t-5">
-                        <div class="wrap-input100 validate-input" data-validate="Enter username">
-                            <input class="input100" id="signup_input_name" type="text" name="username" placeholder="User Name" />
-                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+            </nav>
+        </header>
+        <header class="nav_header container-fluid position-relative nav-bar p-0">
+            <nav class="outer_nav container-lg position-relative p-0 px-lg-3">
+                <nav class="inner_nav navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav ml-auto py-0">
+                            <div id="modify_search" class="nav-item nav-link">
+                                Modify Search
+                            </div>
+                            <div id="hide_search" class="nav-item nav-link">
+                                Hide Search
+                            </div>
+                            <div id="div_profile" class="nav-item nav-link">
+                                <div>
+                                    <button id="trigger_profile">Profile</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="wrap-input100 validate-input" data-validate="Enter username">
-                            <input class="input100" id="signup_input_email" type="text" name="useremail" placeholder="User Email" />
-                            <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                        <a href="#" class="navbar-brand mx-5 d-none d-lg-block">
+                            <h1 class="m-0 display-4 text-primary">
+                                <span class="text-secondary"></span>S O R A
+                            </h1>
+                        </a>
+                        <div class="navbar-nav mr-auto py-0">
+                            <div id="show_signin" class="nav-item nav-link">
+                                <div>
+                                    <button id="trigger_show_signin">Sign In</button>
+                                </div>
+                            </div>
+                            <div id="show_signup" class="nav-item nav-link">
+                                <div>
+                                    <button id="trigger_show_signup">Sign Up</button>
+                                </div>
+                            </div>
+                            <div id="div_signout" class="nav-item nav-link">
+                                <button id="trigger_signout">Sign Out</button>
+                            </div>
                         </div>
+                    </div>
+                </nav>
 
-                        <div class="wrap-input100 validate-input" data-validate="Enter password">
-                            <input class="input100" id="signup_input_password" type="password" name="pass" placeholder="Password" />
-                            <span class="focus-input100" data-placeholder="&#xe80f;"></span>
-                        </div>
+                <div class="container-login100" id="id_container-login100">
+                    <div class="wrap-login100 p-t-12 p-b-20">
+                        <span class="login100-form-title p-b-41"> Sign In </span>
+                        <div class="login100-form validate-form p-b-33 p-t-5">
+                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                                <input class="input100" id="signin_input_email" type="text" name="username" placeholder="User Email" />
+                                <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                            </div>
 
-                        <div class="container-login100-form-btn m-t-32">
-                            <button class="login100-form-btn" id="trigger_signup">
-                  Register
-                </button>
+                            <div class="wrap-input100 validate-input" data-validate="Enter password">
+                                <input class="input100" id="signin_input_password" type="password" name="pass" placeholder="Password" />
+                                <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                            </div>
+
+                            <div class="container-login100-form-btn m-t-32">
+                                <button class="login100-form-btn" id="trigger_signin">
+                    Login
+                  </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="container-login100" id="id_container-register100">
+                    <div class="wrap-login100 p-t-12 p-b-20">
+                        <span class="login100-form-title p-b-16"> Sign Up </span>
+                        <div class="login100-form validate-form p-b-13 p-t-5">
+                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                                <input class="input100" id="signup_input_name" type="text" name="username" placeholder="User Name" />
+                                <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                            </div>
+                            <div class="wrap-input100 validate-input" data-validate="Enter username">
+                                <input class="input100" id="signup_input_email" type="text" name="useremail" placeholder="User Email" />
+                                <span class="focus-input100" data-placeholder="&#xe82a;"></span>
+                            </div>
 
-            <!-- <div id="div_signin">
-                <div>
-                    <p>登入</p>
+                            <div class="wrap-input100 validate-input" data-validate="Enter password">
+                                <input class="input100" id="signup_input_password" type="password" name="pass" placeholder="Password" />
+                                <span class="focus-input100" data-placeholder="&#xe80f;"></span>
+                            </div>
+
+                            <div class="container-login100-form-btn m-t-32">
+                                <button class="login100-form-btn" id="trigger_signup">
+                    Register
+                  </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div>
-                    <label for="email">email</label>
-                    <input type="text" name="email" id="signin_input_email" />
-                </div>
-                <div>
-                    <label for="password">password</label>
-                    <input type="password" name="password" id="signin_input_password" />
-                </div>
-                <button id="trigger_signin">Submit</button>
-            </div> -->
-            <div id="div_signout">
-                <button id="trigger_signout">登出</button>
-            </div>
-        </nav>
-    </header>
+            </nav>
+        </header>
+    </div>
     <div id="root">
         <div id="filters">
-            <div>
-                <label for="id_label_0">
-            店名
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_0"
-            ></select>
-          </label>
-            </div>
+            <div id="filters_pleura">
+                <div class="filter_box">
+                    <label for="id_label_0">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Name</p>
+                </div>
+              </div>
 
-            <div>
-                <label for="id_label_1">
-            地點
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_1"
-            >
-              <option value="TPE">台北</option>
-              <option value="KAO">高雄</option>
-              <option value="NTP">新北</option>
-              <option value="TAN">台南</option>
-              <option value="HSC">新竹</option>
-              <option value="HSC">淡水</option>
-              <option value="HSC">文化路</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_2">
-            異國料理
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_2"
-            >
-              <option value="TPE">日式</option>
-              <option value="KAO">中式</option>
-              <option value="NTP">韓式</option>
-              <option value="TAN">美式</option>
-              <option value="HSC">泰式</option>
-              <option value="HSC">港式</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_3">
-            餐廳類型
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_3"
-            >
-              <option value="TPE">咖啡廳</option>
-              <option value="KAO">居酒屋</option>
-              <option value="NTP">餐酒館</option>
-              <option value="TAN">酒吧</option>
-              <option value="HSC">甜點店</option>
-              <option value="HSC">火鍋店</option>
-              <option value="TAN">茶館</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_4">
-            餐點名稱
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_4"
-            >
-              <option value="TAN">炸魚薯條</option>
-              <option value="TPE">炸豬排</option>
-              <option value="KAO">松鼠桂魚</option>
-              <option value="NTP">麻婆豆腐</option>
-              <option value="TAN">時雨煮</option>
-              <option value="HSC">三種起司披薩</option>
-              <option value="HSC">上海菜飯</option>
-              <option value="HSC">涼拌鮟鱇魚肝</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_5">
-            價位
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_5"
-            >
-              <option value="TPE">$</option>
-              <option value="KAO">$$</option>
-              <option value="NTP">$$$</option>
-              <option value="TAN">$$$$</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_6">
-            評價(3分往上)
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_6"
-            >
-              <option value="TPE">1</option>
-              <option value="KAO">2</option>
-              <option value="NTP">3</option>
-              <option value="TAN">4</option>
-              <option value="HSC">4.5</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_7">
-            供餐時段
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_7"
-            >
-              <option value="TPE">早餐</option>
-              <option value="KAO">早午餐</option>
-              <option value="NTP">午餐</option>
-              <option value="TAN">下午茶</option>
-              <option value="HSC">晚餐</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_8">
-            服務
-            <br />
-            <select
-              class="js-example-basic-multiple"
-              name="states[]"
-              multiple="multiple"
-              id="id_label_8"
-            >
-              <option value="TPE">外帶</option>
-              <option value="KAO">外送</option>
-              <option value="NTP">寵物友善</option>
-              <option value="TAN">兒童座椅</option>
-              <option value="HSC">停車場</option>
-              <option value="PLUG">插座</option>
-              <option value="PLUG">吃到飽</option>
-              <option value="PLUG">預約制</option>
-            </select>
-          </label>
-            </div>
-            <div>
-                <label for="id_label_9">
-            營業中
-            <br />
-            <select
-              class="js-example-basic-single"
-              name="states"
-              id="id_label_9"
-            >
-              <option value="TRUE">是</option>
-              <option value="FALSE">否</option>
-            </select>
-          </label>
-            </div>
-            <div id="selected_fire_container">
-                <!-- <button id="selected_fire">SORA!!</button> -->
-                <button type="button" id="selected_fire" class="btn btn-warning btn-lg">
-            S O R A
-          </button>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_0"
+              ></select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_1">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Location</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_1"
+              >
+                <option value="TPE">台北</option>
+                <option value="KAO">高雄</option>
+                <option value="NTP">新北</option>
+                <option value="TAN">台南</option>
+                <option value="HSC">新竹</option>
+                <option value="HSC">淡水</option>
+                <option value="HSC">文化路</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_2">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Exotic</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_2"
+              >
+                <option value="TPE">日式</option>
+                <option value="KAO">中式</option>
+                <option value="NTP">韓式</option>
+                <option value="TAN">美式</option>
+                <option value="HSC">泰式</option>
+                <option value="HSC">港式</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_3">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Establishment</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_3"
+              >
+                <option value="TPE">咖啡廳</option>
+                <option value="KAO">居酒屋</option>
+                <option value="NTP">餐酒館</option>
+                <option value="TAN">酒吧</option>
+                <option value="HSC">甜點店</option>
+                <option value="HSC">火鍋店</option>
+                <option value="TAN">茶館</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_4">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Name of Dish</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_4"
+              >
+                <option value="TAN">炸魚薯條</option>
+                <option value="TPE">炸豬排</option>
+                <option value="KAO">松鼠桂魚</option>
+                <option value="NTP">麻婆豆腐</option>
+                <option value="TAN">時雨煮</option>
+                <option value="HSC">三種起司披薩</option>
+                <option value="HSC">上海菜飯</option>
+                <option value="HSC">涼拌鮟鱇魚肝</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_5">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Price Level</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_5"
+              >
+                <option value="TPE">$</option>
+                <option value="KAO">$$</option>
+                <option value="NTP">$$$</option>
+                <option value="TAN">$$$$</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_6">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Rating</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_6"
+              >
+                <option value="TPE">1</option>
+                <option value="KAO">2</option>
+                <option value="NTP">3</option>
+                <option value="TAN">4</option>
+                <option value="HSC">4.5</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_7">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Timeline</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_7"
+              >
+                <option value="TPE">早餐</option>
+                <option value="KAO">早午餐</option>
+                <option value="NTP">午餐</option>
+                <option value="TAN">下午茶</option>
+                <option value="HSC">晚餐</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_8">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Amenities/Services</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-multiple"
+                name="states[]"
+                multiple="multiple"
+                id="id_label_8"
+              >
+                <option value="TPE">外帶</option>
+                <option value="KAO">外送</option>
+                <option value="NTP">寵物友善</option>
+                <option value="TAN">兒童座椅</option>
+                <option value="HSC">停車場</option>
+                <option value="PLUG">插座</option>
+                <option value="PLUG">吃到飽</option>
+                <option value="PLUG">預約制</option>
+              </select>
+            </label>
+                </div>
+                <div class="filter_box">
+                    <label for="id_label_9">
+              <div class="filter_title_container">
+                <div class="filter_title_text_skin">
+                  <p class="filter_title_text">Opening</p>
+                </div>
+              </div>
+              <br />
+              <select
+                class="js-example-basic-single"
+                name="states"
+                id="id_label_9"
+              >
+                <option value="TRUE">是</option>
+                <option value="FALSE">否</option>
+              </select>
+            </label>
+                </div>
+                <div id="selected_fire_container">
+                    <!-- <button id="selected_fire">SORA!!</button> -->
+                    <button type="button" id="selected_fire" class="btn btn-warning btn-lg">
+              S O R A
+            </button>
+                </div>
             </div>
         </div>
     </div>
     <!--Bootstrap-->
     <!--===============================================================================================-->
-    <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-    <script src="vendor/animsition/js/animsition.min.js"></script>
-    <script src="vendor/bootstrap/js/popper.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/select2/select2.min.js"></script>
-    <script src="vendor/daterangepicker/moment.min.js"></script>
-    <script src="vendor/daterangepicker/daterangepicker.js"></script>
-    <script src="vendor/countdowntime/countdowntime.js"></script>
-    <script src="js/main.js"></script>
+    <script src="./vendor/animsition/js/animsition.min.js"></script>
+    <script src="./vendor/bootstrap/js/popper.js"></script>
+    <script src="./vendor/daterangepicker/moment.min.js"></script>
+    <script src="./vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="./vendor/countdowntime/countdowntime.js"></script>
+    <script src="./js/main.js"></script>
+
+    <!--Icecream-->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="./lib/easing/easing.min.js"></script>
+    <script src="./lib/waypoints/waypoints.min.js"></script>
+    <script src="./lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="./lib/isotope/isotope.pkgd.min.js"></script>
+    <script src="./lib/lightbox/js/lightbox.min.js"></script>
+
+    <!-- Contact Javascript File -->
+    <script src="./mail/jqBootstrapValidation.min.js"></script>
+    <script src="./mail/contact.js"></script>
+
+    <!-- Template Javascript -->
+    <script src="./js/main_ice.js"></script>
 
     <script>
         let cnt = 0;
@@ -352,8 +453,70 @@
         const MAIN_HOST = "https://chipmunk.vip";
         let _stamp = Date.now();
         const LATENCY = 900000;
+        let click_cnt = 0,
+            time_window = Date.now();
+        let display_google_reviews = false;
+
         // QQQ.目前是寫死的，不過之後要看看要不要改。畢竟feature可能會改。
         // 不過這次專案就這樣也可以
+
+        const lorum_ipsum =
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum felis, lacinia eget sollicitudin id, sollicitudin ac massa. Vestibulum ac diam eu turpis sagittis ultrices eu et sem. Aliquam a congue metus, nec pulvinar felis. Curabitur sed gravida augue, vel fermentum leo. Etiam auctor consequat fermentum. Ut quis aliquam dolor, eu euismod enim. Suspendisse varius, mi in condimentum volutpat, felis arcu auctor tellus, a commodo erat ante et velit. Curabitur a rutrum tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras elementum gravida laoreet. Etiam tempus sollicitudin nibh, pharetra volutpat magna. Proin fermentum, dolor ac congue molestie, ante velit maximus velit, eget aliquam magna mauris auctor purus. Fusce maximus quis tellus id lacinia.";
+        const default_restaurant_list_img_path =
+            "./images/restaurant_list_default.jpg";
+        const default_restaurant_detail_img_path =
+            "./images/restaurant_detail_default.jpg";
+
+        const profile_img_default_base64_src = `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
+      6AAAAAAElFTkSuQmCC`;
+        const profile_img_default_base64 = `data:image/png;base64,${profile_img_default_base64_src}`;
+
         const user_features = new Set([
             "name",
             "level",
@@ -364,6 +527,90 @@
             "age",
             "gender",
         ]);
+
+        const attach_post_to_container = (
+            container_id,
+            name,
+            title,
+            content,
+            time,
+            rating
+        ) => {
+            const fresh_review_block = $("<div>").attr({
+                class: "native_review_block",
+            });
+
+            const fresh_review_head = $("<div>").attr({
+                class: "fresh_review_head",
+            });
+            const fresh_review_neck = $("<div>").attr({
+                class: "fresh_review_neck",
+            });
+            const fresh_review_head_neck = $("<div>").attr({
+                class: "fresh_review_head_neck",
+            });
+            const fresh_review_body = $("<div>").attr({
+                class: "fresh_review_body",
+            });
+            fresh_review_block.append(fresh_review_head_neck);
+            fresh_review_head_neck.append(fresh_review_head);
+            fresh_review_head_neck.append(fresh_review_neck);
+            fresh_review_block.append(fresh_review_body);
+
+            // user
+            let review_user_avatar_div = $("<div>");
+            const default_avatar = $(`<img src="${profile_img_default_base64}">`);
+            review_user_avatar_div.append(default_avatar);
+
+            let review_user_name_div = $("<div>");
+            let review_user_name_p = $("<p>");
+            review_user_name_p.text(name);
+            review_user_name_div.append(review_user_name_p);
+            let review_user_div = $("<div>").attr({
+                class: "review_user_div",
+            });
+            review_user_div.append(review_user_avatar_div);
+            review_user_div.append(review_user_name_div);
+            fresh_review_head.append(review_user_div);
+            // time
+            let review_time_div = $("<div>").attr({
+                class: "native_review_time",
+            });
+            let review_time_p = $("<p>");
+            review_time_p.text(new Date(time).toDateString());
+            review_time_div.append(review_time_p);
+            fresh_review_head.append(review_time_div);
+            //rating
+            const review_rating_div = $("<div>").attr({
+                class: "native_review_rating",
+            });
+            const rating_img = $("<img>").attr({
+                src: "./images/5star.jpg",
+            });
+            review_rating_div.append(rating_img);
+            fresh_review_head.append(review_rating_div);
+            // title
+            let review_title_div = $("<div>").attr({
+                class: "native_review_title",
+            });
+            let review_title_h4 = $("<h4>");
+            review_title_h4.text(title);
+            review_title_div.append(review_title_h4);
+            fresh_review_neck.append(review_title_div);
+
+            // content
+            let review_content_div = $("<div>").attr({
+                class: "native_review_content",
+            });
+            let review_content_span = $("<span>");
+            review_content_span.text(content);
+            review_content_div.append(review_content_span);
+            fresh_review_body.append(review_content_div);
+            //
+            $(`#${container_id}`).append(fresh_review_block);
+            return fresh_review_block;
+        };
+
         $(document).ready(() => {
             $(".js-example-basic-multiple").select2({
                 tags: true,
@@ -375,6 +622,9 @@
         $("#modify_search").hide();
         $("#id_container-login100").hide();
         $("#id_container-register100").hide();
+
+        const filter_toggle = 0;
+        $(document).on(".filter_title_container", "click", (event) => {});
 
         // INITIAL CHECK: if token is there
         const token = localStorage.getItem("jwt");
@@ -501,35 +751,10 @@
                         })
                         .then((response) => {
                             try {
-                                // const data = response.data;
-                                // console.log("response data: ", data);
-                                // const friend_box = $("<div></div>").attr({
-                                //     class: "friend_box",
-                                // });
-                                // $("#friend_container").append(friend_box);
-
+                                const data = response.data;
                                 for (d of data) {
-                                    // const friend_case = $("<div></div>").attr({
-                                    //     class: "friend_case",
-                                    // });
-
                                     const fid = d._id ? d._id : -1;
-                                    //console.log("_id", fid);
-                                    //console.log("typeof _id", typeof fid);
                                     friends_set.add(fid);
-
-                                    // const name = d.name ? d.name : "ANONYMOUS_USER";
-                                    // const name_box = $("<div></div>");
-                                    // const name_p = $("<p></p>").text(`name:${name}`);
-                                    // name_box.append(name_p);
-                                    // friend_case.append(name_box);
-
-                                    // const date = d.date ? d.date : Date.now();
-                                    // const date_box = $("<div></div>");
-                                    // const date_p = $("<p></p>").text(`Joined on: ${date}`);
-                                    // date_box.append(date_p);
-                                    // friend_case.append(date_box);
-                                    // friend_box.append(friend_case);
                                 }
                                 // $(".friend_box").hide();
                             } catch (err) {
@@ -581,7 +806,7 @@
                                 }
                                 // $(".favorite_box").hide();
                             } catch (err) {
-                                console.log("err in expanding friend data: ", err);
+                                console.log("err in expanding favorite data: ", err);
                             }
                             // display favorite restaurants
                         })
@@ -701,9 +926,10 @@
             //$("#div_signin").show();
             $("#show_signin").show();
             $("#show_signup").show();
-            $("#profile_container").remove();
-            $("#friend_container").remove();
-            $("#favorite_container").remove();
+            $("#profile_skin").remove();
+            // $("#profile_container").remove();
+            // $("#friend_container").remove();
+            // $("#favorite_container").remove();
             $("#div_signout").hide();
             $("#div_profile").hide();
             $("#filters").show();
@@ -723,9 +949,10 @@
             //     _stamp = Date.now();
             //     return;
             // }
-            $("#profile_container").remove();
-            $("#friend_container").remove();
-            $("#favorite_container").remove();
+            $("#profile_skin").remove();
+            // $("#profile_container").remove();
+            // $("#friend_container").remove();
+            // $("#favorite_container").remove();
 
             const token = localStorage.getItem("jwt");
             let profile_flag = 0;
@@ -805,10 +1032,12 @@
                         (response) => {
                             $("#filters").hide();
                             $("#modify_search").show();
-                            $("#restaurant_container").hide();
-                            $("#pagination").hide();
+                            $("#restaurant_skin").hide();
+                            $("#detail_container").remove();
+                            // $("#restaurant_container").hide();
+                            // $("#pagination").hide();
 
-                            $("#detail_display").hide();
+                            $("#detail_box").hide();
                             const req_status = response.data.state;
                             console.log("response.data:", response.data);
                             console.log("response:", response);
@@ -817,6 +1046,9 @@
                             // profile_data contains only data decoded from token
                             const profile_data = response.data.profile;
                             // if not profile_data應該要處理一下，雖然目前應該不會發生
+                            let div_profile_skin = $("<div></div>").attr({
+                                id: "profile_skin",
+                            });
                             let div_profile = $("<div></div>").attr({
                                 id: "profile_container",
                             });
@@ -828,15 +1060,22 @@
                             let div_favorite = $("<div></div>").attr({
                                 id: "favorite_container",
                             });
-                            $("#root").append(div_profile);
-                            $("#root").append(div_friend);
-                            $("#root").append(div_favorite);
+                            div_profile_skin.append(div_friend);
+                            div_profile_skin.append(div_profile);
+                            div_profile_skin.append(div_favorite);
+                            $("#root").append(div_profile_skin);
 
                             //set personal token for more purposes
                             personal_token = profile_data["email"] ?
                                 profile_data["email"] :
                                 "";
                             // display available features of user
+                            let profile_title = $("<div></div>").attr({
+                                id: "atop_profile",
+                            });
+                            let profile_title_content = $("<p></p>");
+                            profile_title_content.html("USER DATA");
+                            profile_title.append(profile_title_content);
 
                             for (k of Object.keys(profile_data)) {
                                 // 這2個keys暫時不處理；放到其他按鈕來處理
@@ -845,17 +1084,36 @@
                                 } else if (k === "favorite") {
                                     continue;
                                 }
-                                let profile_key = $("<p></p>").attr({
-                                    id: `profile_div_${k}`,
+
+                                let profile_box = $("<div></div>").attr({
+                                    class: "profile_div_box",
                                 });
-                                profile_key.html(`${k}: ${profile_data[k]}`);
-                                div_profile.append(profile_key);
+                                let profile_box_title = $("<div></div>").attr({
+                                    id: `profile_div_title_${k}`,
+                                });
+                                let profile_box_content = $("<div></div>").attr({
+                                    id: `profile_div_content_${k}`,
+                                });
+                                let profile_key = $("<p></p>").attr({
+                                    id: `profile_p_${k}`,
+                                    class: "profile_filling",
+                                });
+                                let profile_value = $("<p></p>").attr({
+                                    class: "profile_filling",
+                                });
+                                profile_key.html(`${k}`.toUpperCase());
+                                profile_value.html(`${profile_data[k]}`);
+                                profile_box_title.append(profile_key);
+                                profile_box_content.append(profile_value);
+                                profile_box.append(profile_box_title);
+                                profile_box.append(profile_box_content);
+                                div_profile.append(profile_box);
                             }
                             div_friend.append(
-                                $("<button id='show_friend'>美食同好</button>")
+                                $("<button id='show_friend'>FRIEND LIST</button>")
                             );
                             div_favorite.append(
-                                $("<button id='show_favorite'>口袋名單</button>")
+                                $("<button id='show_favorite'>POCKET LIST</button>")
                             );
                             // get friend and favorite here
                             // UPDATE: friend done;
@@ -884,6 +1142,7 @@
                                         const friend_box = $("<div></div>").attr({
                                             class: "friend_box",
                                         });
+                                        $("friend_container").append("<br>");
                                         $("#friend_container").append(friend_box);
 
                                         for (d of data) {
@@ -898,15 +1157,42 @@
 
                                             const name = d.name ? d.name : "ANONYMOUS_USER";
                                             const name_box = $("<div></div>");
-                                            const name_p = $("<p></p>").text(`name:${name}`);
-                                            name_box.append(name_p);
-                                            friend_case.append(name_box);
+                                            const friend_left_hemi = $(
+                                                "<div class='friend_left_hemi'></div>"
+                                            );
+                                            const default_avatar = $(
+                                                `<img src="${profile_img_default_base64}">`
+                                            );
+                                            friend_left_hemi.append(default_avatar);
+                                            const friend_right_hemi = $(
+                                                "<div class='friend_right_hemi'></div>"
+                                            );
+                                            const name_h = $("<h4></h4>").text(`${name}`);
+                                            name_box.append(name_h);
+                                            friend_case.append(friend_left_hemi);
+                                            friend_case.append(friend_right_hemi);
+                                            //friend_left_hemi.append();
 
                                             const date = d.date ? d.date : Date.now();
-                                            const date_box = $("<div></div>");
-                                            const date_p = $("<p></p>").text(`Joined on: ${date}`);
-                                            date_box.append(date_p);
-                                            friend_case.append(date_box);
+                                            const manipulate_box = $(
+                                                "<div id='manipulate_box'></div>"
+                                            );
+                                            // const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                                            // manipulate_box.append(date_p);
+                                            const visit_friend_btn = $(
+                                                "<button>  VISIT  </button>"
+                                            ).attr({
+                                                class: "btn-primary_light btn_medium",
+                                            });
+                                            const rm_suggest_btn = $(
+                                                "<button>  REMOVE  </button>"
+                                            ).attr({
+                                                class: "btn-primary_light btn_medium",
+                                            });
+                                            friend_right_hemi.append(name_box);
+                                            friend_right_hemi.append(manipulate_box);
+                                            manipulate_box.append(visit_friend_btn);
+                                            manipulate_box.append(rm_suggest_btn);
                                             friend_box.append(friend_case);
                                         }
                                         $(".friend_box").hide();
@@ -1047,10 +1333,14 @@
                             // if failed: do something
                             //if successful: rerender page
                             $("#return_result").remove();
-                            const return_result = $("<div>回到搜尋結果</div>").attr({
-                                id: "return_result",
-                            });
-                            $("#hide_search").after(return_result);
+                            console.log("res skin len:");
+                            if ($("#restaurant_skin").length === 0) {} else {
+                                const return_result = $("<div>Return To Search</div>").attr({
+                                    id: "return_result",
+                                    class: "nav-item nav-link",
+                                });
+                                $("#hide_search").after(return_result);
+                            }
                         }
                         // verify successful
                     )
@@ -1072,55 +1362,6 @@
                 $(".friend_box").hide();
                 friend_toggle = 0;
             }
-
-            // const token = localStorage.getItem("jwt");
-            // if (!token) {
-            //     // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
-            //     $("#div_signout").hide();
-            //     $("#div_profile").hide();
-            // } else {
-            //     let email;
-            //     try {
-            //         email = personal_token.replace(".", "%2E");
-            //     } catch (err) {
-            //         console.log("error occurred when urlencoding email:", err);
-            //         return;
-            //     }
-            //     axios
-            //         .get(`${MAIN_HOST}/friends?email=${email}`, {
-            //             headers: {
-            //                 "Access-Control-Allow-Origin": "*",
-            //                 "Content-Type": "application/json",
-            //                 Authorization: `Bearer ${token}`,
-            //             },
-            //         })
-            //         .then((response) => {
-            //             try {
-            //                 const data = response.data;
-            //                 console.log("response data: ", data);
-            //                 for (d of data) {
-            //                     const friend = $("<div></div>").attr({
-            //                         class: "friend_box",
-            //                     });
-            //                     $("#friend_container").append(friend);
-            //                     const name = d.name ? d.name : "ANONYMOUS_USER";
-            //                     const name_box = $("<div></div>");
-            //                     const name_p = $("<p></p>").text(`name:${name}`);
-            //                     name_box.append(name_p);
-            //                     friend.append(name_box);
-
-            //                     const date = d.date ? d.date : Date.now();
-            //                     const date_box = $("<div></div>");
-            //                     const date_p = $("<p></p>").text(`Joined on: ${date}`);
-            //                     date_box.append(date_p);
-            //                     friend.append(date_box);
-            //                 }
-            //             } catch (err) {
-            //                 console.log("err in expanding friend data: ", err);
-            //             }
-            //         })
-            //         .catch((err) => {});
-            // }
         });
         let favorite_toggle = 0;
         $(document).on("click", "#show_favorite", () => {
@@ -1182,18 +1423,24 @@
         });
 
         // 細節頁的收藏按鈕
-        $(document).on("click", "#add_favorite", () => {
+        $(document).on("click", "#add_favorite", (event) => {
             const token = localStorage.getItem("jwt");
             if (!token) {
                 // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
                 // R: 已經加了，之後再確認別的地方
+                alert("You are not signed in. Please sign in first.");
                 $("#div_signout").hide();
                 $("#div_profile").hide();
                 $("#show_signin").show();
                 $("#show_signup").show();
             } else {
-                const rid = $("#add_favorite").siblings(".rid").text();
-                let rname = $("#add_favorite").siblings("#detail_name").text();
+                const target = $(event.currentTarget);
+                const rid = target.parent().siblings(".rid").text();
+                let rname = target
+                    .parent()
+                    .siblings("#detail_name")
+                    .children()
+                    .text();
                 rname = rname.replace("名稱：", "");
                 const restaurant_obj = {
                     rid,
@@ -1257,14 +1504,16 @@
             if (!token) {
                 // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
                 // R: 已經加了，之後再確認別的地方
+                alert("You are not signed in. Please sign in first.");
                 $("#div_signout").hide();
                 $("#div_profile").hide();
                 $("#show_signin").show();
                 $("#show_signup").show();
             } else {
-                const target = $(event.target);
+                const target = $(event.currentTarget);
                 // console.log("target: ", target);
                 // console.log("event.target", event.target);
+                console.log("target:", target);
                 const rid = target.children("p").text();
                 const rname = target.siblings(".item_real_name").text();
                 const restaurant_obj = {
@@ -1324,11 +1573,24 @@
         });
 
         $(document).on("click", "#return_result", (event) => {
-            $("#restaurant_container").show();
-            $("#pagination").show();
-            $("#profile_container").hide();
-            $("#friend_container").hide();
-            $("#favorite_container").hide();
+            // $("#restaurant_container").show();
+            // $("#pagination").show();
+            $("#restaurant_skin").show();
+            $("#detail_container").remove();
+            // $("#profile_container").hide();
+            // $("#friend_container").hide();
+            // $("#favorite_container").hide();
+            $("#profile_skin").hide();
+        });
+
+        $(document).on("click", "#google_review_div_toggle_div", (event) => {
+            if (!display_google_reviews) {
+                $("#google_reviews_container").show();
+                display_google_reviews = true;
+            } else {
+                $("#google_reviews_container").hide();
+                display_google_reviews = false;
+            }
         });
 
         let place = $("#id_label_1"),
@@ -1433,13 +1695,14 @@
                     const data = response.data;
                     //$("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
                     console.log(data);
-                    $("#restaurant_container").remove();
-                    $("#detail_display").remove();
+                    $("#restaurant_skin").remove();
+                    $("#detail_box").remove();
 
                     // QQQ.我覺得這要再考慮一下。可能設個計時器，超過時間才remove，不然hide就好。
-                    $("#profile_container").remove();
-                    $("#friend_container").remove();
-                    $("#favorite_container").remove();
+                    // $("#profile_container").remove();
+                    // $("#friend_container").remove();
+                    // $("#favorite_container").remove();
+                    $("#profile_skin").remove();
 
                     hits_arr = [];
                     page_len = data.hits.hits.length;
@@ -1454,13 +1717,19 @@
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
                     cnt = 0;
+                    let div_restaurant_skin = $("<div></div>").attr({
+                        id: "restaurant_skin",
+                    });
                     let div_container = $("<div></div>").attr({
                         id: "restaurant_container",
                     });
+
+                    div_restaurant_skin.append(div_container);
+
                     let div_membrane = $("<div></div>").attr({
                         id: "restaurant_membrane",
                     });
-                    $("#root").append(div_container);
+                    $("#root").append(div_restaurant_skin);
                     $("#restaurant_container").append(div_membrane);
 
                     let is_favorite = 0;
@@ -1471,31 +1740,85 @@
                             id: `h${cnt}`,
                             class: "restaurant_box",
                         });
-                        //$("#restaurant_container").append(div_box);
+                        const restaurant_box_left_hemi = $("<div></div>").attr({
+                            class: "restaurant_box_left_hemi",
+                        });
+                        const restaurant_box_right_hemi = $("<div></div>").attr({
+                            class: "restaurant_box_right_hemi",
+                        });
+                        const restaurant_box_dura = $("<div></div>").attr({
+                            class: "restaurant_box_dura",
+                        });
+
+                        const restaurant_box_neck = $("<div></div>").attr({
+                            class: "restaurant_box_neck",
+                        });
+                        restaurant_box_dura.append(restaurant_box_right_hemi);
+                        restaurant_box_dura.append(restaurant_box_neck);
+                        div_box.append(restaurant_box_left_hemi);
+                        div_box.append(restaurant_box_dura);
                         div_membrane.append(div_box);
+                        const r_img = $("<img>").attr({
+                            src: default_restaurant_list_img_path,
+                            alt: "restaurant_list_pic",
+                            width: "360px",
+                        });
+                        restaurant_box_left_hemi.append(r_img);
+
                         is_favorite = favorite_set.has(ho.id);
                         //"<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
-                        const starred = $("<div>收藏</div>").attr({
+                        const starred = $("<div></div>").attr({
                             class: is_favorite ? "favorite_store_t" : "favorite_store_f",
                         });
+
+                        const starred_icon = $("<img>").attr({
+                            class: is_favorite ? "favorite_store_t" : "favorite_store_f",
+                            src: "./icon/favorite_black_24dp.svg",
+                            alt: "collect",
+                            id: `#item_img_${cnt}`,
+                        });
+                        starred.append(starred_icon);
                         starred.addClass("favorite_ff");
+                        //starred_icon.addClass("favorite_ff");
+
                         const id_content = $(`<p>${ho.id}</p>`).css("display", "none");
                         starred.append(id_content);
-                        div_box.append(starred);
-                        div_box.append(
-                            `<p class="item_name" id="item_title_${cnt}">名稱：${cnt + 1}.${
-                  h.name
-                }</p>`
-                        );
-                        div_box.append(
+                        restaurant_box_right_hemi.append(starred);
+                        //
+                        const r_name = $("<div>").attr({
+                            class: "item_name",
+                        });
+
+                        const r_name_p = $(`<p>${cnt + 1}.${h.name}</p>`).attr({
+                            id: `item_title_${cnt}`,
+                            class: "item_name",
+                        });
+                        r_name.append(r_name_p);
+                        restaurant_box_right_hemi.append(r_name);
+                        //
+                        restaurant_box_right_hemi.append(
                             `<p class="item_real_name" style="display:none">${h.name}</p>`
                         );
+                        //
+                        const r_address = $("<div>").attr({
+                            class: "item_address",
+                        });
+                        const r_address_p = $(`<p>${h.formatted_address}</p>`).attr({
+                            class: "item_address",
+                        });
+                        r_address.append(r_address_p);
+                        restaurant_box_right_hemi.append(r_address);
+                        //
+                        const r_rating = $("<div>").attr({
+                            class: "item_rating",
+                        });
+                        const r_rating_p = $(`<p>Rating: ${h.rating}</p>`).attr({
+                            class: "item_rating",
+                        });
+                        r_rating.append(r_rating_p);
+                        restaurant_box_right_hemi.append(r_rating);
 
-                        div_box.append(
-                            `<p class="item_address">地址：${h.formatted_address}</p>`
-                        );
-                        div_box.append(`<p class="item_rating">評分：${h.rating}</p>`);
-
+                        //
                         let plv = h.price_level;
                         if (!plv) {
                             plv = 0;
@@ -1506,7 +1829,17 @@
                                 plv += "$";
                             }
                         }
-                        div_box.append(`<p class="item_pricing">價位：${plv}</p>`);
+
+                        //
+                        const r_priclv = $("<div>").attr({
+                            class: "item_pricelv",
+                        });
+                        const r_priclv_p = $(`<p>Price lv.:${plv}</p>`).attr({
+                            class: "item_pricelv",
+                        });
+                        r_priclv.append(r_priclv_p);
+                        restaurant_box_right_hemi.append(r_priclv);
+                        //
 
                         let opening_hours;
                         try {
@@ -1519,9 +1852,17 @@
                             opening_hours = "無資料";
                         }
 
-                        div_box.append(
-                            `<p class="item_ophour">營業時間：${opening_hours}</p>`
-                        );
+                        //
+                        const r_ophours = $("<div>").attr({
+                            class: "item_ophours",
+                        });
+                        const r_ophours_p = $(`<p>Hours: ${opening_hours}</p>`).attr({
+                            class: "item_ophours",
+                        });
+                        r_ophours.append(r_ophours_p);
+                        restaurant_box_right_hemi.append(r_ophours);
+                        //
+
                         let today = new Date();
                         today = today.getDay();
                         let opendays = new Set();
@@ -1544,13 +1885,23 @@
                             opendays.add(-2147483648);
                         }
                         //console.log("opendays: ", opendays);
-                        div_box.append(
-                            `<p class="item_ophour">營業日：${Array.from(opendays).join(
-                  "-"
-                )}</p>`
-                        );
-                        div_box.append(`<p>今天星期${today}</p>`);
-
+                        const open_text = Array.from(opendays).join("-");
+                        //
+                        const r_opdays = $("<div>").attr({
+                            class: "item_opdays",
+                        });
+                        const r_opdays_p = $(`<p>Op. Days: ${open_text}</p>`).attr({
+                            class: "item_opdays",
+                        });
+                        r_opdays.append(r_opdays_p);
+                        restaurant_box_right_hemi.append(r_opdays);
+                        //
+                        const social_info = $("<div>");
+                        const social_info_text = "Some friends also like this restaurant";
+                        const social_info_p = $(`<p>${social_info_text}</p>`);
+                        social_info.append(social_info_p);
+                        restaurant_box_neck.append(social_info);
+                        //
                         cnt++;
                     }
                     (function($) {
@@ -1704,70 +2055,252 @@
                 .finally(() => {
                     console.log("finally");
                 });
-
-            // const print_data = `text_select_1: ,
-            //   ${text_select_1},
-            //   ${text_select_1.text()},
-            //   ${text_select_1[0]},
-            //   ${text_select_1.length},
-            //   ${text_select_1[0].innerHTML},
-            //   text_select_2: ,
-            //   ${text_select_2.text()},
-            //   text_select_3: ,
-            //   ${text_select_3.text()}`;
-            // console.log(
-            //     // "val_select_1: ",
-            //     // val_select_1,
-            //     // "\nval_select_1: ",
-            //     // val_select_1,
-            //     // "\nval_select_1: ",
-            //     // val_select_1,
-            //     print_data
-            // );
-            // console.log(text_select_1);
-            // console.log(text_select_1.text());
-            // console.log(text_select_1[0]);
-            // console.log(text_select_1.length);
-            // console.log(text_select_1[0].innerHTML);
-            // $("#root").append(`<div>${print_data}</div>`);
-            //get length of selected options
-            // $("#root").append(`<p>${text_select_1.length}</p>`);
-            // $("#root").append(`<p>${text_select_2.length}</p>`);
         });
         $("#modify_search").click((event) => {
             $("#filters").show();
+            $("#hide_search").show();
         });
         $("#hide_search").click((event) => {
             $("#filters").hide();
         });
         let test_cnt = 0;
+        // DDDCCC document ons here:
+        $(document).on("click", "#post_review_btn", (event) => {
+            console.log("let user post a review:");
+            const token = localStorage.getItem("jwt");
+            if (!token) {
+                // QQQ.這個地方可能需要一起把 #signin / #signup 加回去(不只這邊)
+                // R: 已經加了，之後再確認別的地方
+                alert("You are not signed in. Please sign in first.");
+                $("#div_signout").hide();
+                $("#div_profile").hide();
+                $("#show_signin").show();
+                $("#show_signup").show();
+            } else {
+                $("#new_comment_board").remove();
+                let fresh_review_block = $("<div>").attr({
+                    id: "new_comment_board",
+                    class: "native_review_block",
+                });
+                // title
+                let review_title = $("<div>").attr({
+                    class: "native_review_title",
+                });
+                let review_title_input = $("<input>").attr({
+                    type: "text",
+                    placeholder: "Title",
+                });
+                fresh_review_block.append(review_title);
+                review_title.append(review_title_input);
+                // content
+                let review_content = $("<div>").attr({
+                    class: "native_review_content",
+                });
+                let review_content_input = $("<input>").attr({
+                    type: "textarea",
+                    placeholder: "Content",
+                    rows: "40",
+                    cols: "5",
+                });
+
+                fresh_review_block.append(review_content);
+                review_content.append(review_content_input);
+
+                //
+                let review_rating = $(`<form action="" id="rating_form">
+  <input class="star star-5" id="star-5" type="radio" name="star"/>
+  <label class="star star-5" for="star-5"></label>
+  <input class="star star-4" id="star-4" type="radio" name="star"/>
+  <label class="star star-4" for="star-4"></label>
+  <input class="star star-3" id="star-3" type="radio" name="star"/>
+  <label class="star star-3" for="star-3"></label>
+  <input class="star star-2" id="star-2" type="radio" name="star"/>
+  <label class="star star-2" for="star-2"></label>
+  <input class="star star-1" id="star-1" type="radio" name="star"/>
+  <label class="star star-1" for="star-1"></label>
+</form>`);
+
+                //
+
+                fresh_review_block.append(review_rating);
+
+                // buttom buttons
+                let review_bottom = $("<div>").attr({
+                    class: "native_review_bottom",
+                });
+
+                let submit_post_review_btn = $("<button>POST</button>").attr({
+                    class: "btn btn-warning btn-sm btn-radius",
+                });
+                let cancel_post_review_btn = $("<button>CANCEL</button>").attr({
+                    class: "btn btn-warning btn-sm btn-radius",
+                });
+
+                fresh_review_block.append(review_bottom);
+                review_bottom.append(submit_post_review_btn);
+                review_bottom.append(cancel_post_review_btn);
+
+                submit_post_review_btn.click((event) => {
+                    alert("Yout post has been saved.");
+                    // verify token
+
+                    //
+                    axios
+                        .post(
+                            `${MAIN_HOST}/review`, {}, {
+                                headers: {
+                                    "Access-Control-Allow-Origin": "*",
+                                    "Content-Type": "application/json",
+                                    Authorization: `Bearer ${token}`,
+                                },
+                            }
+                        )
+                        .then((response) => {
+                            $("#empty_review_block").remove();
+                            let rating = 0;
+                            for (let i = 0; i < 6; i++) {
+                                if ($(`#star-${i}`).is(":checked")) {
+                                    rating = i;
+                                    break;
+                                }
+                            }
+
+                            const user_name = "Alex",
+                                title = review_title_input.val(),
+                                content = review_content_input.val(),
+                                time = Date.now();
+
+                            //$(".empty_review_div").parent().remove();
+                            $("#new_comment_board").remove();
+                            const post = attach_post_to_container(
+                                "native_reviews_container",
+                                user_name,
+                                title,
+                                content,
+                                time,
+                                rating
+                            );
+                            let review_legs_data = "Yang and Mai like this";
+                            let review_legs = $("<div>").attr({
+                                class: "fresh_review_legs",
+                            });
+                            let review_legs_detail_div = $("<div>").attr({
+                                class: "review_legs_detail",
+                            });
+                            let review_legs_detail_p = $("<p>");
+                            review_legs_detail_p.text(review_legs_data);
+                            review_legs.append(review_legs_detail_div);
+                            review_legs_detail_div.append(review_legs_detail_p);
+
+                            post.append(review_legs);
+                            fresh_review_block.remove();
+                        })
+                        .catch((err) => {
+                            // other error
+                        });
+                    //
+                });
+                cancel_post_review_btn.click((event) => {
+                    fresh_review_block.remove();
+                });
+                $("#native_reviews_container").append(fresh_review_block);
+
+                // end of bottom buttons
+            }
+        });
 
         // for (let i_ = 0; i < page_len; i++) {
         for (let hits_i = 0; hits_i < 100; hits_i++) {
             //console.log("current hooked i: ", hits_i);
             $(document).on("dblclick", `#item_title_${hits_i}`, () => {
+                $("#detail_container").remove();
+                //console.log("item is dnclicked:", hits_i);
                 let detail_data = hits_arr[hits_i].data;
                 const rid = hits_arr[hits_i].id;
                 //console.log("rid: ", rid);
                 //console.log("the data is: ", JSON.stringify(detail_data));
-                let detail_layout = $("<div></div>").attr({
-                    id: "detail_display",
+                let detail_container = $("<div></div>").attr({
+                    id: "detail_container",
                 });
-                $("#root").append(detail_layout);
+                let detail_head = $("<div></div>").attr({
+                    id: "detail_head",
+                });
+                let detail_left_hemi = $("<div></div>").attr({
+                    id: "detail_left_hemi",
+                });
+                let detail_right_hemi = $("<div></div>").attr({
+                    id: "detail_right_hemi",
+                });
+                // body is for comments
+                let detail_body = $("<div></div>").attr({
+                    id: "detail_body",
+                });
+                let detail_box = $("<div></div>").attr({
+                    id: "detail_box",
+                });
+
+                let detail_img = $("<img>").attr({
+                    src: default_restaurant_detail_img_path,
+                    alt: "restaurant_detail_pic",
+                    width: "100%",
+                });
+
+                detail_head.append(detail_left_hemi);
+                detail_head.append(detail_right_hemi);
+                detail_right_hemi.append(detail_box);
+
+                detail_container.append(detail_head);
+                detail_container.append(detail_body);
+                $("#root").append(detail_container);
+
+                //
+                detail_left_hemi.append(detail_img);
                 // add to favorite
-                detail_layout.append(`<div id="add_favorite">加入收藏</div>`);
-                detail_layout.append(`<div class="rid">${rid}</div>`);
-                detail_layout.append(
-                    `<p id="detail_name">名稱：${detail_data.name}</p>`
-                );
-                // ddeebbuugg!!!!
-                console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
-                detail_layout.append(
-                    `<p class="item_address">地址：${detail_data.formatted_address}</p>`
-                );
-                detail_layout.append(
-                    `<p class="item_rating">評分：${detail_data.rating}</p>`
-                );
+                const add_to_wish_div = $("<div></div>");
+                let add_to_wish_btn = $("<button>Add To Wish List</button>").attr({
+                    id: "add_favorite",
+                    class: "btn_medium",
+                });
+                detail_box.append(add_to_wish_div);
+                add_to_wish_div.append(add_to_wish_btn);
+
+                let is_favorite = favorite_set.has(rid);
+                console.log("is_favorite at detail page: ", is_favorite);
+                if (is_favorite) {
+                    $("#add_favorite").addClass("favorite_store_t");
+                    //add_to_wish_btn.addClass("favorite_store_t");
+                    console.log("fst");
+                } else {
+                    $("#add_favorite").addClass("favorite_store_f");
+
+                    //add_to_wish_btn.addClass("favorite_store_f");
+                    console.log("fsf");
+                }
+
+                detail_box.append(`<div class="rid">${rid}</div>`);
+
+                const name_div = $("<div></div>").attr({
+                    id: "detail_name",
+                });
+                const address_div = $("<div></div>");
+                const rating_div = $("<div></div>");
+                const pricelv_div = $("<div></div>");
+                const ophours_div = $("<div></div>");
+                const opdays_div = $("<div></div>");
+                const phone_div = $("<div></div>");
+                const website_div = $("<div></div>");
+
+                const name_p = $(`<p>${detail_data.name}</p>`);
+                name_div.append(name_p);
+                detail_box.append(name_div);
+
+                const address_p = $(`<p>${detail_data.formatted_address}</p>`);
+                address_div.append(address_p);
+                detail_box.append(address_div);
+                const rating_p = $(`<p>Rating：${detail_data.rating}</p>`);
+                rating_div.append(rating_p);
+                detail_box.append(rating_div);
+
                 let plv = detail_data.price_level;
                 if (!plv) {
                     plv = 0;
@@ -1778,7 +2311,10 @@
                         plv += "$";
                     }
                 }
-                detail_layout.append(`<p class="item_pricing">價位：${plv}</p>`);
+                const pricelv_p = $(`<p>Price Range：${plv}</p>`);
+                pricelv_div.append(pricelv_p);
+                detail_box.append(pricelv_div);
+
                 let opening_hours;
                 try {
                     opening_hours = detail_data.opening_hours.weekday_text;
@@ -1789,12 +2325,12 @@
                     );
                     opening_hours = "無資料";
                 }
+                const ophours_p = $(`<p>Hours: ${opening_hours}</p>`);
+                ophours_div.append(ophours_p);
+                detail_box.append(ophours_div);
 
-                detail_layout.append(
-                    `<p class="item_ophour">營業時間：${opening_hours}</p>`
-                );
-                let today = new Date();
-                today = today.getDay();
+                // let today = new Date();
+                // today = today.getDay();
                 let opendays = new Set();
                 try {
                     const period = detail_data.opening_hours.periods;
@@ -1814,33 +2350,95 @@
                     );
                     opendays.add(-2147483648);
                 }
+                opendays = `Opening days：${Array.from(opendays).join("-")}`;
                 //console.log("opendays: ", opendays);
-                detail_layout.append(
-                    `<p class="item_ophour">營業日：${Array.from(opendays).join(
-              "-"
-            )}</p>`
-                );
-                detail_layout.append(`<p>今天星期${today}</p>`);
-                detail_layout.append("<br>");
-                detail_layout.append("<br>");
+                const opdays_p = $(`<p>${opendays}</p>`);
+                opdays_div.append(opdays_p);
+                detail_box.append(opdays_div);
+
+                detail_box.append("<br>");
+                detail_box.append("<br>");
+
+                let phone_data;
                 if (detail_data.formatted_phone_number != undefined) {
-                    detail_layout.append(
-                        `<p>電話：${detail_data.formatted_phone_number}</p>`
-                    );
+                    phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
                 } else {
-                    detail_layout.append(`<p>電話：沒有資料</p>`);
+                    phone_data = `<p>Phone Number: No Data</p>`;
                 }
+                phone_div.append(phone_data);
+                detail_box.append(phone_div);
 
+                // ddeebbuugg!!!!
+                //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
+                let website_data;
                 if (detail_data.website != undefined) {
-                    detail_layout.append(`<p>網站：${detail_data.website}</p>`);
+                    website_data = `<p>Website: ${detail_data.website}</p>`;
                 } else {
-                    detail_layout.append(`<p>網站：沒有資料</p>`);
+                    website_data = `<p>Website: No Data</p>`;
                 }
+                website_div.append(website_data);
+                detail_box.append(website_div);
 
-                let reviews_div = $("<div></div>").attr({
-                    id: `reviews_container`,
+                let google_reviews_div = $("<div></div>").attr({
+                    id: "google_reviews_container",
                 });
-                detail_layout.append(reviews_div);
+                google_reviews_div.css("display", "none");
+
+                let native_reviews_container = $("<div></div>").attr({
+                    id: "native_reviews_container",
+                });
+                let google_review_div_toggle_div = $("<div>").attr({
+                    id: "google_review_div_toggle_div",
+                });
+                let native_review_div_toggle_div = $("<div>").attr({
+                    id: "native_review_div_toggle_div",
+                });
+                let google_review_toggle = $(
+                    "<button>Show Reviews From Google Maps</button>"
+                ).attr({
+                    id: "google_review_toggle",
+                    class: "btn btn-warning btn-sm btn-radius",
+                });
+                //
+
+                let post_review_btn = $("<button>Post Review</button>").attr({
+                    id: "post_review_btn",
+                    class: "btn btn-warning btn-sm btn-radius",
+                });
+
+                let native_review_toggle = $(
+                    "<button>Show Native Reviews</button>"
+                ).attr({
+                    id: "google_review_toggle",
+                    class: "btn btn-warning btn-sm btn-radius",
+                });
+
+                // get native reviews
+                if (1) {
+                    //empty native review
+                    const empty_review_block = $("<div>").attr({
+                        id: "empty_review_block",
+                        class: "native_review_block",
+                    });
+                    const empty_review_content_div = $("<div>").attr({
+                        class: "empty_review_div",
+                    });
+                    const empty_review_content_p = $("<p>No review yet.</p>");
+                    native_reviews_container.append(empty_review_block);
+                    empty_review_block.append(empty_review_content_div);
+                    empty_review_content_div.append(empty_review_content_p);
+                } else {}
+
+                //
+                detail_body.append(native_review_div_toggle_div);
+                native_review_div_toggle_div.append(post_review_btn);
+                native_review_div_toggle_div.append(native_review_toggle);
+                //
+                detail_body.append(native_reviews_container);
+
+                detail_body.append(google_review_div_toggle_div);
+                google_review_div_toggle_div.append(google_review_toggle);
+                detail_body.append(google_reviews_div);
                 let review_cnt = 0;
                 try {
                     for (r of detail_data.reviews) {
@@ -1848,7 +2446,7 @@
                             id: `reviews_no_${review_cnt}`,
                             class: "review_box",
                         });
-                        reviews_div.append(single_review);
+                        google_reviews_div.append(single_review);
                         //
                         single_review.append(`<p>姓名：${r.author_name}</p>`);
                         single_review.append(`<p>評分：${r.rating}</p>`);
@@ -1862,14 +2460,23 @@
                         id: `reviews_no_${review_cnt}`,
                         class: "review_box",
                     });
-                    reviews_div.append(single_review);
+                    google_reviews_div.append(single_review);
                     single_review.append(`<p>目前還沒有評論~</p>`);
                 }
 
                 //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
-
-                $("#restaurant_container").remove();
-                $("#pagination").remove();
+                $("#restaurant_skin").hide();
+                // $("#restaurant_container").remove();
+                // $("#pagination").remove();
+                $("#return_result").remove();
+                const return_result = $("<div>Return To Search</div>").attr({
+                    id: "return_result",
+                    class: "nav-item nav-link",
+                });
+                $("#hide_search").after(return_result);
+            });
+            $(document).on("click", `#item_img_${hits_i}`, () => {
+                $(`#item_title_${hits_i}`).trigger("dblclick");
             });
         }
 
@@ -1882,10 +2489,42 @@
         // let container = $("#filters");
         // container.pagination
         $("body").click((event) => {
-            console.log("oh~oh");
+            console.log(`${event.target}: oh~oh`);
 
+            if ($("#star-1").is(":checked")) console.log("star-1");
+            if ($("#star-2").is(":checked")) console.log("star-2");
+            if ($("#star-3").is(":checked")) console.log("star-3");
+            if ($("#star-4").is(":checked")) console.log("star-4");
+            if ($("#star-5").is(":checked")) console.log("star-5");
+
+            if (Date.now() - time_window > 1000) {
+                time_window = Date.now();
+                click_cnt = 0;
+            } else {
+                click_cnt++;
+                console.log("click cnt:", click_cnt);
+            }
+            if (click_cnt > 4) {
+                const easter_egg = $("<div>").attr({
+                    id: "easter_egg",
+                });
+                const eimg = $("<img>").attr({
+                    src: "./images/bonappetit.gif",
+                    width: "500px",
+                });
+                const ebtn = $("<button>OK I AM FULL</button>");
+                easter_egg.append(eimg);
+                easter_egg.append(ebtn);
+                $("#root").append(easter_egg);
+                ebtn.click((event) => {
+                    $("#easter_egg").remove();
+                });
+            }
+
+            // 這邏輯真的有夠反人類，我隔天回來看，一直以為我寫錯了
             if ($(event.target).attr("class") === "container-login100") {
                 $(".container-login100").hide();
+                console.log("!!!!!");
             }
         });
     </script>
