@@ -199,7 +199,7 @@ header.nav_header nav.outer_nav nav.inner_nav div.logo a.logolonk :visited {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 25%;
+  width: 29%;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -373,7 +373,6 @@ header.nav_header nav.outer_nav nav.inner_nav div.logo a.logolonk :visited {
   padding: 7px 11px;
   background-color: #f3f3f3;
   border-bottom: #999999 1px solid;
-  margin: 0 17px;
 }
 
 .native_review_content {
