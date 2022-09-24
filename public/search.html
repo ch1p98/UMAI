@@ -444,6 +444,11 @@
     <script src="./js/main_ice.js"></script>
 
     <script>
+        document.body.onkeypress = function() {
+            document.body.classList.toggle("liked");
+        };
+    </script>
+    <script>
         let cnt = 0;
         let hits_arr = [];
         let page_len = 0;
@@ -456,6 +461,24 @@
         let click_cnt = 0,
             time_window = Date.now();
         let display_google_reviews = false;
+        const opening_dict = {
+            星期一: 1,
+            星期二: 2,
+            星期三: 3,
+            星期四: 4,
+            星期五: 5,
+            星期六: 6,
+            星期日: 0,
+        };
+        const week_day_dict = {
+            星期一: "MON",
+            星期二: "TUE",
+            星期三: "WED",
+            星期四: "THR",
+            星期五: "FRI",
+            星期六: "SAT",
+            星期日: "SUN",
+        };
 
         // QQQ.目前是寫死的，不過之後要看看要不要改。畢竟feature可能會改。
         // 不過這次專案就這樣也可以
@@ -463,7 +486,7 @@
         const lorum_ipsum =
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ipsum felis, lacinia eget sollicitudin id, sollicitudin ac massa. Vestibulum ac diam eu turpis sagittis ultrices eu et sem. Aliquam a congue metus, nec pulvinar felis. Curabitur sed gravida augue, vel fermentum leo. Etiam auctor consequat fermentum. Ut quis aliquam dolor, eu euismod enim. Suspendisse varius, mi in condimentum volutpat, felis arcu auctor tellus, a commodo erat ante et velit. Curabitur a rutrum tortor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Cras elementum gravida laoreet. Etiam tempus sollicitudin nibh, pharetra volutpat magna. Proin fermentum, dolor ac congue molestie, ante velit maximus velit, eget aliquam magna mauris auctor purus. Fusce maximus quis tellus id lacinia.";
         const default_restaurant_list_img_path =
-            "./images/restaurant_list_default.jpg";
+            "./images/restaurant_list_default";
         const default_restaurant_detail_img_path =
             "./images/restaurant_detail_default.jpg";
 
@@ -1761,7 +1784,7 @@
                         div_box.append(restaurant_box_dura);
                         div_membrane.append(div_box);
                         const r_img = $("<img>").attr({
-                            src: default_restaurant_list_img_path,
+                            src: `${default_restaurant_list_img_path}${Date.now() % 5}.jpg`,
                             alt: "restaurant_list_pic",
                             width: "360px",
                         });
@@ -1769,31 +1792,25 @@
 
                         is_favorite = favorite_set.has(ho.id);
                         //"<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
-                        const starred = $("<div></div>").attr({
+                        const starred_cointainer = $("<div>").attr({
+                            class: "starred_container",
+                        });
+                        const starred = $("<div>").attr({
                             class: is_favorite ? "favorite_store_t" : "favorite_store_f",
                         });
-
-                        const starred_icon = $("<img>").attr({
-                            class: is_favorite ? "favorite_store_t" : "favorite_store_f",
-                            src: "./icon/favorite_black_24dp.svg",
-                            alt: "collect",
-                            id: `#item_img_${cnt}`,
-                        });
-                        starred.append(starred_icon);
                         starred.addClass("favorite_ff");
-                        //starred_icon.addClass("favorite_ff");
-
+                        starred_cointainer.append(starred);
                         const id_content = $(`<p>${ho.id}</p>`).css("display", "none");
                         starred.append(id_content);
-                        restaurant_box_right_hemi.append(starred);
+                        restaurant_box_right_hemi.append(starred_cointainer);
                         //
                         const r_name = $("<div>").attr({
-                            class: "item_name",
+                            class: "item_name_div",
                         });
                         //use ${cnt + 1}. to debug
                         const r_name_p = $(`<p>${h.name}</p>`).attr({
                             id: `item_title_${cnt}`,
-                            class: "item_name",
+                            class: "item_name_p",
                         });
                         r_name.append(r_name_p);
                         restaurant_box_right_hemi.append(r_name);
@@ -1803,19 +1820,9 @@
                         );
 
                         //
-                        const r_rating = $("<div>").attr({
-                            class: "item_rating",
-                        });
-                        const r_rating_p = $(`<p>Rating: ${h.rating}</p>`).attr({
-                            class: "item_rating",
-                        });
-                        r_rating.append(r_rating_p);
-                        restaurant_box_right_hemi.append(r_rating);
-
-                        //
                         let plv = h.price_level;
                         if (!plv) {
-                            plv = 0;
+                            plv = "$?";
                         } else {
                             const plv_cnt = plv;
                             plv = "";
@@ -1824,20 +1831,23 @@
                             }
                         }
 
-                        const r_priclv = $("<div>").attr({
-                            class: "item_pricelv",
+                        const r_rating_plv = $("<div>").attr({
+                            class: "item_rating_plv_div",
                         });
-                        const r_priclv_p = $(`<p>Price lv.:${plv}</p>`).attr({
-                            class: "item_pricelv",
+                        const r_rating_pricelv_p = $(
+                            `<p>Rating: ${h.rating} (100+) · ${plv}</p>`
+                        ).attr({
+                            class: "item_rating_plv_p",
                         });
-                        r_priclv.append(r_priclv_p);
-                        restaurant_box_right_hemi.append(r_priclv);
+                        r_rating_plv.append(r_rating_pricelv_p);
+                        restaurant_box_right_hemi.append(r_rating_plv);
+
                         //
                         const r_address = $("<div>").attr({
-                            class: "item_address",
+                            class: "item_address_div",
                         });
                         const r_address_p = $(`<p>${h.formatted_address}</p>`).attr({
-                            class: "item_address",
+                            class: "item_address_p",
                         });
                         r_address.append(r_address_p);
                         restaurant_box_right_hemi.append(r_address);
@@ -1845,7 +1855,11 @@
                         //
                         let opening_hours;
                         try {
-                            opening_hours = h.opening_hours.weekday_text;
+                            opening_hours = Array.from(h.opening_hours.weekday_text);
+                            // console.log(
+                            //     "initial opening_hours: ",
+                            //     opening_hours[0].toString()
+                            // );
                         } catch (err) {
                             console.log(
                                 "An error occurred, might haven't caught data weekday_text correctly:",
@@ -1853,54 +1867,197 @@
                             );
                             opening_hours = "無資料";
                         }
+                        // /*
+                        // opening_hours is like:
+                        //     星期一: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期二: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期三: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期四: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期五: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期六: 11:30 – 14:30, 17:30 – 23:30,
+                        //     星期日: 休息
+                        // */
+                        console.log("opening_hours::", opening_hours);
+                        let full_opening_hours_text = opening_hours;
 
-                        //
-                        const r_ophours = $("<div>").attr({
-                            class: "item_ophours",
-                        });
-                        const r_ophours_p = $(`<p>Hours: ${opening_hours}</p>`).attr({
-                            class: "item_ophours",
-                        });
-                        r_ophours.append(r_ophours_p);
-                        restaurant_box_right_hemi.append(r_ophours);
-                        //
+                        console.log("opening_hours::", opening_hours);
+                        console.log("full_opening_hours_text::", full_opening_hours_text);
 
-                        let today = new Date();
-                        today = today.getDay();
-                        let opendays = new Set();
-                        try {
-                            const period = h.opening_hours.periods;
-                            for (p of period) {
-                                for (k of Object.keys(p)) {
-                                    if (p[k]["day"]) {
-                                        //console.log("p[k]['day']: ", p[k]["day"]);
-                                        opendays.add(p[k]["day"]);
+                        if (opening_hours === "無資料") {
+                            //no data
+                            opening_hours = [];
+                        } else {
+                            // opening_hours = opening_hours.replace("星期", "BRK星期");
+                            // opening_hours = opening_hours.split("BRK");
+                            // /* opening_hours is like:
+                            // [
+                            //     "",
+                            //     "星期一: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期二: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期三: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期四: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期五: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期六: 11:30 – 14:30, 17:30 – 23:30,"
+                            //     "星期日: 休息"
+                            // ]
+                            // */
+                            // opening_hours = opening_hours.slice(1);
+
+                            opening_hours.forEach((v, i, opening_hours) => {
+                                opening_hours[i] = [
+                                    opening_dict[`${opening_hours[i].split(":")[0]}`],
+                                    opening_hours[i].includes("休息") ?
+                                    [] :
+                                    opening_hours[i].slice(5).split(","),
+                                ];
+                            });
+                            // /* opening_hours is like:
+                            // [
+                            // [1, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [2, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [3, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [4, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [5, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [6, ["11:30 – 14:30", "17:30 – 23:30"]
+                            // [0, []]
+                            // ]
+                            // */
+                            // or [] if there is no data
+                        }
+                        let cur_opening = -1; // default value meaning no data
+
+                        const cur_time = new Date(Date.now() - 10800000);
+                        const cur_week_day = cur_time.getDay(),
+                            cur_hour = cur_time.getHours(), //24H
+                            cur_minute = cur_time.getMinutes();
+                        //cur_week_day = 0~6  = Sun ~ Sat
+
+                        for (arr of opening_hours) {
+                            if (arr[0] === cur_week_day) {
+                                // console.log("cur_week_day:", cur_week_day);
+
+                                // arr[1] = [] when:
+                                // opening_hours[i].includes("休息") ?
+                                // [] :
+                                // opening_hours[i].slice(5).split(","),
+                                if (arr[1].length === 0) {
+                                    cur_opening = 0;
+                                    break;
+                                }
+                                for (let data_index of arr[1]) {
+                                    // data is like:
+                                    // "11:30 – 14:30"
+                                    let parsed_data = data_index;
+                                    // console.log("arr[1]: ", arr[1].toString());
+                                    // console.log("arr[1] length: ", arr[1].length);
+                                    // console.log("parsed_data length", parsed_data.length);
+                                    // console.log("parsed_data: ", parsed_data.toString());
+
+                                    parsed_data = parsed_data.replace(" ", "").replace(" ", "");
+                                    parsed_data = parsed_data.split("–");
+                                    // parsed_data is like:
+                                    // ["11:30","14:30"]
+                                    // console.log("parsed_data length", parsed_data.length);
+                                    // console.log("parsed_data: ", parsed_data.toString());
+                                    if (parsed_data.toString() === "24小時營業") {
+                                        cur_opening = 1;
+                                        break;
                                     }
+                                    let open_hr, open_minute, close_minute, close_hr;
+                                    try {
+                                        open_hr = Number(parsed_data[0].split(":")[0]);
+                                        open_minute = Number(parsed_data[0].split(":")[1]);
+
+                                        close_hr = Number(parsed_data[1].split(":")[0]);
+                                        close_minute = Number(parsed_data[1].split(":")[1]);
+                                    } catch (err) {
+                                        console.log("err in open hours: ", err);
+                                        console.log(
+                                            "OPED: ",
+                                            parsed_data.toString(),
+                                            open_hr,
+                                            open_minute,
+                                            close_minute,
+                                            close_hr
+                                        );
+                                    }
+
+                                    // console.log(
+                                    //     "OPED: ",
+                                    //     open_hr,
+                                    //     open_minute,
+                                    //     close_hr,
+                                    //     close_minute
+                                    // );
+                                    // console.log("CUR TIME: ", cur_hour, cur_minute);
+                                    // console.log("cur_opening: ", cur_opening);
+                                    if (cur_hour < open_hr) {
+                                        cur_opening = 0;
+                                        //console.log("cur_opening1: ", cur_opening);
+
+                                        continue;
+                                    } else if (cur_hour === open_hr) {
+                                        if (cur_minute < open_minute) {
+                                            cur_opening = 0;
+                                            //console.log("cur_opening2: ", cur_opening);
+                                            continue;
+                                        }
+                                    }
+                                    if (cur_hour > close_hr) {
+                                        cur_opening = 0;
+                                        //console.log("cur_opening3: ", cur_opening);
+                                        continue;
+                                    } else if (cur_hour === close_hr) {
+                                        if (cur_minute > close_minute) {
+                                            cur_opening = 0;
+                                            //console.log("cur_opening4: ", cur_opening);
+                                            continue;
+                                        }
+                                    }
+                                    cur_opening = 1;
                                 }
                             }
-                        } catch (err) {
-                            console.log(
-                                "An error occurred, might haven't caught data periods correctly:",
-                                err,
-                                "will set all days open for the time being"
-                            );
-                            opendays.add(-2147483648);
                         }
-                        //console.log("opendays: ", opendays);
-                        const open_text = Array.from(opendays).join("-");
-                        //
-                        const r_opdays = $("<div>").attr({
-                            class: "item_opdays",
+                        //cur_opening = -1 0 1 : no data closed opening
+                        //console.log("cur_opening: ", cur_opening);
+                        const r_ophours = $("<div>").attr({
+                            class: "item_ophours_div",
                         });
-                        const r_opdays_p = $(`<p>Op. Days: ${open_text}</p>`).attr({
-                            class: "item_opdays",
+
+                        const op_cond = $("<div>").attr({
+                            class: "op_cond",
                         });
-                        r_opdays.append(r_opdays_p);
-                        restaurant_box_right_hemi.append(r_opdays);
+                        const op_sig = $("<div>").attr({
+                            class: `status_${cur_opening + 2}`,
+                        });
+                        const op_text =
+                            cur_opening === -1 ?
+                            "NO DATA" :
+                            cur_opening === 0 ?
+                            "CLOSED" :
+                            "OPENING";
+                        const op_text_div = $("<div>").attr({
+                            class: "op_text_div",
+                        });
+                        const op_text_p = $("<p>").attr({
+                            class: "op_text_p",
+                        });
+                        op_text_p.text(op_text);
+
+                        op_cond.append(op_sig);
+                        op_cond.append(op_text_div);
+                        op_text_div.append(op_text_p);
+
+                        r_ophours.append(op_cond);
+                        restaurant_box_right_hemi.append(r_ophours);
                         //
-                        const social_info = $("<div>");
+                        const social_info = $("<div>").attr({
+                            class: "social_info_div",
+                        });
                         const social_info_text = "Some friends also like this restaurant";
-                        const social_info_p = $(`<p>${social_info_text}</p>`);
+                        const social_info_p = $(`<p>${social_info_text}</p>`).attr({
+                            class: "item_social_info_p",
+                        });
                         social_info.append(social_info_p);
                         restaurant_box_neck.append(social_info);
                         //
@@ -2214,7 +2371,7 @@
         // for (let i_ = 0; i < page_len; i++) {
         for (let hits_i = 0; hits_i < 28; hits_i++) {
             //console.log("current hooked i: ", hits_i);
-            $(document).on("dblclick", `#item_title_${hits_i}`, () => {
+            $(document).on("click", `#item_title_${hits_i}`, () => {
                 $("#detail_container").remove();
                 //console.log("item is dnclicked:", hits_i);
                 let detail_data = hits_arr[hits_i].data;
@@ -2226,6 +2383,9 @@
                 });
                 let detail_head = $("<div></div>").attr({
                     id: "detail_head",
+                });
+                let detail_meninges = $("<div>").attr({
+                    id: "detail_meninges",
                 });
                 let detail_left_hemi = $("<div></div>").attr({
                     id: "detail_left_hemi",
@@ -2246,9 +2406,9 @@
                     alt: "restaurant_detail_pic",
                     width: "100%",
                 });
-
-                detail_head.append(detail_left_hemi);
-                detail_head.append(detail_right_hemi);
+                detail_head.append(detail_meninges);
+                detail_meninges.append(detail_left_hemi);
+                detail_meninges.append(detail_right_hemi);
                 detail_right_hemi.append(detail_box);
 
                 detail_container.append(detail_head);
@@ -2258,8 +2418,12 @@
                 //
                 detail_left_hemi.append(detail_img);
                 // add to favorite
-                const add_to_wish_div = $("<div></div>");
-                let add_to_wish_btn = $("<button>Add To Wish List</button>").attr({
+                const add_to_wish_div = $("<div></div>").attr({
+                    id: "add_to_wish_div",
+                });
+                let add_to_wish_btn = $(
+                    "<button> Add To My Pocket List </button>"
+                ).attr({
                     id: "add_favorite",
                     class: "btn_medium",
                 });
@@ -2284,13 +2448,24 @@
                 const name_div = $("<div></div>").attr({
                     id: "detail_name",
                 });
-                const address_div = $("<div></div>");
-                const rating_div = $("<div></div>");
-                const pricelv_div = $("<div></div>");
-                const ophours_div = $("<div></div>");
-                const opdays_div = $("<div></div>");
-                const phone_div = $("<div></div>");
-                const website_div = $("<div></div>");
+                const address_div = $("<div></div>").attr({
+                    id: "detail_address",
+                });
+                const rating_div = $("<div></div>").attr({
+                    id: "detail_rating",
+                });
+                const pricelv_div = $("<div></div>").attr({
+                    id: "detail_pricelv",
+                });
+                const ophours_div = $("<div></div>").attr({
+                    id: "detail_ophours",
+                });
+                const phone_div = $("<div></div>").attr({
+                    id: "detail_phone",
+                });
+                const website_div = $("<div></div>").attr({
+                    id: "detail_website",
+                });
 
                 const name_p = $(`<p>${detail_data.name}</p>`);
                 name_div.append(name_p);
@@ -2331,33 +2506,6 @@
                 ophours_div.append(ophours_p);
                 detail_box.append(ophours_div);
 
-                // let today = new Date();
-                // today = today.getDay();
-                let opendays = new Set();
-                try {
-                    const period = detail_data.opening_hours.periods;
-                    for (p of period) {
-                        for (k of Object.keys(p)) {
-                            if (Object.prototype.hasOwnProperty.call(p[k], "day")) {
-                                //console.log("p[k]['day']: ", p[k]["day"]);
-                                opendays.add(p[k]["day"]);
-                            }
-                        }
-                    }
-                } catch (err) {
-                    console.log(
-                        "An error occurred, might haven't caught data periods correctly:",
-                        err,
-                        "will set all days open for the time being"
-                    );
-                    opendays.add(-2147483648);
-                }
-                opendays = `Opening days：${Array.from(opendays).join("-")}`;
-                //console.log("opendays: ", opendays);
-                const opdays_p = $(`<p>${opendays}</p>`);
-                opdays_div.append(opdays_p);
-                detail_box.append(opdays_div);
-
                 detail_box.append("<br>");
                 detail_box.append("<br>");
 
@@ -2374,7 +2522,8 @@
                 //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
                 let website_data;
                 if (detail_data.website != undefined) {
-                    website_data = `<p>Website: ${detail_data.website}</p>`;
+                    website_data = `<p class="weblink">Website: <a class="weblink_a" href="${detail_data.website}">Link</a>
+</p>`;
                 } else {
                     website_data = `<p>Website: No Data</p>`;
                 }
@@ -2478,7 +2627,7 @@
                 $("#hide_search").after(return_result);
             });
             $(document).on("click", `#item_img_${hits_i}`, () => {
-                $(`#item_title_${hits_i}`).trigger("dblclick");
+                $(`#item_title_${hits_i}`).trigger("click");
             });
         }
 

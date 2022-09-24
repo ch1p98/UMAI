@@ -1,0 +1,194 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+}
+
+svg.like {
+    position: relative;
+    z-index: 10;
+    top: calc(50vh - 160px);
+    left: calc(50vw - 160px);
+    border-radius: 100%;
+    transform: scale(0.3);
+    transform-origin: 50% 50%;
+    box-shadow: 0 0 250px rgba(0, 0, 0, 0.4);
+    background: #212121;
+    cursor: pointer;
+}
+
+svg.fly {
+    position: relative;
+    top: calc(50vh - 55px);
+    left: calc(50vw - 55px);
+    fill: #18FFFF;
+}
+
+svg.h {
+    position: relative;
+    z-index: 8;
+    top: calc(50vh - 20px);
+    left: calc(50vw - 20px);
+    fill: #fbff00;
+    &.h-5,
+    &.h-6,
+    &.h-7,
+    &.h-8 {
+        fill: #00ffb8;
+    }
+}
+
+div.dot {
+    width: 12px;
+    height: 12px;
+    background: white;
+    position: relative;
+    z-index: 9;
+    border-radius: 100%;
+    top: calc(50vh - 6px);
+    left: calc(50vw - 6px);
+    &:before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 100%;
+        top: -20px;
+        left: 2px;
+        position: relative;
+        background: white;
+    }
+    &:after {
+        content: "";
+        width: 11px;
+        height: 11px;
+        border-radius: 100%;
+        top: -160px;
+        left: 2px;
+        position: relative;
+        background: white;
+        display: none
+    }
+}
+
+// ANIMATIONS
+body {
+    &.liked {
+        svg.like {
+            animation: blink 1s forwards;
+        }
+        svg.fly {
+            &.fly-1 {
+                animation: fly-1 1s 0.1s;
+            }
+            &.fly-2 {
+                animation: fly-2 1s 0.1s;
+            }
+        }
+        svg.h {
+            transition: margin cubic-bezier(0.165, 0.84, 0.44, 1) 1.4s, transform 0.2s 1s, fill 0.2s 1s, opacity 0.2s 1.2s;
+            opacity: 0;
+            &.h-5,
+            &.h-6,
+            &.h-7,
+            &.h-8 {
+                transform: scale(1.5);
+                fill: white;
+            }
+            &.h-1 {
+                margin-top: -200px;
+            }
+            &.h-2 {
+                margin-left: 200px;
+            }
+            &.h-3 {
+                margin-top: 200px;
+            }
+            &.h-4 {
+                margin-left: -200px;
+            }
+            &.h-5 {
+                margin-top: -140px;
+                margin-left: 140px;
+            }
+            &.h-6 {
+                margin-top: 140px;
+                margin-left: 140px;
+            }
+            &.h-7 {
+                margin-top: -140px;
+                margin-left: -140px;
+            }
+            &.h-8 {
+                margin-top: 140px;
+                margin-left: -140px;
+            }
+        }
+        div.dot {
+            opacity: 0;
+            transform: translateY(-100px);
+            background: #00e5ff;
+            transition: transform 1s, opacity 0.5s 1s, background 0.1s 0.2s;
+            &:after {
+                display: block;
+            }
+            &.dot-2 {
+                transform: rotate(45deg) translateY(-100px);
+            }
+            &.dot-3 {
+                transform: rotate(90deg) translateY(-100px);
+            }
+            &.dot-4 {
+                transform: rotate(135deg) translateY(-100px);
+            }
+            &.dot-5 {
+                transform: rotate(180deg) translateY(-100px);
+            }
+            &.dot-6 {
+                transform: rotate(225deg) translateY(-100px);
+            }
+            &.dot-7 {
+                transform: rotate(270deg) translateY(-100px);
+            }
+            &.dot-8 {
+                transform: rotate(305deg) translateY(-100px);
+            }
+        }
+    }
+}
+
+@keyframes blink {
+    10% {
+        transform: scale(0.42);
+        background: #8815b7;
+    }
+    100% {
+        background: #e01f4f;
+    }
+}
+
+@keyframes fly-1 {
+    25% {
+        margin: -100px 0 0 100px;
+    }
+    75% {
+        margin: 100px 0 0 -100px;
+        z-index: 5
+    }
+    100% {
+        z-index: 11
+    }
+}
+
+@keyframes fly-2 {
+    25% {
+        margin: -100px 0 0 -100px;
+    }
+    75% {
+        margin: 100px 0 0 100px;
+        z-index: 5
+    }
+    100% {
+        z-index: 11
+    }
+}
