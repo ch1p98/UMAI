@@ -711,7 +711,7 @@ app.post("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
-      size: 50,
+      size: 28,
       //query: { match: { formatted_address: "仁愛路" } },
       query: {
         bool: {
