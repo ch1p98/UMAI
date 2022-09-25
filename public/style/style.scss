@@ -686,6 +686,11 @@ a.weblink_a:hover::before {
     background-color: #eeeeeebc;
 }
 
+#ophours_content_div {
+    display: flex;
+    justify-content: space-evenly;
+}
+
 #add_favorite {
     border: 1px solid #999999;
     padding: 0 0.79rem;

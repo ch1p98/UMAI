@@ -1855,6 +1855,7 @@
                         //
                         let opening_hours;
                         try {
+                            //weekday_text is an array
                             opening_hours = Array.from(h.opening_hours.weekday_text);
                             // console.log(
                             //     "initial opening_hours: ",
@@ -2494,6 +2495,7 @@
 
                 let opening_hours;
                 try {
+                    //weekday_text is an array
                     opening_hours = detail_data.opening_hours.weekday_text;
                 } catch (err) {
                     console.log(
@@ -2502,8 +2504,32 @@
                     );
                     opening_hours = "無資料";
                 }
-                const ophours_p = $(`<p>Hours: ${opening_hours}</p>`);
-                ophours_div.append(ophours_p);
+                const ophours_title_div = $("<div>").attr({
+                    id: "ophours_title_div",
+                });
+                const ophours_title_p = $("<p>Hours:</p>");
+                ophours_title_div.append(ophours_title_p);
+
+                const ophours_content_div = $("<div>").attr({
+                    id: "ophours_content_div",
+                });
+                const ophours_content_p = $(`<p>${opening_hours}</p>`).attr({
+                    id: "ophours_content_p",
+                });
+
+                for (it of opening_hours) {
+                    let ophours_content_p = $(`<p>${it}</p>`).attr({
+                        class: "ophours_content_p",
+                    });
+                    let ophours_content_sub_div = $("<div>").attr({
+                        class: "ophours_content_sub_div",
+                    });
+                    ophours_content_sub_div.append(ophours_content_p);
+                    ophours_content_div.append(ophours_content_sub_div);
+                }
+
+                ophours_div.append(ophours_title_div);
+                ophours_div.append(ophours_content_div);
                 detail_box.append(ophours_div);
 
                 detail_box.append("<br>");
@@ -2522,7 +2548,7 @@
                 //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
                 let website_data;
                 if (detail_data.website != undefined) {
-                    website_data = `<p class="weblink">Website: <a class="weblink_a" href="${detail_data.website}">Link</a>
+                    website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
 </p>`;
                 } else {
                     website_data = `<p>Website: No Data</p>`;
