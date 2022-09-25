@@ -2709,6 +2709,19 @@
                 });
 
                 // get native reviews
+                let native_review_arr;
+                axios
+                    .get(`${MAIN_HOST}/review?id=${email}`)
+                    .then((response) => {
+                        if (response.data) {
+                            native_review_arr = response.data;
+                        } else {
+                            native_review_arr = [];
+                        }
+                    })
+                    .catch((err) => {
+                        console.log(`An error occurred while getting review: ${err}`);
+                    });
                 if (1) {
                     //empty native review
                     const empty_review_block = $("<div>").attr({
