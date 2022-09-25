@@ -736,11 +736,17 @@ a.weblink_a:hover::before {
 #google_review_div_toggle_div {
     display: flex;
     justify-content: center;
+    border-radius: 7px;
+    padding: 0.67rem 6rem;
+    margin: 0.23rem 0;
+    background-color: #f3f3f3;
+    border-bottom: #999999 1px solid;
 }
 
 #native_review_div_toggle_div {
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
+    button {}
 }
 
 #google_review_div_toggle {

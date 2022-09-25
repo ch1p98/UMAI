@@ -917,15 +917,19 @@ a.weblink_a:hover::before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  border-radius: 7px;
+  padding: 0.67rem 6rem;
+  margin: 0.23rem 0;
+  background-color: #f3f3f3;
+  border-bottom: #999999 1px solid;
 }
 
 #native_review_div_toggle_div {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
 }
 
 #google_review_div_toggle {
