@@ -150,7 +150,7 @@ const RestaurantSchema = new mongoose.Schema({
     type: Array,
     default: undefined,
   },
-  fans: {
+  fan: {
     type: Array,
     default: undefined,
   },
@@ -166,7 +166,7 @@ const RestaurantSchema = new mongoose.Schema({
     type: String,
     default: "",
   },
-  hash_tag: {
+  hashtag: {
     type: Array,
     default: undefined,
   },
@@ -290,12 +290,8 @@ app.post("/favorite", async (req, res) => {
   let ddd = u_data.rid;
   console.log("data.rid: ", u_data.rid);
   const filter = { email };
-  const update_push = { $push: { favorite: { data: u_data } } };
-  // const update_pull = {
-  //   $pull: { favorite: { data: { rid: ddd } } },
-  // };
+  const update_favorite_push = { $push: { favorite: { data: u_data } } };
 
-  //const update = action ? update_push : update_pull;
   if (action != 1 && action != 0) {
     res.status(500).json({ err: "invalid action code" });
     return;
@@ -303,7 +299,7 @@ app.post("/favorite", async (req, res) => {
 
   // add
   if (action === 1) {
-    result = await User.findOneAndUpdate(filter, update_push, {
+    result = await User.findOneAndUpdate(filter, update_favorite_push, {
       new: true,
     }).exec();
     //console.log("result:", result);
@@ -614,6 +610,57 @@ app.get("/ad_hoc_find", async (req, res) => {
 app.post("/review", async (req, res) => {
   console.log("req.body: ", req.body);
   const { restaurant_esid, restaurant_name, title, content, rating } = req.body;
+  //
+  const user_name = "Alex Tai";
+  // verify user and get user name from mongoDB or JWT
+
+  const filter = { esid: restaurant_esid };
+  const result = Restaurant.findOne(filter).exec();
+  if (!result) {
+    let new_restaurant = new Restaurant({
+      esid: restaurant_esid,
+      name: restaurant_name,
+      review: [{ author: user_name, title, content, rating, time: Date.now() }],
+      num_review: 1,
+      total_rating: rating,
+    });
+    try {
+      const save_result = await new_restaurant.save();
+      console.log("successfully creating a restaurant:", save_result);
+    } catch (err) {
+      console.log("creating restaurant failed because of:", err);
+    }
+  } else {
+    if (result.name != restaurant_name) {
+      console.log("name of restaurant does not match!!");
+    }
+    const update_review_push = {
+      $push: {
+        review: { author: user_name, title, content, rating, time: Date.now() },
+      },
+      $inc: { num_review: 1, total_rating: rating },
+    };
+    const update_result = Restaurant.findOneAndUpdate(
+      filter,
+      update_review_push,
+      { new: true }
+    ).exec();
+    console.log("update_result:", update_result);
+  }
+  /* 
+  find restaurant with id in mongoDB
+  if not found:
+    create new restaurant data in mongoDB with esid, name
+    insert comment, update score and number of review
+  
+  elif found:
+    check if name matches id; fire a warning if not match
+    insert comment, update score and number of review
+
+  retrieve the result of inserting comment and res.json back
+  */
+
+  //
   const name = "Alex";
   const time = Date.now();
   console.log("restaurant_esid: ", restaurant_esid);
