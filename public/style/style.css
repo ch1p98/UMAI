@@ -482,6 +482,11 @@ a.weblink_a:hover::before {
   margin-top: 1rem;
 }
 
+.op_cond {
+  border: #999999 1px solid;
+  border-radius: 7px;
+}
+
 .review_box {
   border-radius: 7px;
   padding: 10px;
