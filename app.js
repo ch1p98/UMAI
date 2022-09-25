@@ -135,7 +135,46 @@ const UserSchema = new mongoose.Schema({
   },
 });
 
+const RestaurantSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    minLength: 2,
+    maxLength: 127,
+  },
+  esid: {
+    type: String,
+    required: true,
+  },
+  review: {
+    type: Array,
+    default: undefined,
+  },
+  fans: {
+    type: Array,
+    default: undefined,
+  },
+  num_review: {
+    type: Number,
+    default: 0,
+  },
+  total_rating: {
+    type: Number,
+    default: 0,
+  },
+  description: {
+    type: String,
+    default: "",
+  },
+  hash_tag: {
+    type: Array,
+    default: undefined,
+  },
+});
+
 const User = mongoose.model("user", UserSchema, "altUser");
+const Restaurant = mongoose.model("restaurant", RestaurantSchema, "restaurant");
+
 //const nsUser = mongoose.model("user", Any);
 
 app.get("/friends", async (req, res) => {
@@ -574,7 +613,13 @@ app.get("/ad_hoc_find", async (req, res) => {
 
 app.post("/review", async (req, res) => {
   console.log("req.body: ", req.body);
-  res.status(200).send("ok");
+  const name = "Alex";
+  const title = "Test Title";
+  const content = "Test Content";
+  const time = Date.now();
+  const rating = 4;
+  const response = { name, title, content, time, rating };
+  res.status(200).json(response);
 });
 
 app.post("/search_experiment", async (req, res) => {
