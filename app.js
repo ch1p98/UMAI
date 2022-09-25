@@ -615,7 +615,7 @@ app.post("/review", async (req, res) => {
   // verify user and get user name from mongoDB or JWT
 
   const filter = { esid: restaurant_esid };
-  const result = Restaurant.findOne(filter).exec();
+  const result = await Restaurant.findOne(filter).exec();
   if (!result) {
     let new_restaurant = new Restaurant({
       esid: restaurant_esid,
@@ -640,7 +640,7 @@ app.post("/review", async (req, res) => {
       },
       $inc: { num_review: 1, total_rating: rating },
     };
-    const update_result = Restaurant.findOneAndUpdate(
+    const update_result = await Restaurant.findOneAndUpdate(
       filter,
       update_review_push,
       { new: true }
