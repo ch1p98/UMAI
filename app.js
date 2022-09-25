@@ -416,7 +416,7 @@ app.post("/profile", async (req, res) => {
     //succeed
     //console.log("req.headers:", req.headers);
     //console.log("req.body:", req.body);
-    rule_out_token = req.headers.authorization.replace("Bearer ", "");
+    let rule_out_token = req.headers.authorization.replace("Bearer ", "");
     decoded = jwt.verify(rule_out_token, private_key);
   } catch (err) {
     //fail
@@ -609,18 +609,57 @@ app.get("/ad_hoc_find", async (req, res) => {
 
 app.post("/review", async (req, res) => {
   console.log("req.body: ", req.body);
-  const { restaurant_esid, restaurant_name, title, content, rating } = req.body;
-  //
-  const user_name = "Alex Tai";
-  // verify user and get user name from mongoDB or JWT
+  const {
+    restaurant_esid,
+    restaurant_name,
+    title,
+    content,
+    rating,
+    personal_token,
+  } = req.body;
 
+  // verify JWT
+  try {
+    let rule_out_token = req.headers.authorization.replace("Bearer ", "");
+    let decoded = jwt.verify(rule_out_token, private_key);
+  } catch (err) {
+    console.log("An error occurred in verifying token: ", err);
+    res.status(403).json({ state: "failed verifying token" });
+    return;
+  }
+  // QQQ. want to check if JWT decoded email matches email from req.body?
+
+  const user_result = await User.findOne(
+    { email: personal_token },
+    "_id name"
+  ).exec();
+
+  if (!user_result) {
+    console.log("User not found!");
+    res.status(404).json({ state: "User not found!" });
+    return;
+  }
+
+  const user_id = user_result._id;
+  const user_name = user_result.name;
   const filter = { esid: restaurant_esid };
   const result = await Restaurant.findOne(filter).exec();
+  const cur_time = Date.now();
   if (!result) {
+    // restaurant not in mongoDB; create one.
     let new_restaurant = new Restaurant({
       esid: restaurant_esid,
       name: restaurant_name,
-      review: [{ author: user_name, title, content, rating, time: Date.now() }],
+      review: [
+        {
+          author: user_name,
+          author_id: user_id,
+          title,
+          content,
+          rating,
+          time: cur_time,
+        },
+      ],
       num_review: 1,
       total_rating: rating,
     });
@@ -631,12 +670,20 @@ app.post("/review", async (req, res) => {
       console.log("creating restaurant failed because of:", err);
     }
   } else {
+    //restaurant already in mongoDB; update it.
     if (result.name != restaurant_name) {
-      console.log("name of restaurant does not match!!");
+      console.log("name of restaurant does not match!!....just a reminder~");
     }
     const update_review_push = {
       $push: {
-        review: { author: user_name, title, content, rating, time: Date.now() },
+        review: {
+          author: user_name,
+          author_id: user_id,
+          title,
+          content,
+          rating,
+          time: Date.now(),
+        },
       },
       $inc: { num_review: 1, total_rating: rating },
     };
@@ -645,7 +692,7 @@ app.post("/review", async (req, res) => {
       update_review_push,
       { new: true }
     ).exec();
-    console.log("update_result:", update_result);
+    console.log("updated_result:", update_result);
   }
   /* 
   find restaurant with id in mongoDB
@@ -661,8 +708,8 @@ app.post("/review", async (req, res) => {
   */
 
   //
-  const name = "Alex";
-  const time = Date.now();
+  const name = user_name;
+  const time = cur_time;
   console.log("restaurant_esid: ", restaurant_esid);
   console.log("restaurant_name: ", restaurant_name);
   const response = { name, title, content, time, rating };
