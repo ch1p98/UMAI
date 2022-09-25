@@ -613,11 +613,11 @@ app.get("/ad_hoc_find", async (req, res) => {
 
 app.post("/review", async (req, res) => {
   console.log("req.body: ", req.body);
+  const { restaurant_esid, restaurant_name, title, content, rating } = req.body;
   const name = "Alex";
-  const title = "Test Title";
-  const content = "Test Content";
   const time = Date.now();
-  const rating = 4;
+  console.log("restaurant_esid: ", restaurant_esid);
+  console.log("restaurant_name: ", restaurant_name);
   const response = { name, title, content, time, rating };
   res.status(200).json(response);
 });
