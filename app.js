@@ -610,6 +610,7 @@ app.get("/ad_hoc_find", async (req, res) => {
 app.get("/review", async (req, res) => {
   // GET /review?id=id`
   const rid = req.query.id;
+  res.json({ condition: "good", rid });
 });
 
 app.post("/review", async (req, res) => {

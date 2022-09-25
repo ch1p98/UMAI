@@ -1657,9 +1657,11 @@
             if (!display_google_reviews) {
                 $("#google_reviews_container").show();
                 display_google_reviews = true;
+                $("#google_review_toggle").text("Hide Reviews From Google Maps");
             } else {
                 $("#google_reviews_container").hide();
                 display_google_reviews = false;
+                $("#google_review_toggle").text("Show Reviews From Google Maps");
             }
         });
 
@@ -1746,13 +1748,13 @@
                 .post(
                     `${MAIN_HOST}/search_experiment`, {
                         place: place_arr, //formatted_address
-                        exotic: exotic_arr, //reviews.text
-                        estab: estab_arr, //reviews.text
-                        menu: menu_arr, //reviews.text
+                        exotic: exotic_arr, // reviews.text
+                        estab: estab_arr, // reviews.text
+                        menu: menu_arr, // reviews.text
                         pricelv: pricelv_arr,
                         rating: rating_arr,
-                        ophour: ophour_arr, ////reviews.text e.g.早餐，午餐，晚餐
-                        amenit: amenit_arr, //reviews.text
+                        ophour: ophour_arr, // reviews.text e.g.早餐，午餐，晚餐
+                        amenit: amenit_arr, // reviews.text
                         opennow: opennow_arr, //
                     }, {
                         headers: {
@@ -1832,6 +1834,7 @@
                             src: `${default_restaurant_list_img_path}${Date.now() % 5}.jpg`,
                             alt: "restaurant_list_pic",
                             width: "360px",
+                            id: `item_img_${cnt}`,
                         });
                         restaurant_box_left_hemi.append(r_img);
 
@@ -2482,7 +2485,7 @@
         // for (let i_ = 0; i < page_len; i++) {
         for (let hits_i = 0; hits_i < 28; hits_i++) {
             //console.log("current hooked i: ", hits_i);
-            $(document).on("click", `#item_title_${hits_i}`, () => {
+            $(document).on("click", `#item_title_${hits_i}`, async(event) => {
                 $("#detail_container").remove();
                 //console.log("item is dnclicked:", hits_i);
                 let detail_data = hits_arr[hits_i].data;
@@ -2711,17 +2714,37 @@
                 // get native reviews
                 let native_review_arr;
                 axios
-                    .get(`${MAIN_HOST}/review?id=${email}`)
+                    .get(`${MAIN_HOST}/review?id=${rid}`)
                     .then((response) => {
-                        if (response.data) {
-                            native_review_arr = response.data;
-                        } else {
-                            native_review_arr = [];
-                        }
+                        if (response.data) native_review_arr = response.data;
+                        else native_review_arr = [];
                     })
                     .catch((err) => {
                         console.log(`An error occurred while getting review: ${err}`);
                     });
+                /*
+                                  attach_post_to_container(
+                                                  "native_reviews_container",
+                                                  res_user_name,
+                                                  res_title,
+                                                  res_content,
+                                                  res_time,
+                                                  res_rating
+                                              );
+                                  */
+                const foo = () => {
+                    $("#empty_review_block").remove();
+                    attach_post_to_container(
+                        "native_reviews_container",
+                        "mai",
+                        "ひまわり",
+                        "かわいい。",
+                        Date.now(),
+                        5
+                    );
+                };
+                setInterval(foo(), 4000);
+
                 if (1) {
                     //empty native review
                     const empty_review_block = $("<div>").attr({
@@ -2744,6 +2767,7 @@
                 //
                 detail_body.append(native_reviews_container);
 
+                //display google review
                 detail_body.append(google_review_div_toggle_div);
                 google_review_div_toggle_div.append(google_review_toggle);
                 detail_body.append(google_reviews_div);
