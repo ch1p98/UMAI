@@ -1822,7 +1822,7 @@
                         //
                         let plv = h.price_level;
                         if (!plv) {
-                            plv = "$?";
+                            plv = "🤔";
                         } else {
                             const plv_cnt = plv;
                             plv = "";
@@ -1878,12 +1878,12 @@
                         //     星期六: 11:30 – 14:30, 17:30 – 23:30,
                         //     星期日: 休息
                         // */
-                        console.log("opening_hours::", opening_hours);
+                        //console.log("opening_hours::", opening_hours);
                         let full_opening_hours_text =
-                            opening_hours === "無資料" ? [] : opening_hours;
+                            opening_hours === "無資料" ? [] : Array.from(opening_hours);
 
-                        console.log("opening_hours::", opening_hours);
-                        console.log("full_opening_hours_text::", full_opening_hours_text);
+                        //console.log("opening_hours::", opening_hours);
+                        //console.log("full_opening_hours_text::", full_opening_hours_text);
 
                         if (opening_hours === "無資料") {
                             //no data
@@ -1928,7 +1928,7 @@
                         }
                         let cur_opening = -1; // default value meaning no data
 
-                        const cur_time = new Date(Date.now() - 10800000);
+                        const cur_time = new Date(Date.now());
                         const cur_week_day = cur_time.getDay(),
                             cur_hour = cur_time.getHours(), //24H
                             cur_minute = cur_time.getMinutes();
@@ -1984,35 +1984,32 @@
                                         );
                                     }
 
-                                    // console.log(
-                                    //     "OPED: ",
-                                    //     open_hr,
-                                    //     open_minute,
-                                    //     close_hr,
-                                    //     close_minute
-                                    // );
-                                    // console.log("CUR TIME: ", cur_hour, cur_minute);
-                                    // console.log("cur_opening: ", cur_opening);
+                                    console.log("cnt: ", cnt);
+                                    // if (cnt === 4)
+                                    //     console.log("CUR TIME: ", cur_hour, cur_minute);
+                                    // if (cnt === 4) console.log("cur_opening: ", cur_opening);
                                     if (cur_hour < open_hr) {
-                                        cur_opening = 0;
-                                        //console.log("cur_opening1: ", cur_opening);
+                                        cur_opening = cur_opening === 1 ? 1 : 0;
+                                        // if (cnt === 4) console.log("cur_opening1: ", cur_opening);
 
                                         continue;
                                     } else if (cur_hour === open_hr) {
                                         if (cur_minute < open_minute) {
-                                            cur_opening = 0;
-                                            //console.log("cur_opening2: ", cur_opening);
+                                            cur_opening = cur_opening === 1 ? 1 : 0;
+                                            // if (cnt === 4)
+                                            //     console.log("cur_opening2: ", cur_opening);
                                             continue;
                                         }
                                     }
                                     if (cur_hour > close_hr) {
-                                        cur_opening = 0;
-                                        //console.log("cur_opening3: ", cur_opening);
+                                        cur_opening = cur_opening === 1 ? 1 : 0;
+                                        // if (cnt === 4) console.log("cur_opening3: ", cur_opening);
                                         continue;
                                     } else if (cur_hour === close_hr) {
                                         if (cur_minute > close_minute) {
-                                            cur_opening = 0;
-                                            //console.log("cur_opening4: ", cur_opening);
+                                            cur_opening = cur_opening === 1 ? 1 : 0;
+                                            // if (cnt === 4)
+                                            //     console.log("cur_opening4: ", cur_opening);
                                             continue;
                                         }
                                     }
@@ -2020,8 +2017,8 @@
                                 }
                             }
                         }
-                        //cur_opening = -1 0 1 : no data closed opening
-                        //console.log("cur_opening: ", cur_opening);
+                        //cur_opening = -1 0 1 : no data / closed / opening
+                        if (cnt === 4) console.log("cur_opening: ", cur_opening);
                         const r_ophours = $("<div>").attr({
                             class: "item_ophours_div",
                         });
@@ -2043,33 +2040,8 @@
                         });
                         const op_text_p = $("<p>").attr({
                             class: "op_text_p",
+                            id: `op_text_p_${cnt}`,
                         });
-                        const op_text_div_full_container = $("<div>").attr({
-                            class: "op_text_div_full_container",
-                        });
-
-                        let op_text_div_piece_div, op_text_div_piece_p;
-                        if (full_opening_hours_text.length === 0) {
-                            op_text_div_piece_div = $("<div>").attr({
-                                class: "op_text_div_piece_div",
-                            });
-                            op_text_div_piece_p = $("p").attr({
-                                class: "op_text_div_piece_p",
-                            });
-                            op_text_div_piece_p.text("沒有營業時間資料");
-                        } else {
-                            for (piece of full_opening_hours_text) {
-                                op_text_div_piece_div = $("<div>").attr({
-                                    class: "op_text_div_piece_div",
-                                });
-                                op_text_div_piece_p = $("p").attr({
-                                    class: "op_text_div_piece_p",
-                                });
-                                op_text_div_piece_p.text(piece);
-                                op_text_div_piece_div.append(op_text_div_piece_p);
-                                op_text_div_full_container.append(op_text_div_piece_div);
-                            }
-                        }
 
                         op_text_p.text(op_text);
 
@@ -2079,6 +2051,35 @@
                         op_cond.append(op_text_div_full_container);
 
                         r_ophours.append(op_cond);
+                        const empty_div = $("<div>").attr({
+                            class: "full_op_box",
+                            id: `op_box_${cnt}`,
+                        });
+                        empty_div.hide();
+                        op_text_p.click((event) => {
+                            empty_div.toggle();
+                        });
+                        const div_in_empty_div = $("<div>").attr({
+                            class: "div_in_empty_div",
+                        });
+                        let ophours_piece_div, ophours_piece_p;
+                        if (full_opening_hours_text.length === 0) {
+                            ophours_piece_div = $("<div>");
+                            ophours_piece_p = $("<p>");
+                            ophours_piece_p.text("無營業時間資料");
+                            div_in_empty_div.append(ophours_piece_div);
+                            ophours_piece_div.append(ophours_piece_p);
+                        } else {
+                            for (piece of full_opening_hours_text) {
+                                ophours_piece_div = $("<div>");
+                                ophours_piece_p = $("<p>");
+                                ophours_piece_p.text(piece);
+                                div_in_empty_div.append(ophours_piece_div);
+                                ophours_piece_div.append(ophours_piece_p);
+                            }
+                        }
+                        empty_div.append(div_in_empty_div);
+                        r_ophours.append(empty_div);
                         restaurant_box_right_hemi.append(r_ophours);
                         //
                         const social_info = $("<div>").attr({
@@ -2510,7 +2511,7 @@
 
                 let plv = detail_data.price_level;
                 if (!plv) {
-                    plv = 0;
+                    plv = "🤔";
                 } else {
                     const plv_cnt = plv;
                     plv = "";
@@ -2546,7 +2547,16 @@
                     id: "ophours_content_p",
                 });
 
+                let oph_cnt = 0;
                 for (it of opening_hours) {
+                    if (oph_cnt === 0) {
+                        oph_cnt++;
+                    } else {
+                        const ophours_content_separator = $("<div>").attr({
+                            class: "ophours_content_separator",
+                        });
+                        ophours_content_div.append(ophours_content_separator);
+                    }
                     let ophours_content_p = $(`<p>${it}</p>`).attr({
                         class: "ophours_content_p",
                     });
