@@ -1499,11 +1499,13 @@
                                 favorite_set.delete(rid);
                                 $("#add_favorite").removeClass("favorite_store_t");
                                 $("#add_favorite").addClass("favorite_store_f");
+                                $("#add_favorite").text("Add To Pocket List");
                             } else {
                                 //顯示高光
                                 favorite_set.add(rid);
                                 $("#add_favorite").removeClass("favorite_store_f");
                                 $("#add_favorite").addClass("favorite_store_t");
+                                $("#add_favorite").text("Remove From Pocket List");
                             }
 
                             // console.log(
@@ -1539,8 +1541,10 @@
                 // console.log("target: ", target);
                 // console.log("event.target", event.target);
                 console.log("target:", target);
+                console.log("target.parent:", target.parent());
+                console.log("target.parent.siblings:", target.parent().siblings());
                 const rid = target.children("p").text();
-                const rname = target.siblings(".item_real_name").text();
+                const rname = target.parent().siblings(".item_real_name").text();
                 const restaurant_obj = {
                     rid,
                     rname,
@@ -2451,9 +2455,7 @@
                 const add_to_wish_div = $("<div></div>").attr({
                     id: "add_to_wish_div",
                 });
-                let add_to_wish_btn = $(
-                    "<button> Add To My Pocket List </button>"
-                ).attr({
+                let add_to_wish_btn = $("<button>Add To Pocket List</button>").attr({
                     id: "add_favorite",
                     class: "btn_medium",
                 });
@@ -2463,13 +2465,14 @@
                 let is_favorite = favorite_set.has(rid);
                 console.log("is_favorite at detail page: ", is_favorite);
                 if (is_favorite) {
-                    $("#add_favorite").addClass("favorite_store_t");
-                    //add_to_wish_btn.addClass("favorite_store_t");
+                    //$("#add_favorite").addClass("favorite_store_t");
+                    add_to_wish_btn.addClass("favorite_store_t");
+                    add_to_wish_btn.text("Remove From Pocket List");
                     console.log("fst");
                 } else {
-                    $("#add_favorite").addClass("favorite_store_f");
-
-                    //add_to_wish_btn.addClass("favorite_store_f");
+                    //$("#add_favorite").addClass("favorite_store_f");
+                    add_to_wish_btn.addClass("favorite_store_f");
+                    add_to_wish_btn.text("Add To Pocket List");
                     console.log("fsf");
                 }
 

@@ -270,7 +270,7 @@ app.post("/favorite", async (req, res) => {
     //console.log("result:", result);
     res
       .status(200)
-      .json({ state: "successful append favorite to user data", result });
+      .json({ state: "successful append favorite user data", result });
   } else {
     // action === 0; remove
     result = await User.findOne(filter, "favorite").exec();
