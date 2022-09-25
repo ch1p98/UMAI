@@ -572,6 +572,11 @@ app.get("/ad_hoc_find", async (req, res) => {
   }
 });
 
+app.post("/review", async (req, res) => {
+  console.log("req.body: ", req.body);
+  res.status(200).send("ok");
+});
+
 app.post("/search_experiment", async (req, res) => {
   //console.log(req.body);
   //console.log(Object.keys(req.body));
