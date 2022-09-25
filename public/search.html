@@ -1879,7 +1879,8 @@
                         //     星期日: 休息
                         // */
                         console.log("opening_hours::", opening_hours);
-                        let full_opening_hours_text = opening_hours;
+                        let full_opening_hours_text =
+                            opening_hours === "無資料" ? [] : opening_hours;
 
                         console.log("opening_hours::", opening_hours);
                         console.log("full_opening_hours_text::", full_opening_hours_text);
@@ -2043,11 +2044,39 @@
                         const op_text_p = $("<p>").attr({
                             class: "op_text_p",
                         });
+                        const op_text_div_full_container = $("<div>").attr({
+                            class: "op_text_div_full_container",
+                        });
+
+                        let op_text_div_piece_div, op_text_div_piece_p;
+                        if (full_opening_hours_text.length === 0) {
+                            op_text_div_piece_div = $("<div>").attr({
+                                class: "op_text_div_piece_div",
+                            });
+                            op_text_div_piece_p = $("p").attr({
+                                class: "op_text_div_piece_p",
+                            });
+                            op_text_div_piece_p.text("沒有營業時間資料");
+                        } else {
+                            for (piece of full_opening_hours_text) {
+                                op_text_div_piece_div = $("<div>").attr({
+                                    class: "op_text_div_piece_div",
+                                });
+                                op_text_div_piece_p = $("p").attr({
+                                    class: "op_text_div_piece_p",
+                                });
+                                op_text_div_piece_p.text(piece);
+                                op_text_div_piece_div.append(op_text_div_piece_p);
+                                op_text_div_full_container.append(op_text_div_piece_div);
+                            }
+                        }
+
                         op_text_p.text(op_text);
 
                         op_cond.append(op_sig);
                         op_cond.append(op_text_div);
                         op_text_div.append(op_text_p);
+                        op_cond.append(op_text_div_full_container);
 
                         r_ophours.append(op_cond);
                         restaurant_box_right_hemi.append(r_ophours);
