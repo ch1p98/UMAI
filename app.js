@@ -617,12 +617,12 @@ app.get("/review", async (req, res) => {
     const target_restaurant = await Restaurant.findOne(filter, "review").exec();
     if (!target_restaurant) {
       result = [];
-      res.json({ state: "good but negative", result });
+      res.json({ state: "good but negative", code: 0, result });
     } else {
       result = target_restaurant;
       console.log("result", result);
       console.log("result", JSON.stringify(result));
-      res.json({ state: "good positive", result });
+      res.json({ state: "good positive", code: 1, result });
     }
   } catch (err) {
     console.log("an error occurred: ", err);

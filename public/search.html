@@ -2730,10 +2730,12 @@
                 axios
                     .get(`${MAIN_HOST}/review?id=${rid}`)
                     .then((response) => {
-                        if (response.data) {
-                            native_review_arr = response.data.result;
+                        if (response.data.code) {
+                            //code === 1 if positive
+                            native_review_arr = response.data.result.review;
                             console.log("response.data:", response.data);
                         } else {
+                            //code === 0 if negative
                             native_review_arr = [];
                         }
 
