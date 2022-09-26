@@ -10089,7 +10089,7 @@ h6,
 .btn {
     font-weight: 500;
     padding: 10px 25px;
-    border-radius: 100px;
+    /* border-radius: 100px; */
 }
 
 .btn.btn-primary,

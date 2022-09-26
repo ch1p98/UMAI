@@ -14,6 +14,24 @@
   -moz-appearance: textfield;
 }
 
+@-webkit-keyframes burst_two {
+  from {
+  }
+  to {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+}
+
+@keyframes burst_two {
+  from {
+  }
+  to {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+}
+
 .cont {
   width: 93%;
   max-width: 350px;
@@ -285,6 +303,17 @@ a.weblink_a:hover::before {
 .ophours_content_sub_div {
   padding: 0 0.23rem;
   min-width: 5rem;
+  max-width: 6rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .ophours_content_separator {
@@ -439,10 +468,18 @@ a.weblink_a:hover::before {
   width: 32px;
   display: inline-block;
   height: 0.74rem;
-  border: 2px solid #777777;
+  border: 0.23rem solid #777777;
   border-radius: 0.37rem;
   padding-bottom: 0.24rem;
   cursor: pointer;
+  -webkit-animation-name: burst_two;
+          animation-name: burst_two;
+  -webkit-animation-duration: 0.97s;
+          animation-duration: 0.97s;
+  -webkit-animation-delay: 2s;
+          animation-delay: 2s;
+  -webkit-animation-iteration-count: 2;
+          animation-iteration-count: 2;
 }
 
 .favorite_ff:hover {
@@ -1043,6 +1080,8 @@ a.weblink_a:hover::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;

@@ -1678,6 +1678,7 @@
 
         // QQQ. 按照現在的邏輯，按下搜尋時要把profile(div_profile) 藏起來
         $("#selected_fire").click((event) => {
+            $("#detail_container").remove();
             $(".pagination").remove();
             let place_arr = [];
             let selected_place = place.find(":selected");
@@ -2066,7 +2067,6 @@
                                 }
                             }
                         }
-                        //cur_opening = -1 0 1 : no data / closed / opening
                         if (cnt === 4) console.log("cur_opening: ", cur_opening);
                         const r_ophours = $("<div>").attr({
                             class: "item_ophours_div",
@@ -2075,28 +2075,41 @@
                         const op_cond = $("<div>").attr({
                             class: "op_cond",
                         });
-                        const op_sig = $("<div>").attr({
-                            class: `status_${cur_opening + 2}`,
-                        });
+                        // const op_sig = $("<div>").attr({
+                        //     class: `status_${cur_opening + 2}`,
+                        // });
+                        //cur_opening = -1 0 1 : no data / closed / opening
+                        // btn btn-success
+                        // btn btn-danger
+                        // btn btn-secondary
                         const op_text =
                             cur_opening === -1 ?
                             "NO DATA" :
                             cur_opening === 0 ?
                             "CLOSED" :
                             "OPENING";
-                        const op_text_div = $("<div>").attr({
-                            class: "op_text_div",
-                        });
-                        const op_text_p = $("<p>").attr({
-                            class: "op_text_p",
-                            id: `op_text_p_${cnt}`,
+                        const button_class =
+                            cur_opening === -1 ?
+                            "btn btn-secondary btn-sm" :
+                            cur_opening === 0 ?
+                            "btn btn-danger btn-sm" :
+                            "btn btn-success btn-sm";
+                        // const op_text_div = $("<div>").attr({
+                        //     class: "op_text_div",
+                        // });
+                        // const op_text_p = $("<p>").attr({
+                        //     class: "op_text_p",
+                        //     id: `op_text_p_${cnt}`,
+                        // });
+                        const op_button = $(`<button>${op_text}</button>`).attr({
+                            class: `${button_class}`,
                         });
 
-                        op_text_p.text(op_text);
+                        //op_text_p.text(op_text);
 
-                        op_cond.append(op_sig);
-                        op_cond.append(op_text_div);
-                        op_text_div.append(op_text_p);
+                        //op_cond.append(op_sig);
+                        op_cond.append(op_button);
+                        //op_text_div.append(op_text_p);
 
                         r_ophours.append(op_cond);
                         const empty_div = $("<div>").attr({
@@ -2104,7 +2117,7 @@
                             id: `op_box_${cnt}`,
                         });
                         empty_div.hide();
-                        op_text_p.click((event) => {
+                        op_button.click((event) => {
                             empty_div.toggle();
                         });
                         const div_in_empty_div = $("<div>").attr({
@@ -2626,12 +2639,9 @@
                 const ophours_content_div = $("<div>").attr({
                     id: "ophours_content_div",
                 });
-                const ophours_content_p = $(`<p>${opening_hours}</p>`).attr({
-                    id: "ophours_content_p",
-                });
 
                 let oph_cnt = 0;
-                for (it of opening_hours) {
+                for (let it of opening_hours) {
                     if (oph_cnt === 0) {
                         oph_cnt++;
                     } else {
@@ -2640,13 +2650,24 @@
                         });
                         ophours_content_div.append(ophours_content_separator);
                     }
-                    let ophours_content_p = $(`<p>${it}</p>`).attr({
+                    let day = it.split(":", 1)[0];
+                    let slice_len = day.length;
+                    let time_by_day = it.replace(/ /, "");
+                    time_by_day = time_by_day.slice(slice_len + 1);
+                    console.log(
+                        `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
+                    );
+                    let ophours_content_p = $(`<p>${day}</p>`).attr({
                         class: "ophours_content_p",
+                    });
+                    let ophours_content_pp = $(`<p>${time_by_day}</p>`).attr({
+                        class: "ophours_content_pp",
                     });
                     let ophours_content_sub_div = $("<div>").attr({
                         class: "ophours_content_sub_div",
                     });
                     ophours_content_sub_div.append(ophours_content_p);
+                    ophours_content_sub_div.append(ophours_content_pp);
                     ophours_content_div.append(ophours_content_sub_div);
                 }
 
