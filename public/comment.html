@@ -5,185 +5,64 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="./commentcss/style.css" />
+    <link rel="stylesheet" type="text/css" href="./commentcss/back_style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+
     <title>Document</title>
+    <!--jQuery here-->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
-    <p>&#129171</p>
+    <div id="preroot">
+        <div id="mai_container">
+            <div id="mai_title_container">
+                <div class="words">
+                    <div class="prefix" id="pref1">
+                        <p>M</p>
+                    </div>
+                    <div class="suffix">
+                        <p>eal</p>
+                    </div>
+                </div>
+                <div class="interspace"><span></span></div>
+                <div class="words">
+                    <div class="prefix" id="pref2">
+                        <p>A</p>
+                    </div>
+                    <div class="suffix">
+                        <p>rrives</p>
+                    </div>
+                </div>
+                <div class="interspace"><span></span></div>
+
+                <div class="words">
+                    <div class="prefix" id="pref3">
+                        <p>I</p>
+                    </div>
+                    <div class="suffix">
+                        <p>nstantly</p>
+                    </div>
+                </div>
+            </div>
+            <div id="mai_subtitle_container">
+                <div id="mai_subtitle">
+                    <span>找到最適合你的餐廳</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <script>
-        document.body.onkeypress = function() {
-            document.body.classList.toggle("liked");
-        };
+        $(document).ready(() => {});
+        setTimeout(() => {
+            $("#preroot").remove();
+        }, 2225650);
     </script>
-    <svg height="320" width="320" class="like" onclick="document.body.classList.toggle('liked')">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-        fill="white"
-      />
-      <!-- 80 by 70 -->
-    </svg>
-
-    <!-- DECORATIONS (quite a lot of them) -->
-    <div class="dot dot-1"></div>
-    <div class="dot dot-2"></div>
-    <div class="dot dot-3"></div>
-    <div class="dot dot-4"></div>
-    <div class="dot dot-5"></div>
-    <div class="dot dot-6"></div>
-    <div class="dot dot-7"></div>
-    <div class="dot dot-8"></div>
-
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-1">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-2">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-3">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-4">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-5">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-6">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-7">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-8">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-
-    <svg height="110" width="110" viewBox="0 0 320 320" class="fly fly-1">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="110" width="110" viewBox="0 0 320 320" class="fly fly-2">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <br />
-    <br />
-    <br />
-    <br />
-    <svg height="320" width="320" class="like" onclick="document.body.classList.toggle('liked')">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-        fill="white"
-      />
-      <!-- 80 by 70 -->
-    </svg>
-
-    <!-- DECORATIONS (quite a lot of them) -->
-    <div class="dot dot-1"></div>
-    <div class="dot dot-2"></div>
-    <div class="dot dot-3"></div>
-    <div class="dot dot-4"></div>
-    <div class="dot dot-5"></div>
-    <div class="dot dot-6"></div>
-    <div class="dot dot-7"></div>
-    <div class="dot dot-8"></div>
-
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-1">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-2">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-3">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-4">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-5">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-6">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-7">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="40" width="40" viewBox="0 0 320 320" class="h h-8">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-
-    <svg height="110" width="110" viewBox="0 0 320 320" class="fly fly-1">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <svg height="110" width="110" viewBox="0 0 320 320" class="fly fly-2">
-      <path
-        class="path"
-        d="M 160 145 c 15 -90 170 -20 0 90 m 0 -90 c -15 -90 -170 -20 0 90"
-      />
-    </svg>
-    <br />
-    <br />
 </body>
 
 </html>

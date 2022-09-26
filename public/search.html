@@ -60,6 +60,44 @@
 </head>
 
 <body>
+    <div id="preroot">
+        <div id="mai_container">
+            <div id="mai_title_container">
+                <div class="words">
+                    <div class="prefix" id="pref1">
+                        <p>M</p>
+                    </div>
+                    <div class="suffix">
+                        <p>eal</p>
+                    </div>
+                </div>
+                <div class="interspace"><span></span></div>
+                <div class="words">
+                    <div class="prefix" id="pref2">
+                        <p>A</p>
+                    </div>
+                    <div class="suffix">
+                        <p>rrives</p>
+                    </div>
+                </div>
+                <div class="interspace"><span></span></div>
+
+                <div class="words">
+                    <div class="prefix" id="pref3">
+                        <p>I</p>
+                    </div>
+                    <div class="suffix">
+                        <p>nstantly</p>
+                    </div>
+                </div>
+            </div>
+            <div id="mai_subtitle_container">
+                <div id="mai_subtitle">
+                    <span>找出你夢想中的餐廳</span>
+                </div>
+            </div>
+        </div>
+    </div>
     <div id="header_container">
         <header class="container-fluid bg-primary py-3 d-none d-md-block">
             <nav class="container">
@@ -99,37 +137,45 @@
             <nav class="outer_nav container-lg position-relative p-0 px-lg-3">
                 <nav class="inner_nav navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div class="navbar-nav ml-auto py-0">
-                            <div id="modify_search" class="nav-item nav-link">
+                        <div id="left_bar" class="navbar-nav ml-auto py-0">
+                            <div id="modify_search" class="nav-item nav-link nav_title">
                                 Modify Search
                             </div>
-                            <div id="hide_search" class="nav-item nav-link">
+                            <div id="hide_search" class="nav-item nav-link nav_title">
                                 Hide Search
                             </div>
                             <div id="div_profile" class="nav-item nav-link">
                                 <div>
-                                    <button id="trigger_profile">Profile</button>
+                                    <button id="trigger_profile" class="nav_title">
+                      Profile
+                    </button>
                                 </div>
                             </div>
                         </div>
                         <a href="#" class="navbar-brand mx-5 d-none d-lg-block">
                             <h1 id="sora" class="m-0 display-4 text-primary">
-                                <span class="text-secondary"></span>S O R A
+                                <span class="text-secondary"></span>M A I
                             </h1>
                         </a>
-                        <div class="navbar-nav mr-auto py-0">
+                        <div id="right_bar" class="navbar-nav mr-auto py-0">
                             <div id="show_signin" class="nav-item nav-link">
                                 <div>
-                                    <button id="trigger_show_signin">Sign In</button>
+                                    <button id="trigger_show_signin" class="nav_title">
+                      Sign In
+                    </button>
                                 </div>
                             </div>
                             <div id="show_signup" class="nav-item nav-link">
                                 <div>
-                                    <button id="trigger_show_signup">Sign Up</button>
+                                    <button id="trigger_show_signup" class="nav_title">
+                      Sign Up
+                    </button>
                                 </div>
                             </div>
                             <div id="div_signout" class="nav-item nav-link">
-                                <button id="trigger_signout">Sign Out</button>
+                                <button id="trigger_signout" class="nav_title">
+                    Sign Out
+                  </button>
                             </div>
                         </div>
                     </div>
@@ -412,8 +458,8 @@
                 </div>
                 <div id="selected_fire_container">
                     <!-- <button id="selected_fire">SORA!!</button> -->
-                    <button type="button" id="selected_fire" class="btn btn-warning btn-lg">
-              S O R A
+                    <button type="button" id="selected_fire" class="btn btn-dark btn-lg btn-radius">
+              > M A I <
             </button>
                 </div>
             </div>
@@ -682,6 +728,9 @@
             });
         });
         console.log("initial setting start...");
+        setTimeout(() => {
+            $("#preroot").remove();
+        }, 5650);
 
         $("#hide_search").hide();
         $("#modify_search").hide();
@@ -1332,6 +1381,7 @@
                             // }
                             // email目前不能修改
                             residual_feature.delete("email");
+                            residual_feature.delete("level");
 
                             let extra_profile = $("<div></div>").attr({
                                 id: `extra_profile`,
@@ -1359,9 +1409,10 @@
                                 form.append(input);
                                 form.append("<br />");
                             }
-                            let update_profile_btn = $(
-                                "<button id='update_profile'>更新資料</button>"
-                            );
+                            let update_profile_btn = $("<button>更新資料</button>").attr({
+                                class: "btn btn-light btn-sm",
+                                id: "update_profile",
+                            });
                             form.append(update_profile_btn);
 
                             let update_body = {};
@@ -1404,7 +1455,7 @@
                             if ($("#restaurant_skin").length === 0) {} else {
                                 const return_result = $("<div>Return To Search</div>").attr({
                                     id: "return_result",
-                                    class: "nav-item nav-link",
+                                    class: "nav-item nav-link nav_title",
                                 });
                                 $("#hide_search").after(return_result);
                             }
@@ -2086,8 +2137,8 @@
                             cur_opening === -1 ?
                             "NO DATA" :
                             cur_opening === 0 ?
-                            "CLOSED" :
-                            "OPENING";
+                            "CLOSED ▾" :
+                            "OPENING ▾";
                         const button_class =
                             cur_opening === -1 ?
                             "btn btn-secondary btn-sm" :
@@ -2102,7 +2153,7 @@
                         //     id: `op_text_p_${cnt}`,
                         // });
                         const op_button = $(`<button>${op_text}</button>`).attr({
-                            class: `${button_class}`,
+                            class: `${button_class} op_hours_button`,
                         });
 
                         //op_text_p.text(op_text);
@@ -2858,7 +2909,7 @@
                 $("#return_result").remove();
                 const return_result = $("<div>Return To Search</div>").attr({
                     id: "return_result",
-                    class: "nav-item nav-link",
+                    class: "nav-item nav-link nav_title",
                 });
                 $("#hide_search").after(return_result);
             });

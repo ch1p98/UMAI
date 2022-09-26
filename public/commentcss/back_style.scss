@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    //position: relative;
+    font-family: 'Poppins', sans-serif;
+}
+
+// body {
+//     height: 100%;
+// }
+#preroot {
+    background-image: url("../background_img/bg-01.jpg");
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-repeat: repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation-name: display_none;
+    animation-delay: 2225s;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+#mai_container {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    top: 20vh
+}
+
+#mai_title_container {
+    width: 100%;
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    top: 20vh;
+    div {
+        display: flex;
+    }
+}
+
+#mai_subtitle_container {
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 33vh
+}
+
+#mai_subtitle {
+    span {
+        font-size: 2.47rem;
+        animation: fade_in;
+        animation-delay: 0.25s;
+        animation-duration: 1.25s;
+        animation-fill-mode: forwards;
+        //animation-timing-function: ease-in-out;
+    }
+}
+
+.interspace {
+    margin: 0 0.6rem;
+}
+
+.suffix {
+    p {
+        //duration delay
+        animation: fade_in_out;
+        animation-delay: 0.25s;
+        animation-duration: 4s;
+        animation-fill-mode: forwards;
+        //animation-timing-function: ease-in-out;
+    }
+    font-size: 4rem;
+}
+
+.prefix {
+    font-size: 4rem;
+}
+
+#pref1 {
+    animation: move1 1.25s 3.25s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+#pref2 {
+    animation: move2 1.25s 3.25s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+#pref3 {
+    animation: move3;
+    animation-duration: 1.25s;
+    animation-delay: 3.25s;
+    animation-fill-mode: forwards;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes fade_in_out {
+    0% {
+        opacity: 0;
+    }
+    6% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes move1 {
+    0% {}
+    100% {
+        transform: translateX(11vw);
+    }
+}
+
+@keyframes move2 {
+    0% {}
+    100% {
+        transform: translateX(7.2vw);
+    }
+}
+
+@keyframes move3 {
+    0% {}
+    100% {
+        transform: translateX(0.1vw);
+    }
+}
+
+@keyframes display_none {
+    0% {
+        opacity: 1;
+    }
+    25% {
+        opacity: 0.8;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    75% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 0;
+    }
+}

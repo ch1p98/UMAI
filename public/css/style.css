@@ -10132,7 +10132,7 @@ h6,
 .navbar-light .navbar-nav .nav-link {
     padding: 30px 15px;
     color: #333333;
-    font-size: 19px;
+    /* font-size: 19px; */
     /* font-weight: 500; */
     outline: none;
 }
