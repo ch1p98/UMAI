@@ -551,6 +551,7 @@
             "gender",
         ]);
 
+        // you should pass in time in the form of Date object.
         const attach_post_to_container = (
             container_id,
             name,
@@ -2712,52 +2713,83 @@
                 });
 
                 // get native reviews
+
+                const empty_review_block = $("<div>").attr({
+                    id: "empty_review_block",
+                    class: "native_review_block",
+                });
+                const empty_review_content_div = $("<div>").attr({
+                    class: "empty_review_div",
+                });
+                const empty_review_content_p = $("<p>No review yet.</p>");
+                native_reviews_container.append(empty_review_block);
+                empty_review_block.append(empty_review_content_div);
+                empty_review_content_div.append(empty_review_content_p);
+
                 let native_review_arr;
                 axios
                     .get(`${MAIN_HOST}/review?id=${rid}`)
                     .then((response) => {
-                        if (response.data) native_review_arr = response.data;
-                        else native_review_arr = [];
+                        if (response.data) {
+                            native_review_arr = response.data.result;
+                            console.log("response.data:", response.data);
+                        } else {
+                            native_review_arr = [];
+                        }
+
+                        const len_review = native_review_arr.length;
+                        if (len_review === 0) {
+                            console.log("length 0");
+                        } else {
+                            $("#empty_review_block").remove();
+                            console.log("length > 0");
+                            for (let review of native_review_arr) {
+                                attach_post_to_container(
+                                    "native_reviews_container",
+                                    review.author,
+                                    review.title,
+                                    review.content,
+                                    review.time,
+                                    review.rating
+                                );
+                            }
+                        }
                     })
                     .catch((err) => {
                         console.log(`An error occurred while getting review: ${err}`);
                     });
-                /*
-                                  attach_post_to_container(
-                                                  "native_reviews_container",
-                                                  res_user_name,
-                                                  res_title,
-                                                  res_content,
-                                                  res_time,
-                                                  res_rating
-                                              );
-                                  */
-                const foo = () => {
-                    $("#empty_review_block").remove();
-                    attach_post_to_container(
-                        "native_reviews_container",
-                        "mai",
-                        "ひまわり",
-                        "かわいい。",
-                        Date.now(),
-                        5
-                    );
-                };
-                setInterval(foo(), 4000);
+
+                // attach_post_to_container(
+                //                 "native_reviews_container",
+                //                 res_user_name,
+                //                 res_title,
+                //                 res_content,
+                //                 res_time,
+                //                 res_rating
+                //             );
+
+                // const goo = () => {
+                //     console.log("googoo");
+                //     try {
+                //         $("#empty_review_block").remove();
+                //         attach_post_to_container(
+                //             "native_reviews_container",
+                //             "mai",
+                //             "ひまわり",
+                //             "かわいい。",
+                //             Date.now(),
+                //             5
+                //         );
+                //     } catch (err) {
+                //         console.log("something wrong happened.");
+                //     }
+                // };
+                // setInterval(() => {
+                //     goo();
+                // }, 1000);
 
                 if (1) {
                     //empty native review
-                    const empty_review_block = $("<div>").attr({
-                        id: "empty_review_block",
-                        class: "native_review_block",
-                    });
-                    const empty_review_content_div = $("<div>").attr({
-                        class: "empty_review_div",
-                    });
-                    const empty_review_content_p = $("<p>No review yet.</p>");
-                    native_reviews_container.append(empty_review_block);
-                    empty_review_block.append(empty_review_content_div);
-                    empty_review_content_div.append(empty_review_content_p);
                 } else {}
 
                 //
