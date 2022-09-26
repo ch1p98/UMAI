@@ -610,32 +610,52 @@ app.get("/ad_hoc_find", async (req, res) => {
 app.get("/review", async (req, res) => {
   // GET /review?id=id`
   const rid = req.query.id;
-  const result = [];
-  result.push({
-    author: "Alex",
-    title: "夫天地者",
-    content: `夫天地者，萬物之逆旅詞解；光陰者，百代之過客；而浮生若夢，為歡幾何？古人秉詞解燭夜游，良有以也詞解。況陽春召我以煙景詞解，大塊詞解假詞解我以文章。會桃李之芳園，序詞解天倫之樂事。群季詞解俊秀詞解，皆為惠連詞解；吾人詞解詠歌，獨慚康樂詞解。幽賞未已，高談轉清。開瓊筵詞解以坐花，飛羽觴詞解而醉月詞解。不有佳作，何伸詞解雅懷﹗如詩不成，罰依金谷酒數詞解。
-`,
-    time: Date.now(),
-    rating: 4,
-  });
-  result.push({
-    author: "Mai",
-    title: "國子先生清晨",
-    content: `國子先生詞解，晨入太學，招諸生立館下，誨之曰：「業詞解精於勤，荒於嬉；行成於思，毀於隨。方今聖賢相逢，治具詞解畢張詞解，拔去詞解兇邪，登崇俊良詞解。占小善者率以錄詞解，名一藝者無不庸詞解。爬羅剔抉詞解，刮垢磨光詞解。蓋有幸而獲選，孰云多而不揚詞解？諸生業患不能精，無患有司詞解之不明；行患不能成，無患有司之不公。」
-`,
-    time: Date.now(),
-    rating: 5,
-  });
-  result.push({
-    author: "Howard",
-    title: "並不在於高",
-    content: `山並不在於高，只要有神仙居住便會出名。水並不在於深，只要有蛟龍潛藏便顯出神靈。這是一間簡陋的房屋，我的美德使它遠近聞名。蒼綠的青苔爬上石階，青翠的草色映入門簾。在屋裡談笑的都是學問淵博的人，來來住住的沒有不學無術之士。這裡可以彈奏樸素無華的琴，可以閱讀佛經。沒有音樂擾亂聽覺，沒有公文案卷使身體勞累。這裡好像南陽諸葛亮的草蘆，如同西蜀揚雄的茅亭。正如孔子所說︰「何陋之有？」
-`,
-    time: Date.now(),
-    rating: 3,
-  });
-  res.json({ state: "good", result });
+  const filter = { esid: rid };
+
+  let result;
+  try {
+    const target_restaurant = await Restaurant.findOne(filter, "review").exec();
+    if (!target_restaurant) {
+      result = [];
+      res.json({ state: "good but negative", result });
+    } else {
+      result = target_restaurant;
+      console.log("result", result);
+      console.log("result", JSON.stringify(result));
+      res.json({ state: "good positive", result });
+    }
+  } catch (err) {
+    console.log("an error occurred: ", err);
+    res.status(404).json({ state: "failed", err });
+    return;
+  }
+
+  //   {
+  //    result.push({
+  //     author: "Alex",
+  //     title: "夫天地者",
+  //     content: `夫天地者，萬物之逆旅詞解；光陰者，百代之過客；而浮生若夢，為歡幾何？古人秉詞解燭夜游，良有以也詞解。況陽春召我以煙景詞解，大塊詞解假詞解我以文章。會桃李之芳園，序詞解天倫之樂事。群季詞解俊秀詞解，皆為惠連詞解；吾人詞解詠歌，獨慚康樂詞解。幽賞未已，高談轉清。開瓊筵詞解以坐花，飛羽觴詞解而醉月詞解。不有佳作，何伸詞解雅懷﹗如詩不成，罰依金谷酒數詞解。
+  // `,
+  //     time: Date.now(),
+  //     rating: 4,
+  //   });
+  //   result.push({
+  //     author: "Mai",
+  //     title: "國子先生清晨",
+  //     content: `國子先生詞解，晨入太學，招諸生立館下，誨之曰：「業詞解精於勤，荒於嬉；行成於思，毀於隨。方今聖賢相逢，治具詞解畢張詞解，拔去詞解兇邪，登崇俊良詞解。占小善者率以錄詞解，名一藝者無不庸詞解。爬羅剔抉詞解，刮垢磨光詞解。蓋有幸而獲選，孰云多而不揚詞解？諸生業患不能精，無患有司詞解之不明；行患不能成，無患有司之不公。」
+  // `,
+  //     time: Date.now(),
+  //     rating: 5,
+  //   });
+  //   result.push({
+  //     author: "Howard",
+  //     title: "並不在於高",
+  //     content: `山並不在於高，只要有神仙居住便會出名。水並不在於深，只要有蛟龍潛藏便顯出神靈。這是一間簡陋的房屋，我的美德使它遠近聞名。蒼綠的青苔爬上石階，青翠的草色映入門簾。在屋裡談笑的都是學問淵博的人，來來住住的沒有不學無術之士。這裡可以彈奏樸素無華的琴，可以閱讀佛經。沒有音樂擾亂聽覺，沒有公文案卷使身體勞累。這裡好像南陽諸葛亮的草蘆，如同西蜀揚雄的茅亭。正如孔子所說︰「何陋之有？」
+  // `,
+  //     time: Date.now(),
+  //     rating: 3,
+  //   });
+  //}
 });
 
 app.post("/review", async (req, res) => {
