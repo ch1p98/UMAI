@@ -509,10 +509,10 @@ a.weblink_a:hover::before {
   cursor: pointer;
   -webkit-animation-name: burst_two;
           animation-name: burst_two;
-  -webkit-animation-duration: 0.97s;
-          animation-duration: 0.97s;
-  -webkit-animation-delay: 2s;
-          animation-delay: 2s;
+  -webkit-animation-duration: 1.27s;
+          animation-duration: 1.27s;
+  -webkit-animation-delay: 1.67s;
+          animation-delay: 1.67s;
   -webkit-animation-iteration-count: 2;
           animation-iteration-count: 2;
 }
@@ -1046,7 +1046,7 @@ a.weblink_a:hover::before {
 
 #friend_container {
   width: 20%;
-  background-color: #e5c3cf77;
+  background-color: #fcfcfcfc;
   padding: 6rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1083,7 +1083,7 @@ a.weblink_a:hover::before {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  background-color: #e5c3cf77;
+  background-color: #fcfcfcfc;
 }
 
 #selected_fire_container {

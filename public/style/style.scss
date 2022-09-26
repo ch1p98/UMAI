@@ -422,8 +422,8 @@ a.weblink_a:hover::before {
     padding-bottom: 0.24rem;
     cursor: pointer;
     animation-name: burst_two;
-    animation-duration: 0.97s;
-    animation-delay: 2s;
+    animation-duration: 1.27s;
+    animation-delay: 1.67s;
     animation-iteration-count: 2;
 }
 
@@ -826,7 +826,7 @@ a.weblink_a:hover::before {
 
 #friend_container {
     width: 20%;
-    background-color: #e5c3cf77;
+    background-color: #fcfcfcfc;
     padding: 6rem 0;
     display: flex;
     flex-direction: column;
@@ -846,7 +846,7 @@ a.weblink_a:hover::before {
     padding: 6rem 0;
     display: flex;
     flex-direction: column;
-    background-color: #e5c3cf77;
+    background-color: #fcfcfcfc;
 }
 
 // #add_to_wish_div {

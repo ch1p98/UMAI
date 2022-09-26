@@ -776,6 +776,7 @@ app.post("/search_experiment", async (req, res) => {
   // const q2 = req.body.second ? req.body.second : "花枝";
   // const q3 = req.body.third ? req.body.third : "2300";
   // console.log("queries:", q1, q2, q3);
+  const name_field = "name";
   const address_field = "formatted_address";
   const reviews_field = "reviews.text";
   const price_field = "price_level";
@@ -788,6 +789,15 @@ app.post("/search_experiment", async (req, res) => {
   // const q3_k = "reviews.text";
   // const q3_v = "炒飯";
   try {
+    if (queries.name) {
+      for (i of queries.name) {
+        es_queries_list.push({
+          match: {
+            [name_field]: i,
+          },
+        });
+      }
+    }
     if (queries.place) {
       for (i of queries.place) {
         es_queries_list.push({

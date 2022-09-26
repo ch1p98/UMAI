@@ -249,7 +249,13 @@
                 name="states[]"
                 multiple="multiple"
                 id="id_label_0"
-              ></select>
+              >
+                <option value="FIRST">夫妻肺片麻辣火鍋</option>
+                <option value="SECOND">這一鍋甘泉魚麵</option>
+                <option value="THIRD">樂檸漢堡</option>
+                <option value="FOURTH">這一鍋 台北信義殿</option>
+                <option value="FIFTH">貝里斯義大利麵</option>
+              </select>
             </label>
                 </div>
                 <div class="filter_box">
@@ -728,9 +734,12 @@
             });
         });
         console.log("initial setting start...");
+        // setTimeout(() => {
+        //     $("#preroot").remove();
+        // }, 5672);
         setTimeout(() => {
             $("#preroot").remove();
-        }, 5650);
+        }, 50);
 
         $("#hide_search").hide();
         $("#modify_search").hide();
@@ -1176,9 +1185,11 @@
                             let div_favorite = $("<div></div>").attr({
                                 id: "favorite_container",
                             });
-                            div_profile_skin.append(div_friend);
-                            div_profile_skin.append(div_profile);
                             div_profile_skin.append(div_favorite);
+                            div_profile_skin.append(div_friend);
+
+                            div_profile_skin.append(div_profile);
+
                             $("#root").append(div_profile_skin);
 
                             //set personal token for more purposes
@@ -1717,7 +1728,8 @@
             }
         });
 
-        let place = $("#id_label_1"),
+        let name = $("#id_label_0"),
+            place = $("#id_label_1"),
             exotic = $("#id_label_2"),
             estab = $("#id_label_3"),
             menu = $("#id_label_4"),
@@ -1731,6 +1743,12 @@
         $("#selected_fire").click((event) => {
             $("#detail_container").remove();
             $(".pagination").remove();
+            let name_arr = [];
+            let selected_name = name.find(":selected");
+            for (i of selected_name) {
+                name_arr.push(i.innerHTML);
+                //console.log("i.innerHTML: ", i.innerHTML);
+            }
             let place_arr = [];
             let selected_place = place.find(":selected");
             for (i of selected_place) {
@@ -1800,6 +1818,7 @@
             axios
                 .post(
                     `${MAIN_HOST}/search_experiment`, {
+                        name: name_arr,
                         place: place_arr, //formatted_address
                         exotic: exotic_arr, // reviews.text
                         estab: estab_arr, // reviews.text
