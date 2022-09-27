@@ -57,7 +57,7 @@ mongoose
 
 const port = 3000;
 app.use(cors());
-app.use(favicon(path.join(__dirname, "public", "miho_icon.jpg")));
+app.use(favicon(path.join(__dirname, "public", "mai.jpg")));
 //app.use("/profile", profile_route);
 
 const UserSchema = new mongoose.Schema({
