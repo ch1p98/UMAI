@@ -2251,351 +2251,351 @@
 
             // console.log("sel_place: ", sel_place);
             // $("#root").append(`<p>${sel_place}</p>`);
-            axios
-                .post(
-                    `${MAIN_HOST}/search_experiment`, {
-                        name: [`${name}`],
-                    }, {
-                        headers: {
-                            "Access-Control-Allow-Origin": "*",
-                            "Content-Type": "application/json",
-                        },
-                    }
-                )
-                .then((recponse) => {
-                    const data = response.data;
-                    console.log(data);
-                    $("#restaurant_skin").remove();
-                    $("#detail_box").remove();
-                    $("#profile_skin").remove();
-                    $("#detail_container").remove();
+            //         axios
+            //             .post(
+            //                 `${MAIN_HOST}/search_experiment`, {
+            //                     name: [`${name}`],
+            //                 }, {
+            //                     headers: {
+            //                         "Access-Control-Allow-Origin": "*",
+            //                         "Content-Type": "application/json",
+            //                     },
+            //                 }
+            //             )
+            //             .then((recponse) => {
+            //                 const data = response.data;
+            //                 console.log(data);
+            //                 $("#restaurant_skin").remove();
+            //                 $("#detail_box").remove();
+            //                 $("#profile_skin").remove();
+            //                 $("#detail_container").remove();
 
-                    //page_len = data.hits.hits.length;
-                    const target = data.hits.hits[0];
-                    let detail_data = target._source;
-                    let rid = target._id;
-                    let detail_container = $("<div></div>").attr({
-                        id: "detail_container",
-                    });
-                    let detail_head = $("<div></div>").attr({
-                        id: "detail_head",
-                    });
-                    let detail_meninges = $("<div>").attr({
-                        id: "detail_meninges",
-                    });
-                    let detail_left_hemi = $("<div></div>").attr({
-                        id: "detail_left_hemi",
-                    });
-                    let detail_right_hemi = $("<div></div>").attr({
-                        id: "detail_right_hemi",
-                    });
-                    // body is for comments
-                    let detail_body = $("<div></div>").attr({
-                        id: "detail_body",
-                    });
-                    let detail_box = $("<div></div>").attr({
-                        id: "detail_box",
-                    });
-                    let detail_img = $("<img>").attr({
-                        src: default_restaurant_detail_img_path,
-                        alt: "restaurant_detail_pic",
-                        width: "100%",
-                    });
-                    detail_head.append(detail_meninges);
-                    detail_meninges.append(detail_left_hemi);
-                    detail_meninges.append(detail_right_hemi);
-                    detail_right_hemi.append(detail_box);
+            //                 //page_len = data.hits.hits.length;
+            //                 const target = data.hits.hits[0];
+            //                 let detail_data = target._source;
+            //                 let rid = target._id;
+            //                 let detail_container = $("<div></div>").attr({
+            //                     id: "detail_container",
+            //                 });
+            //                 let detail_head = $("<div></div>").attr({
+            //                     id: "detail_head",
+            //                 });
+            //                 let detail_meninges = $("<div>").attr({
+            //                     id: "detail_meninges",
+            //                 });
+            //                 let detail_left_hemi = $("<div></div>").attr({
+            //                     id: "detail_left_hemi",
+            //                 });
+            //                 let detail_right_hemi = $("<div></div>").attr({
+            //                     id: "detail_right_hemi",
+            //                 });
+            //                 // body is for comments
+            //                 let detail_body = $("<div></div>").attr({
+            //                     id: "detail_body",
+            //                 });
+            //                 let detail_box = $("<div></div>").attr({
+            //                     id: "detail_box",
+            //                 });
+            //                 let detail_img = $("<img>").attr({
+            //                     src: default_restaurant_detail_img_path,
+            //                     alt: "restaurant_detail_pic",
+            //                     width: "100%",
+            //                 });
+            //                 detail_head.append(detail_meninges);
+            //                 detail_meninges.append(detail_left_hemi);
+            //                 detail_meninges.append(detail_right_hemi);
+            //                 detail_right_hemi.append(detail_box);
 
-                    detail_container.append(detail_head);
-                    detail_container.append(detail_body);
-                    $("#root").append(detail_container);
-                    detail_left_hemi.append(detail_img);
+            //                 detail_container.append(detail_head);
+            //                 detail_container.append(detail_body);
+            //                 $("#root").append(detail_container);
+            //                 detail_left_hemi.append(detail_img);
 
-                    const add_to_wish_div = $("<div></div>").attr({
-                        id: "add_to_wish_div",
-                    });
-                    let add_to_wish_btn = $("<button>Add To Pocket List</button>").attr({
-                        id: "add_favorite",
-                        class: "btn_medium",
-                    });
-                    detail_box.append(add_to_wish_div);
-                    add_to_wish_div.append(add_to_wish_btn);
+            //                 const add_to_wish_div = $("<div></div>").attr({
+            //                     id: "add_to_wish_div",
+            //                 });
+            //                 let add_to_wish_btn = $("<button>Add To Pocket List</button>").attr({
+            //                     id: "add_favorite",
+            //                     class: "btn_medium",
+            //                 });
+            //                 detail_box.append(add_to_wish_div);
+            //                 add_to_wish_div.append(add_to_wish_btn);
 
-                    let is_favorite = favorite_set.has(rid);
-                    console.log("is_favorite at detail page: ", is_favorite);
-                    if (is_favorite) {
-                        //$("#add_favorite").addClass("btn btn-warning btn-xs btn-radius");
-                        add_to_wish_btn.addClass("btn btn-warning btn-xs btn-radius");
-                        add_to_wish_btn.text("Remove From Pocket List");
-                        console.log("fst");
-                    } else {
-                        //$("#add_favorite").addClass("btn btn-light btn-xs btn-radius");
-                        add_to_wish_btn.addClass("btn btn-light btn-xs btn-radius");
-                        add_to_wish_btn.text("Add To Pocket List");
-                        console.log("fsf");
-                    }
+            //                 let is_favorite = favorite_set.has(rid);
+            //                 console.log("is_favorite at detail page: ", is_favorite);
+            //                 if (is_favorite) {
+            //                     //$("#add_favorite").addClass("btn btn-warning btn-xs btn-radius");
+            //                     add_to_wish_btn.addClass("btn btn-warning btn-xs btn-radius");
+            //                     add_to_wish_btn.text("Remove From Pocket List");
+            //                     console.log("fst");
+            //                 } else {
+            //                     //$("#add_favorite").addClass("btn btn-light btn-xs btn-radius");
+            //                     add_to_wish_btn.addClass("btn btn-light btn-xs btn-radius");
+            //                     add_to_wish_btn.text("Add To Pocket List");
+            //                     console.log("fsf");
+            //                 }
 
-                    detail_box.append(`<div id="rid">${rid}</div>`);
-                    const name_div = $("<div></div>").attr({
-                        id: "detail_name",
-                    });
-                    const address_div = $("<div></div>").attr({
-                        id: "detail_address",
-                    });
-                    const rating_div = $("<div></div>").attr({
-                        id: "detail_rating",
-                    });
-                    const pricelv_div = $("<div></div>").attr({
-                        id: "detail_pricelv",
-                    });
-                    const ophours_div = $("<div></div>").attr({
-                        id: "detail_ophours",
-                    });
-                    const phone_div = $("<div></div>").attr({
-                        id: "detail_phone",
-                    });
-                    const website_div = $("<div></div>").attr({
-                        id: "detail_website",
-                    });
+            //                 detail_box.append(`<div id="rid">${rid}</div>`);
+            //                 const name_div = $("<div></div>").attr({
+            //                     id: "detail_name",
+            //                 });
+            //                 const address_div = $("<div></div>").attr({
+            //                     id: "detail_address",
+            //                 });
+            //                 const rating_div = $("<div></div>").attr({
+            //                     id: "detail_rating",
+            //                 });
+            //                 const pricelv_div = $("<div></div>").attr({
+            //                     id: "detail_pricelv",
+            //                 });
+            //                 const ophours_div = $("<div></div>").attr({
+            //                     id: "detail_ophours",
+            //                 });
+            //                 const phone_div = $("<div></div>").attr({
+            //                     id: "detail_phone",
+            //                 });
+            //                 const website_div = $("<div></div>").attr({
+            //                     id: "detail_website",
+            //                 });
 
-                    const name_p = $(`<p>${detail_data.name}</p>`);
-                    name_div.append(name_p);
-                    detail_box.append(name_div);
+            //                 const name_p = $(`<p>${detail_data.name}</p>`);
+            //                 name_div.append(name_p);
+            //                 detail_box.append(name_div);
 
-                    const address_p = $(`<p>${detail_data.formatted_address}</p>`);
-                    address_div.append(address_p);
-                    detail_box.append(address_div);
-                    const rating_p = $(`<p>Rating：${detail_data.rating}</p>`);
-                    rating_div.append(rating_p);
-                    detail_box.append(rating_div);
+            //                 const address_p = $(`<p>${detail_data.formatted_address}</p>`);
+            //                 address_div.append(address_p);
+            //                 detail_box.append(address_div);
+            //                 const rating_p = $(`<p>Rating：${detail_data.rating}</p>`);
+            //                 rating_div.append(rating_p);
+            //                 detail_box.append(rating_div);
 
-                    let plv = detail_data.price_level;
-                    if (!plv) {
-                        plv = "🤔";
-                    } else {
-                        const plv_cnt = plv;
-                        plv = "";
-                        for (_ = 0; _ < plv_cnt; _++) {
-                            plv += "$";
-                        }
-                    }
-                    const pricelv_p = $(`<p>Price Range：${plv}</p>`);
-                    pricelv_div.append(pricelv_p);
-                    detail_box.append(pricelv_div);
+            //                 let plv = detail_data.price_level;
+            //                 if (!plv) {
+            //                     plv = "🤔";
+            //                 } else {
+            //                     const plv_cnt = plv;
+            //                     plv = "";
+            //                     for (_ = 0; _ < plv_cnt; _++) {
+            //                         plv += "$";
+            //                     }
+            //                 }
+            //                 const pricelv_p = $(`<p>Price Range：${plv}</p>`);
+            //                 pricelv_div.append(pricelv_p);
+            //                 detail_box.append(pricelv_div);
 
-                    let opening_hours;
-                    try {
-                        //weekday_text is an array
-                        opening_hours = detail_data.opening_hours.weekday_text;
-                    } catch (err) {
-                        console.log(
-                            "An error occurred, might haven't caught data weekday_text correctly:",
-                            err
-                        );
-                        opening_hours = "無資料";
-                    }
-                    const ophours_title_div = $("<div>").attr({
-                        id: "ophours_title_div",
-                    });
-                    const ophours_title_p = $("<p>Hours:</p>");
-                    ophours_title_div.append(ophours_title_p);
+            //                 let opening_hours;
+            //                 try {
+            //                     //weekday_text is an array
+            //                     opening_hours = detail_data.opening_hours.weekday_text;
+            //                 } catch (err) {
+            //                     console.log(
+            //                         "An error occurred, might haven't caught data weekday_text correctly:",
+            //                         err
+            //                     );
+            //                     opening_hours = "無資料";
+            //                 }
+            //                 const ophours_title_div = $("<div>").attr({
+            //                     id: "ophours_title_div",
+            //                 });
+            //                 const ophours_title_p = $("<p>Hours:</p>");
+            //                 ophours_title_div.append(ophours_title_p);
 
-                    const ophours_content_div = $("<div>").attr({
-                        id: "ophours_content_div",
-                    });
+            //                 const ophours_content_div = $("<div>").attr({
+            //                     id: "ophours_content_div",
+            //                 });
 
-                    let oph_cnt = 0;
-                    for (let it of opening_hours) {
-                        if (oph_cnt === 0) {
-                            oph_cnt++;
-                        } else {
-                            const ophours_content_separator = $("<div>").attr({
-                                class: "ophours_content_separator",
-                            });
-                            ophours_content_div.append(ophours_content_separator);
-                        }
-                        let day = it.split(":", 1)[0];
-                        let slice_len = day.length;
-                        let time_by_day = it.replace(/ /, "");
-                        time_by_day = time_by_day.slice(slice_len + 1);
-                        console.log(
-                            `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
-                        );
-                        let ophours_content_p = $(`<p>${day}</p>`).attr({
-                            class: "ophours_content_p",
-                        });
-                        let ophours_content_pp = $(`<p>${time_by_day}</p>`).attr({
-                            class: "ophours_content_pp",
-                        });
-                        let ophours_content_sub_div = $("<div>").attr({
-                            class: "ophours_content_sub_div",
-                        });
-                        ophours_content_sub_div.append(ophours_content_p);
-                        ophours_content_sub_div.append(ophours_content_pp);
-                        ophours_content_div.append(ophours_content_sub_div);
-                    }
+            //                 let oph_cnt = 0;
+            //                 for (let it of opening_hours) {
+            //                     if (oph_cnt === 0) {
+            //                         oph_cnt++;
+            //                     } else {
+            //                         const ophours_content_separator = $("<div>").attr({
+            //                             class: "ophours_content_separator",
+            //                         });
+            //                         ophours_content_div.append(ophours_content_separator);
+            //                     }
+            //                     let day = it.split(":", 1)[0];
+            //                     let slice_len = day.length;
+            //                     let time_by_day = it.replace(/ /, "");
+            //                     time_by_day = time_by_day.slice(slice_len + 1);
+            //                     console.log(
+            //                         `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
+            //                     );
+            //                     let ophours_content_p = $(`<p>${day}</p>`).attr({
+            //                         class: "ophours_content_p",
+            //                     });
+            //                     let ophours_content_pp = $(`<p>${time_by_day}</p>`).attr({
+            //                         class: "ophours_content_pp",
+            //                     });
+            //                     let ophours_content_sub_div = $("<div>").attr({
+            //                         class: "ophours_content_sub_div",
+            //                     });
+            //                     ophours_content_sub_div.append(ophours_content_p);
+            //                     ophours_content_sub_div.append(ophours_content_pp);
+            //                     ophours_content_div.append(ophours_content_sub_div);
+            //                 }
 
-                    ophours_div.append(ophours_title_div);
-                    ophours_div.append(ophours_content_div);
-                    detail_box.append(ophours_div);
+            //                 ophours_div.append(ophours_title_div);
+            //                 ophours_div.append(ophours_content_div);
+            //                 detail_box.append(ophours_div);
 
-                    detail_box.append("<br>");
-                    detail_box.append("<br>");
+            //                 detail_box.append("<br>");
+            //                 detail_box.append("<br>");
 
-                    let phone_data;
-                    if (detail_data.formatted_phone_number != undefined) {
-                        phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
-                    } else {
-                        phone_data = `<p>Phone Number: No Data</p>`;
-                    }
-                    phone_div.append(phone_data);
-                    detail_box.append(phone_div);
+            //                 let phone_data;
+            //                 if (detail_data.formatted_phone_number != undefined) {
+            //                     phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
+            //                 } else {
+            //                     phone_data = `<p>Phone Number: No Data</p>`;
+            //                 }
+            //                 phone_div.append(phone_data);
+            //                 detail_box.append(phone_div);
 
-                    // ddeebbuugg!!!!
-                    //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
-                    let website_data;
-                    if (detail_data.website != undefined) {
-                        website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
-      </p>`;
-                    } else {
-                        website_data = `<p>Website: No Data</p>`;
-                    }
-                    website_div.append(website_data);
-                    detail_box.append(website_div);
+            //                 // ddeebbuugg!!!!
+            //                 //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
+            //                 let website_data;
+            //                 if (detail_data.website != undefined) {
+            //                     website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
+            //   </p>`;
+            //                 } else {
+            //                     website_data = `<p>Website: No Data</p>`;
+            //                 }
+            //                 website_div.append(website_data);
+            //                 detail_box.append(website_div);
 
-                    let google_reviews_div = $("<div></div>").attr({
-                        id: "google_reviews_container",
-                    });
-                    google_reviews_div.css("display", "none");
+            //                 let google_reviews_div = $("<div></div>").attr({
+            //                     id: "google_reviews_container",
+            //                 });
+            //                 google_reviews_div.css("display", "none");
 
-                    let native_reviews_container = $("<div></div>").attr({
-                        id: "native_reviews_container",
-                    });
-                    let google_review_div_toggle_div = $("<div>").attr({
-                        id: "google_review_div_toggle_div",
-                    });
-                    let native_review_div_toggle_div = $("<div>").attr({
-                        id: "native_review_div_toggle_div",
-                    });
-                    let google_review_toggle = $(
-                        "<button>Show Reviews From Google Maps</button>"
-                    ).attr({
-                        id: "google_review_toggle",
-                        class: "btn btn-warning btn-sm btn-radius",
-                    });
-                    //
+            //                 let native_reviews_container = $("<div></div>").attr({
+            //                     id: "native_reviews_container",
+            //                 });
+            //                 let google_review_div_toggle_div = $("<div>").attr({
+            //                     id: "google_review_div_toggle_div",
+            //                 });
+            //                 let native_review_div_toggle_div = $("<div>").attr({
+            //                     id: "native_review_div_toggle_div",
+            //                 });
+            //                 let google_review_toggle = $(
+            //                     "<button>Show Reviews From Google Maps</button>"
+            //                 ).attr({
+            //                     id: "google_review_toggle",
+            //                     class: "btn btn-warning btn-sm btn-radius",
+            //                 });
+            //                 //
 
-                    let post_review_btn = $("<button>Post Review</button>").attr({
-                        id: "post_review_btn",
-                        class: "btn btn-warning btn-sm btn-radius",
-                    });
+            //                 let post_review_btn = $("<button>Post Review</button>").attr({
+            //                     id: "post_review_btn",
+            //                     class: "btn btn-warning btn-sm btn-radius",
+            //                 });
 
-                    let native_review_toggle = $(
-                        "<button>Show Native Reviews</button>"
-                    ).attr({
-                        id: "google_review_toggle",
-                        class: "btn btn-warning btn-sm btn-radius",
-                    });
+            //                 let native_review_toggle = $(
+            //                     "<button>Show Native Reviews</button>"
+            //                 ).attr({
+            //                     id: "google_review_toggle",
+            //                     class: "btn btn-warning btn-sm btn-radius",
+            //                 });
 
-                    // get native reviews
+            //                 // get native reviews
 
-                    const empty_review_block = $("<div>").attr({
-                        id: "empty_review_block",
-                        class: "native_review_block",
-                    });
-                    const empty_review_content_div = $("<div>").attr({
-                        class: "empty_review_div",
-                    });
-                    const empty_review_content_p = $("<p>No review yet.</p>");
-                    native_reviews_container.append(empty_review_block);
-                    empty_review_block.append(empty_review_content_div);
-                    empty_review_content_div.append(empty_review_content_p);
+            //                 const empty_review_block = $("<div>").attr({
+            //                     id: "empty_review_block",
+            //                     class: "native_review_block",
+            //                 });
+            //                 const empty_review_content_div = $("<div>").attr({
+            //                     class: "empty_review_div",
+            //                 });
+            //                 const empty_review_content_p = $("<p>No review yet.</p>");
+            //                 native_reviews_container.append(empty_review_block);
+            //                 empty_review_block.append(empty_review_content_div);
+            //                 empty_review_content_div.append(empty_review_content_p);
 
-                    let native_review_arr;
-                    axios
-                        .get(`${MAIN_HOST}/review?id=${rid}`)
-                        .then((response) => {
-                            if (response.data.code) {
-                                //code === 1 if positive
-                                native_review_arr = response.data.result.review;
-                                console.log("response.data:", response.data);
-                            } else {
-                                //code === 0 if negative
-                                native_review_arr = [];
-                            }
+            //                 let native_review_arr;
+            //                 axios
+            //                     .get(`${MAIN_HOST}/review?id=${rid}`)
+            //                     .then((response) => {
+            //                         if (response.data.code) {
+            //                             //code === 1 if positive
+            //                             native_review_arr = response.data.result.review;
+            //                             console.log("response.data:", response.data);
+            //                         } else {
+            //                             //code === 0 if negative
+            //                             native_review_arr = [];
+            //                         }
 
-                            const len_review = native_review_arr.length;
-                            if (len_review === 0) {
-                                console.log("length 0");
-                            } else {
-                                $("#empty_review_block").remove();
-                                console.log("length > 0");
-                                for (let review of native_review_arr) {
-                                    attach_post_to_container(
-                                        "native_reviews_container",
-                                        review.author,
-                                        review.title,
-                                        review.content,
-                                        review.time,
-                                        review.rating
-                                    );
-                                }
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(`An error occurred while getting review: ${err}`);
-                        });
-                    detail_body.append(native_review_div_toggle_div);
-                    native_review_div_toggle_div.append(post_review_btn);
-                    native_review_div_toggle_div.append(native_review_toggle);
-                    //
-                    detail_body.append(native_reviews_container);
+            //                         const len_review = native_review_arr.length;
+            //                         if (len_review === 0) {
+            //                             console.log("length 0");
+            //                         } else {
+            //                             $("#empty_review_block").remove();
+            //                             console.log("length > 0");
+            //                             for (let review of native_review_arr) {
+            //                                 attach_post_to_container(
+            //                                     "native_reviews_container",
+            //                                     review.author,
+            //                                     review.title,
+            //                                     review.content,
+            //                                     review.time,
+            //                                     review.rating
+            //                                 );
+            //                             }
+            //                         }
+            //                     })
+            //                     .catch((err) => {
+            //                         console.log(`An error occurred while getting review: ${err}`);
+            //                     });
+            //                 detail_body.append(native_review_div_toggle_div);
+            //                 native_review_div_toggle_div.append(post_review_btn);
+            //                 native_review_div_toggle_div.append(native_review_toggle);
+            //                 //
+            //                 detail_body.append(native_reviews_container);
 
-                    //display google review
-                    detail_body.append(google_review_div_toggle_div);
-                    google_review_div_toggle_div.append(google_review_toggle);
-                    detail_body.append(google_reviews_div);
-                    let review_cnt = 0;
-                    try {
-                        for (r of detail_data.reviews) {
-                            let single_review = $("<div></div>").attr({
-                                id: `reviews_no_${review_cnt}`,
-                                class: "review_box",
-                            });
-                            google_reviews_div.append(single_review);
-                            //
-                            single_review.append(`<p>姓名：${r.author_name}</p>`);
-                            single_review.append(`<p>評分：${r.rating}</p>`);
-                            single_review.append(`<p>評論：${r.text}</p>`);
-                            review_cnt++;
-                        }
-                    } catch (err) {
-                        console.log("An error occurred while rendering reviews:", err);
+            //                 //display google review
+            //                 detail_body.append(google_review_div_toggle_div);
+            //                 google_review_div_toggle_div.append(google_review_toggle);
+            //                 detail_body.append(google_reviews_div);
+            //                 let review_cnt = 0;
+            //                 try {
+            //                     for (r of detail_data.reviews) {
+            //                         let single_review = $("<div></div>").attr({
+            //                             id: `reviews_no_${review_cnt}`,
+            //                             class: "review_box",
+            //                         });
+            //                         google_reviews_div.append(single_review);
+            //                         //
+            //                         single_review.append(`<p>姓名：${r.author_name}</p>`);
+            //                         single_review.append(`<p>評分：${r.rating}</p>`);
+            //                         single_review.append(`<p>評論：${r.text}</p>`);
+            //                         review_cnt++;
+            //                     }
+            //                 } catch (err) {
+            //                     console.log("An error occurred while rendering reviews:", err);
 
-                        let single_review = $("<div></div>").attr({
-                            id: `reviews_no_${review_cnt}`,
-                            class: "review_box",
-                        });
-                        google_reviews_div.append(single_review);
-                        single_review.append(`<p>目前還沒有評論~</p>`);
-                    }
-                    $("#restaurant_skin").hide();
-                    // $("#restaurant_container").remove();
-                    // $("#pagination").remove();
-                    $("#return_result").remove();
-                    const return_result = $("<div>Return To Search</div>").attr({
-                        id: "return_result",
-                        class: "nav-item nav-link nav_title",
-                    });
-                    $("#hide_search").after(return_result);
+            //                     let single_review = $("<div></div>").attr({
+            //                         id: `reviews_no_${review_cnt}`,
+            //                         class: "review_box",
+            //                     });
+            //                     google_reviews_div.append(single_review);
+            //                     single_review.append(`<p>目前還沒有評論~</p>`);
+            //                 }
+            //                 $("#restaurant_skin").hide();
+            //                 // $("#restaurant_container").remove();
+            //                 // $("#pagination").remove();
+            //                 $("#return_result").remove();
+            //                 const return_result = $("<div>Return To Search</div>").attr({
+            //                     id: "return_result",
+            //                     class: "nav-item nav-link nav_title",
+            //                 });
+            //                 $("#hide_search").after(return_result);
 
-                    //// end of retrieving detail
-                    ////
-                    ////
-                })
-                .catch((err) => {
-                    console.log("an error occurred in retrieving favorite item: ", err);
-                });
+            //                 //// end of retrieving detail
+            //                 ////
+            //                 ////
+            //             })
+            //             .catch((err) => {
+            //                 console.log("an error occurred in retrieving favorite item: ", err);
+            //             });
             axios
                 .post(
                     `${MAIN_HOST}/search_experiment`, {
