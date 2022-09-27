@@ -820,13 +820,17 @@
                     }
 
                     // get friend list here
+                    const headers = {
+                        "Access-Control-Allow-Origin": "*",
+                        "Access-Control-Allow-Methods": "*",
+                        "Content-Type": "application/json",
+                        "Access-Control-Allow-Headers": "Origin, Methods, Content-Type, Authorization",
+                        "Access-Control-Allow-Credentials": true,
+                        Authorization: `Bearer ${token}`,
+                    };
                     axios
                         .get(`${MAIN_HOST}/friends?email=${email}`, {
-                            headers: {
-                                "Access-Control-Allow-Origin": "*",
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                            },
+                            headers,
                         })
                         .then((response) => {
                             try {
@@ -847,11 +851,7 @@
                     // get favorite list here
                     axios
                         .get(`${MAIN_HOST}/favorite?email=${email}`, {
-                            headers: {
-                                "Access-Control-Allow-Origin": "*",
-                                "Content-Type": "application/json",
-                                Authorization: `Bearer ${token}`,
-                            },
+                            headers,
                         })
                         .then((response) => {
                             try {
@@ -864,24 +864,8 @@
 
                                 for (d of data) {
                                     const item = d.data;
-
-                                    // const name = item.rname ? item.rname : "ANONYMOUS_UNIT";
                                     const rid = item.rid ? item.rid : -1;
-                                    //console.log("rid: ", rid);
-                                    // console.log(
-                                    //     "favorite_set has rid?",
-                                    //     favorite_set.has(rid) ? true : false
-                                    // );
-                                    //console.log("favorite_set: ", favorite_set);
                                     favorite_set.add(rid);
-                                    // const favorite_case = $("<div></div>").attr({
-                                    //     class: "favorite_case",
-                                    // });
-                                    // favorite.append(favorite_case);
-                                    // const name_box = $("<div></div>");
-                                    // const name_p = $("<p></p>").text(`name:${name}`);
-                                    // name_box.append(name_p);
-                                    // favorite_case.append(name_box);
                                 }
                                 // $(".favorite_box").hide();
                             } catch (err) {
@@ -981,7 +965,7 @@
                         alert("登入失敗: 未取得JWT");
                     } else {
                         // 成功登入
-                        $("#trigger_profile").trigger("click");
+                        //$("#trigger_profile").trigger("click");
                         const token = response.data.token;
                         localStorage.setItem("jwt", token);
                         $("#show_signin").hide();

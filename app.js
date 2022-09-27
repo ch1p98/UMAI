@@ -78,7 +78,7 @@ const UserSchema = new mongoose.Schema({
   // 入會時間
   date: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
   level: {
     type: Number,
