@@ -1671,8 +1671,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(8.8vw);
-            transform: translateX(8.8vw);
+    -webkit-transform: translateX(13vw);
+            transform: translateX(13vw);
   }
 }
 
@@ -1680,8 +1680,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(8.8vw);
-            transform: translateX(8.8vw);
+    -webkit-transform: translateX(13vw);
+            transform: translateX(13vw);
   }
 }
 
@@ -1689,8 +1689,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(6.4vw);
-            transform: translateX(6.4vw);
+    -webkit-transform: translateX(11vw);
+            transform: translateX(11vw);
   }
 }
 
@@ -1698,8 +1698,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(6.4vw);
-            transform: translateX(6.4vw);
+    -webkit-transform: translateX(11vw);
+            transform: translateX(11vw);
   }
 }
 
@@ -1707,8 +1707,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(0.4vw);
-            transform: translateX(0.4vw);
+    -webkit-transform: translateX(4vw);
+            transform: translateX(4vw);
   }
 }
 
@@ -1716,8 +1716,8 @@ li.select2-selection__choice {
   0% {
   }
   100% {
-    -webkit-transform: translateX(0.4vw);
-            transform: translateX(0.4vw);
+    -webkit-transform: translateX(4vw);
+            transform: translateX(4vw);
   }
 }
 
