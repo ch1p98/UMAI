@@ -807,8 +807,8 @@ app.post("/search_experiment", async (req, res) => {
         });
       }
     }
-    if (queries.exotic) {
-      for (i of queries.exotic) {
+    if (queries.cuisine) {
+      for (i of queries.cuisine) {
         es_queries_list.push({
           match: {
             [reviews_field]: i,

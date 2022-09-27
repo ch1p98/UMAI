@@ -303,7 +303,6 @@ a.weblink_a:hover::before {
   width: auto;
   height: auto;
   padding: 0.28rem 0.67rem;
-  background-color: #fbc2d4f5;
   position: absolute;
   top: 100%;
   left: 0;
@@ -380,8 +379,8 @@ a.weblink_a:hover::before {
   margin: 0.41rem;
   width: 89%;
   background-color: #fcfcfcfc;
-  -webkit-box-shadow: 10px 5px 5px black;
-  box-shadow: 0 3px 3px 0 #626262;
+  -webkit-box-shadow: 0 3px 3px 0 #626262;
+          box-shadow: 0 3px 3px 0 #626262;
   height: auto;
   display: inline-block;
   display: -webkit-box;
@@ -517,12 +516,12 @@ a.weblink_a:hover::before {
 }
 
 .favorite_case {
-  background-color: #F195B2;
-  border: 1px solid;
   margin: 0.41rem;
   border-radius: 7px;
-  padding: 10px;
-  background-color: #fcfcfc;
+  padding: 1rem;
+  background-color: #fcfcfcfc;
+  -webkit-box-shadow: 0 3px 3px 0 #626262;
+          box-shadow: 0 3px 3px 0 #626262;
   cursor: pointer;
 }
 
@@ -933,7 +932,6 @@ a.weblink_a:hover::before {
 }
 
 .pagination a.current {
-  background: #F195B2;
   border-radius: 1.58rem;
   width: 2.68rem;
   text-align: center;
@@ -945,7 +943,6 @@ a.weblink_a:hover::before {
 
 .btn-primary_light {
   background-color: #ffffff66;
-  border-color: #F195B2;
   margin: 0 1rem;
 }
 
@@ -1306,11 +1303,6 @@ a.weblink_a:hover::before {
   height: auto;
   min-height: 100%;
   width: 100%;
-  background-image: url("../background_img/bg-01.jpg");
-  background-repeat: repeat;
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
   /* Safari */
 }
 
@@ -1386,7 +1378,6 @@ a.weblink_a:hover::before {
 
 #easter_egg button {
   margin-top: 10px;
-  background-color: #F195B2;
   border-radius: 7px;
 }
 
@@ -1463,7 +1454,6 @@ li.select2-selection__choice {
 }
 
 #preroot {
-  background-image: url("../background_img/bg-01_hazy2.jpg");
   position: absolute;
   width: 100%;
   height: 100vh;
