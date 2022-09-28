@@ -19,15 +19,14 @@
     sans-serif;
 }
 
-@keyframes burst_two {
-    from {
-        //
-    }
-    to {
-        transform: scale(2);
-    }
-}
-
+// @keyframes burst_two {
+//     from {
+//         //
+//     }
+//     to {
+//         transform: scale(2);
+//     }
+// }
 // imported from codepen
 // imported from codepen
 //@import url(https://fonts.googleapis.com/css?family=Roboto:500,100,300,700,400);
@@ -448,23 +447,15 @@ a.weblink_a:hover::before {
 // .favorite_store_f {
 //     background-color: #ffffffdd;
 // }
-.favorite_ff {
-    width: 1.58rem;
+.toggle_favorite {
     display: inline-block;
     height: 1.58rem;
-    border: 0.23rem solid #777777;
-    border-radius: 0.79rem;
-    padding-bottom: 0.24rem;
     cursor: pointer;
-    animation-name: burst_two;
-    animation-duration: 1.27s;
-    animation-delay: 1.67s;
-    animation-iteration-count: 2;
 }
 
-.favorite_ff:hover {
+.toggle_favorite:hover {
     cursor: pointer;
-    background-color: goldenrod;
+    //background-color: goldenrod;
 }
 
 .social_info_div {
@@ -1318,5 +1309,90 @@ li.select2-selection__choice {
     }
     100% {
         opacity: 0;
+    }
+}
+
+// favorite icon style
+// body {
+//   margin:0;
+//   text-align:center;
+//   padding-top:120px;
+//   font-family:'open sans',sans-serif;
+//   background:#ddd;
+//   height:100%;
+// }
+// div {
+//   height:100px;
+//   margin:0 auto;
+//   position: relative;
+// }
+i {
+    cursor: pointer;
+    padding: 10px 12px 8px;
+    background: #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin: 0 0 15px;
+    color: #aaa;
+    transition: .2s;
+}
+
+i:hover {
+    color: #666;
+}
+
+i:before {
+    font-family: fontawesome;
+    content: '\f004';
+    font-style: normal;
+}
+
+span.heart {
+    position: absolute;
+    bottom: 70px;
+    left: 0;
+    right: 0;
+    visibility: hidden;
+    transition: .6s;
+    z-index: -2;
+    font-size: 2px;
+    color: #00000000;
+    font-weight: 400;
+}
+
+i.pressed {
+    animation: size .4s;
+    color: #e23b3b;
+}
+
+span.heart.pressed {
+    bottom: 120px;
+    font-size: 14px;
+    visibility: visible;
+    animation: fade 1s;
+}
+
+@keyframes fade {
+    0% {
+        color: #00000000;
+    }
+    50% {
+        color: #e23b3b;
+    }
+    100% {
+        color: #00000000;
+    }
+}
+
+@keyframes size {
+    0% {
+        padding: 10px 12px 8px;
+    }
+    50% {
+        padding: 14px 16px 12px;
+        margin-top: -4px;
+    }
+    100% {
+        padding: 10px 12px 8px;
     }
 }

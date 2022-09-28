@@ -20,24 +20,6 @@
   -moz-appearance: textfield;
 }
 
-@-webkit-keyframes burst_two {
-  from {
-  }
-  to {
-    -webkit-transform: scale(2);
-            transform: scale(2);
-  }
-}
-
-@keyframes burst_two {
-  from {
-  }
-  to {
-    -webkit-transform: scale(2);
-            transform: scale(2);
-  }
-}
-
 .cont {
   width: 93%;
   max-width: 350px;
@@ -534,27 +516,14 @@ a.weblink_a:hover::before {
   width: 100%;
 }
 
-.favorite_ff {
-  width: 1.58rem;
+.toggle_favorite {
   display: inline-block;
   height: 1.58rem;
-  border: 0.23rem solid #777777;
-  border-radius: 0.79rem;
-  padding-bottom: 0.24rem;
   cursor: pointer;
-  -webkit-animation-name: burst_two;
-          animation-name: burst_two;
-  -webkit-animation-duration: 1.27s;
-          animation-duration: 1.27s;
-  -webkit-animation-delay: 1.67s;
-          animation-delay: 1.67s;
-  -webkit-animation-iteration-count: 2;
-          animation-iteration-count: 2;
 }
 
-.favorite_ff:hover {
+.toggle_favorite:hover {
   cursor: pointer;
-  background-color: goldenrod;
 }
 
 .social_info_div {
@@ -1744,6 +1713,106 @@ li.select2-selection__choice {
   }
   100% {
     opacity: 0;
+  }
+}
+
+i {
+  cursor: pointer;
+  padding: 10px 12px 8px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 0 15px;
+  color: #aaa;
+  -webkit-transition: .2s;
+  transition: .2s;
+}
+
+i:hover {
+  color: #666;
+}
+
+i:before {
+  font-family: fontawesome;
+  content: '\f004';
+  font-style: normal;
+}
+
+span.heart {
+  position: absolute;
+  bottom: 70px;
+  left: 0;
+  right: 0;
+  visibility: hidden;
+  -webkit-transition: .6s;
+  transition: .6s;
+  z-index: -2;
+  font-size: 2px;
+  color: #00000000;
+  font-weight: 400;
+}
+
+i.pressed {
+  -webkit-animation: size .4s;
+          animation: size .4s;
+  color: #e23b3b;
+}
+
+span.heart.pressed {
+  bottom: 120px;
+  font-size: 14px;
+  visibility: visible;
+  -webkit-animation: fade 1s;
+          animation: fade 1s;
+}
+
+@-webkit-keyframes fade {
+  0% {
+    color: #00000000;
+  }
+  50% {
+    color: #e23b3b;
+  }
+  100% {
+    color: #00000000;
+  }
+}
+
+@keyframes fade {
+  0% {
+    color: #00000000;
+  }
+  50% {
+    color: #e23b3b;
+  }
+  100% {
+    color: #00000000;
+  }
+}
+
+@-webkit-keyframes size {
+  0% {
+    padding: 10px 12px 8px;
+  }
+  50% {
+    padding: 14px 16px 12px;
+    margin-top: -4px;
+  }
+  100% {
+    padding: 10px 12px 8px;
+  }
+}
+
+@keyframes size {
+  0% {
+    padding: 10px 12px 8px;
+  }
+  50% {
+    padding: 14px 16px 12px;
+    margin-top: -4px;
+  }
+  100% {
+    padding: 10px 12px 8px;
   }
 }
 /*# sourceMappingURL=style.css.map */
