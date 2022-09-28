@@ -303,6 +303,7 @@ a.weblink_a:hover::before {
   width: auto;
   height: auto;
   padding: 0.28rem 0.67rem;
+  background-color: #fcfcfcfc;
   position: absolute;
   top: 100%;
   left: 0;
@@ -326,15 +327,9 @@ a.weblink_a:hover::before {
 
 .ophours_content_sub_div {
   padding: 0 0.23rem;
-  min-width: 5rem;
-  max-width: 6rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -1167,6 +1162,7 @@ a.weblink_a:hover::before {
           flex-direction: column;
   padding: 0 12rem;
   background-color: #eeeeeebc;
+  width: 1280px;
 }
 
 #ophours_content_div {
@@ -1175,6 +1171,10 @@ a.weblink_a:hover::before {
   display: flex;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: space-evenly;
       -ms-flex-pack: space-evenly;
           justify-content: space-evenly;

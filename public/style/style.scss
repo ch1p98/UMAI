@@ -277,7 +277,7 @@ a.weblink_a:hover::before {
     width: auto;
     height: auto;
     padding: 0.28rem 0.67rem;
-    //background-color: #fbc2d4f5;
+    background-color: #fcfcfcfc;
     position: absolute;
     top: 100%;
     left: 0;
@@ -295,10 +295,9 @@ a.weblink_a:hover::before {
 
 .ophours_content_sub_div {
     padding: 0 0.23rem;
-    min-width: 5rem;
-    max-width: 6rem;
+    //width: 6rem;
     display: flex;
-    flex-direction: column;
+    //flex-direction: column;
     align-items: center;
 }
 
@@ -920,11 +919,13 @@ a.weblink_a:hover::before {
     flex-direction: column;
     padding: 0 12rem;
     background-color: #eeeeeebc;
+    width: 1280px;
 }
 
 #ophours_content_div {
     display: flex;
     flex-wrap: wrap;
+    flex-direction: column;
     justify-content: space-evenly;
 }
 
