@@ -60,44 +60,6 @@
 </head>
 
 <body>
-    <div id="preroot">
-        <div id="mai_container">
-            <div id="mai_title_container">
-                <div class="words">
-                    <div class="prefix" id="pref1">
-                        <p>M</p>
-                    </div>
-                    <div class="suffix">
-                        <p>eal</p>
-                    </div>
-                </div>
-                <div class="interspace"><span></span></div>
-                <div class="words">
-                    <div class="prefix" id="pref2">
-                        <p>A</p>
-                    </div>
-                    <div class="suffix">
-                        <p>rrives</p>
-                    </div>
-                </div>
-                <div class="interspace"><span></span></div>
-
-                <div class="words">
-                    <div class="prefix" id="pref3">
-                        <p>I</p>
-                    </div>
-                    <div class="suffix">
-                        <p>nstantly</p>
-                    </div>
-                </div>
-            </div>
-            <div id="mai_subtitle_container">
-                <div id="mai_subtitle">
-                    <span>找出你夢想中的餐廳</span>
-                </div>
-            </div>
-        </div>
-    </div>
     <div id="header_container">
         <header class="container-fluid bg-primary py-3 d-none d-md-block">
             <nav class="container">
@@ -133,17 +95,22 @@
                 </div>
             </nav>
         </header>
+
         <header class="nav_header container-fluid position-relative nav-bar p-0">
             <nav class="outer_nav container-lg position-relative p-0 px-lg-3">
                 <nav class="inner_nav navbar navbar-expand-lg bg-white navbar-light shadow p-lg-0">
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                        <div id="left_bar" class="navbar-nav ml-auto py-0">
+                        <a href="#" id="mai_a" class="navbar-brand mx-5 d-none d-lg-block">
+                            <img id="nav_logo" src="./mai.jpg" alt="maiam" />
+                            <h1 id="mai_iam" class="m-0 display-4 text-primary">
+                                <span class="text-secondary">M A I</span>
+                            </h1>
+                        </a>
+                        <div id="omni_bar" class="navbar-nav ml-auto py-0">
                             <div id="modify_search" class="nav-item nav-link nav_title">
                                 Modify Search
                             </div>
-                            <div id="hide_search" class="nav-item nav-link nav_title">
-                                Hide Search
-                            </div>
+
                             <div id="div_profile" class="nav-item nav-link">
                                 <div>
                                     <button id="trigger_profile" class="nav_title">
@@ -151,13 +118,6 @@
                     </button>
                                 </div>
                             </div>
-                        </div>
-                        <a href="#" class="navbar-brand mx-5 d-none d-lg-block">
-                            <h1 id="sora" class="m-0 display-4 text-primary">
-                                <span class="text-secondary"></span>M A I
-                            </h1>
-                        </a>
-                        <div id="right_bar" class="navbar-nav mr-auto py-0">
                             <div id="show_signin" class="nav-item nav-link">
                                 <div>
                                     <button id="trigger_show_signin" class="nav_title">
@@ -181,7 +141,7 @@
                     </div>
                 </nav>
 
-                <div class="container-login100" id="id_container-login100">
+                <div class="container-login100" id="id_container-login100" style="display: none">
                     <div class="wrap-login100 p-t-12 p-b-20">
                         <span class="login100-form-title p-b-41"> Sign In </span>
                         <div class="login100-form validate-form p-b-33 p-t-5">
@@ -204,7 +164,7 @@
                     </div>
                 </div>
                 <img src="./favatar/" alt="" />
-                <div class="container-login100" id="id_container-register100">
+                <div class="container-login100" id="id_container-register100" style="display: none">
                     <div class="wrap-login100 p-t-12 p-b-20">
                         <span class="login100-form-title p-b-16"> Sign Up </span>
                         <div class="login100-form validate-form p-b-13 p-t-5">
@@ -233,9 +193,14 @@
             </nav>
         </header>
     </div>
+
     <div id="root">
         <div id="filters">
             <div id="filters_pleura">
+                <div id="filter_caption">
+                    <span>使用選項來搜尋餐廳。填入一個、兩個、全部，或者都不填!!</span>
+                </div>
+
                 <div class="filter_box">
                     <label for="id_label_0">
               <div class="filter_title_container">
@@ -243,8 +208,6 @@
                   <p class="filter_title_text">Name</p>
                 </div>
               </div>
-
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -266,7 +229,6 @@
                   <p class="filter_title_text">Location</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -290,7 +252,6 @@
                   <p class="filter_title_text">CUISINE</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -313,7 +274,6 @@
                   <p class="filter_title_text">Establishment</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -337,7 +297,6 @@
                   <p class="filter_title_text">Name of Dish</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -362,7 +321,6 @@
                   <p class="filter_title_text">Price Level</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -383,7 +341,6 @@
                   <p class="filter_title_text">Rating</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -405,7 +362,6 @@
                   <p class="filter_title_text">Timeline</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -427,7 +383,6 @@
                   <p class="filter_title_text">Amenities / Services</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-multiple"
                 name="states[]"
@@ -452,7 +407,6 @@
                   <p class="filter_title_text">Opening</p>
                 </div>
               </div>
-              <br />
               <select
                 class="js-example-basic-single"
                 name="states"
@@ -733,19 +687,241 @@
             $(".js-example-basic-multiple").select2({
                 tags: true,
             });
+            $("#id_container-login100").hide();
+            $("#id_container-register100").hide();
         });
         console.log("initial setting start...");
         // setTimeout(() => {
         //     $("#preroot").remove();
         // }, 5672);
-        setTimeout(() => {
-            $("#preroot").remove();
-        }, 50);
+        const dummy = $("<div>").attr({
+            id: "dummy",
+        });
+        $("#root").append(dummy);
+        const campaign_container = $("<div>").attr({
+            class: "campaign_container",
+        });
+        dummy.append(campaign_container);
+        // .attr({class:})
+        // .attr({id:})
+        const campaign_box_1 = $("<div>").attr({
+            class: "campaign_box",
+            id: "campaign_box_1",
+        });
+        const campaign_box_2 = $("<div>").attr({
+            class: "campaign_box",
+            id: "campaign_box_2",
+        });
+        const campaign_box_3 = $("<div>").attr({
+            class: "campaign_box",
+            id: "campaign_box_3",
+        });
+        const campaign_box_4 = $("<div>").attr({
+            class: "campaign_box",
+            id: "campaign_box_4",
+        });
+        campaign_container.append(campaign_box_1);
+        campaign_container.append(campaign_box_2);
+        campaign_container.append(campaign_box_3);
+        campaign_container.append(campaign_box_4);
 
-        $("#hide_search").hide();
+        const campaign_title_div_box_1 = $("<div>").attr({
+            class: "campaign_title_div_box",
+        });
+        const campaign_title_div_box_2 = $("<div>").attr({
+            class: "campaign_title_div_box",
+        });
+        const campaign_title_div_box_3 = $("<div>").attr({
+            class: "campaign_title_div_box",
+        });
+        const campaign_title_div_box_4 = $("<div>").attr({
+            class: "campaign_title_div_box",
+        });
+
+        const campaign_title_text_1 = "最受歡迎的餐廳";
+        const campaign_title_text_2 = "提供外送";
+        const campaign_title_text_3 = "日式美食";
+        const campaign_title_text_4 = "銅板美食";
+
+        const campaign_title_span_1 = $("<span>").text(campaign_title_text_1);
+        const campaign_title_span_2 = $("<span>").text(campaign_title_text_2);
+        const campaign_title_span_3 = $("<span>").text(campaign_title_text_3);
+        const campaign_title_span_4 = $("<span>").text(campaign_title_text_4);
+
+        campaign_title_div_box_1.append(campaign_title_span_1);
+        campaign_title_div_box_2.append(campaign_title_span_2);
+        campaign_title_div_box_3.append(campaign_title_span_3);
+        campaign_title_div_box_4.append(campaign_title_span_4);
+
+        const campaign_option_div_box_1 = $("<div>").attr({
+            class: "campaign_option_div",
+        });
+        const campaign_option_div_box_2 = $("<div>").attr({
+            class: "campaign_option_div",
+        });
+        const campaign_option_div_box_3 = $("<div>").attr({
+            class: "campaign_option_div",
+        });
+        const campaign_option_div_box_4 = $("<div>").attr({
+            class: "campaign_option_div",
+        });
+
+        const campaign_head_box_1 = $("<div>").attr({
+            class: "campaign_head_box",
+        });
+        const campaign_head_box_2 = $("<div>").attr({
+            class: "campaign_head_box",
+        });
+        const campaign_head_box_3 = $("<div>").attr({
+            class: "campaign_head_box",
+        });
+        const campaign_head_box_4 = $("<div>").attr({
+            class: "campaign_head_box",
+        });
+        campaign_head_box_1.append(campaign_title_div_box_1);
+        campaign_head_box_1.append(campaign_option_div_box_1);
+        campaign_head_box_2.append(campaign_title_div_box_2);
+        campaign_head_box_2.append(campaign_option_div_box_2);
+        campaign_head_box_3.append(campaign_title_div_box_3);
+        campaign_head_box_3.append(campaign_option_div_box_3);
+        campaign_head_box_4.append(campaign_title_div_box_4);
+        campaign_head_box_4.append(campaign_option_div_box_4);
+
+        const campaign_content_div_box_1 = $("<div>").attr({
+            class: "campaign_content_div_box",
+        });
+        const campaign_content_div_box_2 = $("<div>").attr({
+            class: "campaign_content_div_box",
+        });
+        const campaign_content_div_box_3 = $("<div>").attr({
+            class: "campaign_content_div_box",
+        });
+        const campaign_content_div_box_4 = $("<div>").attr({
+            class: "campaign_content_div_box",
+        });
+        const campaign_body_box_1 = $("<div>").attr({
+            class: "campaign_body_box",
+        });
+        const campaign_body_box_2 = $("<div>").attr({
+            class: "campaign_body_box",
+        });
+        const campaign_body_box_3 = $("<div>").attr({
+            class: "campaign_body_box",
+        });
+        const campaign_body_box_4 = $("<div>").attr({
+            class: "campaign_body_box",
+        });
+
+        campaign_body_box_1.append(campaign_content_div_box_1);
+        campaign_body_box_2.append(campaign_content_div_box_2);
+        campaign_body_box_3.append(campaign_content_div_box_3);
+        campaign_body_box_4.append(campaign_content_div_box_4);
+
+        campaign_box_1.append(campaign_head_box_1);
+        campaign_box_1.append(campaign_body_box_1);
+        campaign_box_2.append(campaign_head_box_2);
+        campaign_box_2.append(campaign_body_box_2);
+        campaign_box_3.append(campaign_head_box_3);
+        campaign_box_3.append(campaign_body_box_3);
+        campaign_box_4.append(campaign_head_box_4);
+        campaign_box_4.append(campaign_body_box_4);
+        // pseudodata
+        const c_name = "お食事処ゆきひら";
+        const c_img = $("<img>").attr({
+            src: "./images/yukihira.jpg",
+            width: "300px",
+        });
+        const c_rating = $("<div>").attr({
+            class: "native_rating_container",
+        });
+        for (let i = 0; i < 5; i++) {
+            c_rating.append(
+                $("<img>").attr({
+                    src: "./icon/star_glow.png",
+                })
+            );
+        }
+        const c_hashtag_arr = ["#Japanese", "#Bar"];
+        // end of pseudodata
+
+        //
+        let c_name_div = $("<div>").attr({
+            class: "c_name_div",
+        });
+        const c_name_span = $("<span>");
+        c_name_div.append(c_name_span);
+        c_name_span.text(c_name);
+        //
+        let c_img_div = $("<div>");
+        c_img_div.append(c_img);
+        //
+        let c_rating_div = $("<div>").attr({
+            class: "c_rating_div",
+        });
+        c_rating_div.append(c_rating);
+        //
+        let c_hashtag_div = $("<div>").attr({
+            class: "c_hashtag_div",
+        });
+        const c_hashtag_span = $("<span>");
+        c_hashtag_div.append(c_hashtag_span);
+
+        c_hashtag_span.text(c_hashtag_arr.join(" "));
+        //
+        let campaign_item;
+        const default_display_n = 4;
+
+        for (let n = 0; n < 4; n++) {
+            campaign_item = $("<div>").attr({
+                class: "campaign_item",
+            });
+            campaign_item.append(c_img_div.clone());
+
+            campaign_item.append(c_name_div.clone());
+            campaign_item.append(c_rating_div.clone());
+            campaign_item.append(c_hashtag_div.clone());
+            campaign_body_box_1.append(campaign_item);
+        }
+
+        for (let n = 0; n < 4; n++) {
+            campaign_item = $("<div>").attr({
+                class: "campaign_item",
+            });
+            campaign_item.append(c_img_div.clone());
+
+            campaign_item.append(c_name_div.clone());
+            campaign_item.append(c_rating_div.clone());
+            campaign_item.append(c_hashtag_div.clone());
+            campaign_body_box_2.append(campaign_item);
+        }
+
+        for (let n = 0; n < 4; n++) {
+            campaign_item = $("<div>").attr({
+                class: "campaign_item",
+            });
+            campaign_item.append(c_img_div.clone());
+
+            campaign_item.append(c_name_div.clone());
+            campaign_item.append(c_rating_div.clone());
+            campaign_item.append(c_hashtag_div.clone());
+            campaign_body_box_3.append(campaign_item);
+        }
+
+        for (let n = 0; n < 4; n++) {
+            campaign_item = $("<div>").attr({
+                class: "campaign_item",
+            });
+            campaign_item.append(c_img_div.clone());
+
+            campaign_item.append(c_name_div.clone());
+            campaign_item.append(c_rating_div.clone());
+            campaign_item.append(c_hashtag_div.clone());
+            campaign_body_box_4.append(campaign_item);
+        }
+
         $("#modify_search").hide();
-        $("#id_container-login100").hide();
-        $("#id_container-register100").hide();
+        // $("#id_container-login100").hide();
+        // $("#id_container-register100").hide();
 
         const filter_toggle = 0;
         $(document).on(".filter_title_container", "click", (event) => {});
@@ -886,7 +1062,7 @@
             });
 
         ////
-        $("#sora").click((event) => {
+        $("#mai_iam").click((event) => {
             //console.log("SORA reload");
             location.reload();
         });
@@ -1719,7 +1895,6 @@
                                                             id: "return_result",
                                                             class: "nav-item nav-link nav_title",
                                                         });
-                                                        $("#hide_search").after(return_result);
 
                                                         //// end of retrieving detail
                                                         ////
@@ -1788,7 +1963,7 @@
                                 form.append("<br />");
                             }
                             let update_profile_btn = $("<button>更新資料</button>").attr({
-                                class: "btn btn-light btn-sm",
+                                class: "btn btn-outline-dark btn-sm",
                                 id: "update_profile",
                             });
                             form.append(update_profile_btn);
@@ -1835,7 +2010,6 @@
                                     id: "return_result",
                                     class: "nav-item nav-link nav_title",
                                 });
-                                $("#hide_search").after(return_result);
                             }
                         }
                         // verify successful
@@ -2752,7 +2926,6 @@
                     }
 
                     $("#restaurant_container").pagify(10, ".restaurant_box");
-                    $("#hide_search").show();
                     $("#modify_search").show();
                     $("#filters").hide();
                     console.log("success");
@@ -2766,11 +2939,9 @@
         });
         $("#modify_search").click((event) => {
             $("#filters").show();
-            $("#hide_search").show();
+            $("#modify_search").hide();
         });
-        $("#hide_search").click((event) => {
-            $("#filters").hide();
-        });
+
         let test_cnt = 0;
         // DDDCCC document ONs here:
         $(document).on("click", "#post_review_btn", (event) => {
@@ -3284,7 +3455,6 @@
                     id: "return_result",
                     class: "nav-item nav-link nav_title",
                 });
-                $("#hide_search").after(return_result);
             });
             $(document).on("click", `#item_img_${hits_i}`, () => {
                 $(`#item_title_${hits_i}`).trigger("click");
@@ -3300,7 +3470,10 @@
         // let container = $("#filters");
         // container.pagination
         $("body").click((event) => {
-            console.log(`${event.target}: oh~oh`);
+            console.log(`Event Target: ${event.target}`);
+            console.log(`Event Target id: ${event.target.id}`);
+            console.log(`Event Target text: ${$("event.target").text()}`);
+            console.log("ET forgives you~~~");
 
             if ($("#star-1").is(":checked")) console.log("given star-1");
             if ($("#star-2").is(":checked")) console.log("given star-2");
@@ -3332,10 +3505,12 @@
                 });
             }
 
-            // 這邏輯真的有夠反人類，我隔天回來看，一直以為我寫錯了
             if ($(event.target).attr("class") === "container-login100") {
                 $(".container-login100").hide();
-                console.log("!!!!!");
+            }
+            if ($(event.target).attr("id") === "filters") {
+                $("#filters").hide();
+                $("#modify_search").show();
             }
         });
     </script>
