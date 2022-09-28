@@ -508,7 +508,7 @@
         let personal_token;
         let friends_set = new Set(),
             favorite_set = new Set();
-        const MAIN_HOST = "https://chipmunk.vip";
+        //const MAIN_HOST = "https://chipmunk.vip";
         let _stamp = Date.now();
         const LATENCY = 900000;
         let click_cnt = 0,
@@ -761,7 +761,7 @@
         } else {
             axios
                 .post(
-                    `${MAIN_HOST}/verify_token`, {}, {
+                    `/verify_token`, {}, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -799,7 +799,7 @@
         }
 
         const obj = axios
-            .get(`${MAIN_HOST}/profile`, {
+            .get(`/profile`, {
                 headers: {
                     "Access-Control-Allow-Origin": "*",
                     "Content-Type": "application/json",
@@ -830,7 +830,7 @@
                         Authorization: `Bearer ${token}`,
                     };
                     axios
-                        .get(`${MAIN_HOST}/friends?email=${email}`, {
+                        .get(`/friends?email=${email}`, {
                             headers,
                         })
                         .then((response) => {
@@ -851,7 +851,7 @@
 
                     // get favorite list here
                     axios
-                        .get(`${MAIN_HOST}/favorite?email=${email}`, {
+                        .get(`/favorite?email=${email}`, {
                             headers,
                         })
                         .then((response) => {
@@ -896,7 +896,7 @@
             $("#id_container-register100").hide();
             axios
                 .post(
-                    `${MAIN_HOST}/signup`, {
+                    `/signup`, {
                         name: $("#signup_input_name").val(),
                         email: $("#signup_input_email").val(),
                         password: $("#signup_input_password").val(),
@@ -947,7 +947,7 @@
             $("#id_container-login100").hide();
             axios
                 .post(
-                    `${MAIN_HOST}/signin`, {
+                    `/signin`, {
                         email: $("#signin_input_email").val(),
                         password: $("#signin_input_password").val(),
                     }, {
@@ -1031,7 +1031,7 @@
                 }
                 return axios
                     .post(
-                        `${MAIN_HOST}/verify_token`, {}, {
+                        `/verify_token`, {}, {
                             headers: {
                                 "Access-Control-Allow-Origin": "*",
                                 "Content-Type": "application/json",
@@ -1087,7 +1087,7 @@
                 // R. 不過POST verify_token才會有renewed token, GET profile是不會拿到新token的
                 // 這樣或許比較好
                 const obj = axios
-                    .get(`${MAIN_HOST}/profile`, {
+                    .get(`/profile`, {
                         headers: {
                             "Access-Control-Allow-Origin": "*",
                             "Content-Type": "application/json",
@@ -1202,7 +1202,7 @@
 
                             // get friend list here
                             axios
-                                .get(`${MAIN_HOST}/friends?email=${email}`, {
+                                .get(`/friends?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -1284,7 +1284,7 @@
 
                             // get favorite list here
                             axios
-                                .get(`${MAIN_HOST}/favorite?email=${email}`, {
+                                .get(`/favorite?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
@@ -1319,7 +1319,7 @@
                                             name_p.click((e) => {
                                                 axios
                                                     .post(
-                                                        `${MAIN_HOST}/search_experiment`, {
+                                                        `/search_experiment`, {
                                                             name: [`${name}`],
                                                         }, {
                                                             headers: {
@@ -1622,7 +1622,7 @@
 
                                                         let native_review_arr;
                                                         axios
-                                                            .get(`${MAIN_HOST}/review?id=${rid}`)
+                                                            .get(`/review?id=${rid}`)
                                                             .then((response) => {
                                                                 if (response.data.code) {
                                                                     //code === 1 if positive
@@ -1810,7 +1810,7 @@
                                 // console.log("update_body: ", JSON.stringify(update_body));
                                 const token = localStorage.getItem("jwt");
                                 axios
-                                    .post(`${MAIN_HOST}/profile`, update_body, {
+                                    .post(`/profile`, update_body, {
                                         headers: {
                                             "Access-Control-Allow-Origin": "*",
                                             "Content-Type": "application/json",
@@ -1882,7 +1882,7 @@
             //         return;
             //     }
             //     axios
-            //         .get(`${MAIN_HOST}/favorite?email=${email}`, {
+            //         .get(`/favorite?email=${email}`, {
             //             headers: {
             //                 "Access-Control-Allow-Origin": "*",
             //                 "Content-Type": "application/json",
@@ -1949,7 +1949,7 @@
                 if (1) {
                     axios
                         .post(
-                            `${MAIN_HOST}/favorite`, {
+                            `/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -2036,7 +2036,7 @@
                 if (1) {
                     axios
                         .post(
-                            `${MAIN_HOST}/favorite`, {
+                            `/favorite`, {
                                 personal_token,
                                 restaurant_obj,
                                 action: is_favorite ? 0 : 1, //0: remove; 1: add
@@ -2193,7 +2193,7 @@
 
             axios
                 .post(
-                    `${MAIN_HOST}/search_experiment`, {
+                    `/search_experiment`, {
                         name: name_arr,
                         place: place_arr, //formatted_address
                         cuisine: cuisine_arr, // reviews.text
@@ -2884,7 +2884,7 @@
 
                     axios
                         .post(
-                            `${MAIN_HOST}/review`, {
+                            `/review`, {
                                 personal_token,
                                 restaurant_esid,
                                 restaurant_name,
@@ -3206,7 +3206,7 @@
 
                 let native_review_arr;
                 axios
-                    .get(`${MAIN_HOST}/review?id=${rid}`)
+                    .get(`/review?id=${rid}`)
                     .then((response) => {
                         if (response.data.code) {
                             //code === 1 if positive
