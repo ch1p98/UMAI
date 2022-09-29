@@ -5,7 +5,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>M.A.I</title>
+    <title>M A I</title>
     <!-- (BOOTSTRAP)CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
 
@@ -31,7 +31,10 @@
     <link rel="stylesheet" href="./style/style_1.css" type="text/css" />
     <link rel="stylesheet" href="./vendor/select2/select2.min.css" type="text/css" />
 
-    <!--Icecream css/font-->
+    <!--Owl css/font-->
+    <link rel="stylesheet" href="./owlcarousel/owl.carousel.css" />
+    <link rel="stylesheet" href="./owlcarousel/owl.theme.default.min.css" />
+
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -102,40 +105,38 @@
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <a href="#" id="mai_a" class="navbar-brand mx-5 d-none d-lg-block">
                             <img id="nav_logo" src="./mai.jpg" alt="maiam" />
-                            <h1 id="mai_iam" class="m-0 display-4 text-primary">
-                                <span class="text-secondary">M A I</span>
-                            </h1>
+                            <div id="mai_iam" class="m-0 display-4 text-primary">
+                                <div>M A I</div>
+                            </div>
                         </a>
                         <div id="omni_bar" class="navbar-nav ml-auto py-0">
                             <div id="modify_search" class="nav-item nav-link nav_title">
-                                Modify Search
+                                神奇搜尋器
                             </div>
 
                             <div id="div_profile" class="nav-item nav-link">
                                 <div>
                                     <button id="trigger_profile" class="nav_title">
-                      Profile
+                      我的檔案
                     </button>
                                 </div>
                             </div>
                             <div id="show_signin" class="nav-item nav-link">
                                 <div>
                                     <button id="trigger_show_signin" class="nav_title">
-                      Sign In
+                      登入
                     </button>
                                 </div>
                             </div>
                             <div id="show_signup" class="nav-item nav-link">
                                 <div>
                                     <button id="trigger_show_signup" class="nav_title">
-                      Sign Up
+                      註冊
                     </button>
                                 </div>
                             </div>
                             <div id="div_signout" class="nav-item nav-link">
-                                <button id="trigger_signout" class="nav_title">
-                    Sign Out
-                  </button>
+                                <button id="trigger_signout" class="nav_title">登出</button>
                             </div>
                         </div>
                     </div>
@@ -143,7 +144,7 @@
 
                 <div class="container-login100" id="id_container-login100" style="display: none">
                     <div class="wrap-login100 p-t-12 p-b-20">
-                        <span class="login100-form-title p-b-41"> Sign In </span>
+                        <span class="login100-form-title p-b-41"> 登入 </span>
                         <div class="login100-form validate-form p-b-33 p-t-5">
                             <div class="wrap-input100 validate-input" data-validate="Enter username">
                                 <input class="input100" id="signin_input_email" type="text" name="username" placeholder="User Email" />
@@ -157,7 +158,7 @@
 
                             <div class="container-login100-form-btn m-t-32">
                                 <button class="login100-form-btn" id="trigger_signin">
-                    Login
+                    確定
                   </button>
                             </div>
                         </div>
@@ -166,7 +167,7 @@
                 <img src="./favatar/" alt="" />
                 <div class="container-login100" id="id_container-register100" style="display: none">
                     <div class="wrap-login100 p-t-12 p-b-20">
-                        <span class="login100-form-title p-b-16"> Sign Up </span>
+                        <span class="login100-form-title p-b-16"> 註冊 </span>
                         <div class="login100-form validate-form p-b-13 p-t-5">
                             <div class="wrap-input100 validate-input" data-validate="Enter username">
                                 <input class="input100" id="signup_input_name" type="text" name="username" placeholder="User Name" />
@@ -184,7 +185,7 @@
 
                             <div class="container-login100-form-btn m-t-32">
                                 <button class="login100-form-btn" id="trigger_signup">
-                    Register
+                    提交
                   </button>
                             </div>
                         </div>
@@ -439,7 +440,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="./lib/easing/easing.min.js"></script>
     <script src="./lib/waypoints/waypoints.min.js"></script>
-    <script src="./lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="./lib/isotope/isotope.pkgd.min.js"></script>
     <script src="./lib/lightbox/js/lightbox.min.js"></script>
 
@@ -447,14 +447,15 @@
     <script src="./mail/jqBootstrapValidation.min.js"></script>
     <script src="./mail/contact.js"></script>
 
-    <!-- Template Javascript -->
-    <script src="./js/main_ice.js"></script>
+    <!--Owl-->
+    <script src="./owlcarousel/owl.carousel.min.js"></script>
 
     <script>
         document.body.onkeypress = function() {
             document.body.classList.toggle("liked");
         };
     </script>
+
     <script>
         let cnt = 0;
         let hits_arr = [];
@@ -463,7 +464,8 @@
         let friends_set = new Set(),
             favorite_set = new Set();
         //const MAIN_HOST = "https://chipmunk.vip";
-        let _stamp = Date.now();
+        let _stamp = Date.now(),
+            diff_t = [];
         const LATENCY = 900000;
         let click_cnt = 0,
             time_window = Date.now();
@@ -689,237 +691,508 @@
             });
             $("#id_container-login100").hide();
             $("#id_container-register100").hide();
+            // #owlcarousel owl carousel 參數
+            const dummy = $("<div>").attr({
+                id: "dummy",
+            });
+            $("#root").append(dummy);
+
+            const campaign_container = $("<div>").attr({
+                class: "campaign_container",
+            });
+            dummy.append(campaign_container);
+            // .attr({class:})
+            // .attr({id:})
+            const campaign_box_1 = $("<div>").attr({
+                class: "campaign_box",
+                id: "campaign_box_1",
+            });
+            const campaign_box_2 = $("<div>").attr({
+                class: "campaign_box",
+                id: "campaign_box_2",
+            });
+            const campaign_box_3 = $("<div>").attr({
+                class: "campaign_box",
+                id: "campaign_box_3",
+            });
+            const campaign_box_4 = $("<div>").attr({
+                class: "campaign_box",
+                id: "campaign_box_4",
+            });
+            campaign_container.append(campaign_box_1);
+            campaign_container.append(campaign_box_2);
+            campaign_container.append(campaign_box_3);
+            campaign_container.append(campaign_box_4);
+
+            const campaign_title_div_box_1 = $("<div>").attr({
+                class: "campaign_title_div_box",
+            });
+            const campaign_title_div_box_2 = $("<div>").attr({
+                class: "campaign_title_div_box",
+            });
+            const campaign_title_div_box_3 = $("<div>").attr({
+                class: "campaign_title_div_box",
+            });
+            const campaign_title_div_box_4 = $("<div>").attr({
+                class: "campaign_title_div_box",
+            });
+
+            const campaign_title_text_1 = "最受歡迎的餐廳",
+                campaign_choice_1 = 1;
+            const campaign_title_text_2 = "提供外送",
+                campaign_choice_2 = 2;
+            const campaign_title_text_3 = "日式美食",
+                campaign_choice_3 = 3;
+            const campaign_title_text_4 = "銅板美食",
+                campaign_choice_4 = 5;
+
+            const campaign_title_span_1 = $("<span>").text(campaign_title_text_1);
+            const campaign_title_span_2 = $("<span>").text(campaign_title_text_2);
+            const campaign_title_span_3 = $("<span>").text(campaign_title_text_3);
+            const campaign_title_span_4 = $("<span>").text(campaign_title_text_4);
+
+            campaign_title_div_box_1.append(campaign_title_span_1);
+            campaign_title_div_box_2.append(campaign_title_span_2);
+            campaign_title_div_box_3.append(campaign_title_span_3);
+            campaign_title_div_box_4.append(campaign_title_span_4);
+
+            const campaign_option_div_box_1 = $("<div>").attr({
+                class: "campaign_option_div",
+            });
+            const campaign_option_div_box_2 = $("<div>").attr({
+                class: "campaign_option_div",
+            });
+            const campaign_option_div_box_3 = $("<div>").attr({
+                class: "campaign_option_div",
+            });
+            const campaign_option_div_box_4 = $("<div>").attr({
+                class: "campaign_option_div",
+            });
+
+            const campaign_head_box_1 = $("<div>").attr({
+                class: "campaign_head_box",
+            });
+            const campaign_head_box_2 = $("<div>").attr({
+                class: "campaign_head_box",
+            });
+            const campaign_head_box_3 = $("<div>").attr({
+                class: "campaign_head_box",
+            });
+            const campaign_head_box_4 = $("<div>").attr({
+                class: "campaign_head_box",
+            });
+            campaign_head_box_1.append(campaign_title_div_box_1);
+            campaign_head_box_1.append(campaign_option_div_box_1);
+            campaign_head_box_2.append(campaign_title_div_box_2);
+            campaign_head_box_2.append(campaign_option_div_box_2);
+            campaign_head_box_3.append(campaign_title_div_box_3);
+            campaign_head_box_3.append(campaign_option_div_box_3);
+            campaign_head_box_4.append(campaign_title_div_box_4);
+            campaign_head_box_4.append(campaign_option_div_box_4);
+
+            const campaign_content_div_box_1 = $("<div>").attr({
+                class: "campaign_content_div_box",
+            });
+            const campaign_content_div_box_2 = $("<div>").attr({
+                class: "campaign_content_div_box",
+            });
+            const campaign_content_div_box_3 = $("<div>").attr({
+                class: "campaign_content_div_box",
+            });
+            const campaign_content_div_box_4 = $("<div>").attr({
+                class: "campaign_content_div_box",
+            });
+            const campaign_body_box_1 = $("<div>").attr({
+                class: "campaign_body_box",
+            });
+            const campaign_body_box_2 = $("<div>").attr({
+                class: "campaign_body_box",
+            });
+            const campaign_body_box_3 = $("<div>").attr({
+                class: "campaign_body_box",
+            });
+            const campaign_body_box_4 = $("<div>").attr({
+                class: "campaign_body_box",
+            });
+
+            campaign_body_box_1.append(campaign_content_div_box_1);
+            campaign_body_box_2.append(campaign_content_div_box_2);
+            campaign_body_box_3.append(campaign_content_div_box_3);
+            campaign_body_box_4.append(campaign_content_div_box_4);
+
+            campaign_box_1.append(campaign_head_box_1);
+            campaign_box_1.append(campaign_body_box_1);
+            campaign_box_2.append(campaign_head_box_2);
+            campaign_box_2.append(campaign_body_box_2);
+            campaign_box_3.append(campaign_head_box_3);
+            campaign_box_3.append(campaign_body_box_3);
+            campaign_box_4.append(campaign_head_box_4);
+            campaign_box_4.append(campaign_body_box_4);
+
+            // pseudodata
+            const c_img = $("<img>").attr({
+                src: "./images/yukihira.jpg",
+                width: "300px",
+            });
+            // end of pseudodata
+
+            //
+            let c_img_div = $("<div>");
+            c_img_div.append(c_img);
+            //
+
+            let campaign_data_1_arr = [];
+            let campaign_data_2_arr = [];
+            let campaign_data_3_arr = [];
+            let campaign_data_4_arr = [];
+            const campaign_api_headers = {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+            };
+            const default_display_n = 28;
+
+            //campaign_1
+            axios
+                .get(`campaign/${campaign_choice_1}`, {
+                    headers: campaign_api_headers,
+                })
+                .then((response) => {
+                    //console.log("campaign response: ", response);
+                    response.data.result.hits.hits.forEach((element, index) => {
+                        campaign_data_1_arr.push({
+                            data: element._source,
+                            id: element._id,
+                        });
+                    });
+                    console.log("campaign_data_1_arr: ", campaign_data_1_arr);
+                    //campaign_1
+                    for (let i = 0; i < default_display_n; i++) {
+                        const name = campaign_data_1_arr[i].data.name,
+                            rating = campaign_data_1_arr[i].data.rating,
+                            hashtag = "#" + campaign_data_1_arr[i].data.types.join(" #"),
+                            place_id = campaign_data_1_arr[i].data.place_id;
+                        console.log("name, rating, hashtag: ", name, rating, hashtag);
+                        const campaign_item = $("<div>").attr({
+                            class: "campaign_item",
+                        });
+
+                        const c_name_div = $("<div>").attr({
+                            class: "c_name_div",
+                        });
+                        const c_name_span = $("<span>");
+                        c_name_div.append(c_name_span);
+                        c_name_span.text(name);
+
+                        const c_rating_div = $("<div>").attr({
+                            class: "c_rating_div",
+                        });
+
+                        const c_rating = $("<div>").attr({
+                            class: "native_rating_container",
+                        });
+                        c_rating_div.append(c_rating);
+
+                        for (let j = 0; j < 5; j++) {
+                            c_rating.append(
+                                $("<img>").attr({
+                                    src: "./icon/star_glow.png",
+                                    class: "star_in_campaign",
+                                })
+                            );
+                        }
+                        const c_hashtag_div = $("<div>").attr({
+                            class: "c_hashtag_div",
+                        });
+                        const c_hashtag_span = $("<span>");
+                        c_hashtag_div.append(c_hashtag_span);
+                        c_hashtag_span.text(hashtag);
+
+                        const c_id = $("<div>").attr({
+                            class: "campaign_item_id",
+                        });
+                        c_id.text(place_id);
+                        c_id.css("display", "none");
+
+                        campaign_item.append(c_img_div.clone());
+
+                        campaign_item.append(c_name_div);
+                        campaign_item.append(c_rating_div);
+                        campaign_item.append(c_hashtag_div);
+                        campaign_item.append(c_id);
+
+                        campaign_content_div_box_1.append(campaign_item);
+                    }
+                    diff_t.push(Date.now() - _stamp);
+                    campaign_content_div_box_1.addClass("owl-carousel");
+                })
+                .catch((err) => {
+                    console.log(
+                        `an error occurred while retrieving campaign data: ${err}`
+                    );
+                });
+
+            //campaign_2
+            axios
+                .get(`campaign/${campaign_choice_2}`, {
+                    headers: campaign_api_headers,
+                })
+                .then((response) => {
+                    //console.log("campaign response: ", response);
+                    response.data.result.hits.hits.forEach((element, index) => {
+                        campaign_data_2_arr.push({
+                            data: element._source,
+                            id: element._id,
+                        });
+                    });
+                    //campaign_2
+                    for (let i = 0; i < default_display_n; i++) {
+                        const name = campaign_data_2_arr[i].data.name,
+                            rating = campaign_data_2_arr[i].data.rating,
+                            hashtag = "#" + campaign_data_2_arr[i].data.types.join(" #"),
+                            place_id = campaign_data_2_arr[i].data.place_id;
+                        const campaign_item = $("<div>").attr({
+                            class: "campaign_item",
+                        });
+
+                        const c_name_div = $("<div>").attr({
+                            class: "c_name_div",
+                        });
+                        const c_name_span = $("<span>");
+                        c_name_div.append(c_name_span);
+                        c_name_span.text(name);
+
+                        const c_rating_div = $("<div>").attr({
+                            class: "c_rating_div",
+                        });
+
+                        const c_rating = $("<div>").attr({
+                            class: "native_rating_container",
+                        });
+                        c_rating_div.append(c_rating);
+
+                        for (let j = 0; j < 5; j++) {
+                            c_rating.append(
+                                $("<img>").attr({
+                                    src: "./icon/star_glow.png",
+                                    class: "star_in_campaign",
+                                })
+                            );
+                        }
+                        const c_hashtag_div = $("<div>").attr({
+                            class: "c_hashtag_div",
+                        });
+                        const c_hashtag_span = $("<span>");
+                        c_hashtag_div.append(c_hashtag_span);
+                        c_hashtag_span.text(hashtag);
+
+                        const c_id = $("<div>").attr({
+                            class: "campaign_item_id",
+                        });
+                        c_id.text(place_id);
+                        c_id.css("display", "none");
+
+                        campaign_item.append(c_img_div.clone());
+
+                        campaign_item.append(c_name_div);
+                        campaign_item.append(c_rating_div);
+                        campaign_item.append(c_hashtag_div);
+                        campaign_item.append(c_id);
+                        campaign_content_div_box_2.append(campaign_item);
+                    }
+                    diff_t.push(Date.now() - _stamp);
+                    campaign_content_div_box_2.addClass("owl-carousel");
+                })
+                .catch((err) => {
+                    console.log(
+                        `an error occurred while retrieving campaign data: ${err}`
+                    );
+                });
+
+            //campaign_3
+            axios
+                .get(`campaign/${campaign_choice_3}`, {
+                    headers: campaign_api_headers,
+                })
+                .then((response) => {
+                    //console.log("campaign response: ", response);
+                    response.data.result.hits.hits.forEach((element, index) => {
+                        campaign_data_3_arr.push({
+                            data: element._source,
+                            id: element._id,
+                        });
+                    });
+                    //campaign_3
+                    for (let i = 0; i < default_display_n; i++) {
+                        const name = campaign_data_3_arr[i].data.name,
+                            rating = campaign_data_3_arr[i].data.rating,
+                            hashtag = "#" + campaign_data_3_arr[i].data.types.join(" #"),
+                            place_id = campaign_data_3_arr[i].data.place_id;
+                        const campaign_item = $("<div>").attr({
+                            class: "campaign_item",
+                        });
+
+                        const c_name_div = $("<div>").attr({
+                            class: "c_name_div",
+                        });
+                        const c_name_span = $("<span>");
+                        c_name_div.append(c_name_span);
+                        c_name_span.text(name);
+
+                        const c_rating_div = $("<div>").attr({
+                            class: "c_rating_div",
+                        });
+
+                        const c_rating = $("<div>").attr({
+                            class: "native_rating_container",
+                        });
+                        c_rating_div.append(c_rating);
+
+                        for (let j = 0; j < 5; j++) {
+                            c_rating.append(
+                                $("<img>").attr({
+                                    src: "./icon/star_glow.png",
+                                    class: "star_in_campaign",
+                                })
+                            );
+                        }
+                        const c_hashtag_div = $("<div>").attr({
+                            class: "c_hashtag_div",
+                        });
+                        const c_hashtag_span = $("<span>");
+                        c_hashtag_div.append(c_hashtag_span);
+                        c_hashtag_span.text(hashtag);
+
+                        const c_id = $("<div>").attr({
+                            class: "campaign_item_id",
+                        });
+                        c_id.text(place_id);
+                        c_id.css("display", "none");
+
+                        campaign_item.append(c_img_div.clone());
+
+                        campaign_item.append(c_name_div);
+                        campaign_item.append(c_rating_div);
+                        campaign_item.append(c_hashtag_div);
+                        campaign_item.append(c_id);
+
+                        campaign_content_div_box_3.append(campaign_item);
+                    }
+                    diff_t.push(Date.now() - _stamp);
+                    campaign_content_div_box_3.addClass("owl-carousel");
+                })
+                .catch((err) => {
+                    console.log(
+                        `an error occurred while retrieving campaign data: ${err}`
+                    );
+                });
+
+            //campaign_4
+            axios
+                .get(`campaign/${campaign_choice_4}`, {
+                    headers: campaign_api_headers,
+                })
+                .then((response) => {
+                    console.log("campaign response: ", response);
+                    response.data.result.hits.hits.forEach((element, index) => {
+                        campaign_data_4_arr.push({
+                            data: element._source,
+                            id: element._id,
+                        });
+                    });
+                    //campaign_4
+                    for (let i = 0; i < default_display_n; i++) {
+                        const name = campaign_data_4_arr[i].data.name,
+                            rating = campaign_data_4_arr[i].data.rating,
+                            hashtag = "#" + campaign_data_4_arr[i].data.types.join(" #"),
+                            place_id = campaign_data_4_arr[i].data.place_id;
+                        const campaign_item = $("<div>").attr({
+                            class: "campaign_item",
+                        });
+
+                        const c_name_div = $("<div>").attr({
+                            class: "c_name_div",
+                        });
+                        const c_name_span = $("<span>");
+                        c_name_div.append(c_name_span);
+                        c_name_span.text(name);
+
+                        const c_rating_div = $("<div>").attr({
+                            class: "c_rating_div",
+                        });
+
+                        const c_rating = $("<div>").attr({
+                            class: "native_rating_container",
+                        });
+                        c_rating_div.append(c_rating);
+
+                        for (let j = 0; j < 5; j++) {
+                            c_rating.append(
+                                $("<img>").attr({
+                                    src: "./icon/star_glow.png",
+                                    class: "star_in_campaign",
+                                })
+                            );
+                        }
+                        const c_hashtag_div = $("<div>").attr({
+                            class: "c_hashtag_div",
+                        });
+                        const c_hashtag_span = $("<span>");
+                        c_hashtag_div.append(c_hashtag_span);
+                        c_hashtag_span.text(hashtag);
+
+                        const c_id = $("<div>").attr({
+                            class: "campaign_item_id",
+                        });
+                        c_id.text(place_id);
+                        c_id.css("display", "none");
+
+                        campaign_item.append(c_img_div.clone());
+
+                        campaign_item.append(c_name_div);
+                        campaign_item.append(c_rating_div);
+                        campaign_item.append(c_hashtag_div);
+                        campaign_item.append(c_id);
+                        campaign_content_div_box_4.append(campaign_item);
+                    }
+                    diff_t.push(Date.now() - _stamp);
+                    campaign_content_div_box_4.addClass("owl-carousel");
+                })
+                .catch((err) => {
+                    console.log(
+                        `an error occurred while retrieving campaign data: ${err}`
+                    );
+                });
+            setTimeout(() => {
+                $(".owl-carousel").owlCarousel({
+                    items: 4,
+                    loop: true,
+                    margin: 10,
+                    nav: true,
+                    autoplay: true,
+
+                    responsive: {
+                        0: {
+                            items: 1,
+                        },
+                        640: {
+                            items: 2,
+                        },
+                        1280: {
+                            items: 3,
+                        },
+                    },
+                });
+                console.log("diff_t:", diff_t);
+            }, 3333);
+
+            scrollTo(0, 0);
         });
         console.log("initial setting start...");
         // setTimeout(() => {
         //     $("#preroot").remove();
         // }, 5672);
-        const dummy = $("<div>").attr({
-            id: "dummy",
-        });
-        $("#root").append(dummy);
-        const campaign_container = $("<div>").attr({
-            class: "campaign_container",
-        });
-        dummy.append(campaign_container);
-        // .attr({class:})
-        // .attr({id:})
-        const campaign_box_1 = $("<div>").attr({
-            class: "campaign_box",
-            id: "campaign_box_1",
-        });
-        const campaign_box_2 = $("<div>").attr({
-            class: "campaign_box",
-            id: "campaign_box_2",
-        });
-        const campaign_box_3 = $("<div>").attr({
-            class: "campaign_box",
-            id: "campaign_box_3",
-        });
-        const campaign_box_4 = $("<div>").attr({
-            class: "campaign_box",
-            id: "campaign_box_4",
-        });
-        campaign_container.append(campaign_box_1);
-        campaign_container.append(campaign_box_2);
-        campaign_container.append(campaign_box_3);
-        campaign_container.append(campaign_box_4);
-
-        const campaign_title_div_box_1 = $("<div>").attr({
-            class: "campaign_title_div_box",
-        });
-        const campaign_title_div_box_2 = $("<div>").attr({
-            class: "campaign_title_div_box",
-        });
-        const campaign_title_div_box_3 = $("<div>").attr({
-            class: "campaign_title_div_box",
-        });
-        const campaign_title_div_box_4 = $("<div>").attr({
-            class: "campaign_title_div_box",
-        });
-
-        const campaign_title_text_1 = "最受歡迎的餐廳";
-        const campaign_title_text_2 = "提供外送";
-        const campaign_title_text_3 = "日式美食";
-        const campaign_title_text_4 = "銅板美食";
-
-        const campaign_title_span_1 = $("<span>").text(campaign_title_text_1);
-        const campaign_title_span_2 = $("<span>").text(campaign_title_text_2);
-        const campaign_title_span_3 = $("<span>").text(campaign_title_text_3);
-        const campaign_title_span_4 = $("<span>").text(campaign_title_text_4);
-
-        campaign_title_div_box_1.append(campaign_title_span_1);
-        campaign_title_div_box_2.append(campaign_title_span_2);
-        campaign_title_div_box_3.append(campaign_title_span_3);
-        campaign_title_div_box_4.append(campaign_title_span_4);
-
-        const campaign_option_div_box_1 = $("<div>").attr({
-            class: "campaign_option_div",
-        });
-        const campaign_option_div_box_2 = $("<div>").attr({
-            class: "campaign_option_div",
-        });
-        const campaign_option_div_box_3 = $("<div>").attr({
-            class: "campaign_option_div",
-        });
-        const campaign_option_div_box_4 = $("<div>").attr({
-            class: "campaign_option_div",
-        });
-
-        const campaign_head_box_1 = $("<div>").attr({
-            class: "campaign_head_box",
-        });
-        const campaign_head_box_2 = $("<div>").attr({
-            class: "campaign_head_box",
-        });
-        const campaign_head_box_3 = $("<div>").attr({
-            class: "campaign_head_box",
-        });
-        const campaign_head_box_4 = $("<div>").attr({
-            class: "campaign_head_box",
-        });
-        campaign_head_box_1.append(campaign_title_div_box_1);
-        campaign_head_box_1.append(campaign_option_div_box_1);
-        campaign_head_box_2.append(campaign_title_div_box_2);
-        campaign_head_box_2.append(campaign_option_div_box_2);
-        campaign_head_box_3.append(campaign_title_div_box_3);
-        campaign_head_box_3.append(campaign_option_div_box_3);
-        campaign_head_box_4.append(campaign_title_div_box_4);
-        campaign_head_box_4.append(campaign_option_div_box_4);
-
-        const campaign_content_div_box_1 = $("<div>").attr({
-            class: "campaign_content_div_box",
-        });
-        const campaign_content_div_box_2 = $("<div>").attr({
-            class: "campaign_content_div_box",
-        });
-        const campaign_content_div_box_3 = $("<div>").attr({
-            class: "campaign_content_div_box",
-        });
-        const campaign_content_div_box_4 = $("<div>").attr({
-            class: "campaign_content_div_box",
-        });
-        const campaign_body_box_1 = $("<div>").attr({
-            class: "campaign_body_box",
-        });
-        const campaign_body_box_2 = $("<div>").attr({
-            class: "campaign_body_box",
-        });
-        const campaign_body_box_3 = $("<div>").attr({
-            class: "campaign_body_box",
-        });
-        const campaign_body_box_4 = $("<div>").attr({
-            class: "campaign_body_box",
-        });
-
-        campaign_body_box_1.append(campaign_content_div_box_1);
-        campaign_body_box_2.append(campaign_content_div_box_2);
-        campaign_body_box_3.append(campaign_content_div_box_3);
-        campaign_body_box_4.append(campaign_content_div_box_4);
-
-        campaign_box_1.append(campaign_head_box_1);
-        campaign_box_1.append(campaign_body_box_1);
-        campaign_box_2.append(campaign_head_box_2);
-        campaign_box_2.append(campaign_body_box_2);
-        campaign_box_3.append(campaign_head_box_3);
-        campaign_box_3.append(campaign_body_box_3);
-        campaign_box_4.append(campaign_head_box_4);
-        campaign_box_4.append(campaign_body_box_4);
-        // pseudodata
-        const c_name = "お食事処ゆきひら";
-        const c_img = $("<img>").attr({
-            src: "./images/yukihira.jpg",
-            width: "300px",
-        });
-        const c_rating = $("<div>").attr({
-            class: "native_rating_container",
-        });
-        for (let i = 0; i < 5; i++) {
-            c_rating.append(
-                $("<img>").attr({
-                    src: "./icon/star_glow.png",
-                })
-            );
-        }
-        const c_hashtag_arr = ["#Japanese", "#Bar"];
-        // end of pseudodata
-
-        //
-        let c_name_div = $("<div>").attr({
-            class: "c_name_div",
-        });
-        const c_name_span = $("<span>");
-        c_name_div.append(c_name_span);
-        c_name_span.text(c_name);
-        //
-        let c_img_div = $("<div>");
-        c_img_div.append(c_img);
-        //
-        let c_rating_div = $("<div>").attr({
-            class: "c_rating_div",
-        });
-        c_rating_div.append(c_rating);
-        //
-        let c_hashtag_div = $("<div>").attr({
-            class: "c_hashtag_div",
-        });
-        const c_hashtag_span = $("<span>");
-        c_hashtag_div.append(c_hashtag_span);
-
-        c_hashtag_span.text(c_hashtag_arr.join(" "));
-        //
-        let campaign_item;
-        const default_display_n = 4;
-
-        for (let n = 0; n < 4; n++) {
-            campaign_item = $("<div>").attr({
-                class: "campaign_item",
-            });
-            campaign_item.append(c_img_div.clone());
-
-            campaign_item.append(c_name_div.clone());
-            campaign_item.append(c_rating_div.clone());
-            campaign_item.append(c_hashtag_div.clone());
-            campaign_body_box_1.append(campaign_item);
-        }
-
-        for (let n = 0; n < 4; n++) {
-            campaign_item = $("<div>").attr({
-                class: "campaign_item",
-            });
-            campaign_item.append(c_img_div.clone());
-
-            campaign_item.append(c_name_div.clone());
-            campaign_item.append(c_rating_div.clone());
-            campaign_item.append(c_hashtag_div.clone());
-            campaign_body_box_2.append(campaign_item);
-        }
-
-        for (let n = 0; n < 4; n++) {
-            campaign_item = $("<div>").attr({
-                class: "campaign_item",
-            });
-            campaign_item.append(c_img_div.clone());
-
-            campaign_item.append(c_name_div.clone());
-            campaign_item.append(c_rating_div.clone());
-            campaign_item.append(c_hashtag_div.clone());
-            campaign_body_box_3.append(campaign_item);
-        }
-
-        for (let n = 0; n < 4; n++) {
-            campaign_item = $("<div>").attr({
-                class: "campaign_item",
-            });
-            campaign_item.append(c_img_div.clone());
-
-            campaign_item.append(c_name_div.clone());
-            campaign_item.append(c_rating_div.clone());
-            campaign_item.append(c_hashtag_div.clone());
-            campaign_body_box_4.append(campaign_item);
-        }
-
-        $("#modify_search").hide();
+        $("#filters").hide();
+        //$("#modify_search").hide();
         // $("#id_container-login100").hide();
         // $("#id_container-register100").hide();
 
@@ -1192,6 +1465,7 @@
             //     return;
             // }
             $("#profile_skin").remove();
+            $("#dummy").remove();
             // $("#profile_container").remove();
             // $("#friend_container").remove();
             // $("#favorite_container").remove();
@@ -1302,10 +1576,10 @@
                             let div_favorite = $("<div></div>").attr({
                                 id: "favorite_container",
                             });
+                            div_profile_skin.append(div_profile);
+
                             div_profile_skin.append(div_favorite);
                             div_profile_skin.append(div_friend);
-
-                            div_profile_skin.append(div_profile);
 
                             $("#root").append(div_profile_skin);
 
@@ -1573,7 +1847,7 @@
                                                         );
                                                         if (is_favorite) {
                                                             add_to_wish_btn.addClass(
-                                                                "btn btn-warning btn-xs btn-radius"
+                                                                "btn btn-outline-warning btn-xs btn-radius"
                                                             );
                                                             add_to_wish_btn.text("Remove From Pocket List");
                                                             console.log("fst");
@@ -1756,7 +2030,7 @@
                                                             "<button>Show Reviews From Google Maps</button>"
                                                         ).attr({
                                                             id: "google_review_toggle",
-                                                            class: "btn btn-warning btn-sm btn-radius",
+                                                            class: "btn btn-outline-warning btn-sm btn-radius",
                                                         });
                                                         //
 
@@ -1764,14 +2038,14 @@
                                                             "<button>Post Review</button>"
                                                         ).attr({
                                                             id: "post_review_btn",
-                                                            class: "btn btn-warning btn-sm btn-radius",
+                                                            class: "btn btn-outline-warning btn-sm btn-radius",
                                                         });
 
                                                         let native_review_toggle = $(
                                                             "<button>Show Native Reviews</button>"
                                                         ).attr({
                                                             id: "google_review_toggle",
-                                                            class: "btn btn-warning btn-sm btn-radius",
+                                                            class: "btn btn-outline-warning btn-sm btn-radius",
                                                         });
 
                                                         // get native reviews
@@ -1889,12 +2163,12 @@
                                                         // $("#restaurant_container").remove();
                                                         // $("#pagination").remove();
                                                         $("#return_result").remove();
-                                                        const return_result = $(
-                                                            "<div>Return To Search</div>"
-                                                        ).attr({
-                                                            id: "return_result",
-                                                            class: "nav-item nav-link nav_title",
-                                                        });
+                                                        // const return_result = $(
+                                                        //     "<div>Return To Search</div>"
+                                                        // ).attr({
+                                                        //     id: "return_result",
+                                                        //     class: "nav-item nav-link nav_title",
+                                                        // });
 
                                                         //// end of retrieving detail
                                                         ////
@@ -2143,7 +2417,7 @@
                                 // 移除高光
                                 favorite_set.delete(rid);
                                 $("#add_favorite").removeClass(
-                                    "btn btn-warning btn-xs btn-radius"
+                                    "btn btn-outline-warning btn-xs btn-radius"
                                 );
                                 $("#add_favorite").addClass(
                                     "btn btn-outline-secondary btn-xs btn-radius"
@@ -2156,7 +2430,7 @@
                                     "btn btn-outline-secondary btn-xs btn-radius"
                                 );
                                 $("#add_favorite").addClass(
-                                    "btn btn-warning btn-xs btn-radius"
+                                    "btn btn-outline-warning btn-xs btn-radius"
                                 );
                                 $("#add_favorite").text("Remove From Pocket List");
                             }
@@ -2288,7 +2562,10 @@
 
         // QQQ. 按照現在的邏輯，按下搜尋時要把profile(div_profile) 藏起來
         $("#selected_fire").click((event) => {
+            scrollTo(0, 0);
+
             $("#detail_container").remove();
+            $("#dummy").remove();
             $(".pagination").remove();
             let name_arr = [];
             let selected_name = name.find(":selected");
@@ -2429,6 +2706,8 @@
                     $("#restaurant_container").append(div_membrane);
 
                     let is_favorite = 0;
+
+                    // display search result
                     for (ho of hits_arr) {
                         const h = ho.data;
                         //console.log(ho.id);
@@ -3014,10 +3293,10 @@
                 });
 
                 let submit_post_review_btn = $("<button>POST</button>").attr({
-                    class: "btn btn-warning btn-sm btn-radius",
+                    class: "btn btn-outline-warning btn-sm btn-radius",
                 });
                 let cancel_post_review_btn = $("<button>CANCEL</button>").attr({
-                    class: "btn btn-warning btn-sm btn-radius",
+                    class: "btn btn-outline-warning btn-sm btn-radius",
                 });
 
                 fresh_review_block.append(review_bottom);
@@ -3124,6 +3403,7 @@
             }
         });
 
+        // click reataurant name to display detail of the restaurant
         // for (let i_ = 0; i < page_len; i++) {
         for (let hits_i = 0; hits_i < 28; hits_i++) {
             //console.log("current hooked i: ", hits_i);
@@ -3187,7 +3467,9 @@
                 let is_favorite = favorite_set.has(rid);
                 console.log("is_favorite at detail page: ", is_favorite);
                 if (is_favorite) {
-                    add_to_wish_btn.addClass("btn btn-warning btn-xs btn-radius");
+                    add_to_wish_btn.addClass(
+                        "btn btn-outline-warning btn-xs btn-radius"
+                    );
                     add_to_wish_btn.text("Remove From Pocket List");
                     console.log("fst");
                 } else {
@@ -3346,20 +3628,20 @@
                     "<button>Show Reviews From Google Maps</button>"
                 ).attr({
                     id: "google_review_toggle",
-                    class: "btn btn-warning btn-sm btn-radius",
+                    class: "btn btn-outline-warning btn-sm btn-radius",
                 });
                 //
 
                 let post_review_btn = $("<button>Post Review</button>").attr({
                     id: "post_review_btn",
-                    class: "btn btn-warning btn-sm btn-radius",
+                    class: "btn btn-outline-warning btn-sm btn-radius",
                 });
 
                 let native_review_toggle = $(
                     "<button>Show Native Reviews</button>"
                 ).attr({
                     id: "google_review_toggle",
-                    class: "btn btn-warning btn-sm btn-radius",
+                    class: "btn btn-outline-warning btn-sm btn-radius",
                 });
 
                 // get native reviews
@@ -3451,10 +3733,12 @@
                 // $("#restaurant_container").remove();
                 // $("#pagination").remove();
                 $("#return_result").remove();
-                const return_result = $("<div>Return To Search</div>").attr({
+                const return_result = $("<div>回到搜尋結果</div>").attr({
                     id: "return_result",
                     class: "nav-item nav-link nav_title",
                 });
+
+                $("#omni_bar").append(return_result);
             });
             $(document).on("click", `#item_img_${hits_i}`, () => {
                 $(`#item_title_${hits_i}`).trigger("click");
@@ -3488,15 +3772,23 @@
                 click_cnt++;
                 console.log("click cnt:", click_cnt);
             }
-            if (click_cnt > 4) {
+            if (click_cnt > 7) {
                 const easter_egg = $("<div>").attr({
                     id: "easter_egg",
                 });
+                const etitle = $("<div>").attr({
+                    id: "easter_egg_title",
+                });
+                const etitlt_p = $("<p>");
+                etitle.append(etitlt_p);
+                const etitle_text = "網路速度較慢的時候，請保持耐心🥹";
+                etitlt_p.text(etitle_text);
                 const eimg = $("<img>").attr({
                     src: "./images/bonappetit.gif",
                     width: "500px",
                 });
-                const ebtn = $("<button>OK I AM FULL</button>");
+                const ebtn = $("<button>我了解了</button>");
+                easter_egg.append(etitle);
                 easter_egg.append(eimg);
                 easter_egg.append(ebtn);
                 $("#root").append(easter_egg);

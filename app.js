@@ -771,12 +771,13 @@ app.post("/review", async (req, res) => {
   res.status(200).json(response);
 });
 
-app.post("/campaign", async (req, res) => {
-  const choice = req.body.choice;
-  let es_query;
+app.get("/campaign/:id", async (req, res) => {
+  const choice = req.params.id;
+  const name_field = "name";
   const rating_field = "rating";
   const reviews_field = "reviews.text";
   const address_field = "formatted_address";
+  const price_field = "price_level";
   const campaign_list = [
     "台北市美食",
     "最受歡迎的餐廳",
@@ -786,32 +787,92 @@ app.post("/campaign", async (req, res) => {
     "銅板美食",
     "氣氛滿分",
   ];
-  try {
-    es_queries_list = {
+
+  const campaign_query_dict = {};
+  for (let i = 0; i < campaign_list.length; i++) {
+    campaign_query_dict[`${i}`] = { title: `${campaign_list[i]}`, query: {} };
+  }
+  // campaign_query_dict[choice] = {
+  //   title: "ith TITLE",
+  //   query: {},
+  // };
+  campaign_query_dict[0].query = {
+    must: {
+      match: {
+        [address_field]: "台北",
+      },
+    },
+  };
+  campaign_query_dict[1].query = {
+    must: {
       range: {
         [rating_field]: { gte: 4.3, boost: 4.0 },
       },
-    };
-  } catch (err) {
-    console.log("an error occurred: ", err);
-  }
-  console.log(es_queries_list);
+    },
+  };
+  campaign_query_dict[2].query = {
+    must: {
+      match: {
+        [reviews_field]: "外送",
+      },
+    },
+  };
+  campaign_query_dict[3].query = {
+    must: {
+      match: {
+        [reviews_field]: "日式",
+      },
+    },
+  };
+  campaign_query_dict[4].query = {
+    must: [
+      {
+        match: {
+          [reviews_field]: "吃到飽",
+        },
+      },
+    ],
+  };
+  campaign_query_dict[5].query = {
+    must: {
+      range: {
+        [price_field]: { lte: 1 },
+      },
+    },
+  };
+  campaign_query_dict[6].query = {
+    should: [
+      {
+        match: {
+          [reviews_field]: "氣氛",
+        },
+      },
+      {
+        match: {
+          [reviews_field]: "浪漫",
+        },
+      },
+    ],
+  };
+
+  console.log(`campaign_query_dict[${choice}]: `, campaign_query_dict[choice]);
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
       size: 28,
-      //query: { match: { formatted_address: "仁愛路" } },
       query: {
-        bool: {
-          must: es_queries_list,
-        },
+        bool: campaign_query_dict[choice].query,
       },
     })
     .catch((err) => {
       res.status(500).json({ err, result: "search failed" });
       return;
     });
-  res.json({ result, campaign: { choice: campaign_list[choice] } });
+  console.log("campaign result: ", result);
+  res.json({
+    result,
+    campaign: { index: choice, choice: campaign_list[choice] },
+  });
 });
 
 app.post("/search_experiment", async (req, res) => {

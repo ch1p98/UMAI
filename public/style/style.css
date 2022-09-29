@@ -33,6 +33,12 @@
   overflow: hidden;
 }
 
+button {
+  text-shadow: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
 hr {
   margin: 20px;
   border: none;
@@ -293,6 +299,7 @@ a.weblink_a:hover::before {
   position: absolute;
   top: 100%;
   left: 0;
+  border: 1px solid;
   border-radius: 7px;
   z-index: 527;
 }
@@ -355,12 +362,10 @@ a.weblink_a:hover::before {
 }
 
 .profile_div_box {
-  padding: 1rem;
+  padding: 0.59rem;
   margin: 0.41rem;
   width: 89%;
   background-color: #fcfcfcfc;
-  -webkit-box-shadow: 0 3px 3px 0 #626262;
-          box-shadow: 0 3px 3px 0 #626262;
   height: auto;
   display: inline-block;
   display: -webkit-box;
@@ -500,8 +505,6 @@ a.weblink_a:hover::before {
   border-radius: 7px;
   padding: 1rem;
   background-color: #fcfcfcfc;
-  -webkit-box-shadow: 0 3px 3px 0 #626262;
-          box-shadow: 0 3px 3px 0 #626262;
   cursor: pointer;
 }
 
@@ -539,7 +542,6 @@ a.weblink_a:hover::before {
 
 .restaurant_box {
   background-color: #f8f8f8ee;
-  padding: 10px;
   margin: 2vh 2vw;
   border-radius: 7px;
   display: -webkit-box;
@@ -560,6 +562,12 @@ a.weblink_a:hover::before {
 
 .op_cond {
   border-radius: 7px;
+}
+
+.op_cond button {
+  text-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 .review_box {
@@ -680,7 +688,7 @@ a.weblink_a:hover::before {
           justify-content: center;
   width: auto;
   border-radius: 7px;
-  padding: 0.67rem 6rem;
+  padding: 0.67rem 1rem;
   margin: 0.23rem 0;
   background-color: #f3f3f3;
   border-bottom: #999999 1px solid;
@@ -873,7 +881,7 @@ a.weblink_a:hover::before {
 .campaign_option_div {
   width: 32px;
   height: 32px;
-  background-color: #e67228;
+  background-color: #ff2667;
 }
 
 .campaign_box {
@@ -907,11 +915,15 @@ a.weblink_a:hover::before {
   margin-bottom: 1.24rem;
 }
 
+.star_in_campaign {
+  width: 1.18rem !important;
+  margin-right: 0.27rem !important;
+}
+
 .campaign_body_box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  overflow: scroll;
 }
 
 .pagination {
@@ -983,12 +995,29 @@ a.weblink_a:hover::before {
 
 #mai_iam {
   font-size: 4.7rem;
-  display: inline;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   font-family: v92r;
 }
 
 #mai_iam span {
   font-family: v92r;
+}
+
+#mai_iam div {
+  font-family: v92r;
+  position: absolute;
+  top: calc(-100% - 1.95rem);
+  left: calc(-100% - 10.77rem);
 }
 
 #mai_a {
@@ -999,6 +1028,9 @@ a.weblink_a:hover::before {
   -webkit-box-pack: justify !important;
       -ms-flex-pack: justify !important;
           justify-content: space-between !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
 }
 
 #omni_bar {
@@ -1031,6 +1063,7 @@ a.weblink_a:hover::before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  padding: 0 1rem;
 }
 
 #filter_caption span {
@@ -1047,7 +1080,7 @@ a.weblink_a:hover::before {
 #dummy {
   width: 1280px;
   height: 1920px;
-  background-color: #acfff4;
+  border: 1px solid;
   padding: 6rem 0;
 }
 
@@ -1058,7 +1091,7 @@ a.weblink_a:hover::before {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
-  padding: 6rem 0;
+  padding: 6rem 0 2rem 0;
 }
 
 #detail_meninges {
@@ -1131,7 +1164,7 @@ a.weblink_a:hover::before {
 
 #restaurant_container {
   background-color: #eeeeeebc;
-  padding: 4vh 0;
+  padding: 1rem 0;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1155,6 +1188,7 @@ a.weblink_a:hover::before {
       -ms-flex-pack: center;
           justify-content: center;
   width: 1280px;
+  padding: 0 0.41rem;
 }
 
 #friend_container {
@@ -1213,7 +1247,7 @@ a.weblink_a:hover::before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin-top: 37px;
+  margin-top: 1rem;
 }
 
 #detail_name p {
@@ -1288,8 +1322,6 @@ a.weblink_a:hover::before {
   margin: 5px;
   width: 89%;
   background-color: #fcfcfcfc;
-  -webkit-box-shadow: 10px 5px 5px black;
-  box-shadow: 0 3px 3px 0 #626262;
   height: auto;
   display: inline-block;
   display: -webkit-box;
@@ -1315,8 +1347,8 @@ a.weblink_a:hover::before {
 
 #filters {
   width: 1280px;
-  padding: 11rem 0;
-  position: fixed;
+  padding: 4.64rem 0;
+  position: absolute;
   height: auto;
   border-radius: 7px;
   display: -webkit-box;
@@ -1349,7 +1381,7 @@ a.weblink_a:hover::before {
 }
 
 #filters_pleura {
-  width: 29%;
+  width: 21rem;
   height: auto;
   -webkit-backdrop-filter: saturate(180%) blur(10px);
           backdrop-filter: saturate(180%) blur(10px);
@@ -1364,8 +1396,12 @@ a.weblink_a:hover::before {
       -ms-flex-pack: center;
           justify-content: center;
   padding: 2rem 0;
-  background-color: #eeeeeebc;
+  background-color: #f7f7f7d4;
   border-radius: 7px;
+}
+
+#restaurant_transmembrane {
+  margin: 0 2vw;
 }
 
 #root {
@@ -1379,20 +1415,6 @@ a.weblink_a:hover::before {
   height: auto;
   position: relative;
   /* Safari */
-}
-
-#campaign_box_1::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-  background-color: #ffc0cb;
-}
-
-#campaign_box_1::-webkit-scrollbar {
-  width: 6px;
-  background-color: black;
-}
-
-#campaign_box_1::-webkit-scrollbar-thumb {
-  background-color: #bb6573;
 }
 
 #restaurant_skin {
@@ -1464,11 +1486,30 @@ a.weblink_a:hover::before {
   top: calc(50vh - 150px);
   left: calc(50vw - 250px);
   background-color: #f3f3f3;
+  z-index: 19871987;
 }
 
 #easter_egg button {
   margin-top: 10px;
   border-radius: 7px;
+}
+
+[aria-label="Previous"] {
+  position: absolute;
+  top: -52px;
+}
+
+[aria-label="Next"] {
+  position: absolute;
+  top: -52px;
+}
+
+.owl-prev {
+  background-color: bisque !important;
+}
+
+.owl-next {
+  background-color: bisque !important;
 }
 
 [id^="item_img_"] {
@@ -1528,11 +1569,10 @@ label[for^="id_label_"] span {
   -webkit-box-pack: end;
       -ms-flex-pack: end;
           justify-content: flex-end;
-  width: 100%;
+  width: 91% !important;
 }
 
 span.select2-container .select2-selection--multiple {
-  min-height: 47px;
   border-radius: 7px;
   border: #999999 2px solid;
 }

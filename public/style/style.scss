@@ -48,6 +48,11 @@
     overflow: hidden;
 }
 
+button {
+    text-shadow: none !important;
+    box-shadow: none !important;
+}
+
 hr {
     margin: 20px;
     border: none;
@@ -284,6 +289,7 @@ a.weblink_a:hover::before {
     position: absolute;
     top: 100%;
     left: 0;
+    border: 1px solid;
     border-radius: 7px;
     z-index: 527;
 }
@@ -328,11 +334,11 @@ a.weblink_a:hover::before {
 }
 
 .profile_div_box {
-    padding: 1rem;
+    padding: 0.59rem;
     margin: 0.41rem;
     width: 89%;
     background-color: #fcfcfcfc;
-    box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
+    //box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     height: auto;
     display: inline-block;
     display: flex;
@@ -434,7 +440,7 @@ a.weblink_a:hover::before {
     border-radius: 7px;
     padding: 1rem;
     background-color: #fcfcfcfc;
-    box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
+    //box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     cursor: pointer;
 }
 
@@ -472,7 +478,7 @@ a.weblink_a:hover::before {
 
 .restaurant_box {
     background-color: #f8f8f8ee;
-    padding: 10px;
+    //padding: 10px;
     margin: 2vh 2vw;
     border-radius: 7px;
     display: flex;
@@ -491,6 +497,14 @@ a.weblink_a:hover::before {
 .op_cond {
     //border: #999999 1px solid;
     border-radius: 7px;
+    button {
+        text-shadow: none;
+        box-shadow: none;
+    }
+}
+
+.campaign_item {
+    //display: flex;
 }
 
 .review_box {
@@ -574,7 +588,7 @@ a.weblink_a:hover::before {
     //height: 400px;
     width: auto;
     border-radius: 7px;
-    padding: 0.67rem 6rem;
+    padding: 0.67rem 1rem;
     margin: 0.23rem 0;
     background-color: #f3f3f3;
     border-bottom: #999999 1px solid;
@@ -723,7 +737,7 @@ a.weblink_a:hover::before {
 .campaign_option_div {
     width: 32px;
     height: 32px;
-    background-color: #e67228;
+    background-color: #ff2667;
 }
 
 .campaign_box {
@@ -750,9 +764,14 @@ a.weblink_a:hover::before {
     margin-bottom: 1.24rem;
 }
 
+.star_in_campaign {
+    width: 1.18rem !important;
+    margin-right: 0.27rem !important;
+}
+
 .campaign_body_box {
     display: flex;
-    overflow: scroll;
+    //overflow: scroll;
 }
 
 //
@@ -816,9 +835,19 @@ a.weblink_a:hover::before {
 
 #mai_iam {
     font-size: 4.7rem;
-    display: inline;
+    display: flex;
+    position: relative;
+    //align-items: center;
+    flex-direction: column;
+    justify-content: center;
     span {
         font-family: v92r;
+    }
+    div {
+        font-family: v92r;
+        position: absolute;
+        top: calc(-100% - 1.95rem);
+        left: calc(-100% - 10.77rem)
     }
     font-family: v92r;
 }
@@ -827,6 +856,7 @@ a.weblink_a:hover::before {
     display: flex !important;
     width: 17rem !important;
     justify-content: space-between !important;
+    align-items: center !important;
 }
 
 #omni_bar {
@@ -847,6 +877,7 @@ a.weblink_a:hover::before {
 #filter_caption {
     display: flex;
     justify-content: center;
+    padding: 0 1rem;
     span {
         font-size: 1.27rem;
     }
@@ -864,14 +895,15 @@ a.weblink_a:hover::before {
 #dummy {
     width: 1280px;
     height: 1920px;
-    background-color: #acfff4;
+    //background-color: #acfff4;
+    border: 1px solid;
     padding: 6rem 0;
 }
 
 #detail_head {
     display: flex;
     justify-content: space-between;
-    padding: 6rem 0;
+    padding: 6rem 0 2rem 0;
 }
 
 #detail_meninges {
@@ -926,7 +958,7 @@ a.weblink_a:hover::before {
 
 #restaurant_container {
     background-color: #eeeeeebc;
-    padding: 4vh 0;
+    padding: 1rem 0;
     display: flex;
     flex-direction: column;
     border-radius: 7px;
@@ -938,6 +970,7 @@ a.weblink_a:hover::before {
     flex-direction: row;
     justify-content: center;
     width: 1280px;
+    padding: 0 0.41rem;
 }
 
 #friend_container {
@@ -974,7 +1007,7 @@ a.weblink_a:hover::before {
 #selected_fire_container {
     display: flex;
     justify-content: center;
-    margin-top: 37px;
+    margin-top: 1rem;
 }
 
 #detail_name {
@@ -1028,8 +1061,6 @@ a.weblink_a:hover::before {
     margin: 5px;
     width: 89%;
     background-color: #fcfcfcfc;
-    -webkit-box-shadow: 10px 5px 5px black;
-    box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     height: auto;
     display: inline-block;
     display: flex;
@@ -1047,8 +1078,9 @@ a.weblink_a:hover::before {
 
 #filters {
     width: 1280px;
-    padding: 11rem 0;
-    position: fixed;
+    padding: 4.64rem 0;
+    //position: fixed;
+    position: absolute;
     height: auto;
     border-radius: 7px;
     display: flex;
@@ -1075,16 +1107,20 @@ a.weblink_a:hover::before {
 }
 
 #filters_pleura {
-    width: 29%;
+    width: 21rem;
     height: auto;
     backdrop-filter: saturate(180%) blur(10px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     padding: 2rem 0;
-    background-color: #eeeeeebc;
+    background-color: #f7f7f7d4;
     border-radius: 7px;
     //overflow: scroll;
+}
+
+#restaurant_transmembrane {
+    margin: 0 2vw;
 }
 
 #root {
@@ -1104,23 +1140,6 @@ a.weblink_a:hover::before {
     //-webkit-filter: grayscale(19%);
     /* Safari */
     //filter: grayscale(19%);
-}
-
-//捲軸底色
-#campaign_box_1::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-    background-color: #ffc0cb;
-}
-
-//捲軸寬度
-#campaign_box_1::-webkit-scrollbar {
-    width: 6px;
-    background-color: black;
-}
-
-//捲軸本體顏色
-#campaign_box_1::-webkit-scrollbar-thumb {
-    background-color: #bb6573;
 }
 
 #restaurant_skin {
@@ -1166,6 +1185,7 @@ a.weblink_a:hover::before {
     top: calc(50vh - 150px);
     left: calc(50vw - 250px);
     background-color: #f3f3f3;
+    z-index: 19871987;
     button {
         margin-top: 10px;
         //background-color: ##ff2667;
@@ -1173,6 +1193,26 @@ a.weblink_a:hover::before {
     }
 }
 
+// owl-personal setting
+[aria-label="Previous"] {
+    position: absolute;
+    top: -52px;
+}
+
+[aria-label="Next"] {
+    position: absolute;
+    top: -52px;
+}
+
+.owl-prev {
+    background-color: bisque !important;
+}
+
+.owl-next {
+    background-color: bisque !important;
+}
+
+// end of owl-personal setting
 [id^="item_img_"] {
     cursor: pointer;
 }
@@ -1213,14 +1253,14 @@ label[for^="id_label_"] {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
-        width: 100%;
+        width: 91% !important;
     }
 }
 
 //fising styles
 // might need RWD?
 span.select2-container .select2-selection--multiple {
-    min-height: 47px;
+    //min-height: 47px;
     border-radius: 7px;
     border: #999999 2px solid;
 }
