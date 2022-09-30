@@ -68,7 +68,8 @@
     .owl-nav button.owl-prev,
     .owl-nav button.owl-next,
     button.owl-dot {
-        background: #ffffff;
+        background: #ffffff00 !important;
+        backdrop-filter: saturate(180%) blur(10px);
         color: inherit;
         border: none;
         padding: 0!important;
@@ -79,7 +80,7 @@
         font-size: 100px !important;
         position: absolute;
         top: 378%;
-        left: -837%;
+        left: -833%;
     }
     .owl-prev span:hover {
         color: #ff2667;
@@ -95,7 +96,7 @@
         font-size: 100px !important;
         position: absolute;
         top: 378%;
-        right: -25%;
+        right: -23%;
     }
     .owl-next span:hover {
         color: #ff2667;

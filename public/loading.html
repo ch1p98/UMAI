@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style/dot.css" />
+    <title>Document</title>
+</head>
+
+<body>
+    <style>
+        html,
+        body {
+            height: 100%;
+            background: #f6f7fd;
+            font-size: 16px;
+            overflow: auto;
+        }
+        
+        .snippet {
+            position: relative;
+            background: #fff;
+            padding: 2rem 5%;
+            margin: 1.5rem 0;
+            box-shadow: 0 0.4rem 0.8rem -0.1rem rgba(0, 32, 128, 0.1), 0 0 0 1px #f0f2f7;
+            border-radius: 0.25rem;
+        }
+        
+        .examples .snippet:before {
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0 5px;
+            content: attr(data-title);
+            font-size: 0.75rem;
+            font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            color: white;
+            background-color: rgb(255, 25, 100);
+            border-radius: 0.25rem 0 0.25rem 0;
+        }
+        
+        .stage {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 2rem 0;
+            margin: 0 -5%;
+            overflow: hidden;
+        }
+        
+        .filter-contrast {
+            filter: contrast(5);
+            background-color: white;
+        }
+        
+        .footer {
+            margin: 120px 0 20px;
+            text-align: center;
+            overflow: auto;
+        }
+    </style>
+
+    <main>
+        <div class="container">
+            <div class="snippet">
+                🔮
+                <a href="https://github.com/nzbin/three-dots" target="_blank" title="three-dots">The project</a
+          >
+          is a set of CSS loading animations created with three dots which made
+          by just single element. I think the project can not only enhance your
+          CSS skills but also improve your imagination. 🔥
+        </div>
+
+        // $("#dot_loading") = $(`
+        <div class="col-3">
+          <div class="snippet" data-title=".dot-flashing">
+            <div class="stage">
+              <div class="dot-flashing"></div>
+            </div>
+          </div>
+        </div>
+        `) //
+      </div>
+    </main>
+
+    <footer class="footer text-center">
+      <p>
+        Created with ❤️ by
+        <a href="https://github.com/nzbin" target="_blank">nzbin</a>. Made with
+                <a href="https://github.com/nzbin/snack" target="_blank">snack</a>.
+                </p>
+                </footer>
+</body>
+
+</html>
