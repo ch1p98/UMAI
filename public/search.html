@@ -1643,6 +1643,9 @@
                             let div_profile = $("<div></div>").attr({
                                 id: "profile_container",
                             });
+                            let cur_profile = $("<div></div>").attr({
+                                id: "cur_profile",
+                            });
                             // friend list
                             let div_friend = $("<div></div>").attr({
                                 id: "friend_container",
@@ -1651,6 +1654,7 @@
                             let div_favorite = $("<div></div>").attr({
                                 id: "favorite_container",
                             });
+                            div_profile.append(cur_profile);
                             div_profile_skin.append(div_profile);
 
                             div_profile_skin.append(div_favorite);
@@ -1663,12 +1667,24 @@
                                 profile_data["email"] :
                                 "";
                             // display available features of user
-                            let profile_title = $("<div></div>").attr({
-                                id: "atop_profile",
+                            // let profile_title = $("<div></div>").attr({
+                            //     id: "atop_profile",
+                            // });
+                            // let profile_title_content = $("<p></p>");
+                            // profile_title_content.html("USER DATA");
+                            // profile_title.append(profile_title_content);
+
+                            let edit_profile_btn_div = $("<div>").attr({
+                                id: "edit_profile_btn_div",
                             });
-                            let profile_title_content = $("<p></p>");
-                            profile_title_content.html("USER DATA");
-                            profile_title.append(profile_title_content);
+
+                            let edit_profile_btn = $("<button>").attr({
+                                id: "edit_profile_btn",
+                                class: "btn btn-outline-dark btn-xs",
+                            });
+                            edit_profile_btn.text("編輯個人資料");
+                            edit_profile_btn_div.append(edit_profile_btn);
+                            cur_profile.append(edit_profile_btn_div);
 
                             for (k of Object.keys(profile_data)) {
                                 // 這2個keys暫時不處理；放到其他按鈕來處理
@@ -1700,7 +1716,7 @@
                                 profile_box_content.append(profile_value);
                                 profile_box.append(profile_box_title);
                                 profile_box.append(profile_box_content);
-                                div_profile.append(profile_box);
+                                cur_profile.append(profile_box);
                             }
                             const show_friend_btn = $("<button>FRIEND LIST</button>").attr({
                                 id: "show_friend",
@@ -1798,7 +1814,7 @@
                                             manipulate_box.append(rm_suggest_btn);
                                             friend_box.append(friend_case);
                                         }
-                                        $(".friend_box").hide();
+                                        //$(".friend_box").hide();
                                     } catch (err) {
                                         console.log("err in expanding friend data: ", err);
                                     }
@@ -2266,7 +2282,7 @@
                                                     });
                                             });
                                         }
-                                        $(".favorite_box").hide();
+                                        //$(".favorite_box").hide();
                                     } catch (err) {
                                         console.log("err in expanding friend data: ", err);
                                     }
@@ -2297,18 +2313,32 @@
                             let extra_profile = $("<div></div>").attr({
                                 id: `extra_profile`,
                             });
+                            extra_profile.css("display", "none");
                             div_profile.append(extra_profile);
                             let form = $("<form></form>").attr({
                                 method: "post",
                                 action: "javascript:console.log('oh~oh~oh');",
                             });
+
+                            let show_profile_btn_div = $("<div>").attr({
+                                id: "show_profile_btn_div",
+                            });
+
+                            let show_profile_btn = $("<button>").attr({
+                                id: "show_profile_btn",
+                                class: "btn btn-outline-dark btn-xs",
+                            });
+                            show_profile_btn.text("查看個人資料");
+                            show_profile_btn_div.append(show_profile_btn);
+
+                            extra_profile.append(show_profile_btn_div);
                             extra_profile.append(form);
                             //
                             for (i of residual_feature) {
                                 let label = $("<label></label>").attr({
                                     for: `${i}`,
                                 });
-                                label.html(`${i}:`);
+                                label.html(`${i.toUpperCase()}`);
                                 let input = $("<input></input>").attr({
                                     name: `${i}`,
                                     type: "text",
@@ -2318,7 +2348,7 @@
                                 });
                                 form.append(label);
                                 form.append(input);
-                                form.append("<br />");
+                                //form.append("<br />");
                             }
                             let update_profile_btn = $("<button>更新資料</button>").attr({
                                 class: "btn btn-outline-dark btn-sm",
@@ -2330,7 +2360,6 @@
                             // QQQ.成功更新資料之後應該要刷新頁面
                             // when pressing 更新資料
                             $(document).on("click", "#update_profile", () => {
-                                console.log("very cool");
                                 $("input.update_feature").each(function(index, element) {
                                     // console.log(Object.keys(element));
                                     // console.log(typeof element.name);
@@ -2352,6 +2381,7 @@
                                     })
                                     .then((response) => {
                                         alert("資料修改成功");
+                                        $("#trigger_profile").trigger("click");
                                     })
                                     .catch((err) => {
                                         alert("更改資料失敗");
@@ -2382,26 +2412,26 @@
         // 美食同好 按鈕
         //口袋名單 按鈕
         // QQQ. toggle: 顯示/隱藏
-        let friend_toggle = 0;
-        $(document).on("click", "#show_friend", () => {
-            if (friend_toggle === 0) {
-                $(".friend_box").show();
-                friend_toggle = 1;
-            } else {
-                $(".friend_box").hide();
-                friend_toggle = 0;
-            }
-        });
-        let favorite_toggle = 0;
-        $(document).on("click", "#show_favorite", () => {
-            if (favorite_toggle === 0) {
-                $(".favorite_box").show();
-                favorite_toggle = 1;
-            } else {
-                $(".favorite_box").hide();
-                favorite_toggle = 0;
-            }
-        });
+        // let friend_toggle = 0;
+        // $(document).on("click", "#show_friend", () => {
+        //     if (friend_toggle === 0) {
+        //         $(".friend_box").show();
+        //         friend_toggle = 1;
+        //     } else {
+        //         $(".friend_box").hide();
+        //         friend_toggle = 0;
+        //     }
+        // });
+        // let favorite_toggle = 0;
+        // $(document).on("click", "#show_favorite", () => {
+        //     if (favorite_toggle === 0) {
+        //         $(".favorite_box").show();
+        //         favorite_toggle = 1;
+        //     } else {
+        //         $(".favorite_box").hide();
+        //         favorite_toggle = 0;
+        //     }
+        // });
 
         // 細節頁的收藏按鈕
         $(document).on("click", "#add_favorite", (event) => {
@@ -3280,7 +3310,7 @@
         });
 
         let test_cnt = 0;
-        // DDDCCC document ONs here:
+        // documenton 這邊:
         // "TRY TO POST A REVIEW, NOT SUBMIT!!"
         $(document).on("click", "#post_review_btn", (event) => {
             console.log("let user post a review:");
@@ -3488,6 +3518,15 @@
 
                 // end of bottom buttons
             }
+        });
+
+        $(document).on("click", "#edit_profile_btn", (event) => {
+            $("#cur_profile").hide();
+            $("#extra_profile").show();
+        });
+        $(document).on("click", "#show_profile_btn", (event) => {
+            $("#cur_profile").show();
+            $("#extra_profile").hide();
         });
 
         // click reataurant name to display detail of the restaurant
@@ -4246,6 +4285,9 @@
             if ($(event.target).attr("id") === "new_comment_board") {
                 $("#new_comment_board").remove();
             }
+        });
+        $("#nav_logo").click((event) => {
+            $("#mai_iam").click();
         });
     </script>
 </body>

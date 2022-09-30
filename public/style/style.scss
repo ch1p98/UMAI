@@ -144,13 +144,12 @@ input.star:checked~.rev-box {
 }
 
 // end of imported from codepen
-form {
-    input {
-        border: #999999 1px solid;
-        border-radius: 4px;
-    }
-}
-
+// form {
+//     input {
+//         border: #999999 1px solid;
+//         border-radius: 4px;
+//     }
+// }
 header.nav_header {
     padding: 20px 40px;
     width: 100%;
@@ -351,9 +350,9 @@ a.weblink_a:hover::before {
 }
 
 .profile_div_box {
-    padding: 0.59rem;
-    margin: 0.41rem;
-    width: 89%;
+    padding: 0.59rem 0;
+    margin: 0.41rem 0;
+    //width: 89%;
     background-color: #fcfcfcfc;
     //box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     height: auto;
@@ -1164,6 +1163,28 @@ a.weblink_a:hover::before {
     padding: 0 0.41rem;
 }
 
+#cur_profile {
+    padding: 0 1rem;
+}
+
+#edit_profile_btn_div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#edit_profile_btn {
+    margin-right: 1rem;
+}
+
+#show_profile_btn_div {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#show_profile_btn {
+    margin-right: 1rem;
+}
+
 #friend_container {
     width: 28rem;
     //background-color: #fcfcfcfc;
@@ -1249,15 +1270,39 @@ a.weblink_a:hover::before {
 }
 
 #extra_profile {
-    padding: 1rem;
-    margin: 5px;
-    width: 89%;
-    background-color: #fcfcfcfc;
+    width: 100%;
+    padding: 0 1rem;
+    //margin: 5px;
+    //width: 89%;
+    //background-color: #fcfcfcfc;
     height: auto;
-    display: inline-block;
     display: flex;
     flex-direction: column;
     border-radius: 7px;
+    form {
+        display: flex;
+        flex-direction: column;
+        label {
+            padding: 0 0.61rem;
+            color: #999999;
+            font-size: 127%;
+            min-height: 2.4rem;
+            margin: 0;
+            margin-top: 0.41rem;
+            border-bottom: 1px solid #999999;
+            //margin-bottom: 0.59rem;
+            background-color: #fff;
+            border-radius: 7px 7px 0 0;
+        }
+        input {
+            padding: 0 0.61rem;
+            font-size: 127%;
+            //border-top: 1px solid #999999;
+            border-radius: 0 0 7px 7px;
+            margin-bottom: 0.41rem;
+            min-height: 2.4rem;
+        }
+    }
 }
 
 #manipulate_box {
@@ -1451,31 +1496,29 @@ a.weblink_a:hover::before {
 }
 
 [id^="profile_div_title_"] {
-    min-height: 4vh;
+    min-height: 1.58rem;
     border-bottom: #999999 1px solid;
     display: flex;
     align-items: flex-end;
     p {
+        padding: 0 0.61rem;
         display: inline-block;
         color: #999999;
-        font-size: 89%;
+        font-size: 127%;
         font-family: "Poppins", sans-serif;
     }
 }
 
 [id^="profile_div_content_"] {
-    min-height: 4vh;
+    min-height: 1.58rem;
     p {
+        padding: 0 0.61rem;
         display: inline-block;
         font-size: 127%;
         font-family: "Poppins", sans-serif;
     }
 }
 
-// [id^="profile_div_"] {
-//     display: inline-block;
-// }
-// deprecated
 label[for^="id_label_"] {
     width: 100%;
     display: flex;
