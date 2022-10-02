@@ -1255,7 +1255,7 @@
                 });
                 console.log("diff_t:", diff_t);
                 dot_loading.remove();
-            }, 3333);
+            }, 333);
 
             scrollTo(0, 0);
         });
@@ -1542,6 +1542,7 @@
             // }
             $("#profile_skin").remove();
             $("#dummy").remove();
+            $("#user_container").remove();
             // $("#profile_container").remove();
             // $("#friend_container").remove();
             // $("#favorite_container").remove();
@@ -1767,13 +1768,12 @@
                                             });
 
                                             const fid = d._id ? d._id : -1;
-                                            const fname = d.name ? d.name : "";
+                                            const name = d.name ? d.name : "ANONYMOUS_USER";
                                             //console.log("_id", fid);
                                             //console.log("typeof _id", typeof fid);
                                             friends_set.add(fid);
                                             console.log("fr id: ", fid);
-                                            console.log("fr name: ", fname);
-                                            const name = d.name ? d.name : "ANONYMOUS_USER";
+                                            console.log("fr name: ", name);
                                             const name_box = $("<div></div>").attr({
                                                 class: "name_box",
                                             });
@@ -2411,30 +2411,6 @@
             }
             clone_dot_loading.remove();
         });
-
-        // 美食同好 按鈕
-        //口袋名單 按鈕
-        // QQQ. toggle: 顯示/隱藏
-        // let friend_toggle = 0;
-        // $(document).on("click", "#show_friend", () => {
-        //     if (friend_toggle === 0) {
-        //         $(".friend_box").show();
-        //         friend_toggle = 1;
-        //     } else {
-        //         $(".friend_box").hide();
-        //         friend_toggle = 0;
-        //     }
-        // });
-        // let favorite_toggle = 0;
-        // $(document).on("click", "#show_favorite", () => {
-        //     if (favorite_toggle === 0) {
-        //         $(".favorite_box").show();
-        //         favorite_toggle = 1;
-        //     } else {
-        //         $(".favorite_box").hide();
-        //         favorite_toggle = 0;
-        //     }
-        // });
 
         // 細節頁的收藏按鈕
         $(document).on("click", "#add_favorite", (event) => {
@@ -3325,14 +3301,271 @@
             axios
                 .get(`/user/${user_id}`)
                 .then((response) => {
+                    //friend_profile.text(JSON.stringify(response.data));
+                    scrollTo(0, 0);
+                    const data = response.data.result;
+                    const primary_data = {
+                        name: data.name,
+                        date: data.date,
+                        level: data.level,
+                        birthday: data.birthday,
+                        birthplace: data.birthplace,
+                        hobbies: data.hobbies,
+                        occupation: data.occupation,
+                        age: data.age,
+                        gender: data.gender,
+                    };
+                    const secondary_data_friends = [];
+                    if (data.friends === undefined) {
+                        //
+                    } else {
+                        data.friends.forEach((ele) => {
+                            secondary_data_friends.push(ele.data);
+                        });
+                    }
+
+                    //data.friends.forEach();
+                    // will be undefined if none
+                    const secondary_data_favorite = [];
+                    if (data.favorite === undefined) {
+                        //
+                    } else {
+                        data.favorite.forEach((ele) => {
+                            secondary_data_favorite.push(ele.data);
+                        });
+                    }
+
+                    // will be undefined if none
+                    console.log(
+                        "secondary_data_friends: ",
+                        JSON.stringify(secondary_data_friends)
+                    );
+                    console.log(
+                        "secondary_data_favorite: ",
+                        JSON.stringify(secondary_data_favorite)
+                    );
+
                     $("#profile_skin").hide();
-                    $("#visit_friend").remove();
+                    //$("#visit_friend").remove();
                     //or should we remove() it here?
-                    const friend_profile = $("<div>").attr({
-                        id: "#friend_profile",
+                    const user_container = $("<div>").attr({
+                        id: "user_container",
                     });
-                    friend_profile.text(JSON.stringify(response.data));
-                    $("#root").append(friend_profile);
+                    $("#root").append(user_container);
+
+                    const user_skin = $("<div>").attr({
+                        id: "user_skin",
+                    });
+                    user_container.append(user_skin);
+                    // HEAD
+                    const user_head = $("<div>").attr({
+                        id: "user_head",
+                    });
+                    user_skin.append(user_head);
+
+                    //// LEFT HEMI
+                    const user_left_hemi = $("<div>").attr({
+                        id: "user_left_hemi",
+                    });
+                    const user_left_hemi_pia = $("<div>").attr({
+                        id: "user_left_hemi_pia",
+                    });
+                    const user_avatar = $("<img>").attr({
+                        src: `./favatar/${user_id}.jpg`,
+                        id: "user_avatar",
+                        alt: "使用者頭像",
+                        height: "100%",
+                    });
+                    user_head.append(user_left_hemi);
+                    user_left_hemi.append(user_left_hemi_pia);
+                    user_left_hemi_pia.append(user_avatar);
+
+                    //// RIGHT HEMI
+                    const user_right_hemi = $("<div>").attr({
+                        id: "user_right_hemi",
+                    });
+
+                    const user_right_hemi_pia = $("<div>").attr({
+                        id: "user_right_hemi_pia",
+                    });
+
+                    user_head.append(user_right_hemi);
+                    user_right_hemi.append(user_right_hemi_pia);
+
+                    ////// right hemi items (primary data)
+                    for (it of Object.keys(primary_data)) {
+                        const key = it,
+                            value = primary_data[it];
+                        console.log(`key: ${key} value: ${value}`);
+                        const row_box = $("<div>").attr({
+                            class: "row_box profile_div_box",
+                        });
+                        const key_box = $("<div>").attr({
+                            class: "key_box",
+                        });
+                        const key_span = $("<span>").attr({
+                            class: "key_span",
+                        });
+                        key_span.text(key.toUpperCase());
+                        row_box.append(key_box);
+                        key_box.append(key_span);
+
+                        const value_box = $("<div>").attr({
+                            class: "value_box",
+                        });
+                        const value_span = $("<span>").attr({
+                            class: "value_span",
+                        });
+                        try {
+                            console.log(`Key:${key} has value length: ${value.length}`);
+                            console.log("value: ", value);
+                        } catch (err) {
+                            console.log("an error occurred here...", err);
+                        }
+                        value_span.text(value === undefined ? "無資料" : value);
+                        row_box.append(value_box);
+                        value_box.append(value_span);
+
+                        user_right_hemi_pia.append(row_box);
+                    }
+
+                    // THORAX
+                    //// secondary data(favotire of user)
+                    const user_thorax = $("<div>").attr({
+                        id: "user_thorax",
+                    });
+                    const user_pleura = $("<div>").attr({
+                        id: "user_pleura",
+                    });
+                    const user_sternum = $("<div>").attr({
+                        id: "user_sternum",
+                    });
+                    const sternum_span = $("<span>").attr({
+                        id: "sternum_span",
+                    });
+                    sternum_span.text("收藏");
+                    user_sternum.append(sternum_span);
+
+                    user_skin.append(user_thorax);
+                    user_thorax.append(user_sternum);
+                    user_thorax.append(user_pleura);
+
+                    if (!secondary_data_favorite.length) {
+                        const empty_case = $("<div></div>").attr({
+                            class: "empty_case",
+                        });
+                        const empty_content_div = $("<div>").attr({
+                            class: "empty_content_div",
+                        });
+                        const empty_content_span = $("<span>");
+                        empty_content_span.text("還沒有收藏");
+                        user_pleura.append(empty_case);
+                        empty_case.append(empty_content_div);
+                        empty_content_div.append(empty_content_span);
+                    } else {
+                        for (fav_item of secondary_data_favorite) {
+                            console.log("fav_item: ", JSON.stringify(fav_item));
+                            const rname = fav_item.rname;
+                            const rid = fav_item.rid;
+                            const favorite_case = $("<div></div>").attr({
+                                class: "favorite_case",
+                            });
+                            const name_box = $("<div></div>");
+                            const name_p = $("<p></p>").text(`${rname}`);
+                            const id_p = $("<p></p>").text(`${rid}`);
+                            id_p.css("display", "none");
+                            name_box.append(name_p);
+                            name_box.append(id_p);
+                            favorite_case.append(name_box);
+                            user_pleura.append(favorite_case);
+                        }
+                    }
+
+                    // ABDOMEN
+                    //// secondary data(friends of user)
+                    const user_abdomen = $("<div>").attr({
+                        id: "user_abdomen",
+                    });
+                    const user_peritoneum = $("<div>").attr({
+                        id: "user_peritoneum",
+                    });
+
+                    const user_omentum = $("<div>").attr({
+                        id: "user_omentum",
+                    });
+                    const omentum_span = $("<span>").attr({
+                        id: "omentum_span",
+                    });
+                    omentum_span.text("好友");
+                    user_omentum.append(omentum_span);
+
+                    user_skin.append(user_abdomen);
+                    user_abdomen.append(user_omentum);
+                    user_abdomen.append(user_peritoneum);
+
+                    if (!secondary_data_friends.length) {
+                        console.log("no friend");
+                        const empty_case = $("<div></div>").attr({
+                            class: "empty_case",
+                        });
+                        const empty_content_div = $("<div>").attr({
+                            class: "empty_content_div",
+                        });
+                        const empty_content_span = $("<span>");
+                        empty_content_span.text("還沒有朋友");
+                        user_peritoneum.append(empty_case);
+                        empty_case.append(empty_content_div);
+                        empty_content_div.append(empty_content_span);
+                    } else {
+                        for (user of secondary_data_friends) {
+                            const fid = user._id ? user._id : -1;
+                            const name = user.name ? user.name : "";
+                            console.log("fr id: ", fid);
+                            console.log("fr name: ", name);
+
+                            const user_case = $("<div></div>").attr({
+                                class: "user_case",
+                            });
+                            const name_box = $("<div></div>").attr({
+                                class: "name_box",
+                            });
+                            const user_case_left_hemi = $(
+                                "<div class='user_case_left_hemi'></div>"
+                            );
+
+                            const default_avatar = $(
+                                `<img src="./favatar/${fid}.jpg" alt="使用者頭像">`
+                            );
+
+                            user_case_left_hemi.append(default_avatar);
+                            const user_case_right_hemi = $(
+                                "<div class='friend_right_hemi'></div>"
+                            );
+                            const name_h = $("<h4></h4>").text(`${name}`);
+                            name_box.append(name_h);
+                            user_case.append(user_case_left_hemi);
+                            user_case.append(user_case_right_hemi);
+                            const date = d.date ? d.date : Date.now();
+                            const manipulate_box = $("<div>").attr({
+                                id: `manipulate_box_${fid}`,
+                                target_id: `${fid}`,
+                            });
+                            // const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                            // manipulate_box.append(date_p);
+                            const visit_friend_btn = $("<button>  VISIT  </button>").attr({
+                                id: "visit_friend",
+                                class: "btn btn-outline-link btn-xs",
+                            });
+                            const action_btn = $("<button>  ADD  </button>").attr({
+                                class: "btn btn-outline-link btn-xs",
+                            });
+                            user_case_right_hemi.append(name_box);
+                            user_case_right_hemi.append(manipulate_box);
+                            manipulate_box.append(visit_friend_btn);
+                            manipulate_box.append(action_btn);
+                            user_peritoneum.append(user_case);
+                        }
+                    }
                 })
                 .catch((err) => {
                     console.log(
@@ -3370,7 +3603,7 @@
                 });
                 let user_avatar = $("<img>").attr({
                     class: "review_user_avatar",
-                    src: "./favatar/review_avatar.jpg",
+                    src: `${profile_img_default_base64}`,
                     alt: "restaurant_detail_pic",
                 });
                 let user_name_in_review = $("<div>").attr({
@@ -3913,6 +4146,7 @@
                 $(document).on("click", `#campaign_item_${camp_i}`, async(event) => {
                     $("#detail_container").remove();
                     $("#dummy").remove();
+                    scrollTo(0, 0);
                     //console.log("item is dnclicked:", hits_i);
                     let detail_data =
                         camps_arr[`c${temp_i}`][camp_i % MAGIC_SEARCH_NUM].data;

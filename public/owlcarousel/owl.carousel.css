@@ -76,9 +76,7 @@
 .owl-carousel .owl-nav button.owl-prev,
 .owl-carousel .owl-nav button.owl-next,
 .owl-carousel button.owl-dot {
-  background: #ffffff00 !important;
-  -webkit-backdrop-filter: saturate(180%) blur(10px);
-          backdrop-filter: saturate(180%) blur(10px);
+  background: #c4c4c4b3 !important;
   color: inherit;
   border: none;
   padding: 0 !important;
@@ -89,8 +87,8 @@
   color: black !important;
   font-size: 100px !important;
   position: absolute;
-  top: 378%;
-  left: -828%;
+  top: 370%;
+  left: -835%;
 }
 
 .owl-carousel .owl-prev span:hover {

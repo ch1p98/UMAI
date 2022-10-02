@@ -75,7 +75,7 @@ const UserSchema = new mongoose.Schema({
   email: {
     type: String,
   },
-  // 入會時間
+  // 入會時間 (給人看的)
   date: {
     type: String,
     default: new Date(Date.now()).toDateString(),
@@ -390,6 +390,7 @@ app.post("/setdata", async (req, res) => {
   }
 });
 
+// get user page (auth not required)
 app.get("/user/:id", async (req, res) => {
   //get user id from request
   const _id = req.params.id;
@@ -404,7 +405,7 @@ app.get("/user/:id", async (req, res) => {
   try {
     result = await User.findOne(
       filter,
-      "-password -__v -_id -dateinnow"
+      "-password -email -__v -_id -dateinnow -provider"
     ).exec();
     console.log(`get user data result: ${result}`);
     console.log(
@@ -506,6 +507,7 @@ app.get("/profile", async (req, res) => {
   }
 
   // query db for complete personal data
+  // 這邊是user本身的資料
   if (!req.params.demand) {
     try {
       let one = await User.findOne(
