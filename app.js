@@ -390,6 +390,41 @@ app.post("/setdata", async (req, res) => {
   }
 });
 
+app.get("/user/:id", async (req, res) => {
+  //get user id from request
+  const _id = req.params.id;
+  if (!_id) {
+    console.log("req.params: ", req.params);
+    res.json({ status: "empty request" });
+    return;
+  }
+  const filter = { _id };
+  let result;
+
+  try {
+    result = await User.findOne(
+      filter,
+      "-password -__v -_id -dateinnow"
+    ).exec();
+    console.log(`get user data result: ${result}`);
+    console.log(
+      `get user data result JSONstringify: ${JSON.stringify(result)}`
+    );
+    if (!result) throw "No user data!!";
+    else res.status(200).json({ state: "successful", result });
+  } catch (err) {
+    res.status(404).json({ state: "failed" }); //send an error
+  }
+  //
+  //get user profile from mongoDB
+  //
+  //return user data if found
+  //  user name, data, favorite(id), friend(id)
+  //else return error msg and render error page
+});
+
+app.delete("/user");
+
 app.get("/get_set_get_friend", async (req, res) => {
   const filter = { name: /Fuchigami/i };
   let users = await User.find(filter).exec();
@@ -486,6 +521,7 @@ app.get("/profile", async (req, res) => {
   } else {
     // depends on which data are requested
     console.log("req.params: ", req.params);
+    res.json({ status: "empty request" });
   }
 
   // authentication successful. return some data for profile rendering

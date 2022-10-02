@@ -1612,13 +1612,13 @@ a.weblink_a:hover::before {
   min-height: 2.4rem;
 }
 
-#manipulate_box {
+[id^="manipulate_box_"] {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-#manipulate_box button {
+[id^="manipulate_box_"] button {
   margin: 0 0.29rem;
   line-height: 0.67;
 }
@@ -1812,9 +1812,18 @@ a.weblink_a:hover::before {
   border-radius: 7px;
 }
 
+[aria-label="Next"] {
+  position: absolute;
+  top: -33px;
+  left: 20px;
+  font-size: 4rem;
+}
+
 [aria-label="Previous"] {
   position: absolute;
-  top: -52px;
+  top: -33px;
+  left: 20px;
+  font-size: 4rem;
 }
 
 [aria-label="Previous"]:hover {
@@ -1823,11 +1832,6 @@ a.weblink_a:hover::before {
 
 [aria-label="Next"]:hover {
   color: black !important;
-}
-
-[aria-label="Next"] {
-  position: absolute;
-  top: -52px;
 }
 
 [id^="item_img_"] {

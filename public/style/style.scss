@@ -1305,7 +1305,7 @@ a.weblink_a:hover::before {
     }
 }
 
-#manipulate_box {
+[id^="manipulate_box_"] {
     display: flex;
     button {
         margin: 0 0.29rem;
@@ -1464,9 +1464,18 @@ a.weblink_a:hover::before {
 }
 
 // owl-personal setting
+[aria-label="Next"] {
+    position: absolute;
+    top: -33px;
+    left: 20px;
+    font-size: 4rem;
+}
+
 [aria-label="Previous"] {
     position: absolute;
-    top: -52px;
+    top: -33px;
+    left: 20px;
+    font-size: 4rem;
 }
 
 [aria-label="Previous"]:hover {
@@ -1475,11 +1484,6 @@ a.weblink_a:hover::before {
 
 [aria-label="Next"]:hover {
     color: black !important
-}
-
-[aria-label="Next"] {
-    position: absolute;
-    top: -52px;
 }
 
 .owl-prev {

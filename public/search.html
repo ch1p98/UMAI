@@ -1513,7 +1513,8 @@
             console.log("press sign out");
             localStorage.removeItem("jwt");
             location.reload();
-
+            friends_set.clear();
+            favorite_set.clear();
             // $("#show_signin").show();
             // $("#show_signup").show();
             // $("#profile_skin").remove();
@@ -1793,14 +1794,16 @@
                                             friend_case.append(friend_right_hemi);
 
                                             const date = d.date ? d.date : Date.now();
-                                            const manipulate_box = $(
-                                                "<div id='manipulate_box'></div>"
-                                            );
+                                            const manipulate_box = $("<div>").attr({
+                                                id: `manipulate_box_${fid}`,
+                                                target_id: `${fid}`,
+                                            });
                                             // const date_p = $("<p></p>").text(`Joined on: ${date}`);
                                             // manipulate_box.append(date_p);
                                             const visit_friend_btn = $(
                                                 "<button>  VISIT  </button>"
                                             ).attr({
+                                                id: "visit_friend",
                                                 class: "btn btn-outline-link btn-xs",
                                             });
                                             const rm_suggest_btn = $(
@@ -3312,6 +3315,32 @@
         let test_cnt = 0;
         // documenton 這邊:
         // "TRY TO POST A REVIEW, NOT SUBMIT!!"
+        $(document).on("click", "#visit_friend", (event) => {
+            console.log("retrieve and display friend(user) profile");
+            console.log(
+                "tgt parent target_id: ",
+                $(event.target).parent().attr("target_id")
+            );
+            const user_id = $(event.target).parent().attr("target_id");
+            axios
+                .get(`/user/${user_id}`)
+                .then((response) => {
+                    $("#profile_skin").hide();
+                    $("#visit_friend").remove();
+                    //or should we remove() it here?
+                    const friend_profile = $("<div>").attr({
+                        id: "#friend_profile",
+                    });
+                    friend_profile.text(JSON.stringify(response.data));
+                    $("#root").append(friend_profile);
+                })
+                .catch((err) => {
+                    console.log(
+                        "an error occurred while retrieving your friend's data:",
+                        err
+                    );
+                });
+        });
         $(document).on("click", "#post_review_btn", (event) => {
             console.log("let user post a review:");
             const token = localStorage.getItem("jwt");
