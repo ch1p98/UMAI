@@ -1040,40 +1040,40 @@ app.post("/search_experiment", async (req, res) => {
 });
 
 // DEPRECATED
-app.get("/search_experiment", async (req, res) => {
-  const result = await elasticClient
-    .search({
-      index: "food_alpha",
-      size: 32,
-      //query: { match: { formatted_address: "仁愛路" } },
-      query: {
-        bool: {
-          must: [
-            {
-              match: {
-                formatted_address: "高雄",
-              },
-            },
-            {
-              match: { "reviews.text": "櫻花" },
-            },
-            {
-              match: { "opening_hours.periods.close.time": "2200" },
-            },
-          ],
-        },
-      },
-    })
-    .catch((err) => {
-      res.json({ error: err, result: "search failed" });
-    });
-  res.json(result);
-});
+// app.get("/search_experiment", async (req, res) => {
+//   const result = await elasticClient
+//     .search({
+//       index: "food_alpha",
+//       size: 32,
+//       //query: { match: { formatted_address: "仁愛路" } },
+//       query: {
+//         bool: {
+//           must: [
+//             {
+//               match: {
+//                 formatted_address: "高雄",
+//               },
+//             },
+//             {
+//               match: { "reviews.text": "櫻花" },
+//             },
+//             {
+//               match: { "opening_hours.periods.close.time": "2200" },
+//             },
+//           ],
+//         },
+//       },
+//     })
+//     .catch((err) => {
+//       res.json({ error: err, result: "search failed" });
+//     });
+//   res.json(result);
+// });
 
-app.get("/gmaps-place-api", async (req, res) => {
-  const mapsKey = process.env.GOOGLE_MAPS_API_KEY;
-  url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=25.0338,121.5646&radius=1000&keyword=牛排&language=zh-TW&key=${mapsKey}`;
-});
+// app.get("/gmaps-place-api", async (req, res) => {
+//   const mapsKey = process.env.GOOGLE_MAPS_API_KEY;
+//   url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=25.0338,121.5646&radius=1000&keyword=牛排&language=zh-TW&key=${mapsKey}`;
+// });
 
 app.get("/gcnlpdemo", async (req, res) => {
   console.log("gcnlpdemo");
@@ -1120,28 +1120,28 @@ app.post("/es_search", async (req, res) => {
   res.json({ name: "restaurant1", star: 4.2, tag: "店內價" });
 });
 
-app.get("/get_photo_from_google", async (req, res) => {
-  // axios({
-  //   method: "get",
-  //   url: "http://bit.ly/2mTM3nY",
-  //   responseType: "stream",
-  // }).then(function (response) {
-  //   response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
-  // });
-  const gmaps_key = process.env.GOOGLE_MAPS_API_KEY;
-  const photo = await axios
-    .get(
-      `https://maps.googleapis.com/maps/api/place/photo?photo_reference=AeJbb3f_2-nRsfQaKaaDIBZH9zKDDbZwBa3Hmcq_NxCaaotQeDp-RhFdSmwxKF2KMNullvl0U2bLn-vcSLn-27Lk3V8r698eU-sDngwCZidMcdG8f9gpzlVEDnwSFBvhTcYX1el6VNK40w_GKBEKDxHZeOwMFVm5loptjPY4E7RM1OAhBfHW&key=${gmaps_key}&maxwidth=600`
-    )
-    .then(function (response) {
-      // handle success
-      console.log(response);
-    })
-    .catch(function (error) {
-      // handle error
-      console.log("error:", err);
-    });
-});
+// app.get("/get_photo_from_google", async (req, res) => {
+//   // axios({
+//   //   method: "get",
+//   //   url: "http://bit.ly/2mTM3nY",
+//   //   responseType: "stream",
+//   // }).then(function (response) {
+//   //   response.data.pipe(fs.createWriteStream("ada_lovelace.jpg"));
+//   // });
+//   const gmaps_key = process.env.GOOGLE_MAPS_API_KEY;
+//   const photo = await axios
+//     .get(
+//       `https://maps.googleapis.com/maps/api/place/photo?photo_reference=AeJbb3f_2-nRsfQaKaaDIBZH9zKDDbZwBa3Hmcq_NxCaaotQeDp-RhFdSmwxKF2KMNullvl0U2bLn-vcSLn-27Lk3V8r698eU-sDngwCZidMcdG8f9gpzlVEDnwSFBvhTcYX1el6VNK40w_GKBEKDxHZeOwMFVm5loptjPY4E7RM1OAhBfHW&key=${gmaps_key}&maxwidth=600`
+//     )
+//     .then(function (response) {
+//       // handle success
+//       console.log(response);
+//     })
+//     .catch(function (error) {
+//       // handle error
+//       console.log("error:", err);
+//     });
+// });
 
 app.get("/", async (req, res) => {
   res.sendFile("search.html", { root: path.join(__dirname, "./" + public) });
