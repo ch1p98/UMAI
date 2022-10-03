@@ -146,7 +146,7 @@
                         </div>
                     </div>
                 </div>
-                <img src="./favatar/" alt="" />
+                <!-- <img src="./favatar/" alt="" /> -->
                 <div class="container-login100" id="id_container-register100" style="display: none">
                     <div class="wrap-login100 p-t-12 p-b-20">
                         <span class="login100-form-title p-b-16"> 註冊 </span>
@@ -2387,7 +2387,8 @@
                             let update_body = {};
                             // QQQ.成功更新資料之後應該要刷新頁面
                             // when pressing 更新資料
-                            $(document).on("click", "#update_profile", () => {
+                            $(document).off("dblclick", "#update_profile");
+                            $(document).on("dblclick", "#update_profile", () => {
                                 $("input.update_feature").each(function(index, element) {
                                     // console.log(Object.keys(element));
                                     // console.log(typeof element.name);
@@ -2408,16 +2409,19 @@
                                         },
                                     })
                                     .then((response) => {
-                                        alert("資料修改成功");
+                                        alert(`資料修改成功`);
+                                        console.log(`current time: : ${Date.now()}`);
                                         $("#profile_skin").remove();
-                                        $("#trigger_profile").trigger("click");
-                                        console.log(
-                                            "response from update profile: ",
-                                            JSON.stringify(response)
-                                        );
+                                        console.log("response from update profile: ", response);
                                     })
                                     .catch((err) => {
                                         alert("更改資料失敗");
+                                    })
+                                    .finally(() => {
+                                        setTimeout(() => {
+                                            $("#trigger_profile").trigger("click");
+                                            //$(document).off("dblclick", "#update_profile");
+                                        }, 1111);
                                     });
                             });
                             //update_profile_btn prevent default
