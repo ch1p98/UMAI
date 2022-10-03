@@ -809,6 +809,26 @@ app.post("/review", async (req, res) => {
   res.status(200).json(response);
 });
 
+app.post("/search_es", async (req, res) => {
+  const id = req.body.id;
+  console.log("id: ", id);
+  const result = await elasticClient
+    .search({
+      index: INDEX_NAME,
+      size: 1,
+      query: {
+        bool: { must: { match: { place_id: id } } },
+      },
+    })
+    .catch((err) => {
+      res.status(500).json({ err, result: "search failed" });
+      return;
+    });
+  console.log("result:", result);
+  console.log("result:", JSON.stringify(result));
+  res.json(result);
+});
+
 app.get("/campaign/:id", async (req, res) => {
   const choice = req.params.id;
   const name_field = "name";
@@ -837,7 +857,7 @@ app.get("/campaign/:id", async (req, res) => {
   campaign_query_dict[0].query = {
     must: {
       match: {
-        [address_field]: "台北",
+        [address_field]: "台北市",
       },
     },
   };

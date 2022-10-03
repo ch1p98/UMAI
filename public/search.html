@@ -93,7 +93,7 @@
                         </a>
                         <div id="omni_bar" class="navbar-nav ml-auto py-0">
                             <div id="modify_search" class="nav-item nav-link nav_title">
-                                神奇搜尋器
+                                魔法搜尋器
                             </div>
 
                             <div id="div_profile" class="nav-item nav-link">
@@ -181,7 +181,9 @@
         <div id="filters" style="display: none">
             <div id="filters_pleura">
                 <div id="filter_caption">
-                    <span>使用選項來搜尋餐廳。填入一個、兩個、全部，或者都不填!!</span>
+                    <span id="instruction_1">隨心所欲搜尋餐廳。填入一個、兩個、全部，或者都不填!!</span
+            >
+            <span>如果沒有想要的選項，請直接鍵入欲搜尋的關鍵字。</span>
                 </div>
 
                 <div class="filter_box">
@@ -218,13 +220,15 @@
                 multiple="multiple"
                 id="id_label_1"
               >
-                <option value="TPE">台北</option>
-                <option value="KAO">高雄</option>
-                <option value="NTP">新北</option>
-                <option value="TAN">台南</option>
-                <option value="HSC">新竹</option>
-                <option value="HSC">淡水</option>
-                <option value="HSC">文化路</option>
+                <option value="TPE">台北市</option>
+                <option value="KAO">高雄市</option>
+                <option value="NTP">新北市</option>
+                <option value="HSC">新竹市</option>
+                <option value="TAN">台南市</option>
+                <option value="HSC">淡水區</option>
+                <option value="HSC">文山區</option>
+                <option value="HSC">礁溪鄉</option>
+                <option value="HSC">竹北市</option>
               </select>
             </label>
                 </div>
@@ -247,6 +251,7 @@
                 <option value="TAN">美式</option>
                 <option value="HSC">泰式</option>
                 <option value="HSC">港式</option>
+                <option value="HSC">印度</option>
               </select>
             </label>
                 </div>
@@ -267,6 +272,7 @@
                 <option value="KAO">居酒屋</option>
                 <option value="NTP">餐酒館</option>
                 <option value="TAN">酒吧</option>
+                <option value="TAN">西餐廳</option>
                 <option value="HSC">甜點店</option>
                 <option value="HSC">火鍋店</option>
                 <option value="TAN">茶館</option>
@@ -383,7 +389,7 @@
               </select>
             </label>
                 </div>
-                <div class="filter_box">
+                <!-- <div class="filter_box">
                     <label for="id_label_9">
               <div class="filter_title_container">
                 <div class="filter_title_text_skin">
@@ -399,7 +405,7 @@
                 <option value="FALSE">否</option>
               </select>
             </label>
-                </div>
+                </div> -->
                 <div id="selected_fire_container">
                     <!-- <button id="selected_fire">SORA!!</button> -->
                     <button type="button" id="selected_fire" class="btn btn-outline-dark btn-radius">
@@ -553,6 +559,19 @@
         ]);
         const NUM_DEFAULT_DISPLAY = 28;
         const NUM_CAMPAIGN = 4;
+
+        const get_proper_len_string = (str, len) => {
+            if (typeof str !== "string") {
+                return "INVALID INPUT";
+            }
+            if (typeof len !== "number") {
+                return "";
+            }
+            if ((len < 0) | !Number.isInteger(len)) {
+                return "";
+            }
+            return str.length < len + 1 ? str : str.slice(0, len) + "...";
+        };
 
         // you should pass in time in the form of Date object.
         const attach_post_to_container = (
@@ -865,7 +884,7 @@
                             rating = campaign_data_1_arr[i].data.rating,
                             hashtag =
                             "#" +
-                            campaign_data_1_arr[i].data.types.slice(0, 3).join(" #"),
+                            campaign_data_1_arr[i].data.types.slice(0, 3).join("  #"),
                             place_id = campaign_data_1_arr[i].data.place_id;
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
@@ -1255,7 +1274,7 @@
                 });
                 console.log("diff_t:", diff_t);
                 dot_loading.remove();
-            }, 3333);
+            }, 333);
 
             scrollTo(0, 0);
         });
@@ -1855,9 +1874,15 @@
                                             const favorite_case = $("<div></div>").attr({
                                                 class: "favorite_case",
                                             });
+                                            console.log("name:", name);
+                                            console.log("name:", JSON.stringify(name));
                                             favorite.append(favorite_case);
-                                            const name_box = $("<div></div>");
-                                            const name_p = $("<p></p>").text(`${name}`);
+                                            const name_box = $("<div></div>").attr({
+                                                class: "favorite_name_box",
+                                            });
+                                            const name_p = $("<p></p>").text(
+                                                `${get_proper_len_string(name, 27)}`
+                                            );
                                             name_box.append(name_p);
                                             favorite_case.append(name_box);
                                             name_p.click((e) => {
@@ -2749,7 +2774,7 @@
                         id: "transmembrane_p",
                     });
                     div_transmembrane.append(transmembrane_display);
-                    const transmembrane_display_text = `${hits_arr.length} results match your filters`;
+                    const transmembrane_display_text = `共有${hits_arr.length}項符合搜尋條件的結果 `;
                     transmembrane_display.text(transmembrane_display_text);
                     $("#restaurant_container").append(div_membrane);
 
@@ -2830,10 +2855,11 @@
                             class: "item_name_div",
                         });
                         //use ${cnt + 1}. to debug
-                        const r_name_p = $(`<p>${h.name}</p>`).attr({
+                        const r_name_p = $("<p>").attr({
                             id: `item_title_${cnt}`,
                             class: "item_name_p",
                         });
+                        r_name_p.text(get_proper_len_string(h.name, 36));
                         r_name.append(r_name_p);
                         restaurant_box_right_hypothalamus.append(r_name);
                         //
@@ -3291,6 +3317,20 @@
         let test_cnt = 0;
         // documenton 這邊:
         // "TRY TO POST A REVIEW, NOT SUBMIT!!"
+        $(document).on("click", ".page", (event) => {
+            scrollTo(0, 0);
+        });
+        $(document).on("click", ".favorite_case_target_parent", (event) => {});
+
+        $(document).on("click", ".favorite_case_target", (event) => {
+            //console.log("e t: ", event.target);
+            let rid = $(event.target).siblings("#favorite_id").text();
+            if (!rid) {
+                rid = $(event.target).children().children("#favorite_id").text();
+            }
+            console.log("rid:", rid);
+        });
+
         $(document).on("click", "#visit_friend", (event) => {
             console.log("retrieve and display friend(user) profile");
             console.log(
@@ -3468,11 +3508,19 @@
                             const rname = fav_item.rname;
                             const rid = fav_item.rid;
                             const favorite_case = $("<div></div>").attr({
-                                class: "favorite_case",
+                                class: "favorite_case favorite_case_target_parent",
                             });
                             const name_box = $("<div></div>");
-                            const name_p = $("<p></p>").text(`${rname}`);
-                            const id_p = $("<p></p>").text(`${rid}`);
+                            const name_p = $("<p></p>")
+                                .attr({
+                                    class: "favorite_case_target",
+                                })
+                                .text(`${rname}`);
+                            const id_p = $("<p></p>")
+                                .attr({
+                                    id: "favorite_id",
+                                })
+                                .text(`${rid}`);
                             id_p.css("display", "none");
                             name_box.append(name_p);
                             name_box.append(id_p);

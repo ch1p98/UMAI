@@ -305,7 +305,7 @@ a.weblink_a:hover::before {
   width: auto;
   height: auto;
   padding: 0.28rem 0.67rem;
-  background-color: #fcfcfcfc;
+  background-color: #dbdbdbfc;
   position: absolute;
   top: 100%;
   left: 0;
@@ -371,13 +371,13 @@ a.weblink_a:hover::before {
 }
 
 .filter_title_text {
-  font-size: 100%;
+  font-size: 133%;
   display: inline-block;
 }
 
 .profile_div_box {
   margin: 0.41rem 0;
-  background-color: #fcfcfcfc;
+  background-color: #dbdbdbfc;
   height: auto;
   display: inline-block;
   display: -webkit-box;
@@ -520,10 +520,11 @@ a.weblink_a:hover::before {
 }
 
 .favorite_case {
+  padding: 0 0.59rem;
   margin: 0.41rem;
   border-radius: 7px;
-  padding: 1rem;
-  background-color: #fcfcfcfc;
+  background-color: #dbdbdbfc;
+  height: 4.24rem;
   cursor: pointer;
 }
 
@@ -1281,6 +1282,10 @@ a.weblink_a:hover::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
@@ -1289,6 +1294,10 @@ a.weblink_a:hover::before {
 
 #filter_caption span {
   font-size: 1.27rem;
+}
+
+#instruction_1 {
+  border-bottom: 1px solid;
 }
 
 #header_container {
@@ -1449,8 +1458,16 @@ a.weblink_a:hover::before {
   -webkit-box-pack: start;
       -ms-flex-pack: start;
           justify-content: flex-start;
-  max-height: 41vh;
+  height: 33vh;
   margin-bottom: 1rem;
+}
+
+#user_left_hemi_pia {
+  width: 400px;
+}
+
+#user_left_hemi_pia img {
+  border-radius: 7px;
 }
 
 #user_left_hemi {
@@ -1462,14 +1479,6 @@ a.weblink_a:hover::before {
   width: auto;
 }
 
-#user_left_hemi_pia {
-  width: 345px;
-}
-
-#user_left_hemi_pia img {
-  border-radius: 7px;
-}
-
 #user_right_hemi {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1477,6 +1486,7 @@ a.weblink_a:hover::before {
   max-height: 100%;
   margin: 0 1.34rem 0 0.67rem;
   height: 100%;
+  width: auto;
 }
 
 #user_right_hemi_pia {
@@ -1491,6 +1501,19 @@ a.weblink_a:hover::before {
       flex-wrap: wrap;
 }
 
+.empty_case {
+  width: 100%;
+}
+
+.empty_content_div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 #user_sternum {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1498,6 +1521,10 @@ a.weblink_a:hover::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 4rem;
 }
 
 #user_omentum {
@@ -1507,6 +1534,23 @@ a.weblink_a:hover::before {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  width: 4rem;
+}
+
+#user_peritoneum {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  border-left: 1px solid #999999;
 }
 
 .row_box {
@@ -1518,26 +1562,37 @@ a.weblink_a:hover::before {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+  border-left: 1px solid #999999;
 }
 
 #user_thorax {
   width: 100%;
+  height: 5.28rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: .47rem 0;
 }
 
 #user_abdomen {
   width: 100%;
+  height: 5.28rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  margin: .47rem 0;
 }
 
 #cur_profile {
@@ -2158,7 +2213,12 @@ li.select2-selection__choice {
 }
 
 .key_box {
+  padding: 0 0.61rem;
   border-bottom: #999999 1px solid;
+}
+
+.value_box {
+  padding: 0 0.61rem;
 }
 
 #pref1 {

@@ -297,7 +297,7 @@ a.weblink_a:hover::before {
     width: auto;
     height: auto;
     padding: 0.28rem 0.67rem;
-    background-color: #fcfcfcfc;
+    background-color: #dbdbdbfc;
     position: absolute;
     top: 100%;
     left: 0;
@@ -345,7 +345,7 @@ a.weblink_a:hover::before {
 
 .filter_title_text {
     //border-bottom: 1px solid #999999;
-    font-size: 100%;
+    font-size: 133%;
     display: inline-block;
 }
 
@@ -353,7 +353,7 @@ a.weblink_a:hover::before {
     //padding: 0.59rem 0;
     margin: 0.41rem 0;
     //width: 89%;
-    background-color: #fcfcfcfc;
+    background-color: #dbdbdbfc;
     //box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     height: auto;
     display: inline-block;
@@ -455,10 +455,11 @@ a.weblink_a:hover::before {
 
 .favorite_case {
     //background-color: ##ff2667;
+    padding: 0 0.59rem;
     margin: 0.41rem;
     border-radius: 7px;
-    padding: 1rem;
-    background-color: #fcfcfcfc;
+    background-color: #dbdbdbfc;
+    height: 4.24rem;
     //box-shadow: 0 3px 3px 0 rgb(98, 98, 98);
     cursor: pointer;
 }
@@ -1066,11 +1067,16 @@ a.weblink_a:hover::before {
 
 #filter_caption {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 0 1rem;
     span {
         font-size: 1.27rem;
     }
+}
+
+#instruction_1 {
+    border-bottom: 1px solid;
 }
 
 // #modify_search {
@@ -1185,8 +1191,16 @@ a.weblink_a:hover::before {
     display: flex;
     width: 100%;
     justify-content: flex-start;
-    max-height: 41vh;
+    height: 33vh;
     margin-bottom: 1rem;
+}
+
+#user_left_hemi_pia {
+    //width: 345px;
+    width: 400px;
+    img {
+        border-radius: 7px;
+    }
 }
 
 #user_left_hemi {
@@ -1196,18 +1210,12 @@ a.weblink_a:hover::before {
     width: auto;
 }
 
-#user_left_hemi_pia {
-    width: 345px;
-    img {
-        border-radius: 7px;
-    }
-}
-
 #user_right_hemi {
     display: flex;
     max-height: 100%;
     margin: 0 1.34rem 0 0.67rem;
     height: 100%;
+    width: auto;
 }
 
 #user_right_hemi_pia {
@@ -1216,14 +1224,35 @@ a.weblink_a:hover::before {
     flex-wrap: wrap;
 }
 
+.empty_case {
+    width: 100%;
+}
+
+.empty_content_div {
+    display: flex;
+    justify-content: center;
+}
+
 #user_sternum {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 4rem;
 }
 
 #user_omentum {
     display: flex;
     align-items: center;
+    justify-content: flex-start;
+    width: 4rem;
+}
+
+#user_peritoneum {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    border-left: 1px solid #999999;
 }
 
 .row_box {
@@ -1233,18 +1262,26 @@ a.weblink_a:hover::before {
 
 #user_pleura {
     display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    width: 100%;
+    border-left: 1px solid #999999;
 }
 
 #user_thorax {
     width: 100%;
+    height: 5.28rem;
     display: flex;
     justify-content: center;
+    margin: .47rem 0;
 }
 
 #user_abdomen {
     width: 100%;
+    height: 5.28rem;
     display: flex;
     justify-content: center;
+    margin: .47rem 0;
 }
 
 #cur_profile {
@@ -1736,7 +1773,12 @@ li.select2-selection__choice {
 }
 
 .key_box {
+    padding: 0 0.61rem;
     border-bottom: #999999 1px solid;
+}
+
+.value_box {
+    padding: 0 0.61rem;
 }
 
 #pref1 {
