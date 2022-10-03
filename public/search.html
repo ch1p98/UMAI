@@ -1274,7 +1274,7 @@
                 });
                 console.log("diff_t:", diff_t);
                 dot_loading.remove();
-            }, 333);
+            }, 3333);
 
             scrollTo(0, 0);
         });
@@ -2640,6 +2640,7 @@
             $("#detail_container").remove();
             $("#dummy").remove();
             $(".pagination").remove();
+            $("#user_container").remove();
             let name_arr = [];
             let selected_name = name.find(":selected");
             for (i of selected_name) {
