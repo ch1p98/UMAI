@@ -2409,7 +2409,12 @@
                                     })
                                     .then((response) => {
                                         alert("資料修改成功");
+                                        $("#profile_skin").remove();
                                         $("#trigger_profile").trigger("click");
+                                        console.log(
+                                            "response from update profile: ",
+                                            JSON.stringify(response)
+                                        );
                                     })
                                     .catch((err) => {
                                         alert("更改資料失敗");
