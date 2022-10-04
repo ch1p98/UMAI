@@ -1885,6 +1885,7 @@
                                             );
                                             name_box.append(name_p);
                                             favorite_case.append(name_box);
+                                            //個人頁 pocket list link
                                             name_p.click((e) => {
                                                 axios_5000
                                                     .post(
@@ -2385,8 +2386,7 @@
                             form.append(update_profile_btn);
 
                             let update_body = {};
-                            // QQQ.成功更新資料之後應該要刷新頁面
-                            // when pressing 更新資料
+                            // 解除綁定，避免觸發多次(越來越多)事件
                             $(document).off("dblclick", "#update_profile");
                             $(document).on("dblclick", "#update_profile", () => {
                                 $("input.update_feature").each(function(index, element) {
@@ -2757,7 +2757,7 @@
                     data.hits.hits.forEach((element, index) => {
                         hits_arr.push({
                             data: element._source,
-                            id: element._id,
+                            id: element._source.place_id,
                         });
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
@@ -2791,9 +2791,9 @@
                     let is_favorite = 0;
 
                     // display search result
-                    for (ho of hits_arr) {
-                        const h = ho.data;
-                        //console.log(ho.id);
+                    for (hit_obj of hits_arr) {
+                        const hit_obj_data = hit_obj.data;
+                        //console.log(hit_obj.id);
                         let div_box = $("<div></div>").attr({
                             id: `h${cnt}`,
                             class: "restaurant_box",
@@ -2824,7 +2824,7 @@
                         });
                         restaurant_box_left_hemi.append(r_img);
 
-                        is_favorite = favorite_set.has(ho.id);
+                        is_favorite = favorite_set.has(hit_obj.id);
                         console.log("is_favorite:", is_favorite);
                         //"<div><img src='./hoshizora.svg' alt='Hoshi'></div>"
                         const starred_cointainer = $("<div>").attr({
@@ -2843,7 +2843,10 @@
                         }
                         starred.addClass("toggle_favorite");
                         starred_cointainer.append(starred);
-                        const id_content = $(`<p>${ho.id}</p>`).css("display", "none");
+                        const id_content = $(`<p>${hit_obj.id}</p>`).css(
+                            "display",
+                            "none"
+                        );
                         starred.append(id_content);
 
                         const restaurant_box_right_hypothalamus = $("<div>").attr({
@@ -2869,16 +2872,16 @@
                             id: `item_title_${cnt}`,
                             class: "item_name_p",
                         });
-                        r_name_p.text(get_proper_len_string(h.name, 36));
+                        r_name_p.text(get_proper_len_string(hit_obj_data.name, 36));
                         r_name.append(r_name_p);
                         restaurant_box_right_hypothalamus.append(r_name);
                         //
                         restaurant_box_right_hypothalamus.append(
-                            `<p class="item_real_name" style="display:none">${h.name}</p>`
+                            `<p class="item_real_name" style="display:none">${hit_obj_data.name}</p>`
                         );
 
                         //
-                        let plv = h.price_level;
+                        let plv = hit_obj_data.price_level;
                         if (!plv) {
                             plv = "🤔";
                         } else {
@@ -2893,7 +2896,7 @@
                             class: "item_rating_plv_div",
                         });
                         const r_rating_pricelv_p = $(
-                            `<p>Rating: ${h.rating} (100+) · ${plv}</p>`
+                            `<p>Rating: ${hit_obj_data.rating} (100+) · ${plv}</p>`
                         ).attr({
                             class: "item_rating_plv_p",
                         });
@@ -2904,7 +2907,9 @@
                         const r_address = $("<div>").attr({
                             class: "item_address_div",
                         });
-                        const r_address_p = $(`<p>${h.formatted_address}</p>`).attr({
+                        const r_address_p = $(
+                            `<p>${hit_obj_data.formatted_address}</p>`
+                        ).attr({
                             class: "item_address_p",
                         });
                         r_address.append(r_address_p);
@@ -2914,7 +2919,9 @@
                         let opening_hours;
                         try {
                             //weekday_text is an array
-                            opening_hours = Array.from(h.opening_hours.weekday_text);
+                            opening_hours = Array.from(
+                                hit_obj_data.opening_hours.weekday_text
+                            );
                             // console.log(
                             //     "initial opening_hours: ",
                             //     opening_hours[0].toString()
@@ -3330,6 +3337,9 @@
         $(document).on("click", ".page", (event) => {
             scrollTo(0, 0);
         });
+        $(document).on("click", ".nav", (event) => {
+            scrollTo(0, 0);
+        });
         $(document).on("click", ".favorite_case_target_parent", (event) => {});
 
         $(document).on("click", ".favorite_case_target", (event) => {
@@ -3424,7 +3434,6 @@
                         src: `./favatar/${user_id}.jpg`,
                         id: "user_avatar",
                         alt: "使用者頭像",
-                        height: "100%",
                     });
                     user_head.append(user_left_hemi);
                     user_left_hemi.append(user_left_hemi_pia);

@@ -1284,6 +1284,10 @@ a.weblink_a:hover::before {
     margin: .47rem 0;
 }
 
+#user_avatar {
+    width: 328px;
+}
+
 #cur_profile {
     padding: 0 1rem;
 }
@@ -1938,6 +1942,12 @@ span.heart.pressed {
     font-size: 14px;
     visibility: visible;
     animation: fade 1s;
+}
+
+//pagination
+.current {
+    background-color: #ff2667;
+    border-radius: 7px;
 }
 
 @keyframes fade {

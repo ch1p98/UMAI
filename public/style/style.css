@@ -1595,6 +1595,10 @@ a.weblink_a:hover::before {
   margin: .47rem 0;
 }
 
+#user_avatar {
+  width: 328px;
+}
+
 #cur_profile {
   padding: 0 1rem;
 }
@@ -2448,6 +2452,11 @@ span.heart.pressed {
   visibility: visible;
   -webkit-animation: fade 1s;
           animation: fade 1s;
+}
+
+.current {
+  background-color: #ff2667;
+  border-radius: 7px;
 }
 
 @-webkit-keyframes fade {

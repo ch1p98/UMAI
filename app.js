@@ -40,7 +40,7 @@ const elasticClient = new Client({
     password: process.env.ES_PASSWORD,
   },
 });
-const INDEX_NAME = "food_beta";
+const INDEX_NAME = process.env.INDEX_NAME;
 
 // mongoDB client
 mongoose
@@ -811,13 +811,14 @@ app.post("/review", async (req, res) => {
 
 app.post("/search_es", async (req, res) => {
   const id = req.body.id;
+  const name = req.body.field;
   console.log("id: ", id);
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
       size: 1,
       query: {
-        bool: { must: { match: { place_id: id } } },
+        bool: { must: { match: id ? { place_id: id } : name ? { name } : "" } },
       },
     })
     .catch((err) => {
@@ -1096,42 +1097,6 @@ app.post("/search_experiment", async (req, res) => {
     });
   res.json(result);
 });
-
-// DEPRECATED
-// app.get("/search_experiment", async (req, res) => {
-//   const result = await elasticClient
-//     .search({
-//       index: "food_alpha",
-//       size: 32,
-//       //query: { match: { formatted_address: "仁愛路" } },
-//       query: {
-//         bool: {
-//           must: [
-//             {
-//               match: {
-//                 formatted_address: "高雄",
-//               },
-//             },
-//             {
-//               match: { "reviews.text": "櫻花" },
-//             },
-//             {
-//               match: { "opening_hours.periods.close.time": "2200" },
-//             },
-//           ],
-//         },
-//       },
-//     })
-//     .catch((err) => {
-//       res.json({ error: err, result: "search failed" });
-//     });
-//   res.json(result);
-// });
-
-// app.get("/gmaps-place-api", async (req, res) => {
-//   const mapsKey = process.env.GOOGLE_MAPS_API_KEY;
-//   url = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=25.0338,121.5646&radius=1000&keyword=牛排&language=zh-TW&key=${mapsKey}`;
-// });
 
 app.get("/gcnlpdemo", async (req, res) => {
   console.log("gcnlpdemo");
