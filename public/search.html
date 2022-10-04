@@ -2551,7 +2551,12 @@
                 console.log("target.parent:", target.parent());
                 console.log("target.parent.siblings:", target.parent().siblings());
                 const rid = target.children("p").text();
-                const rname = target.parent().siblings(".item_real_name").text();
+                const rname = target
+                    .parent()
+                    .parent()
+                    .siblings(".restaurant_box_right_hypothalamus")
+                    .children(".item_real_name")
+                    .text();
                 const restaurant_obj = {
                     rid,
                     rname,
@@ -3489,7 +3494,7 @@
                     }
 
                     // THORAX
-                    //// secondary data(favotire of user)
+                    //// secondary data( FAVORITE of user)
                     const user_thorax = $("<div>").attr({
                         id: "user_thorax",
                     });
