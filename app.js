@@ -194,7 +194,7 @@ app.get("/friends", async (req, res) => {
 
   let decoded;
   try {
-    decoded = jwt.verify(rule_out_token, private_key);
+    decoded = jwt.verify(rule_out_token, private_key); //promise
     //do something with data in decoded
   } catch (err) {
     console.log("Invalid token: ", err);
