@@ -557,7 +557,7 @@
             "age",
             "gender",
         ]);
-        const NUM_DEFAULT_DISPLAY = 28;
+        const DEFAULT_CAMPAIGN_SIZE = 10;
         const NUM_CAMPAIGN = 4;
 
         const get_proper_len_string = (str, len) => {
@@ -873,22 +873,27 @@
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_1_arr.push({
                             data: element._source,
-                            id: element._id,
+                            id: element._source.place_id,
                         });
                     });
                     camps_arr["c1"] = campaign_data_1_arr;
                     //campaign_1
                     const CUR_CAMPAIGN = 0;
-                    for (let i = 0; i < NUM_DEFAULT_DISPLAY; i++) {
+                    for (let i = 0; i < DEFAULT_CAMPAIGN_SIZE; i++) {
                         const name = campaign_data_1_arr[i].data.name,
                             rating = campaign_data_1_arr[i].data.rating,
                             hashtag =
                             "#" +
                             campaign_data_1_arr[i].data.types.slice(0, 3).join("  #"),
                             place_id = campaign_data_1_arr[i].data.place_id;
+                        console.log(
+                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
+                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
+                        );
+                        console.log("campaign_data_1_arr: ", campaign_data_1_arr);
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
-                            id: `campaign_item_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         const c_item_head = $("<div>").attr({
                             class: "c_item_head",
@@ -937,7 +942,7 @@
 
                         const cloned_cimg = c_img_div.clone();
                         cloned_cimg.attr({
-                            id: `campaign_img_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         //c_item_head.append(c_img_div.clone());
                         c_item_head.append(cloned_cimg);
@@ -967,22 +972,29 @@
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_2_arr.push({
                             data: element._source,
-                            id: element._id,
+                            id: element._source.place_id,
                         });
                     });
                     camps_arr["c2"] = campaign_data_2_arr;
                     //campaign_2
                     const CUR_CAMPAIGN = 1;
-                    for (let i = 0; i < NUM_DEFAULT_DISPLAY; i++) {
+                    for (let i = 0; i < DEFAULT_CAMPAIGN_SIZE; i++) {
                         const name = campaign_data_2_arr[i].data.name,
                             rating = campaign_data_2_arr[i].data.rating,
                             hashtag =
                             "#" +
                             campaign_data_2_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_2_arr[i].data.place_id;
+
+                        console.log(
+                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
+                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
+                        );
+                        console.log("campaign_data_2_arr: ", campaign_data_2_arr);
+
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
-                            id: `campaign_item_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         //
                         const c_item_head = $("<div>").attr({
@@ -1033,7 +1045,7 @@
 
                         const cloned_cimg = c_img_div.clone();
                         cloned_cimg.attr({
-                            id: `campaign_img_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1061,22 +1073,29 @@
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_3_arr.push({
                             data: element._source,
-                            id: element._id,
+                            id: element._source.place_id,
                         });
                     });
                     camps_arr["c3"] = campaign_data_3_arr;
                     //campaign_3
                     const CUR_CAMPAIGN = 2;
-                    for (let i = 0; i < NUM_DEFAULT_DISPLAY; i++) {
+                    for (let i = 0; i < DEFAULT_CAMPAIGN_SIZE; i++) {
                         const name = campaign_data_3_arr[i].data.name,
                             rating = campaign_data_3_arr[i].data.rating,
                             hashtag =
                             "#" +
                             campaign_data_3_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_3_arr[i].data.place_id;
+
+                        console.log(
+                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
+                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
+                        );
+                        console.log("campaign_data_3_arr: ", campaign_data_3_arr);
+
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
-                            id: `campaign_item_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         //
                         const c_item_head = $("<div>").attr({
@@ -1128,7 +1147,7 @@
 
                         const cloned_cimg = c_img_div.clone();
                         cloned_cimg.attr({
-                            id: `campaign_img_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1163,22 +1182,29 @@
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_4_arr.push({
                             data: element._source,
-                            id: element._id,
+                            id: element._source.place_id,
                         });
                     });
                     camps_arr["c4"] = campaign_data_4_arr;
                     //campaign_4
                     const CUR_CAMPAIGN = 3;
-                    for (let i = 0; i < NUM_DEFAULT_DISPLAY; i++) {
+                    for (let i = 0; i < DEFAULT_CAMPAIGN_SIZE; i++) {
                         const name = campaign_data_4_arr[i].data.name,
                             rating = campaign_data_4_arr[i].data.rating,
                             hashtag =
                             "#" +
                             campaign_data_4_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_4_arr[i].data.place_id;
+
+                        console.log(
+                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
+                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
+                        );
+                        console.log("campaign_data_4_arr: ", campaign_data_4_arr);
+
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
-                            id: `campaign_item_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         const c_item_head = $("<div>").attr({
                             class: "c_item_head",
@@ -1228,7 +1254,7 @@
 
                         const cloned_cimg = c_img_div.clone();
                         cloned_cimg.attr({
-                            id: `campaign_img_${i + CUR_CAMPAIGN * NUM_DEFAULT_DISPLAY}`,
+                            id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1360,7 +1386,7 @@
                         return;
                     }
 
-                    // get friend list here
+                    // get friend list here (included in initial procedures)
                     const headers = {
                         "Access-Control-Allow-Origin": "*",
                         "Access-Control-Allow-Methods": "*",
@@ -1560,7 +1586,7 @@
             //     return;
             // }
             $("#profile_skin").remove();
-            $("#dummy").remove();
+            $("#dummy").hide();
             $("#user_container").remove();
             // $("#profile_container").remove();
             // $("#friend_container").remove();
@@ -1709,7 +1735,8 @@
 
                             for (k of Object.keys(profile_data)) {
                                 // 這2個keys暫時不處理；放到其他按鈕來處理
-                                if (k === "friends") {
+                                console.log("kkkkkkk", k);
+                                if (k === "friend") {
                                     continue;
                                 } else if (k === "favorite") {
                                     continue;
@@ -1739,15 +1766,13 @@
                                 profile_box.append(profile_box_content);
                                 cur_profile.append(profile_box);
                             }
-                            const show_friend_btn = $("<button>FRIEND LIST</button>").attr({
+                            const show_friend_btn = $("<div>FRIEND LIST</div>").attr({
                                 id: "show_friend",
-                                class: "btn btn-outline-dark",
+                                //class: "btn btn-outline-dark",
                             });
-                            const show_favorite_btn = $(
-                                "<button>POCKET LIST</button>"
-                            ).attr({
+                            const show_favorite_btn = $("<div>POCKET LIST</div>").attr({
                                 id: "show_favorite",
-                                class: "btn btn-outline-dark",
+                                //class: "btn btn-outline-dark",
                             });
                             div_friend.append(show_friend_btn);
                             div_favorite.append(show_favorite_btn);
@@ -1762,7 +1787,7 @@
                                 return;
                             }
 
-                            // get friend list here
+                            // get friend list here (when clicking 關於我)
                             axios_5000
                                 .get(`/friends?email=${email}`, {
                                     headers: {
@@ -1822,8 +1847,7 @@
                                             const visit_friend_btn = $(
                                                 "<button>  VISIT  </button>"
                                             ).attr({
-                                                id: "visit_friend",
-                                                class: "btn btn-outline-link btn-xs",
+                                                class: "btn btn-outline-link btn-xs visit_friend_btn",
                                             });
                                             const rm_suggest_btn = $(
                                                 "<button>  REMOVE  </button>"
@@ -1910,7 +1934,9 @@
                                                         //page_len = data.hits.hits.length;
                                                         const target = data.hits.hits[0];
                                                         let detail_data = target._source;
-                                                        let rid = target._id;
+                                                        let rid = detail_data.place_id ?
+                                                            detail_data.place_id :
+                                                            -1;
                                                         let detail_container = $("<div></div>").attr({
                                                             id: "detail_container",
                                                         });
@@ -2292,6 +2318,7 @@
                                                         // $("#restaurant_container").remove();
                                                         // $("#pagination").remove();
                                                         $("#return_result").remove();
+                                                        //$("#return_home").remove();
                                                         // const return_result = $(
                                                         //     "<div>Return To Search</div>"
                                                         // ).attr({
@@ -2325,8 +2352,6 @@
 
                             // first remove those we already have on browser
                             let residual_feature = new Set(user_features);
-                            // 舊的做法：當前資料有的欄位就不顯示在input讓人修改
-                            // 顯然不合理
                             // for (i of Object.keys(profile_data)) {
                             //     residual_feature.delete(i);
                             // }
@@ -2387,8 +2412,8 @@
 
                             let update_body = {};
                             // 解除綁定，避免觸發多次(越來越多)事件
-                            $(document).off("dblclick", "#update_profile");
-                            $(document).on("dblclick", "#update_profile", () => {
+                            $(document).off("click", "#update_profile");
+                            $(document).on("click", "#update_profile", () => {
                                 $("input.update_feature").each(function(index, element) {
                                     // console.log(Object.keys(element));
                                     // console.log(typeof element.name);
@@ -2622,6 +2647,19 @@
             $("#profile_skin").hide();
         });
 
+        $(document).on("click", "#return_home", (event) => {
+            // $("#restaurant_container").show();
+            // $("#pagination").show();
+            $("#dummy").show();
+            $("#detail_container").remove();
+            // $("#profile_container").hide();
+            // $("#friend_container").hide();
+            // $("#favorite_container").hide();
+            $("#profile_skin").hide();
+            $("#restaurant_skin").hide();
+            $("#return_home").remove();
+        });
+
         $(document).on("click", "#google_review_toggle", (event) => {
             if (!display_google_reviews) {
                 $("#google_reviews_container").show();
@@ -2652,9 +2690,10 @@
             console.log("clone_dot_loading appended.");
             $("#root").append(clone_dot_loading);
             $("#detail_container").remove();
-            $("#dummy").remove();
+            $("#dummy").hide();
             $(".pagination").remove();
             $("#user_container").remove();
+            $("#restaurant_skin").remove();
             let name_arr = [];
             let selected_name = name.find(":selected");
             for (i of selected_name) {
@@ -2844,7 +2883,7 @@
         <span class="heart">liked!</span>
       </div>`);
                         if (is_favorite) {
-                            starred.children().addClass("pressed toggle_favorite");
+                            starred.children().addClass("pressed");
                         }
                         starred.addClass("toggle_favorite");
                         starred_cointainer.append(starred);
@@ -3317,7 +3356,14 @@
                     $("#restaurant_container").pagify(10, ".restaurant_box");
                     $("#modify_search").show();
                     $("#filters").hide();
-                    console.log("success");
+                    const return_home = $("<div>回到首頁</div>").attr({
+                        id: "return_home",
+                        class: "nav-item nav-link nav_title",
+                    });
+
+                    $("#omni_bar").append(return_home);
+
+                    console.log("process of search is over");
                 })
                 .catch((error) => {
                     console.log("An error occurred:", error);
@@ -3328,7 +3374,8 @@
             setTimeout(() => {
                 clone_dot_loading.remove();
                 console.log("wait a second");
-            }, 3111);
+                scrollTo(0, 0);
+            }, 2147);
         });
         $("#modify_search").click((event) => {
             scrollTo(0, 0);
@@ -3345,23 +3392,24 @@
         $(document).on("click", ".nav", (event) => {
             scrollTo(0, 0);
         });
-        $(document).on("click", ".favorite_case_target_parent", (event) => {});
+        // $(document).on("click", ".favorite_case_target_parent", (event) => {});
 
-        $(document).on("click", ".favorite_case_target", (event) => {
-            //console.log("e t: ", event.target);
-            let rid = $(event.target).siblings("#favorite_id").text();
-            if (!rid) {
-                rid = $(event.target).children().children("#favorite_id").text();
-            }
-            console.log("rid:", rid);
-        });
+        // $(document).on("click", ".favorite_case_target", (event) => {
+        //     //console.log("e t: ", event.target);
+        //     let rid = $(event.target).siblings("#favorite_id").text();
+        //     if (!rid) {
+        //         rid = $(event.target).children().children("#favorite_id").text();
+        //     }
+        //     console.log("rid:", rid);
+        // });
 
-        $(document).on("click", "#visit_friend", (event) => {
+        $(document).on("click", ".visit_friend_btn", (event) => {
             console.log("retrieve and display friend(user) profile");
             console.log(
                 "tgt parent target_id: ",
                 $(event.target).parent().attr("target_id")
             );
+            $("#user_container").remove();
             const user_id = $(event.target).parent().attr("target_id");
             axios
                 .get(`/user/${user_id}`)
@@ -3369,6 +3417,7 @@
                     //friend_profile.text(JSON.stringify(response.data));
                     scrollTo(0, 0);
                     const data = response.data.result;
+                    console.log("data:", data);
                     const primary_data = {
                         name: data.name,
                         date: data.date,
@@ -3380,12 +3429,17 @@
                         age: data.age,
                         gender: data.gender,
                     };
-                    const secondary_data_friends = [];
-                    if (data.friends === undefined) {
-                        //
+                    // console.log(
+                    //     "data.friend === undefined:",
+                    //     data.friend === undefined
+                    // );
+                    const secondary_data_friend = [];
+
+                    if (data.friend === undefined) {
+                        console.log("this guy has no friends:(");
                     } else {
-                        data.friends.forEach((ele) => {
-                            secondary_data_friends.push(ele.data);
+                        data.friend.forEach((ele) => {
+                            secondary_data_friend.push(ele);
                         });
                     }
 
@@ -3403,7 +3457,7 @@
                     // will be undefined if none
                     console.log(
                         "secondary_data_friends: ",
-                        JSON.stringify(secondary_data_friends)
+                        JSON.stringify(secondary_data_friend)
                     );
                     console.log(
                         "secondary_data_favorite: ",
@@ -3411,7 +3465,6 @@
                     );
 
                     $("#profile_skin").hide();
-                    //$("#visit_friend").remove();
                     //or should we remove() it here?
                     const user_container = $("<div>").attr({
                         id: "user_container",
@@ -3460,7 +3513,7 @@
                     for (it of Object.keys(primary_data)) {
                         const key = it,
                             value = primary_data[it];
-                        console.log(`key: ${key} value: ${value}`);
+                        //console.log(`key: ${key} value: ${value}`);
                         const row_box = $("<div>").attr({
                             class: "row_box profile_div_box",
                         });
@@ -3480,12 +3533,6 @@
                         const value_span = $("<span>").attr({
                             class: "value_span",
                         });
-                        try {
-                            console.log(`Key:${key} has value length: ${value.length}`);
-                            console.log("value: ", value);
-                        } catch (err) {
-                            console.log("an error occurred here...", err);
-                        }
                         value_span.text(value === undefined ? "無資料" : value);
                         row_box.append(value_box);
                         value_box.append(value_span);
@@ -3528,7 +3575,7 @@
                         empty_content_div.append(empty_content_span);
                     } else {
                         for (fav_item of secondary_data_favorite) {
-                            console.log("fav_item: ", JSON.stringify(fav_item));
+                            //console.log("fav_item: ", JSON.stringify(fav_item));
                             const rname = fav_item.rname;
                             const rid = fav_item.rid;
                             const favorite_case = $("<div></div>").attr({
@@ -3550,6 +3597,376 @@
                             name_box.append(id_p);
                             favorite_case.append(name_box);
                             user_pleura.append(favorite_case);
+                            favorite_case.click((event) => {
+                                // get restaurant item by place_id
+                                axios
+                                    .post(
+                                        "search_es", {
+                                            id: rid,
+                                        }, {
+                                            headers: {
+                                                "Access-Control-Allow-Origin": "*",
+                                                "Content-Type": "application/json",
+                                                Authorization: `Bearer ${token}`,
+                                            },
+                                        }
+                                    )
+                                    .then((response) => {
+                                        let detail_data = response.data.hits.hits[0]._source;
+                                        let rid = detail_data.place_id;
+                                        $("#detail_container").remove();
+                                        $("#user_container").remove();
+                                        user_container;
+                                        //console.log("item is dnclicked:", hits_i);
+                                        //console.log("rid: ", rid);
+                                        //console.log("the data is: ", JSON.stringify(detail_data));
+                                        let detail_container = $("<div></div>").attr({
+                                            id: "detail_container",
+                                        });
+                                        let detail_head = $("<div></div>").attr({
+                                            id: "detail_head",
+                                        });
+                                        let detail_meninges = $("<div>").attr({
+                                            id: "detail_meninges",
+                                        });
+                                        let detail_left_hemi = $("<div></div>").attr({
+                                            id: "detail_left_hemi",
+                                        });
+                                        let detail_right_hemi = $("<div></div>").attr({
+                                            id: "detail_right_hemi",
+                                        });
+                                        // body is for comments
+                                        let detail_body = $("<div></div>").attr({
+                                            id: "detail_body",
+                                        });
+                                        let detail_box = $("<div></div>").attr({
+                                            id: "detail_box",
+                                        });
+
+                                        let detail_img = $("<img>").attr({
+                                            src: default_restaurant_detail_img_path,
+                                            alt: "restaurant_detail_pic",
+                                            width: "100%",
+                                        });
+                                        detail_head.append(detail_meninges);
+                                        detail_meninges.append(detail_left_hemi);
+                                        detail_meninges.append(detail_right_hemi);
+                                        detail_right_hemi.append(detail_box);
+
+                                        detail_container.append(detail_head);
+                                        detail_container.append(detail_body);
+                                        $("#root").append(detail_container);
+
+                                        //
+                                        detail_left_hemi.append(detail_img);
+                                        // add to favorite
+                                        const add_to_wish_div = $("<div></div>").attr({
+                                            id: "add_to_wish_div",
+                                        });
+                                        let add_to_wish_btn = $(
+                                            "<button>Add To Pocket List</button>"
+                                        ).attr({
+                                            id: "add_favorite",
+                                            class: "btn_medium",
+                                        });
+                                        detail_box.append(add_to_wish_div);
+                                        add_to_wish_div.append(add_to_wish_btn);
+
+                                        let is_favorite = favorite_set.has(rid);
+                                        console.log("is_favorite at detail page: ", is_favorite);
+                                        if (is_favorite) {
+                                            add_to_wish_btn.addClass(
+                                                "btn btn-outline-warning btn-xs btn-radius"
+                                            );
+                                            add_to_wish_btn.text("Remove From Pocket List");
+                                            console.log("fst");
+                                        } else {
+                                            //$("#add_favorite").addClass("btn btn-outline-secondary btn-xs btn-radius");
+                                            add_to_wish_btn.addClass(
+                                                "btn btn-outline-secondary btn-xs btn-radius"
+                                            );
+                                            add_to_wish_btn.text("Add To Pocket List");
+                                            console.log("fsf");
+                                        }
+
+                                        detail_box.append(`<div id="rid">${rid}</div>`);
+
+                                        const name_div = $("<div></div>").attr({
+                                            id: "detail_name",
+                                        });
+                                        const address_div = $("<div></div>").attr({
+                                            id: "detail_address",
+                                        });
+                                        const rating_div = $("<div></div>").attr({
+                                            id: "detail_rating",
+                                        });
+                                        const pricelv_div = $("<div></div>").attr({
+                                            id: "detail_pricelv",
+                                        });
+                                        const ophours_div = $("<div></div>").attr({
+                                            id: "detail_ophours",
+                                        });
+                                        const phone_div = $("<div></div>").attr({
+                                            id: "detail_phone",
+                                        });
+                                        const website_div = $("<div></div>").attr({
+                                            id: "detail_website",
+                                        });
+
+                                        const name_p = $(`<p>${detail_data.name}</p>`);
+                                        name_div.append(name_p);
+                                        detail_box.append(name_div);
+
+                                        const address_p = $(
+                                            `<p>${detail_data.formatted_address}</p>`
+                                        );
+                                        address_div.append(address_p);
+                                        detail_box.append(address_div);
+                                        const rating_p = $(
+                                            `<p>Rating：${detail_data.rating}</p>`
+                                        );
+                                        rating_div.append(rating_p);
+                                        detail_box.append(rating_div);
+
+                                        let plv = detail_data.price_level;
+                                        if (!plv) {
+                                            plv = "🤔";
+                                        } else {
+                                            const plv_cnt = plv;
+                                            plv = "";
+                                            for (_ = 0; _ < plv_cnt; _++) {
+                                                plv += "$";
+                                            }
+                                        }
+                                        const pricelv_p = $(`<p>Price Range：${plv}</p>`);
+                                        pricelv_div.append(pricelv_p);
+                                        detail_box.append(pricelv_div);
+
+                                        let opening_hours;
+                                        try {
+                                            //weekday_text is an array
+                                            opening_hours = detail_data.opening_hours.weekday_text;
+                                        } catch (err) {
+                                            console.log(
+                                                "An error occurred, might haven't caught data weekday_text correctly:",
+                                                err
+                                            );
+                                            opening_hours = "無資料";
+                                        }
+                                        const ophours_title_div = $("<div>").attr({
+                                            id: "ophours_title_div",
+                                        });
+                                        const ophours_title_p = $("<p>Hours:</p>");
+                                        ophours_title_div.append(ophours_title_p);
+
+                                        const ophours_content_div = $("<div>").attr({
+                                            id: "ophours_content_div",
+                                        });
+
+                                        let oph_cnt = 0;
+                                        for (let it of opening_hours) {
+                                            if (oph_cnt === 0) {
+                                                oph_cnt++;
+                                            } else {
+                                                const ophours_content_separator = $("<div>").attr({
+                                                    class: "ophours_content_separator",
+                                                });
+                                                ophours_content_div.append(ophours_content_separator);
+                                            }
+                                            let day = it.split(":", 1)[0];
+                                            let slice_len = day.length;
+                                            let time_by_day = it.replace(/ /, "");
+                                            time_by_day = time_by_day.slice(slice_len + 1);
+                                            console.log(
+                                                `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
+                                            );
+                                            let ophours_content_p = $(`<p>${day}</p>`).attr({
+                                                class: "ophours_content_p",
+                                            });
+                                            let ophours_content_pp = $(
+                                                `<p>${time_by_day}</p>`
+                                            ).attr({
+                                                class: "ophours_content_pp",
+                                            });
+                                            let ophours_content_sub_div = $("<div>").attr({
+                                                class: "ophours_content_sub_div",
+                                            });
+                                            ophours_content_sub_div.append(ophours_content_p);
+                                            ophours_content_sub_div.append(ophours_content_pp);
+                                            ophours_content_div.append(ophours_content_sub_div);
+                                        }
+
+                                        ophours_div.append(ophours_title_div);
+                                        ophours_div.append(ophours_content_div);
+                                        detail_box.append(ophours_div);
+
+                                        detail_box.append("<br>");
+                                        detail_box.append("<br>");
+
+                                        let phone_data;
+                                        if (detail_data.formatted_phone_number != undefined) {
+                                            phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
+                                        } else {
+                                            phone_data = `<p>Phone Number: No Data</p>`;
+                                        }
+                                        phone_div.append(phone_data);
+                                        detail_box.append(phone_div);
+
+                                        // ddeebbuugg!!!!
+                                        //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
+                                        let website_data;
+                                        if (detail_data.website != undefined) {
+                                            website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
+            </p>`;
+                                        } else {
+                                            website_data = `<p>Website: No Data</p>`;
+                                        }
+                                        website_div.append(website_data);
+                                        detail_box.append(website_div);
+
+                                        let google_reviews_div = $("<div></div>").attr({
+                                            id: "google_reviews_container",
+                                        });
+                                        google_reviews_div.css("display", "none");
+
+                                        let native_reviews_container = $("<div></div>").attr({
+                                            id: "native_reviews_container",
+                                        });
+                                        let google_review_div_toggle_div = $("<div>").attr({
+                                            id: "google_review_div_toggle_div",
+                                        });
+                                        let native_review_div_toggle_div = $("<div>").attr({
+                                            id: "native_review_div_toggle_div",
+                                        });
+                                        let google_review_toggle = $(
+                                            "<button>Show Reviews From Google Maps</button>"
+                                        ).attr({
+                                            id: "google_review_toggle",
+                                            class: "btn btn-outline-warning btn-sm btn-radius",
+                                        });
+                                        //
+
+                                        let post_review_btn = $(
+                                            "<button>Post Review</button>"
+                                        ).attr({
+                                            id: "post_review_btn",
+                                            class: "btn btn-outline-warning btn-sm btn-radius",
+                                        });
+
+                                        // let native_review_toggle = $(
+                                        //     "<button>Show Native Reviews</button>"
+                                        // ).attr({
+                                        //     id: "google_review_toggle",
+                                        //     class: "btn btn-outline-warning btn-sm btn-radius",
+                                        // });
+
+                                        // get native reviews
+
+                                        const empty_review_block = $("<div>").attr({
+                                            id: "empty_review_block",
+                                            class: "native_review_block",
+                                        });
+                                        const empty_review_content_div = $("<div>").attr({
+                                            class: "empty_review_div",
+                                        });
+                                        const empty_review_content_p = $("<p>No review yet.</p>");
+                                        native_reviews_container.append(empty_review_block);
+                                        empty_review_block.append(empty_review_content_div);
+                                        empty_review_content_div.append(empty_review_content_p);
+
+                                        let native_review_arr;
+                                        axios_5000
+                                            .get(`/review?id=${rid}`)
+                                            .then((response) => {
+                                                if (response.data.code) {
+                                                    //code === 1 if positive
+                                                    native_review_arr = response.data.result.review;
+                                                    console.log("response.data:", response.data);
+                                                } else {
+                                                    //code === 0 if negative
+                                                    native_review_arr = [];
+                                                }
+
+                                                const len_review = native_review_arr.length;
+                                                if (len_review === 0) {
+                                                    console.log("length 0");
+                                                } else {
+                                                    $("#empty_review_block").remove();
+                                                    console.log("length > 0");
+                                                    for (let review of native_review_arr) {
+                                                        attach_post_to_container(
+                                                            "native_reviews_container",
+                                                            review.author,
+                                                            review.title,
+                                                            review.content,
+                                                            review.time,
+                                                            review.rating
+                                                        );
+                                                    }
+                                                }
+                                            })
+                                            .catch((err) => {
+                                                console.log(
+                                                    `An error occurred while getting review: ${err}`
+                                                );
+                                            });
+
+                                        detail_body.append(native_review_div_toggle_div);
+                                        native_review_div_toggle_div.append(post_review_btn);
+                                        //native_review_div_toggle_div.append(native_review_toggle);
+                                        //
+                                        detail_body.append(native_reviews_container);
+
+                                        //display google review
+                                        detail_body.append(google_review_div_toggle_div);
+                                        google_review_div_toggle_div.append(google_review_toggle);
+                                        detail_body.append(google_reviews_div);
+                                        let review_cnt = 0;
+                                        try {
+                                            for (r of detail_data.reviews) {
+                                                let single_review = $("<div></div>").attr({
+                                                    id: `reviews_no_${review_cnt}`,
+                                                    class: "review_box",
+                                                });
+                                                google_reviews_div.append(single_review);
+                                                //
+                                                single_review.append(`<p>姓名：${r.author_name}</p>`);
+                                                single_review.append(`<p>評分：${r.rating}</p>`);
+                                                single_review.append(`<p>評論：${r.text}</p>`);
+                                                review_cnt++;
+                                            }
+                                        } catch (err) {
+                                            console.log(
+                                                "An error occurred while rendering reviews:",
+                                                err
+                                            );
+
+                                            let single_review = $("<div></div>").attr({
+                                                id: `reviews_no_${review_cnt}`,
+                                                class: "review_box",
+                                            });
+                                            google_reviews_div.append(single_review);
+                                            single_review.append(`<p>目前還沒有評論~</p>`);
+                                        }
+
+                                        //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
+                                        $("#restaurant_skin").hide();
+                                        // $("#restaurant_container").remove();
+                                        // $("#pagination").remove();
+                                        $("#return_result").remove();
+                                        const return_result = $("<div>回到搜尋結果</div>").attr({
+                                            id: "return_result",
+                                            class: "nav-item nav-link nav_title",
+                                        });
+                                        scrollTo(0, 0);
+                                    })
+                                    .catch((err) => {
+                                        console.log(
+                                            "an error occurred while searching at user's favorite list item: ",
+                                            err
+                                        );
+                                    });
+                            });
                         }
                     }
 
@@ -3574,8 +3991,8 @@
                     user_skin.append(user_abdomen);
                     user_abdomen.append(user_omentum);
                     user_abdomen.append(user_peritoneum);
-
-                    if (!secondary_data_friends.length) {
+                    console.log("secondary_data_friend: ", secondary_data_friend);
+                    if (!secondary_data_friend.length) {
                         console.log("no friend");
                         const empty_case = $("<div></div>").attr({
                             class: "empty_case",
@@ -3589,54 +4006,80 @@
                         empty_case.append(empty_content_div);
                         empty_content_div.append(empty_content_span);
                     } else {
-                        for (user of secondary_data_friends) {
-                            const fid = user._id ? user._id : -1;
-                            const name = user.name ? user.name : "";
-                            console.log("fr id: ", fid);
-                            console.log("fr name: ", name);
+                        axios
+                            .post(
+                                "/people", {
+                                    secondary_data_friend,
+                                }, {
+                                    headers: {
+                                        "Access-Control-Allow-Origin": "*",
+                                        "Content-Type": "application/json",
+                                        Authorization: `Bearer ${token}`,
+                                    },
+                                }
+                            )
+                            .then((response) => {
+                                const friends = response.data.result;
+                                console.log("getting data from secondary_data_friend:", data);
+                                for (friend of friends) {
+                                    const fid = friend._id ? friend._id : -1;
+                                    const name = friend.name ? friend.name : "UNKNOWN";
+                                    const age = friend.age ? friend.age : -1;
+                                    console.log("friend id: ", fid);
+                                    console.log("friend name: ", name);
+                                    console.log("friend age: ", age);
 
-                            const user_case = $("<div></div>").attr({
-                                class: "user_case",
-                            });
-                            const name_box = $("<div></div>").attr({
-                                class: "name_box",
-                            });
-                            const user_case_left_hemi = $(
-                                "<div class='user_case_left_hemi'></div>"
-                            );
+                                    const user_case = $("<div></div>").attr({
+                                        class: "user_case",
+                                    });
+                                    const name_box = $("<div></div>").attr({
+                                        class: "name_box",
+                                    });
+                                    const user_case_left_hemi = $(
+                                        "<div class='user_case_left_hemi'></div>"
+                                    );
 
-                            const default_avatar = $(
-                                `<img src="./favatar/${fid}.jpg" alt="使用者頭像">`
-                            );
+                                    const default_avatar = $(
+                                        `<img src="./favatar/${fid}.jpg" alt="使用者頭像">`
+                                    );
 
-                            user_case_left_hemi.append(default_avatar);
-                            const user_case_right_hemi = $(
-                                "<div class='friend_right_hemi'></div>"
-                            );
-                            const name_h = $("<h4></h4>").text(`${name}`);
-                            name_box.append(name_h);
-                            user_case.append(user_case_left_hemi);
-                            user_case.append(user_case_right_hemi);
-                            const date = d.date ? d.date : Date.now();
-                            const manipulate_box = $("<div>").attr({
-                                id: `manipulate_box_${fid}`,
-                                target_id: `${fid}`,
+                                    user_case_left_hemi.append(default_avatar);
+                                    const user_case_right_hemi = $(
+                                        "<div class='friend_right_hemi'></div>"
+                                    );
+                                    const name_h = $("<h4></h4>").text(`${name}`);
+                                    name_box.append(name_h);
+                                    user_case.append(user_case_left_hemi);
+                                    user_case.append(user_case_right_hemi);
+                                    const date = d.date ? d.date : Date.now();
+                                    const manipulate_box = $("<div>").attr({
+                                        id: `manipulate_box_${fid}`,
+                                        target_id: `${fid}`,
+                                    });
+                                    // const date_p = $("<p></p>").text(`Joined on: ${date}`);
+                                    // manipulate_box.append(date_p);
+                                    const visit_friend_btn = $(
+                                        "<button>  VISIT  </button>"
+                                    ).attr({
+                                        class: "btn btn-outline-link btn-xs visit_friend_btn",
+                                    });
+                                    const action_btn = $("<button>  ADD  </button>").attr({
+                                        class: "btn btn-outline-link btn-xs",
+                                    });
+                                    //visit_friend_btn.click((e)=>{})
+                                    user_case_right_hemi.append(name_box);
+                                    user_case_right_hemi.append(manipulate_box);
+                                    manipulate_box.append(visit_friend_btn);
+                                    manipulate_box.append(action_btn);
+                                    user_peritoneum.append(user_case);
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(
+                                    "an error in posting secondary_data_friend occurred:",
+                                    err
+                                );
                             });
-                            // const date_p = $("<p></p>").text(`Joined on: ${date}`);
-                            // manipulate_box.append(date_p);
-                            const visit_friend_btn = $("<button>  VISIT  </button>").attr({
-                                id: "visit_friend",
-                                class: "btn btn-outline-link btn-xs",
-                            });
-                            const action_btn = $("<button>  ADD  </button>").attr({
-                                class: "btn btn-outline-link btn-xs",
-                            });
-                            user_case_right_hemi.append(name_box);
-                            user_case_right_hemi.append(manipulate_box);
-                            manipulate_box.append(visit_friend_btn);
-                            manipulate_box.append(action_btn);
-                            user_peritoneum.append(user_case);
-                        }
                     }
                 })
                 .catch((err) => {
@@ -3865,12 +4308,13 @@
 
         // click reataurant name to display detail of the restaurant
         // congrats! you got another MAGIC NUMBER for yourself!!
-        const MAGIC_SEARCH_NUM = 28;
-        for (let hits_i = 0; hits_i < MAGIC_SEARCH_NUM; hits_i++) {
+        const DEFAULT_SEARCH_NUM = 28;
+        // 顯示餐廳細節
+        for (let hits_i = 0; hits_i < hits_arr.length; hits_i++) {
             //console.log("current hooked i: ", hits_i);
             $(document).on("click", `#item_title_${hits_i}`, async(event) => {
                 $("#detail_container").remove();
-                //console.log("item is dnclicked:", hits_i);
+                console.log("item is clicked:", hits_i);
                 let detail_data = hits_arr[hits_i].data;
                 const rid = hits_arr[hits_i].id;
                 //console.log("rid: ", rid);
@@ -4189,7 +4633,6 @@
                     single_review.append(`<p>目前還沒有評論~</p>`);
                 }
 
-                //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
                 $("#restaurant_skin").hide();
                 // $("#restaurant_container").remove();
                 // $("#pagination").remove();
@@ -4200,6 +4643,7 @@
                 });
 
                 $("#omni_bar").append(return_result);
+                scrollTo(0, 0);
             });
             $(document).on("click", `#item_img_${hits_i}`, () => {
                 $(`#item_title_${hits_i}`).trigger("click");
@@ -4207,355 +4651,378 @@
         }
         //
         console.log(
-            "NUM_DEFAULT_DISPLAY === MAGIC_SEARCH_NUM: ",
-            NUM_DEFAULT_DISPLAY === MAGIC_SEARCH_NUM
+            "DEFAULT_CAMPAIGN_SIZE === DEFAULT_SEARCH_NUM: ",
+            DEFAULT_CAMPAIGN_SIZE === DEFAULT_SEARCH_NUM
         );
         // display campaign items' detail
 
-        for (let temp_i = 1; temp_i < NUM_CAMPAIGN + 1; temp_i++) {
-            for (let camp_i = 0; camp_i < temp_i * MAGIC_SEARCH_NUM; camp_i++) {
+        for (
+            let campaign_index = 0; campaign_index < NUM_CAMPAIGN; campaign_index++
+        ) {
+            for (
+                let camp_item_index = 0; camp_item_index < DEFAULT_CAMPAIGN_SIZE; camp_item_index++
+            ) {
                 //console.log("current hooked i: ", hits_i);
-                $(document).on("click", `#campaign_item_${camp_i}`, async(event) => {
-                    $("#detail_container").remove();
-                    $("#dummy").remove();
-                    scrollTo(0, 0);
-                    //console.log("item is dnclicked:", hits_i);
-                    let detail_data =
-                        camps_arr[`c${temp_i}`][camp_i % MAGIC_SEARCH_NUM].data;
-                    const rid = camps_arr[`c${temp_i}`][camp_i % MAGIC_SEARCH_NUM].id;
-                    //console.log("rid: ", rid);
-                    //console.log("the data is: ", JSON.stringify(detail_data));
-                    let detail_container = $("<div></div>").attr({
-                        id: "detail_container",
-                    });
-                    let detail_head = $("<div></div>").attr({
-                        id: "detail_head",
-                    });
-                    let detail_meninges = $("<div>").attr({
-                        id: "detail_meninges",
-                    });
-                    let detail_left_hemi = $("<div></div>").attr({
-                        id: "detail_left_hemi",
-                    });
-                    let detail_right_hemi = $("<div></div>").attr({
-                        id: "detail_right_hemi",
-                    });
-                    // body is for comments
-                    let detail_body = $("<div></div>").attr({
-                        id: "detail_body",
-                    });
-                    let detail_box = $("<div></div>").attr({
-                        id: "detail_box",
-                    });
+                const cur_campaign_item_index =
+                    campaign_index * DEFAULT_CAMPAIGN_SIZE + camp_item_index;
+                console.log(
+                    "cur_campaign_item_index outside event declaration: ",
+                    cur_campaign_item_index
+                );
 
-                    let detail_img = $("<img>").attr({
-                        src: default_restaurant_detail_img_path,
-                        alt: "restaurant_detail_pic",
-                        width: "100%",
-                    });
-                    detail_head.append(detail_meninges);
-                    detail_meninges.append(detail_left_hemi);
-                    detail_meninges.append(detail_right_hemi);
-                    detail_right_hemi.append(detail_box);
+                $(document).on(
+                    "click",
+                    `#campaign_item_${cur_campaign_item_index}`,
+                    (event) => {
+                        console.log("cur_campaign_item_index: ", cur_campaign_item_index);
+                        $("#detail_container").remove();
+                        $("#dummy").hide();
+                        scrollTo(0, 0);
+                        //console.log("item is dnclicked:", hits_i);
+                        const cur_item_obj =
+                            camps_arr[`c${campaign_index + 1}`][
+                                camp_item_index % DEFAULT_CAMPAIGN_SIZE
+                            ];
+                        const detail_data = cur_item_obj.data;
+                        const rid = cur_item_obj.id;
+                        //console.log("rid: ", rid);
+                        //console.log("the data is: ", JSON.stringify(detail_data));
+                        let detail_container = $("<div></div>").attr({
+                            id: "detail_container",
+                        });
+                        let detail_head = $("<div></div>").attr({
+                            id: "detail_head",
+                        });
+                        let detail_meninges = $("<div>").attr({
+                            id: "detail_meninges",
+                        });
+                        let detail_left_hemi = $("<div></div>").attr({
+                            id: "detail_left_hemi",
+                        });
+                        let detail_right_hemi = $("<div></div>").attr({
+                            id: "detail_right_hemi",
+                        });
+                        // body is for comments
+                        let detail_body = $("<div></div>").attr({
+                            id: "detail_body",
+                        });
+                        let detail_box = $("<div></div>").attr({
+                            id: "detail_box",
+                        });
 
-                    detail_container.append(detail_head);
-                    detail_container.append(detail_body);
-                    $("#root").append(detail_container);
+                        let detail_img = $("<img>").attr({
+                            src: default_restaurant_detail_img_path,
+                            alt: "restaurant_detail_pic",
+                            width: "100%",
+                        });
+                        detail_head.append(detail_meninges);
+                        detail_meninges.append(detail_left_hemi);
+                        detail_meninges.append(detail_right_hemi);
+                        detail_right_hemi.append(detail_box);
 
-                    //
-                    detail_left_hemi.append(detail_img);
-                    // add to favorite
-                    const add_to_wish_div = $("<div></div>").attr({
-                        id: "add_to_wish_div",
-                    });
-                    let add_to_wish_btn = $("<button>Add To Pocket List</button>").attr({
-                        id: "add_favorite",
-                        class: "btn_medium",
-                    });
-                    detail_box.append(add_to_wish_div);
-                    add_to_wish_div.append(add_to_wish_btn);
+                        detail_container.append(detail_head);
+                        detail_container.append(detail_body);
+                        $("#root").append(detail_container);
 
-                    let is_favorite = favorite_set.has(rid);
-                    console.log("is_favorite at detail page: ", is_favorite);
-                    if (is_favorite) {
-                        add_to_wish_btn.addClass(
-                            "btn btn-outline-warning btn-xs btn-radius"
-                        );
-                        add_to_wish_btn.text("Remove From Pocket List");
-                        console.log("in favorite TRUE");
-                    } else {
-                        //$("#add_favorite").addClass("btn btn-outline-secondary btn-xs btn-radius");
-                        add_to_wish_btn.addClass(
-                            "btn btn-outline-secondary btn-xs btn-radius"
-                        );
-                        add_to_wish_btn.text("Add To Pocket List");
-                        console.log("in favorite FALSE");
-                    }
+                        //
+                        detail_left_hemi.append(detail_img);
+                        // add to favorite
+                        const add_to_wish_div = $("<div></div>").attr({
+                            id: "add_to_wish_div",
+                        });
+                        let add_to_wish_btn = $(
+                            "<button>Add To Pocket List</button>"
+                        ).attr({
+                            id: "add_favorite",
+                            class: "btn_medium",
+                        });
+                        detail_box.append(add_to_wish_div);
+                        add_to_wish_div.append(add_to_wish_btn);
 
-                    detail_box.append(`<div id="rid">${rid}</div>`);
-
-                    const name_div = $("<div></div>").attr({
-                        id: "detail_name",
-                    });
-                    const address_div = $("<div></div>").attr({
-                        id: "detail_address",
-                    });
-                    const rating_div = $("<div></div>").attr({
-                        id: "detail_rating",
-                    });
-                    const pricelv_div = $("<div></div>").attr({
-                        id: "detail_pricelv",
-                    });
-                    const ophours_div = $("<div></div>").attr({
-                        id: "detail_ophours",
-                    });
-                    const phone_div = $("<div></div>").attr({
-                        id: "detail_phone",
-                    });
-                    const website_div = $("<div></div>").attr({
-                        id: "detail_website",
-                    });
-
-                    const name_p = $(`<p>${detail_data.name}</p>`);
-                    name_div.append(name_p);
-                    detail_box.append(name_div);
-
-                    const address_p = $(`<p>${detail_data.formatted_address}</p>`);
-                    address_div.append(address_p);
-                    detail_box.append(address_div);
-                    const rating_p = $(`<p>Rating：${detail_data.rating}</p>`);
-                    rating_div.append(rating_p);
-                    detail_box.append(rating_div);
-
-                    let plv = detail_data.price_level;
-                    if (!plv) {
-                        plv = "🤔";
-                    } else {
-                        const plv_cnt = plv;
-                        plv = "";
-                        for (_ = 0; _ < plv_cnt; _++) {
-                            plv += "$";
-                        }
-                    }
-                    const pricelv_p = $(`<p>Price Range：${plv}</p>`);
-                    pricelv_div.append(pricelv_p);
-                    detail_box.append(pricelv_div);
-
-                    let opening_hours;
-                    try {
-                        //weekday_text is an array
-                        opening_hours = detail_data.opening_hours.weekday_text;
-                    } catch (err) {
-                        console.log(
-                            "An error occurred, might haven't caught data weekday_text correctly:",
-                            err
-                        );
-                        opening_hours = "無資料";
-                    }
-                    const ophours_title_div = $("<div>").attr({
-                        id: "ophours_title_div",
-                    });
-                    const ophours_title_p = $("<p>Hours:</p>");
-                    ophours_title_div.append(ophours_title_p);
-
-                    const ophours_content_div = $("<div>").attr({
-                        id: "ophours_content_div",
-                    });
-
-                    let oph_cnt = 0;
-                    for (let it of opening_hours) {
-                        if (oph_cnt === 0) {
-                            oph_cnt++;
+                        let is_favorite = favorite_set.has(rid);
+                        console.log("is_favorite at detail page: ", is_favorite);
+                        if (is_favorite) {
+                            add_to_wish_btn.addClass(
+                                "btn btn-outline-warning btn-xs btn-radius"
+                            );
+                            add_to_wish_btn.text("Remove From Pocket List");
+                            console.log("in favorite TRUE");
                         } else {
-                            const ophours_content_separator = $("<div>").attr({
-                                class: "ophours_content_separator",
-                            });
-                            ophours_content_div.append(ophours_content_separator);
+                            //$("#add_favorite").addClass("btn btn-outline-secondary btn-xs btn-radius");
+                            add_to_wish_btn.addClass(
+                                "btn btn-outline-secondary btn-xs btn-radius"
+                            );
+                            add_to_wish_btn.text("Add To Pocket List");
+                            console.log("in favorite FALSE");
                         }
-                        let day = it.split(":", 1)[0];
-                        let slice_len = day.length;
-                        let time_by_day = it.replace(/ /, "");
-                        time_by_day = time_by_day.slice(slice_len + 1);
-                        console.log(
-                            `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
-                        );
-                        let ophours_content_p = $(`<p>${day}</p>`).attr({
-                            class: "ophours_content_p",
+
+                        detail_box.append(`<div id="rid">${rid}</div>`);
+
+                        const name_div = $("<div></div>").attr({
+                            id: "detail_name",
                         });
-                        let ophours_content_pp = $(`<p>${time_by_day}</p>`).attr({
-                            class: "ophours_content_pp",
+                        const address_div = $("<div></div>").attr({
+                            id: "detail_address",
                         });
-                        let ophours_content_sub_div = $("<div>").attr({
-                            class: "ophours_content_sub_div",
+                        const rating_div = $("<div></div>").attr({
+                            id: "detail_rating",
                         });
-                        ophours_content_sub_div.append(ophours_content_p);
-                        ophours_content_sub_div.append(ophours_content_pp);
-                        ophours_content_div.append(ophours_content_sub_div);
-                    }
+                        const pricelv_div = $("<div></div>").attr({
+                            id: "detail_pricelv",
+                        });
+                        const ophours_div = $("<div></div>").attr({
+                            id: "detail_ophours",
+                        });
+                        const phone_div = $("<div></div>").attr({
+                            id: "detail_phone",
+                        });
+                        const website_div = $("<div></div>").attr({
+                            id: "detail_website",
+                        });
 
-                    ophours_div.append(ophours_title_div);
-                    ophours_div.append(ophours_content_div);
-                    detail_box.append(ophours_div);
+                        const name_p = $(`<p>${detail_data.name}</p>`);
+                        name_div.append(name_p);
+                        detail_box.append(name_div);
 
-                    detail_box.append("<br>");
-                    detail_box.append("<br>");
+                        const address_p = $(`<p>${detail_data.formatted_address}</p>`);
+                        address_div.append(address_p);
+                        detail_box.append(address_div);
+                        const rating_p = $(`<p>Rating：${detail_data.rating}</p>`);
+                        rating_div.append(rating_p);
+                        detail_box.append(rating_div);
 
-                    let phone_data;
-                    if (detail_data.formatted_phone_number != undefined) {
-                        phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
-                    } else {
-                        phone_data = `<p>Phone Number: No Data</p>`;
-                    }
-                    phone_div.append(phone_data);
-                    detail_box.append(phone_div);
+                        let plv = detail_data.price_level;
+                        if (!plv) {
+                            plv = "🤔";
+                        } else {
+                            const plv_cnt = plv;
+                            plv = "";
+                            for (_ = 0; _ < plv_cnt; _++) {
+                                plv += "$";
+                            }
+                        }
+                        const pricelv_p = $(`<p>Price Range：${plv}</p>`);
+                        pricelv_div.append(pricelv_p);
+                        detail_box.append(pricelv_div);
 
-                    // ddeebbuugg!!!!
-                    //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
-                    let website_data;
-                    if (detail_data.website != undefined) {
-                        website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
+                        let opening_hours;
+                        try {
+                            //weekday_text is an array
+                            opening_hours = detail_data.opening_hours.weekday_text;
+                        } catch (err) {
+                            console.log(
+                                "An error occurred, might haven't caught data weekday_text correctly:",
+                                err
+                            );
+                            opening_hours = "無資料";
+                        }
+                        const ophours_title_div = $("<div>").attr({
+                            id: "ophours_title_div",
+                        });
+                        const ophours_title_p = $("<p>Hours:</p>");
+                        ophours_title_div.append(ophours_title_p);
+
+                        const ophours_content_div = $("<div>").attr({
+                            id: "ophours_content_div",
+                        });
+
+                        let oph_cnt = 0;
+                        for (let it of opening_hours) {
+                            if (oph_cnt === 0) {
+                                oph_cnt++;
+                            } else {
+                                const ophours_content_separator = $("<div>").attr({
+                                    class: "ophours_content_separator",
+                                });
+                                ophours_content_div.append(ophours_content_separator);
+                            }
+                            let day = it.split(":", 1)[0];
+                            let slice_len = day.length;
+                            let time_by_day = it.replace(/ /, "");
+                            time_by_day = time_by_day.slice(slice_len + 1);
+                            console.log(
+                                `day:${day}  slice_len:${slice_len} time_by_day:${time_by_day}`
+                            );
+                            let ophours_content_p = $(`<p>${day}</p>`).attr({
+                                class: "ophours_content_p",
+                            });
+                            let ophours_content_pp = $(`<p>${time_by_day}</p>`).attr({
+                                class: "ophours_content_pp",
+                            });
+                            let ophours_content_sub_div = $("<div>").attr({
+                                class: "ophours_content_sub_div",
+                            });
+                            ophours_content_sub_div.append(ophours_content_p);
+                            ophours_content_sub_div.append(ophours_content_pp);
+                            ophours_content_div.append(ophours_content_sub_div);
+                        }
+
+                        ophours_div.append(ophours_title_div);
+                        ophours_div.append(ophours_content_div);
+                        detail_box.append(ophours_div);
+
+                        detail_box.append("<br>");
+                        detail_box.append("<br>");
+
+                        let phone_data;
+                        if (detail_data.formatted_phone_number != undefined) {
+                            phone_data = `<p>Phone Number: ${detail_data.formatted_phone_number}</p>`;
+                        } else {
+                            phone_data = `<p>Phone Number: No Data</p>`;
+                        }
+                        phone_div.append(phone_data);
+                        detail_box.append(phone_div);
+
+                        // ddeebbuugg!!!!
+                        //console.log(`The ${hits_i}th item is retrieved: ${detail_data.name}`);
+                        let website_data;
+                        if (detail_data.website != undefined) {
+                            website_data = `<p class="weblink">Website: <a class="weblink_a" target="_blank" href="${detail_data.website}">Link</a>
             </p>`;
-                    } else {
-                        website_data = `<p>Website: No Data</p>`;
-                    }
-                    website_div.append(website_data);
-                    detail_box.append(website_div);
+                        } else {
+                            website_data = `<p>Website: No Data</p>`;
+                        }
+                        website_div.append(website_data);
+                        detail_box.append(website_div);
 
-                    let google_reviews_div = $("<div></div>").attr({
-                        id: "google_reviews_container",
-                    });
-                    google_reviews_div.css("display", "none");
+                        let google_reviews_div = $("<div></div>").attr({
+                            id: "google_reviews_container",
+                        });
+                        google_reviews_div.css("display", "none");
 
-                    let native_reviews_container = $("<div></div>").attr({
-                        id: "native_reviews_container",
-                    });
-                    let google_review_div_toggle_div = $("<div>").attr({
-                        id: "google_review_div_toggle_div",
-                    });
-                    let native_review_div_toggle_div = $("<div>").attr({
-                        id: "native_review_div_toggle_div",
-                    });
-                    let google_review_toggle = $(
-                        "<button>Show Reviews From Google Maps</button>"
-                    ).attr({
-                        id: "google_review_toggle",
-                        class: "btn btn-outline-warning btn-sm btn-radius",
-                    });
-                    //
+                        let native_reviews_container = $("<div></div>").attr({
+                            id: "native_reviews_container",
+                        });
+                        let google_review_div_toggle_div = $("<div>").attr({
+                            id: "google_review_div_toggle_div",
+                        });
+                        let native_review_div_toggle_div = $("<div>").attr({
+                            id: "native_review_div_toggle_div",
+                        });
+                        let google_review_toggle = $(
+                            "<button>Show Reviews From Google Maps</button>"
+                        ).attr({
+                            id: "google_review_toggle",
+                            class: "btn btn-outline-warning btn-sm btn-radius",
+                        });
+                        //
 
-                    let post_review_btn = $("<button>Post Review</button>").attr({
-                        id: "post_review_btn",
-                        class: "btn btn-outline-warning btn-sm btn-radius",
-                    });
-
-                    // let native_review_toggle = $(
-                    //     "<button>Show Native Reviews</button>"
-                    // ).attr({
-                    //     id: "google_review_toggle",
-                    //     class: "btn btn-outline-warning btn-sm btn-radius",
-                    // });
-
-                    // get native reviews
-
-                    const empty_review_block = $("<div>").attr({
-                        id: "empty_review_block",
-                        class: "native_review_block",
-                    });
-                    const empty_review_content_div = $("<div>").attr({
-                        class: "empty_review_div",
-                    });
-                    const empty_review_content_p = $("<p>No review yet.</p>");
-                    native_reviews_container.append(empty_review_block);
-                    empty_review_block.append(empty_review_content_div);
-                    empty_review_content_div.append(empty_review_content_p);
-
-                    let native_review_arr;
-                    axios_5000
-                        .get(`/review?id=${rid}`)
-                        .then((response) => {
-                            if (response.data.code) {
-                                //code === 1 if positive
-                                native_review_arr = response.data.result.review;
-                                console.log("response.data:", response.data);
-                            } else {
-                                //code === 0 if negative
-                                native_review_arr = [];
-                            }
-
-                            const len_review = native_review_arr.length;
-                            if (len_review === 0) {
-                                console.log("length 0");
-                            } else {
-                                $("#empty_review_block").remove();
-                                console.log("length > 0");
-                                for (let review of native_review_arr) {
-                                    attach_post_to_container(
-                                        "native_reviews_container",
-                                        review.author,
-                                        review.title,
-                                        review.content,
-                                        review.time,
-                                        review.rating
-                                    );
-                                }
-                            }
-                        })
-                        .catch((err) => {
-                            console.log(`An error occurred while getting review: ${err}`);
+                        let post_review_btn = $("<button>Post Review</button>").attr({
+                            id: "post_review_btn",
+                            class: "btn btn-outline-warning btn-sm btn-radius",
                         });
 
-                    detail_body.append(native_review_div_toggle_div);
-                    native_review_div_toggle_div.append(post_review_btn);
-                    //native_review_div_toggle_div.append(native_review_toggle);
-                    //
-                    detail_body.append(native_reviews_container);
+                        // let native_review_toggle = $(
+                        //     "<button>Show Native Reviews</button>"
+                        // ).attr({
+                        //     id: "google_review_toggle",
+                        //     class: "btn btn-outline-warning btn-sm btn-radius",
+                        // });
 
-                    //display google review
-                    detail_body.append(google_review_div_toggle_div);
-                    google_review_div_toggle_div.append(google_review_toggle);
-                    detail_body.append(google_reviews_div);
-                    let review_cnt = 0;
-                    try {
-                        for (r of detail_data.reviews) {
+                        // get native reviews
+
+                        const empty_review_block = $("<div>").attr({
+                            id: "empty_review_block",
+                            class: "native_review_block",
+                        });
+                        const empty_review_content_div = $("<div>").attr({
+                            class: "empty_review_div",
+                        });
+                        const empty_review_content_p = $("<p>No review yet.</p>");
+                        native_reviews_container.append(empty_review_block);
+                        empty_review_block.append(empty_review_content_div);
+                        empty_review_content_div.append(empty_review_content_p);
+
+                        let native_review_arr;
+                        axios_5000
+                            .get(`/review?id=${rid}`)
+                            .then((response) => {
+                                if (response.data.code) {
+                                    //code === 1 if positive
+                                    native_review_arr = response.data.result.review;
+                                    console.log("response.data:", response.data);
+                                } else {
+                                    //code === 0 if negative
+                                    native_review_arr = [];
+                                }
+
+                                const len_review = native_review_arr.length;
+                                if (len_review === 0) {
+                                    console.log("length 0");
+                                } else {
+                                    $("#empty_review_block").remove();
+                                    console.log("length > 0");
+                                    for (let review of native_review_arr) {
+                                        attach_post_to_container(
+                                            "native_reviews_container",
+                                            review.author,
+                                            review.title,
+                                            review.content,
+                                            review.time,
+                                            review.rating
+                                        );
+                                    }
+                                }
+                            })
+                            .catch((err) => {
+                                console.log(`An error occurred while getting review: ${err}`);
+                            });
+
+                        detail_body.append(native_review_div_toggle_div);
+                        native_review_div_toggle_div.append(post_review_btn);
+                        //native_review_div_toggle_div.append(native_review_toggle);
+                        //
+                        detail_body.append(native_reviews_container);
+
+                        //display google review
+                        detail_body.append(google_review_div_toggle_div);
+                        google_review_div_toggle_div.append(google_review_toggle);
+                        detail_body.append(google_reviews_div);
+                        let review_cnt = 0;
+                        try {
+                            for (r of detail_data.reviews) {
+                                let single_review = $("<div></div>").attr({
+                                    id: `reviews_no_${review_cnt}`,
+                                    class: "review_box",
+                                });
+                                google_reviews_div.append(single_review);
+                                //
+                                single_review.append(`<p>姓名：${r.author_name}</p>`);
+                                single_review.append(`<p>評分：${r.rating}</p>`);
+                                single_review.append(`<p>評論：${r.text}</p>`);
+                                review_cnt++;
+                            }
+                        } catch (err) {
+                            console.log("An error occurred while rendering reviews:", err);
+
                             let single_review = $("<div></div>").attr({
                                 id: `reviews_no_${review_cnt}`,
                                 class: "review_box",
                             });
                             google_reviews_div.append(single_review);
-                            //
-                            single_review.append(`<p>姓名：${r.author_name}</p>`);
-                            single_review.append(`<p>評分：${r.rating}</p>`);
-                            single_review.append(`<p>評論：${r.text}</p>`);
-                            review_cnt++;
+                            single_review.append(`<p>目前還沒有評論~</p>`);
                         }
-                    } catch (err) {
-                        console.log("An error occurred while rendering reviews:", err);
-
-                        let single_review = $("<div></div>").attr({
-                            id: `reviews_no_${review_cnt}`,
-                            class: "review_box",
-                        });
-                        google_reviews_div.append(single_review);
-                        single_review.append(`<p>目前還沒有評論~</p>`);
+                        //$("#return_result").remove();
                     }
-
-                    //$("#root").append(`<p>${JSON.stringify(hits_arr[i])}</p>`);
-                    $("#restaurant_skin").hide();
-                    // $("#restaurant_container").remove();
-                    // $("#pagination").remove();
-                    $("#return_result").remove();
-                    const return_result = $("<div>回到搜尋結果</div>").attr({
-                        id: "return_result",
-                        class: "nav-item nav-link nav_title",
-                    });
-
-                    $("#omni_bar").append(return_result);
-                });
-                $(document).on("click", `#campaign_img_${camp_i}`, () => {
-                    $(`#campaign_item_${camp_i}`).trigger("click");
+                );
+                $(document).on("click", `#campaign_img_${camp_item_index}`, () => {
+                    $(`#campaign_item_${camp_item_index}`).trigger("click");
                 });
             }
         }
+
+        $(document).on("click", ".campaign_item", (event) => {
+            console.log(
+                "after clicking a campaign item, provide a button to return to homepage."
+            );
+            $("#return_home").remove();
+            $("#dummy").hide();
+            const return_home = $(`<div>回到首頁</div>`).attr({
+                id: `return_home`,
+                class: "nav-item nav-link nav_title",
+            });
+            $("#omni_bar").append(return_home);
+        });
 
         $("#trigger_show_signin").click((event) => {
             $("#id_container-login100").show();

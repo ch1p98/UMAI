@@ -72,6 +72,9 @@ const UserSchema = new mongoose.Schema({
     minLength: 2,
     maxLength: 127,
   },
+  avatar: {
+    type: String,
+  },
   email: {
     type: String,
   },
@@ -96,7 +99,7 @@ const UserSchema = new mongoose.Schema({
   birthplace: {
     type: String,
   },
-  hobbies: {
+  hobby: {
     type: String,
   },
 
@@ -123,7 +126,7 @@ const UserSchema = new mongoose.Schema({
     default: undefined,
   },
   // bidirection relationship
-  friends: {
+  friend: {
     type: Array,
     default: undefined,
   },
@@ -208,7 +211,6 @@ app.get("/friends", async (req, res) => {
   }
 
   //uri: /friends?email=alextai@gmail%2Ecom
-  // console.log("email: ", email);
   const aggregate = User.aggregate([
     {
       $match: {
@@ -217,26 +219,26 @@ app.get("/friends", async (req, res) => {
     },
     {
       $project: {
-        friends: 1,
+        friend: 1,
         _id: 0,
       },
     },
     {
       $unwind: {
-        path: "$friends",
+        path: "$friend",
       },
     },
     {
       $lookup: {
         from: "altUser",
-        localField: "friends",
+        localField: "friend",
         foreignField: "_id",
         as: "result",
       },
     },
     {
       $project: {
-        _id: "$friends",
+        _id: "$friend",
         name: {
           $arrayElemAt: ["$result", 0],
         },
@@ -424,7 +426,36 @@ app.get("/user/:id", async (req, res) => {
   //else return error msg and render error page
 });
 
-app.delete("/user");
+app.delete("/user", async (req, res) => {
+  res.statusCode(200).json({ result });
+});
+
+app.get("/person", async (req, res) => {
+  const query = req.query;
+  //console.log("filter:", typeof filter);
+  // const filter_key = query.age;
+  // const filter_value = filter_key.split(":");
+  const filter = { age: { $lte: 36, $gte: 30 } };
+  const required_cols = "name occupation";
+  const result = await User.find(filter, required_cols)
+    .limit(5)
+    .sort({ age: -1 })
+    .exec();
+
+  res.json({ query, result });
+});
+
+app.post("/people", async (req, res) => {
+  const people_arr = req.body.secondary_data_friend;
+  const filter = { _id: { $in: people_arr } };
+  const required_cols = "name age";
+  const result = await User.find(filter, required_cols).exec();
+
+  console.log("secondary_data_friend:", people_arr);
+  console.log("result: ", result);
+  //const result = await User.find(filter, required_cols);
+  res.json({ requested_people_arr: people_arr, result });
+});
 
 app.get("/get_set_get_friend", async (req, res) => {
   const filter = { name: /Fuchigami/i };
@@ -432,7 +463,7 @@ app.get("/get_set_get_friend", async (req, res) => {
   users = users.map((x) => (x._id ? x._id : "0"));
   console.log("found users: ", users);
   const target = { name: /alex/i };
-  const update = { friends: users };
+  const update = { friend: users };
   let update_result = await User.findOneAndUpdate(target, update, {
     new: true,
   }).exec();
@@ -831,7 +862,7 @@ app.post("/search_es", async (req, res) => {
 });
 
 app.get("/campaign/:id", async (req, res) => {
-  const choice = req.params.id;
+  const selected_campaign = req.params.id;
   const name_field = "name";
   const rating_field = "rating";
   const reviews_field = "reviews.text";
@@ -851,7 +882,7 @@ app.get("/campaign/:id", async (req, res) => {
   for (let i = 0; i < campaign_list.length; i++) {
     campaign_query_dict[`${i}`] = { title: `${campaign_list[i]}`, query: {} };
   }
-  // campaign_query_dict[choice] = {
+  // campaign_query_dict[selected_campaign] = {
   //   title: "ith TITLE",
   //   query: {},
   // };
@@ -914,13 +945,18 @@ app.get("/campaign/:id", async (req, res) => {
     ],
   };
 
-  console.log(`campaign_query_dict[${choice}]: `, campaign_query_dict[choice]);
+  console.log(
+    `campaign_query_dict[${selected_campaign}]: `,
+    campaign_query_dict[selected_campaign]
+  );
+  // campaign的搜尋結果
+
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
-      size: 28,
+      size: 10,
       query: {
-        bool: campaign_query_dict[choice].query,
+        bool: campaign_query_dict[selected_campaign].query,
       },
     })
     .catch((err) => {
@@ -930,7 +966,10 @@ app.get("/campaign/:id", async (req, res) => {
   console.log("campaign result: ", result);
   res.json({
     result,
-    campaign: { index: choice, choice: campaign_list[choice] },
+    campaign: {
+      index: selected_campaign,
+      selected_campaign: campaign_list[selected_campaign],
+    },
   });
 });
 
@@ -1080,6 +1119,7 @@ app.post("/search_experiment", async (req, res) => {
   //     [q3_k]: q3_v,
   //   },
   // };
+  // 搜尋條件的搜尋結果
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
