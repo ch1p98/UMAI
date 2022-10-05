@@ -258,6 +258,50 @@ app.get("/friends", async (req, res) => {
   res.json(result);
 });
 
+// add an user to friend list
+// req: Object_id
+app.post("/friends", async (req, res) => {
+  console.log("posting friend:", req.body.sein);
+  try {
+    const new_friend = req.body.sein;
+    //
+    const user = req.body.ich;
+    console.log({ new_friend, user });
+    const filter = { _id: user };
+    const required_cols = "_id";
+    const ich_bin = await User.findOne(filter, required_cols).exec();
+    console.log("ich_bin: ", ich_bin);
+    if (ich_bin) {
+      const update_filter = filter;
+      const update_command = {
+        $push: {
+          friend: { _id: new_friend },
+        },
+      };
+      const update_result = User.findOneAndUpdate(
+        update_filter,
+        update_command,
+        {
+          new: true,
+        }
+      ).exec();
+      res.status(200).json({ update_result });
+    } else {
+      // 想加人的使用者不存在...
+      const error = "no such user";
+      res.status(502).json({ error });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+});
+
+// delete an user from friend list
+// req: Object_id
+app.delete("/user", async (req, res) => {
+  res.status(200).json({ result });
+});
+
 // POST favorite
 app.post("/favorite", async (req, res) => {
   //console.log("post favorite");
@@ -426,10 +470,7 @@ app.get("/user/:id", async (req, res) => {
   //else return error msg and render error page
 });
 
-app.delete("/user", async (req, res) => {
-  res.statusCode(200).json({ result });
-});
-
+// get some people for user to make new friends
 app.get("/person", async (req, res) => {
   const query = req.query;
   //console.log("filter:", typeof filter);
@@ -1128,6 +1169,13 @@ app.post("/search_experiment", async (req, res) => {
       query: {
         bool: {
           must: es_queries_list,
+        },
+      },
+      highlight: {
+        pre_tags: ["<b>"],
+        post_tags: ["</b>"],
+        fields: {
+          [reviews_field]: {},
         },
       },
     })

@@ -886,11 +886,11 @@
                             "#" +
                             campaign_data_1_arr[i].data.types.slice(0, 3).join("  #"),
                             place_id = campaign_data_1_arr[i].data.place_id;
-                        console.log(
-                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
-                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
-                        );
-                        console.log("campaign_data_1_arr: ", campaign_data_1_arr);
+                        // console.log(
+                        //     "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
+                        //     i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
+                        // );
+                        // console.log("campaign_data_1_arr: ", campaign_data_1_arr);
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
                             id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
@@ -986,12 +986,6 @@
                             campaign_data_2_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_2_arr[i].data.place_id;
 
-                        console.log(
-                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
-                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
-                        );
-                        console.log("campaign_data_2_arr: ", campaign_data_2_arr);
-
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
                             id: `campaign_item_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
@@ -1086,12 +1080,6 @@
                             "#" +
                             campaign_data_3_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_3_arr[i].data.place_id;
-
-                        console.log(
-                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
-                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
-                        );
-                        console.log("campaign_data_3_arr: ", campaign_data_3_arr);
 
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
@@ -1195,12 +1183,6 @@
                             "#" +
                             campaign_data_4_arr[i].data.types.slice(0, 3).join(" #"),
                             place_id = campaign_data_4_arr[i].data.place_id;
-
-                        console.log(
-                            "calculated i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE: ",
-                            i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE
-                        );
-                        console.log("campaign_data_4_arr: ", campaign_data_4_arr);
 
                         const campaign_item = $("<div>").attr({
                             class: "campaign_item",
@@ -2786,7 +2768,7 @@
                 .then((response) => {
                     const data = response.data;
                     //$("#root").append(`<p>${JSON.stringify(data.hits)}</p>`);
-                    console.log(data);
+                    console.log("ES search result:", data);
                     $("#restaurant_skin").remove();
                     $("#detail_box").remove();
 
@@ -2802,6 +2784,7 @@
                         hits_arr.push({
                             data: element._source,
                             id: element._source.place_id,
+                            highlight: element.highlight,
                         });
                     });
                     console.log("length of hits_arr: ", hits_arr.length);
@@ -2835,9 +2818,11 @@
                     let is_favorite = 0;
 
                     // display search result
+                    console.log("hits_arr".toUpperCase(), ":::", hits_arr);
                     for (hit_obj of hits_arr) {
                         const hit_obj_data = hit_obj.data;
                         //console.log(hit_obj.id);
+                        const highlight = hit_obj.highlight;
                         let div_box = $("<div></div>").attr({
                             id: `h${cnt}`,
                             class: "restaurant_box",
@@ -3214,6 +3199,8 @@
                         //
                         cnt++;
                     }
+                    console.log("hits_arr".toUpperCase(), ":::::", hits_arr);
+
                     (function($) {
                         let pagify = {
                             items: {},
@@ -4310,9 +4297,13 @@
         // congrats! you got another MAGIC NUMBER for yourself!!
         const DEFAULT_SEARCH_NUM = 28;
         // 顯示餐廳細節
+        console.log("hits_arr:::::::::: ", hits_arr);
+
         for (let hits_i = 0; hits_i < hits_arr.length; hits_i++) {
-            //console.log("current hooked i: ", hits_i);
-            $(document).on("click", `#item_title_${hits_i}`, async(event) => {
+            console.log("current hooked i: ", hits_i);
+            console.log("current hooked element: ", hits_arr[hits_i]);
+
+            $(document).on("dblclick", `#item_title_${hits_i}`, async(event) => {
                 $("#detail_container").remove();
                 console.log("item is clicked:", hits_i);
                 let detail_data = hits_arr[hits_i].data;
@@ -4665,10 +4656,10 @@
                 //console.log("current hooked i: ", hits_i);
                 const cur_campaign_item_index =
                     campaign_index * DEFAULT_CAMPAIGN_SIZE + camp_item_index;
-                console.log(
-                    "cur_campaign_item_index outside event declaration: ",
-                    cur_campaign_item_index
-                );
+                // console.log(
+                //     "cur_campaign_item_index outside event declaration: ",
+                //     cur_campaign_item_index
+                // );
 
                 $(document).on(
                     "click",
