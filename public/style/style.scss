@@ -363,6 +363,18 @@ a.weblink_a:hover::before {
     display: inline-block;
 }
 
+.personal_avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 1rem 1rem 1rem;
+    border-bottom: 1px solid;
+    img {
+        border-radius: 7px;
+    }
+}
+
 .profile_div_box {
     //padding: 0.59rem 0;
     margin: 0.41rem 0;
@@ -425,7 +437,7 @@ a.weblink_a:hover::before {
 
 .name_box {
     * {
-        color: #565656
+        color: #ccc
     }
     margin: 0 1rem;
     p {
@@ -1008,9 +1020,10 @@ a.weblink_a:hover::before {
     }
 }
 
-// .btn {
-//     color: #888 !important;
-// }
+.btn {
+    color: #ccc !important;
+}
+
 .btn_medium {
     border-radius: 7px;
 }
@@ -1088,6 +1101,7 @@ a.weblink_a:hover::before {
     flex-direction: column;
     justify-content: center;
     padding: 0 1rem;
+    color: #111;
     span {
         font-size: 1.27rem;
     }
@@ -1199,10 +1213,11 @@ a.weblink_a:hover::before {
 #user_container {
     //width: 53%;
     //background-color: #eeeeeebc;
-    padding: 6rem 0;
+    padding: 8rem 0;
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: #111
 }
 
 #user_head {
@@ -1215,7 +1230,7 @@ a.weblink_a:hover::before {
 
 #user_left_hemi_pia {
     //width: 345px;
-    width: 400px;
+    //width: 400px;
     img {
         border-radius: 7px;
     }
@@ -1223,7 +1238,7 @@ a.weblink_a:hover::before {
 
 #user_left_hemi {
     display: flex;
-    margin: 0 0.67rem 0 1.34rem;
+    margin: 0 0.67rem 0 4.34rem;
     height: 100%;
     width: auto;
 }
@@ -1271,7 +1286,7 @@ a.weblink_a:hover::before {
     align-items: center;
     width: 100%;
     border-left: 1px solid #999999;
-    overflow: scroll;
+    //overflow: scroll;
 }
 
 .row_box {
@@ -1285,7 +1300,7 @@ a.weblink_a:hover::before {
     align-items: center;
     width: 100%;
     border-left: 1px solid #999999;
-    overflow: scroll;
+    //overflow: scroll;
 }
 
 #user_thorax {
@@ -1309,7 +1324,7 @@ a.weblink_a:hover::before {
 }
 
 #cur_profile {
-    padding: 0 1rem;
+    padding: 1rem;
     width: 100%;
 }
 
@@ -1818,6 +1833,7 @@ li.select2-selection__choice {
         width: 80px;
         height: 80px;
         margin-right: 12px;
+        border-radius: 7px;
     }
 }
 
@@ -1933,7 +1949,11 @@ li.select2-selection__choice {
 body {
     //background-color: #fff;
     background-color: #1c1c23;
-    color: #888;
+    color: #ccc;
+}
+
+#edit_profile_btn {
+    color: #ccc;
 }
 
 i {
@@ -2011,4 +2031,52 @@ span.heart.pressed {
     100% {
         padding: 10px 12px 8px;
     }
+}
+
+#selected_fire {
+    color: #111 !important;
+}
+
+#sternum_span {
+    color: #ccc !important;
+}
+
+#sternum_span {
+    color: #ccc !important;
+}
+
+#omentum_span {
+    color: #ccc !important;
+}
+
+.empty_content_div {
+    span: {
+        color: #ccc !important
+    }
+}
+
+.native_review_bottom {
+    button {
+        color: #111 !important;
+    }
+}
+
+.user_name_in_review {
+    span {
+        color: #111 !important;
+    }
+}
+
+#google_review_toggle {
+    color: #111 !important;
+}
+
+.friend_right_hemi {
+    .name_box {
+        color: #111 !important;
+    }
+}
+
+h4 {
+    color: #111 !important;
 }

@@ -1716,6 +1716,18 @@
                             let div_favorite = $("<div></div>").attr({
                                 id: "favorite_container",
                             });
+                            // user avatar
+                            let div_avatar = $("<div>").attr({
+                                class: "personal_avatar",
+                            });
+                            let avatar = $("<img>").attr({
+                                src: `./favatar/${profile_data._id}.jpg`,
+                                width: "300px",
+                            });
+
+                            div_avatar.append(avatar);
+                            //
+                            div_profile.append(div_avatar);
                             div_profile.append(cur_profile);
                             div_profile_skin.append(div_profile);
 

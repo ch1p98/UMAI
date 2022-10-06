@@ -584,7 +584,7 @@ app.get("/profile", async (req, res) => {
     try {
       let one = await User.findOne(
         { email: decoded.email },
-        "-password -__v -_id -dateinnow"
+        "-password -__v -dateinnow"
       ).exec();
       if (!one) throw "No user data!!";
       res.status(200).json({ state: "successful", profile: one });
