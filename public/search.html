@@ -866,11 +866,11 @@
 
             //campaign_1
             axios_5000
-                .get(`campaign/${campaign_choice_1}`, {
+                .get(`/campaign/${campaign_choice_1}`, {
                     headers: campaign_api_headers,
                 })
                 .then((response) => {
-                    //console.log("campaign response: ", response);
+                    //console.log("/campaign response: ", response);
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_1_arr.push({
                             data: element._source,
@@ -966,17 +966,17 @@
                 })
                 .catch((err) => {
                     console.log(
-                        `an error occurred while retrieving campaign data: ${err}`
+                        `an error occurred while retrieving /campaign data: ${err}`
                     );
                 });
 
             //campaign_2
             axios_5000
-                .get(`campaign/${campaign_choice_2}`, {
+                .get(`/campaign/${campaign_choice_2}`, {
                     headers: campaign_api_headers,
                 })
                 .then((response) => {
-                    //console.log("campaign response: ", response);
+                    //console.log("/campaign response: ", response);
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_2_arr.push({
                             data: element._source,
@@ -1069,17 +1069,17 @@
                 })
                 .catch((err) => {
                     console.log(
-                        `an error occurred while retrieving campaign data: ${err}`
+                        `an error occurred while retrieving /campaign data: ${err}`
                     );
                 });
 
             //campaign_3
             axios_5000
-                .get(`campaign/${campaign_choice_3}`, {
+                .get(`/campaign/${campaign_choice_3}`, {
                     headers: campaign_api_headers,
                 })
                 .then((response) => {
-                    //console.log("campaign response: ", response);
+                    //console.log("/campaign response: ", response);
                     response.data.result.hits.hits.forEach((element, index) => {
                         campaign_data_3_arr.push({
                             data: element._source,
@@ -1173,21 +1173,21 @@
                 })
                 .catch((err) => {
                     console.log(
-                        `an error occurred while retrieving campaign data: ${err}`
+                        `an error occurred while retrieving /campaign data: ${err}`
                     );
                 });
 
             //
-            const cp1 = axios.get(`campaign/${campaign_choice_1}`);
-            const cp2 = axios.get(`campaign/${campaign_choice_2}`);
-            const cp3 = axios.get(`campaign/${campaign_choice_3}`);
-            const cp4 = axios.get(`campaign/${campaign_choice_4}`);
+            const cp1 = axios.get(`/campaign/${campaign_choice_1}`);
+            const cp2 = axios.get(`/campaign/${campaign_choice_2}`);
+            const cp3 = axios.get(`/campaign/${campaign_choice_3}`);
+            const cp4 = axios.get(`/campaign/${campaign_choice_4}`);
             console.log("cp:", [cp1, cp2, cp3, cp4]);
             //
 
             //campaign_4
             axios_5000
-                .get(`campaign/${campaign_choice_4}`, {
+                .get(`/campaign/${campaign_choice_4}`, {
                     headers: campaign_api_headers,
                 })
                 .then((response) => {
@@ -1282,7 +1282,7 @@
                 })
                 .catch((err) => {
                     console.log(
-                        `an error occurred while retrieving campaign data: ${err}`
+                        `an error occurred while retrieving /campaign data: ${err}`
                     );
                 });
 
@@ -3990,7 +3990,7 @@
                                 // get restaurant item by place_id
                                 axios
                                     .post(
-                                        "search_es", {
+                                        "/search_es", {
                                             id: rid,
                                         }, {
                                             headers: {
@@ -4706,7 +4706,7 @@
             "DEFAULT_CAMPAIGN_SIZE === size_search_result: ",
             DEFAULT_CAMPAIGN_SIZE === size_search_result
         );
-        // display campaign items' detail
+        // display /campaign items' detail
 
         for (
             let campaign_index = 0; campaign_index < NUM_CAMPAIGN; campaign_index++
@@ -5065,7 +5065,7 @@
 
         $(document).on("click", ".campaign_item", (event) => {
             console.log(
-                "after clicking a campaign item, provide a button to return to homepage."
+                "after clicking a /campaign item, provide a button to return to homepage."
             );
             $("#return_home").remove();
             $("#dummy").hide();
