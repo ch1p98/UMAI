@@ -1018,13 +1018,14 @@ app.post("/search_experiment", async (req, res) => {
   //console.log(req.body);
   //console.log(Object.keys(req.body));
   const queries = req.body;
-  const es_queries_list = [];
+  const es_queries_obj = { must: [], must_not: [], should: [], filter: [] };
   // const q1 = req.body.first ? req.body.first : "新北";
   // const q2 = req.body.second ? req.body.second : "花枝";
   // const q3 = req.body.third ? req.body.third : "2300";
   // console.log("queries:", q1, q2, q3);
   const name_field = "name";
-  const address_field = "formatted_address";
+  //const address_field = "formatted_address";
+  const address_field = "address_components.long_name.keyword";
   const reviews_field = "reviews.text";
   const price_field = "price_level";
   const rating_field = "rating";
@@ -1038,7 +1039,7 @@ app.post("/search_experiment", async (req, res) => {
   try {
     if (queries.name) {
       for (i of queries.name) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [name_field]: i,
           },
@@ -1047,8 +1048,8 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.place) {
       for (i of queries.place) {
-        es_queries_list.push({
-          match: {
+        es_queries_obj.filter.push({
+          term: {
             [address_field]: i,
           },
         });
@@ -1056,7 +1057,7 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.cuisine) {
       for (i of queries.cuisine) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [reviews_field]: i,
           },
@@ -1065,7 +1066,7 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.estab) {
       for (i of queries.estab) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [reviews_field]: i,
           },
@@ -1074,7 +1075,7 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.menu) {
       for (i of queries.menu) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [reviews_field]: i,
           },
@@ -1083,7 +1084,7 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.pricelv) {
       for (i of queries.pricelv) {
-        es_queries_list.push({
+        es_queries_obj.filter.push({
           range: {
             [price_field]: { lte: i.length },
           },
@@ -1093,29 +1094,28 @@ app.post("/search_experiment", async (req, res) => {
     if (queries.rating) {
       for (i of queries.rating) {
         if (i < 3) {
-          es_queries_list.push({
+          es_queries_obj.filter.push({
             range: {
               [rating_field]: { lte: i, boost: 2.0 },
             },
           });
         } else {
-          es_queries_list.push({
+          es_queries_obj.filter.push({
             range: {
               [rating_field]: { gte: i, boost: 2.0 },
             },
           });
         }
-
-        es_queries_list.push({
-          range: {
-            [rating_field]: { gte: i, boost: 2.0 },
-          },
-        });
+        // es_queries_obj.push({
+        //   range: {
+        //     [rating_field]: { gte: i, boost: 2.0 },
+        //   },
+        // });
       }
     }
     if (queries.ophour) {
       for (i of queries.ophour) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [reviews_field]: i,
           },
@@ -1124,7 +1124,7 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.amenit) {
       for (i of queries.amenit) {
-        es_queries_list.push({
+        es_queries_obj.must.push({
           match: {
             [reviews_field]: i,
           },
@@ -1144,7 +1144,7 @@ app.post("/search_experiment", async (req, res) => {
     console.log("an error occurred: ", err);
   }
 
-  console.log(es_queries_list);
+  console.log(es_queries_obj);
   // const must_cond1 = {
   //   match: {
   //     [q1_k]: q1_v,
@@ -1164,12 +1164,10 @@ app.post("/search_experiment", async (req, res) => {
   const result = await elasticClient
     .search({
       index: INDEX_NAME,
-      size: 28,
+      size: 64,
       //query: { match: { formatted_address: "仁愛路" } },
       query: {
-        bool: {
-          must: es_queries_list,
-        },
+        bool: es_queries_obj,
       },
       highlight: {
         pre_tags: ["<b>"],

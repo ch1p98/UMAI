@@ -25,6 +25,14 @@
   border-color: #ff2667;
 }
 
+img:before {
+  content: ' ';
+  display: block;
+  position: absolute;
+  width: 393.33px;
+  background-image: url(../images/yukihira.jpg);
+}
+
 .cont {
   width: 93%;
   max-width: 350px;
@@ -1201,10 +1209,6 @@ a.weblink_a:hover::before {
   border-radius: 1.58rem;
   width: 2.68rem;
   text-align: center;
-}
-
-.btn {
-  color: #888 !important;
 }
 
 .btn_medium {

@@ -26,6 +26,15 @@
     border-color: #ff2667;
 }
 
+img:before {
+    content: ' ';
+    display: block;
+    position: absolute;
+    //height: 350px;
+    width: 393.33px;
+    background-image: url(../images/yukihira.jpg);
+}
+
 // @keyframes burst_two {
 //     from {
 //         //
@@ -999,10 +1008,9 @@ a.weblink_a:hover::before {
     }
 }
 
-.btn {
-    color: #888 !important;
-}
-
+// .btn {
+//     color: #888 !important;
+// }
 .btn_medium {
     border-radius: 7px;
 }
