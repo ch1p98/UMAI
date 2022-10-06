@@ -1595,6 +1595,8 @@ a.weblink_a:hover::before {
           align-items: center;
   width: 100%;
   border-left: 1px solid #999999;
+  background-color: #fcfcfc;
+  border-radius: 7px;
 }
 
 .row_box {
@@ -1613,6 +1615,8 @@ a.weblink_a:hover::before {
           align-items: center;
   width: 100%;
   border-left: 1px solid #999999;
+  border-radius: 7px;
+  background-color: #fcfcfc;
 }
 
 #user_thorax {
@@ -1624,7 +1628,7 @@ a.weblink_a:hover::before {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  margin: .47rem 0;
+  margin: 2.47rem 0;
 }
 
 #user_abdomen {
@@ -2271,7 +2275,7 @@ li.select2-selection__choice {
 }
 
 .user_case {
-  width: calc(50% - 4px);
+  width: calc(50% - 12px);
   padding: 12px;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -2279,6 +2283,9 @@ li.select2-selection__choice {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  background-color: #fcfcfc;
+  margin-right: 12px;
+  border-radius: 7px;
 }
 
 .user_case_left_hemi img {
