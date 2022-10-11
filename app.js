@@ -1093,19 +1093,12 @@ app.post("/search_experiment", async (req, res) => {
     }
     if (queries.rating) {
       for (i of queries.rating) {
-        if (i < 3) {
-          es_queries_obj.filter.push({
-            range: {
-              [rating_field]: { lte: i, boost: 2.0 },
-            },
-          });
-        } else {
-          es_queries_obj.filter.push({
-            range: {
-              [rating_field]: { gte: i, boost: 2.0 },
-            },
-          });
-        }
+        es_queries_obj.filter.push({
+          range: {
+            [rating_field]: { gte: i, boost: 2.0 },
+          },
+        });
+
         // es_queries_obj.push({
         //   range: {
         //     [rating_field]: { gte: i, boost: 2.0 },
