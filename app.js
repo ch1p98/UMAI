@@ -288,7 +288,7 @@ app.post("/friends", async (req, res) => {
       res.status(200).json({ update_result });
     } else {
       // 想加人的使用者不存在...
-      const error = "no such user";
+      const error = "No such user";
       res.status(502).json({ error });
     }
   } catch (error) {
@@ -563,8 +563,8 @@ app.get("/profile", async (req, res) => {
     //console.log("token: ", token);
     if (token === "null") throw "token is empty";
   } catch (err) {
-    console.log("no token or token not set correctly");
-    res.status(401).json({ state: "no token" });
+    console.log("No token or token not set correctly");
+    res.status(401).json({ state: "No token" });
     return;
   }
 
@@ -626,6 +626,8 @@ app.post("/signup", async (req, res) => {
   console.log("if email_existed, iw shall fail: ", email_existed);
   if (email_existed) {
     // return error
+    res.status(403).json({ state: "fail", token: null });
+    return;
     //console.log("email_existed: ", email_existed);
   } else {
     const token = jwt.sign(user, private_key, { expiresIn: "24h" });
@@ -686,7 +688,7 @@ app.post("/signin", async (req, res) => {
 
   if (!email_existed) {
     // please sign up first
-    res.status(403).json({ state: "no such user, or input data is incorrect" });
+    res.status(403).json({ state: "No such user, or input data is incorrect" });
   } else {
     const token = jwt.sign(
       {
@@ -705,7 +707,7 @@ app.post("/signin", async (req, res) => {
     if (!is_valid) {
       res
         .status(403)
-        .json({ state: "no such user, or input data is incorrect" });
+        .json({ state: "No such user, or input data is incorrect" });
     } else {
       res.status(200).json({ state: "successfully signed in!", token });
     }
@@ -785,7 +787,13 @@ app.post("/review", async (req, res) => {
 
   // verify JWT
   try {
-    let rule_out_token = req.headers.authorization.replace("Bearer ", "");
+    let rule_out_token = req.headers.authorization;
+    if (!rule_out_token) {
+      console.log("An error occurred in verifying token: ", err);
+      res.status(401).json({ state: "No token" });
+      return;
+    }
+    rule_out_token = rule_out_token.replace("Bearer ", "");
     let decoded = jwt.verify(rule_out_token, private_key);
   } catch (err) {
     console.log("An error occurred in verifying token: ", err);
@@ -833,11 +841,14 @@ app.post("/review", async (req, res) => {
       console.log("successfully creating a restaurant:", save_result);
     } catch (err) {
       console.log("creating restaurant failed because of:", err);
+      res
+        .status(500)
+        .json({ err: `creating restaurant failed because of: ${err}` });
     }
   } else {
     //restaurant already in mongoDB; update it.
     if (result.name != restaurant_name) {
-      console.log("name of restaurant does not match!!....just a reminder~");
+      console.log("restaurant name does not match!!....just a reminder~");
     }
     const update_review_push = {
       $push: {
@@ -852,11 +863,20 @@ app.post("/review", async (req, res) => {
       },
       $inc: { num_review: 1, total_rating: rating },
     };
-    const update_result = await Restaurant.findOneAndUpdate(
-      filter,
-      update_review_push,
-      { new: true }
-    ).exec();
+    let update_result;
+
+    try {
+      update_result = await Restaurant.findOneAndUpdate(
+        filter,
+        update_review_push,
+        { new: true }
+      ).exec();
+    } catch (err) {
+      console.log("updating restaurant failed because of:", err);
+      res
+        .status(500)
+        .json({ err: `updating restaurant failed because of: ${err}` });
+    }
     console.log("updated_result:", update_result);
   }
   /* 
@@ -904,6 +924,25 @@ app.post("/search_es", async (req, res) => {
 
 app.get("/campaign/:id", async (req, res) => {
   const selected_campaign = req.params.id;
+  if (typeof Number(selected_campaign) !== "number") {
+    res.status(400).json({ status: "failed", msg: "id has to be number" });
+  } else if (selected_campaign.toString().length > 9) {
+    res.status(400).json({
+      status: "failed",
+      msg: "id cannot be a float or greater than 1e9",
+    });
+  } else if (selected_campaign < 0) {
+    res.status(400).json({
+      status: "failed",
+      msg: "id cannot be negative",
+    });
+  } else if ((selected_campaign << 1) >> 1 !== selected_campaign) {
+    res.status(400).json({
+      status: "failed",
+      msg: "id cannot be a float",
+    });
+  }
+
   const name_field = "name";
   const rating_field = "rating";
   const reviews_field = "reviews.text";
