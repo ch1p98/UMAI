@@ -1,4 +1,4 @@
-# UMAI
+# [UMAI](https://chipmunk.vip)
 #### A web-service that recommends restaurants, and more
 
 ## Table of Contents
@@ -33,14 +33,26 @@ Bon appétit!
 This web-service is built as a simple single page application, so you may avoid pressing next/previous page on your browser and using corresponding keyboard shortcuts; If unexpected things occur, such as page unresponsiveness, you may simply reload the page. The information on the webpage will lose. However, your logging status and other data will be intact.  
 
 
-### Sign Up
+### Sign Up / Sign In
+Sign up as a new user, or sign in with following test accounts:
+
+email: elliechen@gmail.com
+
+password: test  
+//
+
+email: adam_apple@gmail.com
+
+password: test  
+
+
 
 ### Search
 #### Tips
-The website shows a panel that displays many filters. You can input one, two, or all of them. 
-Specifically, you can use multiple options in a filter if needed. Each filter provides some example options that you may use. While you are also allowed to input options on your own.
+Click the header item "魔法搜尋器" to reveal a panel that displays many filters. You can input one, two, or all of them. 
+Specifically, you can fill multiple options in a filter if needed. Each filter provides some example options that you may use. Moreover, you are also encouraged to input options freely.
 
-### Result of search
+### Search result
 #### Interface
 Once you click search, the page shows the result, providing brief information of each restaurant that meets the query. The page is set to display 10 items at most. If the size of result is larger than that, a paginator at the bottom navigates you to the rest of your result.
 In addition, in each box, an icon shows whether it is opening. Click the icon and it will show opening hours in detail.
@@ -49,25 +61,17 @@ What's more, you can also click the heart icon at the right-upper corner to save
 
 Finally, you can get more information of a restaurant by clicking names or pictures in the box.
 
-### Restaurant page
-This page shows full information of a restaurant. Furthermore, it enables users to:
-    - check reviews and leave a review
-    - check pieces of reviews from 
-- profile
-    - check user profile
-    - edit user profile
-    - pocket list
-        - check items
-        - remove an item
-    - friend list
-        - see one's profile
-        - remove them from the list(coming soon)
-    - (other people's) profile page
-        - difference with user profile
-        - check their pocket list
-        - check who they are following
-- recommended restaurants (coming soon)
-- recommended people to follow (coming soon)
+### Restaurant info page
+This page shows detailed information of a restaurant. Furthermore, it enables users to check reviews by other users and leave a review
+
+### Profile page
+Once you successfully sign up or sign in, the header item "關於我" shows. Click to view your profile, pocket list and friend list.
+Then, you may click restautants in your pocket list to obtain information or prople in your friends list to view their profile. 
+
+
+### recommended restaurants (coming soon)
+### recommended people to follow (coming soon)
+
 
 
 ## Technical Things
@@ -91,11 +95,3 @@ UMAI stores data for its users, including favorite list of restaurants, followin
 
 #### Recommendation
 (coming soon)
-
-![Logo](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/th5xamgrr6se0x5ro4g6.png)
-
-
-## Demo
-
-Insert gif or link to demo
-
