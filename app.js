@@ -288,7 +288,7 @@ app.post("/friends", async (req, res) => {
       res.status(200).json({ update_result });
     } else {
       // 想加人的使用者不存在...
-      const error = "no such user";
+      const error = "user with this id does not exist.";
       res.status(502).json({ error });
     }
   } catch (error) {
