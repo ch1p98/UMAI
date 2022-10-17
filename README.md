@@ -30,7 +30,7 @@ Bon appétit!
 
 ## Usage/Examples
 ### Before all
-This web-service is built as a simple single page application, so you may avoid pressing next/previous page on your browser and using corresponding keyboard shortcuts; If unexpected things occur, such as page unresponsiveness, you may simply reload the page. The information on the webpage will lose. However, your logging status and other data will be intact.  
+This web-service is built as a single page application, so you may avoid pressing next/previous page on your browser and using corresponding keyboard shortcuts; If unexpected things occur, such as page unresponsiveness, you may simply reload the page. The information on the webpage will lose. However, your logging status and other data will be intact.  
 
 
 ### Sign Up / Sign In
