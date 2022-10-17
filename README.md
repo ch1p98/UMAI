@@ -94,4 +94,6 @@ UMAI stores data for its users, including favorite list of restaurants, friend l
 
 
 ## Author
-- [@ch1p98](https://github.com/ch1p98)
+- Github: [@ch1p98](https://github.com/ch1p98)
+- Email: sst.sunny.tai@gmail.com
+- Feel free to contact me if you have any feedback or question about this project. Any suggestion or idea will be appreciated.
