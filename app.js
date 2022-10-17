@@ -260,10 +260,11 @@ app.get("/friends", async (req, res) => {
 
 // add an user to friend list
 // req: Object_id
-app.post("/friends", async (req, res) => {
-  console.log("posting friend:", req.body.sein);
+app.post("/friend", async (req, res) => {
+  console.log("people who want to add someone else as friend:", req.body.ich);
+  console.log("people to be added as friend:", req.body.sie);
   try {
-    const new_friend = req.body.sein;
+    const new_friend = req.body.sie;
     //
     const user = req.body.ich;
     console.log({ new_friend, user });
@@ -278,7 +279,7 @@ app.post("/friends", async (req, res) => {
           friend: { _id: new_friend },
         },
       };
-      const update_result = User.findOneAndUpdate(
+      const update_result = await User.findOneAndUpdate(
         update_filter,
         update_command,
         {
@@ -287,9 +288,9 @@ app.post("/friends", async (req, res) => {
       ).exec();
       res.status(200).json({ update_result });
     } else {
-      // 想加人的使用者不存在...
-      const error = "user with this id does not exist.";
-      res.status(502).json({ error });
+      // 我不存在，怎麼加好友?
+      const error_msg = "user with this id does not exist.";
+      res.status(502).json({ error: error_msg });
     }
   } catch (error) {
     res.status(500).json({ error });
@@ -298,9 +299,56 @@ app.post("/friends", async (req, res) => {
 
 // delete an user from friend list
 // req: Object_id
-app.delete("/user", async (req, res) => {
-  res.status(200).json({ result });
+app.put("/friend", async (req, res) => {
+  console.log("req.body: ", req.body);
+  console.log(
+    "people who want to delete someone else from friend list:",
+    req.body.ich
+  );
+  console.log("people to be deleted from friend list:", req.body.sie);
+  let result;
+  try {
+    const del_friend = req.body.sie;
+    //
+    const user = req.body.ich;
+    console.log({ del_friend, user });
+    const filter = { _id: user };
+    const required_cols = "_id friend";
+    const ich = await User.findOne(filter, required_cols).exec();
+    console.log("ich bin: ", ich);
+    if (ich) {
+      //(placeholder)//
+      ich.friend.remove(del_friend);
+      ich.save();
+      res.status(200).json({ ich });
+    } else {
+      // 我不存在，怎麼加好友?
+      const error_msg = `user with id "${user}" does not exist.`;
+      res.status(502).json({ error: error_msg });
+    }
+  } catch (error) {
+    res.status(500).json({ error });
+  }
+  //res.status(200).json({ result: updated_result });
 });
+/*
+  (placeholder)
+  // const update_filter = filter;
+  // const update_command = {
+  //   $pull: {
+  //     friend: { _id: del_friend },
+  //   },
+  // };
+  // const updated_result = await User.findOneAndUpdate(
+  //   update_filter,
+  //   update_command,
+  //   {
+  //     new: true,
+  //   }
+  // ).exec();
+
+  //this might work
+*/
 
 // POST favorite
 app.post("/favorite", async (req, res) => {

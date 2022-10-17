@@ -1411,7 +1411,7 @@
                         Authorization: `Bearer ${token}`,
                     };
                     axios_5000
-                        .get(`/friends?email=${email}`, {
+                        .get(`/friend?email=${email}`, {
                             headers,
                         })
                         .then((response) => {
@@ -1816,7 +1816,7 @@
 
                             // get friend list here (when clicking 關於我)
                             axios_5000
-                                .get(`/friends?email=${email}`, {
+                                .get(`/friend?email=${email}`, {
                                     headers: {
                                         "Access-Control-Allow-Origin": "*",
                                         "Content-Type": "application/json",
