@@ -17,14 +17,14 @@ Bon appétit!
 
 ## Feature
 - search for restaurants with customize keywords and conditions
-- leave reviews for restaurant
-- save restaurants in pocket list
+- leave reviews for restaurants
+- save restaurants in your pocket list
 - follow other people, check the restaurants they saved and the people they followed
 - get personalized recommendation of restaurants (coming soon)
 
 ## Usage/Examples
-### Before all
-This web-service is built as a single page application, so you should avoid pressing next/previous page or corresponding keyboard shortcuts on your browser; If unexpected things occur, however, such as unresponsiveness of the page, you may simply reload the page. The information on the webpage might be lost. However, your logging status and other saved data will be intact.  
+### Before All
+This web-service is built as a single page application, so you should avoid pressing next/previous page or corresponding keyboard shortcuts on your browser; If unexpected things occur, such as unresponsiveness of the page, you may simply reload the page. The information on the webpage might be lost. However, your logging status and other saved data will be intact.  
 
 
 ### Sign Up / Sign In
@@ -47,7 +47,7 @@ password: test
 Click the navbar item "魔法搜尋器" to reveal a panel that displays many filters. You can input one, two, or all of them. 
 Specifically, you can fill multiple options in a filter if needed. Each filter provides some example options that you may use. Moreover, you are also encouraged to input options freely.
 
-### Search result
+### Search Result
 #### Interface
 Once you click search, the page shows the result, providing brief information of each restaurant that meets the query. It is set to display 10 items at most in a page. If the size of result is larger than that, a paginator at the bottom navigates you to the rest of your result.
 In addition, in each box, an icon shows whether it is opening. Click the icon and it will show opening hours in detail.
@@ -56,10 +56,10 @@ What's more, you can also click the heart icon at the right-upper corner to save
 
 Finally, you can get more information of a restaurant by clicking names or pictures in the box.
 
-### Restaurant info page
+### Restaurant Info Page
 This page shows detailed information of a restaurant. Furthermore, it enables users to check reviews left by other users and leave a review themselves.
 
-### Profile page
+### Profile Page
 ![](https://i.imgur.com/z08iIZd.gif)
 Once you successfully sign up or sign in, the header item "關於我" shows. Click to view your profile, pocket list and friend list.
 Then, you may click boxes of restautants in your pocket list to obtain information or click "visit" button of boxes of people in your friend list to view their profile, pocket list and friends. 
@@ -71,13 +71,13 @@ Then, you may click boxes of restautants in your pocket list to obtain informati
 
 
 ## Technical Things
+![](https://i.imgur.com/VYVJPjR.png)
 
-
-**Server:** Node, Express
+**Server side:** Node, Express
 
 **Database:** Elasticsearch, mongoDB
 
-**Client:** jQuery, AJAX
+**Client side:** jQuery, AJAX
 
 **Environment:** AWS EC2
 
@@ -89,7 +89,7 @@ Furthermore, it provides various types of querying functions to retrieve data as
 #### Database 
 UMAI stores data for its users, including favorite list of restaurants, friend list, and their profiles. The documents of users may vary greatly in sizes and fields. As a result, UMAI uses mongoDB as its database.
 
-#### Recommendation
+#### Recommendation System
 (coming soon)
 
 
