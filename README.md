@@ -1,17 +1,15 @@
-# [UMAI](https://chipmunk.vip)
-#### A web-service that recommends restaurants, and more
+![](https://i.imgur.com/Pu64hiV.png)
+### A web-service that recommends restaurants, and more
 
 ## Table of Contents
-
-- Summary
-- Author
+- Abstract
 - Feature
-
-- Usage
-
+- Usage/Examples
 - Technical Things
-## Summary
-This is a web service that enables you to search for restaurants, cafes, diners, etc, as you wish. If you do find a good place and have a good time there, you may also leave a review and save that spot in your pocket list.
+- Author
+
+## Abstract
+[UMAI](https://chipmunk.vip) is a web service that enables you to search for restaurants, cafes, diners, etc, as you wish. If you do find a good place and have a good time there, you may also leave a review and save that spot in your pocket list.
 
 What's more, you may also check other users' reviews and their profile, taking a look of places in their pocket lists or people that they are interested in.
 
@@ -26,10 +24,11 @@ Bon appétit!
 
 ## Usage/Examples
 ### Before all
-This web-service is built as a single page application, so you may avoid pressing next/previous page or corresponding keyboard shortcuts on your browser; If unexpected things occur, however, such as unresponsiveness of the page, you may simply reload the page. The information on the webpage might lose. However, your logging status and other saved data will be intact.  
+This web-service is built as a single page application, so you should avoid pressing next/previous page or corresponding keyboard shortcuts on your browser; If unexpected things occur, however, such as unresponsiveness of the page, you may simply reload the page. The information on the webpage might be lost. However, your logging status and other saved data will be intact.  
 
 
 ### Sign Up / Sign In
+![](https://i.imgur.com/BtxIgBg.gif)
 Sign up as a new user, or sign in with following test accounts:
 
 email: elliechen@gmail.com
@@ -45,7 +44,7 @@ password: test
 
 ### Search
 #### Tips
-Click the header item "魔法搜尋器" to reveal a panel that displays many filters. You can input one, two, or all of them. 
+Click the navbar item "魔法搜尋器" to reveal a panel that displays many filters. You can input one, two, or all of them. 
 Specifically, you can fill multiple options in a filter if needed. Each filter provides some example options that you may use. Moreover, you are also encouraged to input options freely.
 
 ### Search result
@@ -61,6 +60,7 @@ Finally, you can get more information of a restaurant by clicking names or pictu
 This page shows detailed information of a restaurant. Furthermore, it enables users to check reviews left by other users and leave a review themselves.
 
 ### Profile page
+![](https://i.imgur.com/z08iIZd.gif)
 Once you successfully sign up or sign in, the header item "關於我" shows. Click to view your profile, pocket list and friend list.
 Then, you may click boxes of restautants in your pocket list to obtain information or click "visit" button of boxes of people in your friend list to view their profile, pocket list and friends. 
 
