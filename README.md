@@ -22,11 +22,11 @@ Bon appétit!
 
 
 ## Feature
-- search for restaurants with customize keywords and conditions
-- leave reviews for restaurant
-- save restaurants in pocket list
-- follow other people, check the restaurants they saved and the people they followed
-- get personalized recommendation of restaurants (coming soon)
+- Search for restaurants with customized keywords and conditions
+- Leave reviews for restaurants
+- Save restaurants in pocket list
+- Follow other people, check the restaurants they saved and the people they followed
+- Get personalized recommendation of restaurants (coming soon)
 
 ## Usage/Examples
 ### Before all
