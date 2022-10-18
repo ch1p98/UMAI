@@ -16,11 +16,11 @@ What's more, you may also check other users' reviews and their profile, taking a
 Bon appétit!
 
 ## Feature
-- search for restaurants with customize keywords and conditions
-- leave reviews for restaurants
-- save restaurants in your pocket list
-- follow other people, check the restaurants they saved and the people they followed
-- get personalized recommendation of restaurants (coming soon)
+- Search for restaurants with customized keywords and conditions
+- Leave reviews for restaurants
+- Save restaurants in your pocket list
+- Follow other people, check the restaurants they saved and the people they followed
+- Get personalized recommendation of restaurants (coming soon)
 
 ## Usage/Examples
 ### Before All
