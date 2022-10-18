@@ -43,21 +43,32 @@ password: test
 
 
 ### Search
+
 #### Tips
 Click the navbar item "魔法搜尋器" to reveal a panel that displays many filters. You can input one, two, or all of them. 
 Specifically, you can fill multiple options in a filter if needed. Each filter provides some example options that you may use. Moreover, you are also encouraged to input options freely.
 
 ### Search Result
+Search
+![](https://i.imgur.com/Pkbv4qZ.gif)
+
+Add to/remove from favorite(pocket) list
+![](https://i.imgur.com/LfvG98r.gif)
+
+Opening hours
+![](https://i.imgur.com/7abtoK7.gif)
+
 #### Interface
 Once you click search, the page shows the result, providing brief information of each restaurant that meets the query. It is set to display 10 items at most in a page. If the size of result is larger than that, a paginator at the bottom navigates you to the rest of your result.
 In addition, in each box, an icon shows whether it is opening. Click the icon and it will show opening hours in detail.
 
-What's more, you can also click the heart icon at the right-upper corner to save it to the pocket list; clicking it again will remove it from the pocket list.  
+What's more, you can also click the heart icon at the right-upper corner to save it to the pocket list (sign-in required); clicking it again will remove it from the pocket list.  
 
 Finally, you can get more information of a restaurant by clicking names or pictures in the box.
 
 ### Restaurant Info Page
-This page shows detailed information of a restaurant. Furthermore, it enables users to check reviews left by other users and leave a review themselves.
+![](https://i.imgur.com/3Sbq7lk.gif)
+This page shows detailed information of a restaurant. Furthermore, it enables users to check reviews left by other users and leave a review themselves (sign-in required).
 
 ### Profile Page
 ![](https://i.imgur.com/z08iIZd.gif)
