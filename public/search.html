@@ -1738,6 +1738,8 @@
                             const profile_data = response.data.profile;
                             if (profile_data) {
                                 user_profile.name = profile_data.name;
+                                user_profile.email = profile_data.email;
+                                console.log("user_profile: ", user_profile);
                             }
                             // if not profile_data應該要處理一下，雖然目前應該不會發生
                             let div_profile_skin = $("<div></div>").attr({
@@ -1874,7 +1876,7 @@
                                         $("friend_container").append("<br>");
                                         $("#friend_container").append(friend_box);
 
-                                        for (d of data) {
+                                        for (let d of data) {
                                             const friend_case = $("<div></div>").attr({
                                                 class: "friend_case",
                                             });
@@ -1917,15 +1919,46 @@
                                             ).attr({
                                                 class: "btn btn-outline-link btn-xs visit_friend_btn",
                                             });
-                                            const rm_suggest_btn = $(
+                                            const rm_friend_btn = $(
                                                 "<button>  REMOVE  </button>"
                                             ).attr({
                                                 class: "btn btn-outline-link btn-xs",
                                             });
+
+                                            rm_friend_btn.click((event) => {
+                                                axios
+                                                    .put(
+                                                        `/friend`, {
+                                                            ich: user_profile ? user_profile.email : "",
+                                                            sie: fid ? fid : "",
+                                                        }, {
+                                                            headers: {
+                                                                "Access-Control-Allow-Origin": "*",
+                                                                "Content-Type": "application/json",
+                                                                Authorization: `Bearer ${token}`,
+                                                            },
+                                                        }
+                                                    )
+                                                    .then((response) => {
+                                                        if (response.status === 200) {
+                                                            alert("friend removed successfully.");
+                                                        } else {
+                                                            alert(
+                                                                `removing friend failed with code ${response.status}`
+                                                            );
+                                                        }
+                                                    })
+                                                    .catch((err) => {
+                                                        console.log(
+                                                            "error happened in axios put req of friend removal"
+                                                        );
+                                                    });
+                                            });
+
                                             friend_right_hemi.append(name_box);
                                             friend_right_hemi.append(manipulate_box);
                                             manipulate_box.append(visit_friend_btn);
-                                            manipulate_box.append(rm_suggest_btn);
+                                            manipulate_box.append(rm_friend_btn);
                                             friend_box.append(friend_case);
                                         }
                                         //$(".friend_box").hide();
@@ -2316,7 +2349,9 @@
                                                                 } else {
                                                                     $("#empty_review_block").remove();
                                                                     console.log("length > 0...1");
+
                                                                     for (let review of native_review_arr) {
+                                                                        //console.log("review printed:", review);
                                                                         attach_post_to_container(
                                                                             "native_reviews_container",
                                                                             review.author,
@@ -4819,13 +4854,12 @@
                 //     "cur_campaign_item_index outside event declaration: ",
                 //     cur_campaign_item_index
                 // );
-
-                $(document).on(
+                console.log("event triggered");
+                $(document).one(
                     "click",
                     `#campaign_item_${cur_campaign_item_index}`,
                     (event) => {
                         event.stopPropagation();
-
                         console.log("cur_campaign_item_index: ", cur_campaign_item_index);
                         $("#detail_container").remove();
                         $("#dummy").hide();
@@ -5105,6 +5139,7 @@
                                     $("#empty_review_block").remove();
                                     console.log("length > 0...4");
                                     for (let review of native_review_arr) {
+                                        console.log("review printed:", review);
                                         attach_post_to_container(
                                             "native_reviews_container",
                                             review.author,
@@ -5158,9 +5193,14 @@
                         //$("#return_result").remove();
                     }
                 );
-                $(document).on("click", `#campaign_img_${camp_item_index}`, () => {
-                    $(`#campaign_item_${camp_item_index}`).trigger("click");
-                });
+                $(document).one(
+                    "click",
+                    `#campaign_img_${camp_item_index}`,
+                    (event) => {
+                        event.stopPropagation();
+                        $(`#campaign_item_${camp_item_index}`).trigger("click");
+                    }
+                );
             }
         }
 

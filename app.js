@@ -184,7 +184,7 @@ const Restaurant = mongoose.model("restaurant", RestaurantSchema, "restaurant");
 
 //const nsUser = mongoose.model("user", Any);
 
-app.get("/friends", async (req, res) => {
+app.get("/friend", async (req, res) => {
   const email = req.query.email;
   console.log("req query email: ", email);
   let rule_out_token;
@@ -300,6 +300,25 @@ app.post("/friend", async (req, res) => {
 // delete an user from friend list
 // req: Object_id
 app.put("/friend", async (req, res) => {
+  let token = req.headers.authorization;
+  let decoded_email = "";
+  if (!token) {
+    // error: no token
+    res.status(401).json({ state: "No token" });
+    return;
+  } else {
+    try {
+      token = token.replace("Bearer ", "");
+      decoded = jwt.verify(token, private_key);
+      console.log("decoded: ", decoded);
+    } catch (err) {
+      console.log("An error occurred in verifying token: ", err);
+      res.status(403).json({ state: "failed verifying token" });
+      return;
+    }
+    decoded_email = decoded.email;
+  }
+  // check if token-decoded email === ich
   console.log("req.body: ", req.body);
   console.log(
     "people who want to delete someone else from friend list:",
@@ -307,23 +326,35 @@ app.put("/friend", async (req, res) => {
   );
   console.log("people to be deleted from friend list:", req.body.sie);
   let result;
+
   try {
     const del_friend = req.body.sie;
     //
-    const user = req.body.ich;
-    console.log({ del_friend, user });
-    const filter = { _id: user };
-    const required_cols = "_id friend";
+    const user_email = req.body.ich;
+    if (decoded_email !== user_email) {
+      res.status(403).json({
+        state: `email not matched decoded:: user_email: ${user_email}, decoded_email:${decoded_email}`,
+      });
+      return;
+    }
+    console.log(" del_friend, user_email :"); // id, email
+    console.log({ del_friend, user_email }); // id, email
+    //const filter = { _id: user };
+    const filter = { email: user_email };
+    const required_cols = "_id email friend";
     const ich = await User.findOne(filter, required_cols).exec();
     console.log("ich bin: ", ich);
     if (ich) {
       //(placeholder)//
       ich.friend.remove(del_friend);
       ich.save();
+      // delete friends should work now, but deleting the last element in the array of friends will fail.
+      console.log(" Jetzt bin ich: ", ich);
       res.status(200).json({ ich });
     } else {
       // 我不存在，怎麼加好友?
-      const error_msg = `user with id "${user}" does not exist.`;
+      //const error_msg = `user with id "${user}" does not exist.`;
+      const error_msg = `user with email "${user_email}" does not exist.`;
       res.status(502).json({ error: error_msg });
     }
   } catch (error) {
