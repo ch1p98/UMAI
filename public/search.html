@@ -450,6 +450,15 @@
         let camps_arr = {};
         let page_len = 0;
         let personal_token;
+        let user_profile = {};
+        const rnd_animal = [
+            "FERRET",
+            "OTTER",
+            "CHIPMUNK",
+            "SQUIRREL",
+            "OWL",
+            "CAT",
+        ];
         let friends_set = new Set(),
             favorite_set = new Set();
         //const MAIN_HOST = "https://chipmunk.vip";
@@ -575,6 +584,7 @@
         };
 
         // you should pass in time in the form of Date object.
+        let _post_count = 0;
         const attach_post_to_container = (
             container_id,
             name,
@@ -583,6 +593,11 @@
             time,
             rating
         ) => {
+            console.log("_post_count: ", _post_count);
+            _post_count++;
+            console.log("name: ", name);
+            console.log("title: ", title);
+            console.log("content: ", content);
             const fresh_review_block = $("<div>").attr({
                 class: "native_review_block",
             });
@@ -652,9 +667,10 @@
             const review_rating_div = $("<div>").attr({
                 class: "native_review_rating",
             });
-            // const rating_img = $("<img>").attr({
-            //     src: "./images/5star.jpg",
-            // });
+
+            const rating_img = $("<img>").attr({
+                src: "./images/5star.jpg",
+            });
             const rating_container = $("<div>").attr({
                 class: "native_rating_container",
             });
@@ -690,9 +706,9 @@
             let review_content_div = $("<div>").attr({
                 class: "native_review_content",
             });
-            let review_content_span = $("<span>");
-            review_content_span.text(content);
-            review_content_div.append(review_content_span);
+            let review_content_h6 = $("<h6>");
+            review_content_h6.text(content);
+            review_content_div.append(review_content_h6);
             fresh_review_body.append(review_content_div);
             //
             $(`#${container_id}`).append(fresh_review_block);
@@ -945,12 +961,18 @@
                         cloned_cimg.attr({
                             id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
-                        cloned_cimg
-                            .children("img")
-                            .attr("src", `./images/${place_id}.jpg`);
-                        cloned_cimg
-                            .children("img")
-                            .attr("alt", `alternative_restaurant_photo`);
+                        const cloned_cimg_children = cloned_cimg.children("img");
+
+                        cloned_cimg_children.attr("src", `./images/${place_id}.jpg`);
+                        cloned_cimg_children.attr("alt", `alternative_restaurant_photo`);
+                        cloned_cimg_children
+                            .on("error", function() {
+                                alert("Handler for error called for campaign items.");
+                            })
+                            .attr(
+                                "src",
+                                `./images/restaurant_list_default${Date.now() % 5}.jpg`
+                            );
 
                         //c_item_head.append(c_img_div.clone());
                         c_item_head.append(cloned_cimg);
@@ -1050,12 +1072,17 @@
                             id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
 
-                        cloned_cimg
-                            .children("img")
-                            .attr("src", `./images/${place_id}.jpg`);
-                        cloned_cimg
-                            .children("img")
-                            .attr("alt", `alternative_restaurant_photo`);
+                        const cloned_cimg_children = cloned_cimg.children("img");
+                        cloned_cimg_children.attr("src", `./images/${place_id}.jpg`);
+                        cloned_cimg_children.attr("alt", `alternative_restaurant_photo`);
+                        cloned_cimg_children
+                            .on("error", function() {
+                                alert("Handler for error called for campaign items.");
+                            })
+                            .attr(
+                                "src",
+                                `./images/restaurant_list_default${Date.now() % 5}.jpg`
+                            );
 
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1154,12 +1181,18 @@
                             id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
 
-                        cloned_cimg
-                            .children("img")
-                            .attr("src", `./images/${place_id}.jpg`);
-                        cloned_cimg
-                            .children("img")
-                            .attr("alt", `alternative_restaurant_photo`);
+                        const cloned_cimg_children = cloned_cimg.children("img");
+
+                        cloned_cimg_children.attr("src", `./images/${place_id}.jpg`);
+                        cloned_cimg_children.attr("alt", `alternative_restaurant_photo`);
+                        cloned_cimg_children
+                            .on("error", function() {
+                                alert("Handler for error called for campaign items.");
+                            })
+                            .attr(
+                                "src",
+                                `./images/restaurant_list_default${Date.now() % 5}.jpg`
+                            );
 
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1263,12 +1296,17 @@
                             id: `campaign_img_${i + CUR_CAMPAIGN * DEFAULT_CAMPAIGN_SIZE}`,
                         });
 
-                        cloned_cimg
-                            .children("img")
-                            .attr("src", `./images/${place_id}.jpg`);
-                        cloned_cimg
-                            .children("img")
-                            .attr("alt", `alternative_restaurant_photo`);
+                        const cloned_cimg_children = cloned_cimg.children("img");
+                        cloned_cimg_children.attr("src", `./images/${place_id}.jpg`);
+                        cloned_cimg_children.attr("alt", `alternative_restaurant_photo`);
+                        cloned_cimg_children
+                            .on("error", function() {
+                                alert("Handler for error called for campaign items.");
+                            })
+                            .attr(
+                                "src",
+                                `./images/restaurant_list_default${Date.now() % 5}.jpg`
+                            );
 
                         c_item_head.append(cloned_cimg);
                         c_item_body.append(c_name_div);
@@ -1698,6 +1736,11 @@
                             console.log("Get profile status:", req_status);
                             // profile_data contains only data decoded from token
                             const profile_data = response.data.profile;
+                            if (profile_data) {
+                                user_profile.name = profile_data.name;
+                                user_profile.email = profile_data.email;
+                                console.log("user_profile: ", user_profile);
+                            }
                             // if not profile_data應該要處理一下，雖然目前應該不會發生
                             let div_profile_skin = $("<div></div>").attr({
                                 id: "profile_skin",
@@ -1833,7 +1876,7 @@
                                         $("friend_container").append("<br>");
                                         $("#friend_container").append(friend_box);
 
-                                        for (d of data) {
+                                        for (let d of data) {
                                             const friend_case = $("<div></div>").attr({
                                                 class: "friend_case",
                                             });
@@ -1876,15 +1919,46 @@
                                             ).attr({
                                                 class: "btn btn-outline-link btn-xs visit_friend_btn",
                                             });
-                                            const rm_suggest_btn = $(
+                                            const rm_friend_btn = $(
                                                 "<button>  REMOVE  </button>"
                                             ).attr({
                                                 class: "btn btn-outline-link btn-xs",
                                             });
+
+                                            rm_friend_btn.click((event) => {
+                                                axios
+                                                    .put(
+                                                        `/friend`, {
+                                                            ich: user_profile ? user_profile.email : "",
+                                                            sie: fid ? fid : "",
+                                                        }, {
+                                                            headers: {
+                                                                "Access-Control-Allow-Origin": "*",
+                                                                "Content-Type": "application/json",
+                                                                Authorization: `Bearer ${token}`,
+                                                            },
+                                                        }
+                                                    )
+                                                    .then((response) => {
+                                                        if (response.status === 200) {
+                                                            alert("friend removed successfully.");
+                                                        } else {
+                                                            alert(
+                                                                `removing friend failed with code ${response.status}`
+                                                            );
+                                                        }
+                                                    })
+                                                    .catch((err) => {
+                                                        console.log(
+                                                            "error happened in axios put req of friend removal"
+                                                        );
+                                                    });
+                                            });
+
                                             friend_right_hemi.append(name_box);
                                             friend_right_hemi.append(manipulate_box);
                                             manipulate_box.append(visit_friend_btn);
-                                            manipulate_box.append(rm_suggest_btn);
+                                            manipulate_box.append(rm_friend_btn);
                                             friend_box.append(friend_case);
                                         }
                                         //$(".friend_box").hide();
@@ -2209,7 +2283,7 @@
                                                             id: "native_review_div_toggle_div",
                                                         });
                                                         let google_review_toggle = $(
-                                                            "<button>Show Reviews From Google Maps</button>"
+                                                            "<button>Hide Reviews From Google Maps</button>"
                                                         ).attr({
                                                             id: "google_review_toggle",
                                                             class: "btn btn-outline-warning btn-sm btn-radius",
@@ -2274,8 +2348,10 @@
                                                                     console.log("length 0");
                                                                 } else {
                                                                     $("#empty_review_block").remove();
-                                                                    console.log("length > 0");
+                                                                    console.log("length > 0...1");
+
                                                                     for (let review of native_review_arr) {
+                                                                        //console.log("review printed:", review);
                                                                         attach_post_to_container(
                                                                             "native_reviews_container",
                                                                             review.author,
@@ -2307,6 +2383,7 @@
                                                         google_review_div_toggle_div.append(
                                                             google_review_toggle
                                                         );
+                                                        display_google_reviews = true;
                                                         detail_body.append(google_reviews_div);
                                                         let review_cnt = 0;
                                                         try {
@@ -2510,76 +2587,117 @@
                 $("#show_signin").show();
                 $("#show_signup").show();
             } else {
-                const target = $(event.currentTarget);
-                const rid = target.parent().siblings("#rid").text();
-                let rname = target
-                    .parent()
-                    .siblings("#detail_name")
-                    .children()
-                    .text();
-                rname = rname.replace("名稱：", "");
-                const restaurant_obj = {
-                    rid,
-                    rname,
-                };
-                console.log("current rid: ", rid);
-                console.log("current rname: ", rname.replace("名稱：", ""));
+                axios_5000
+                    .post(
+                        `/verify_token`, {}, {
+                            headers: {
+                                "Access-Control-Allow-Origin": "*",
+                                "Content-Type": "application/json",
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        if (response.data.new_token) {
+                            // there is a valid token
+                            localStorage.setItem("jwt", response.data.new_token);
+                            personal_token = response.data.personal_token;
+                            // personal_token is email
+                            // successfully signed in initially
+                            $("#show_signin").hide();
+                            $("#show_signup").hide();
+                            $("#div_signout").show();
+                            console.log("valid token present; signed in currently.");
+                            //
+                            const target = $(event.currentTarget);
+                            const rid = target.parent().siblings("#rid").text();
+                            let rname = target
+                                .parent()
+                                .siblings("#detail_name")
+                                .children()
+                                .text();
+                            rname = rname.replace("名稱：", "");
+                            const restaurant_obj = {
+                                rid,
+                                rname,
+                            };
+                            console.log("current rid: ", rid);
+                            console.log("current rname: ", rname.replace("名稱：", ""));
 
-                let is_favorite = favorite_set.has(rid);
-                if (1) {
-                    axios_5000
-                        .post(
-                            `/favorite`, {
-                                personal_token,
-                                restaurant_obj,
-                                action: is_favorite ? 0 : 1, //0: remove; 1: add
-                            }, {
-                                headers: {
-                                    "Access-Control-Allow-Origin": "*",
-                                    "Content-Type": "application/json",
-                                    Authorization: `Bearer ${token}`,
-                                },
-                            }
-                        )
-                        .then((response) => {
-                            const data = response.data;
-                            //log state
-                            console.log("is_favorite: ", is_favorite);
-                            if (is_favorite) {
-                                // 移除高光
-                                favorite_set.delete(rid);
-                                $("#add_favorite").removeClass(
-                                    "btn btn-outline-warning btn-xs btn-radius"
-                                );
-                                $("#add_favorite").addClass(
-                                    "btn btn-outline-secondary btn-xs btn-radius"
-                                );
-                                $("#add_favorite").text("Add To Pocket List");
-                            } else {
-                                //顯示高光
-                                favorite_set.add(rid);
-                                $("#add_favorite").removeClass(
-                                    "btn btn-outline-secondary btn-xs btn-radius"
-                                );
-                                $("#add_favorite").addClass(
-                                    "btn btn-outline-warning btn-xs btn-radius"
-                                );
-                                $("#add_favorite").text("Remove From Pocket List");
+                            let is_favorite = favorite_set.has(rid);
+                            if (1) {
+                                axios_5000
+                                    .post(
+                                        `/favorite`, {
+                                            personal_token,
+                                            restaurant_obj,
+                                            action: is_favorite ? 0 : 1, //0: remove; 1: add
+                                        }, {
+                                            headers: {
+                                                "Access-Control-Allow-Origin": "*",
+                                                "Content-Type": "application/json",
+                                                Authorization: `Bearer ${token}`,
+                                            },
+                                        }
+                                    )
+                                    .then((response) => {
+                                        const data = response.data;
+                                        //log state
+                                        console.log("is_favorite: ", is_favorite);
+                                        if (is_favorite) {
+                                            // 移除高光
+                                            favorite_set.delete(rid);
+                                            $("#add_favorite").removeClass(
+                                                "btn btn-outline-warning btn-xs btn-radius"
+                                            );
+                                            $("#add_favorite").addClass(
+                                                "btn btn-outline-secondary btn-xs btn-radius"
+                                            );
+                                            $("#add_favorite").text("Add To Pocket List");
+                                        } else {
+                                            //顯示高光
+                                            favorite_set.add(rid);
+                                            $("#add_favorite").removeClass(
+                                                "btn btn-outline-secondary btn-xs btn-radius"
+                                            );
+                                            $("#add_favorite").addClass(
+                                                "btn btn-outline-warning btn-xs btn-radius"
+                                            );
+                                            $("#add_favorite").text("Remove From Pocket List");
+                                        }
+
+                                        // console.log(
+                                        //     "add favorite successful response:",
+                                        //     JSON.stringify(response)
+                                        // );
+                                    })
+                                    .catch((err) => {
+                                        // log error
+                                        console.log(
+                                            "add favorite Unsuccessful response:",
+                                            JSON.stringify(err)
+                                        );
+                                    });
                             }
 
-                            // console.log(
-                            //     "add favorite successful response:",
-                            //     JSON.stringify(response)
-                            // );
-                        })
-                        .catch((err) => {
-                            // log error
-                            console.log(
-                                "add favorite Unsuccessful response:",
-                                JSON.stringify(err)
-                            );
-                        });
-                }
+                            //
+                        } else {
+                            // token is invalid
+                            console.log(JSON.stringify(response.data.state));
+                            $("#div_signout").hide();
+                            $("#div_profile").hide();
+                            $("#show_signin").show();
+                            $("#show_signup").show();
+                        }
+                    })
+                    .catch((err) => {
+                        console.log("error: ", err);
+                        $("#div_signout").hide();
+                        $("#div_profile").hide();
+                        $("#show_signin").show();
+                        $("#show_signup").show();
+                    });
+                //
             }
         });
 
@@ -3061,7 +3179,7 @@
                                     id: "native_review_div_toggle_div",
                                 });
                                 let google_review_toggle = $(
-                                    "<button>Show Reviews From Google Maps</button>"
+                                    "<button>Hide Reviews From Google Maps</button>"
                                 ).attr({
                                     id: "google_review_toggle",
                                     class: "btn btn-outline-warning btn-sm btn-radius",
@@ -3112,7 +3230,7 @@
                                             console.log("length 0");
                                         } else {
                                             $("#empty_review_block").remove();
-                                            console.log("length > 0");
+                                            console.log("length > 0...2");
                                             for (let review of native_review_arr) {
                                                 attach_post_to_container(
                                                     "native_reviews_container",
@@ -3140,6 +3258,7 @@
                                 //display google review
                                 detail_body.append(google_review_div_toggle_div);
                                 google_review_div_toggle_div.append(google_review_toggle);
+                                display_google_reviews = true;
                                 detail_body.append(google_reviews_div);
                                 let review_cnt = 0;
                                 try {
@@ -3253,6 +3372,18 @@
                             width: "360px",
                             id: `item_img_${cnt}`,
                         });
+
+                        r_img
+                            .on("error", function() {
+                                alert(
+                                    "Handler for error called for items in list of search result."
+                                );
+                            })
+                            .attr(
+                                "src",
+                                `./images/restaurant_list_default${Date.now() % 5}.jpg`
+                            );
+
                         restaurant_box_left_hemi.append(r_img);
 
                         is_favorite = favorite_set.has(hit_obj.id);
@@ -4281,7 +4412,7 @@
                                                     console.log("length 0");
                                                 } else {
                                                     $("#empty_review_block").remove();
-                                                    console.log("length > 0");
+                                                    console.log("length > 0...3");
                                                     for (let review of native_review_arr) {
                                                         attach_post_to_container(
                                                             "native_reviews_container",
@@ -4514,7 +4645,9 @@
                     class: "user_name_in_review",
                 });
                 let user_name = $("<span>");
-                let _user_name_text = "戴小羊";
+                let _user_name_text = user_profile.name ?
+                    user_profile.name :
+                    `ANONYMOUS ${rnd_animal[Date.now() % 6]}`;
                 user_name.text(_user_name_text);
                 user_name_in_review.append(user_name);
 
@@ -4655,7 +4788,7 @@
                                 res_time,
                                 res_rating
                             );
-                            let review_legs_data = "Yang and Mai like this";
+                            let review_legs_data = "";
                             let review_legs = $("<div>").attr({
                                 class: "fresh_review_legs",
                             });
@@ -4721,11 +4854,12 @@
                 //     "cur_campaign_item_index outside event declaration: ",
                 //     cur_campaign_item_index
                 // );
-
-                $(document).on(
+                console.log("event triggered");
+                $(document).one(
                     "click",
                     `#campaign_item_${cur_campaign_item_index}`,
                     (event) => {
+                        event.stopPropagation();
                         console.log("cur_campaign_item_index: ", cur_campaign_item_index);
                         $("#detail_container").remove();
                         $("#dummy").hide();
@@ -4952,7 +5086,7 @@
                             id: "native_review_div_toggle_div",
                         });
                         let google_review_toggle = $(
-                            "<button>Show Reviews From Google Maps</button>"
+                            "<button>Hide Reviews From Google Maps</button>"
                         ).attr({
                             id: "google_review_toggle",
                             class: "btn btn-outline-warning btn-sm btn-radius",
@@ -5003,8 +5137,9 @@
                                     console.log("length 0");
                                 } else {
                                     $("#empty_review_block").remove();
-                                    console.log("length > 0");
+                                    console.log("length > 0...4");
                                     for (let review of native_review_arr) {
+                                        console.log("review printed:", review);
                                         attach_post_to_container(
                                             "native_reviews_container",
                                             review.author,
@@ -5029,6 +5164,7 @@
                         //display google review
                         detail_body.append(google_review_div_toggle_div);
                         google_review_div_toggle_div.append(google_review_toggle);
+                        display_google_reviews = true;
                         detail_body.append(google_reviews_div);
                         let review_cnt = 0;
                         try {
@@ -5057,9 +5193,14 @@
                         //$("#return_result").remove();
                     }
                 );
-                $(document).on("click", `#campaign_img_${camp_item_index}`, () => {
-                    $(`#campaign_item_${camp_item_index}`).trigger("click");
-                });
+                $(document).one(
+                    "click",
+                    `#campaign_img_${camp_item_index}`,
+                    (event) => {
+                        event.stopPropagation();
+                        $(`#campaign_item_${camp_item_index}`).trigger("click");
+                    }
+                );
             }
         }
 
