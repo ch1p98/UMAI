@@ -2485,7 +2485,7 @@
                                 id: "show_profile_btn",
                                 class: "btn btn-outline-dark btn-xs",
                             });
-                            show_profile_btn.text("查看個人資料");
+                            show_profile_btn.text("Check Profile");
                             show_profile_btn_div.append(show_profile_btn);
 
                             extra_profile.append(show_profile_btn_div);
@@ -2507,7 +2507,9 @@
                                 form.append(input);
                                 //form.append("<br />");
                             }
-                            let update_profile_btn = $("<button>更新資料</button>").attr({
+                            let update_profile_btn = $(
+                                "<button>Update Profile</button>"
+                            ).attr({
                                 class: "btn btn-outline-dark btn-sm",
                                 id: "update_profile",
                             });
@@ -3092,7 +3094,7 @@
                                         "An error occurred, might haven't caught data weekday_text correctly:",
                                         err
                                     );
-                                    opening_hours = "無資料";
+                                    opening_hours = "No Data";
                                 }
                                 const ophours_title_div = $("<div>").attr({
                                     id: "ophours_title_div",
@@ -3284,14 +3286,14 @@
                                         class: "review_box",
                                     });
                                     google_reviews_div.append(single_review);
-                                    single_review.append(`<p>目前還沒有評論~</p>`);
+                                    single_review.append(`<p>No Reviews Yet~~</p>`);
                                 }
 
                                 $("#restaurant_skin").hide();
                                 // $("#restaurant_container").remove();
                                 // $("#pagination").remove();
                                 $("#return_result").remove();
-                                const return_result = $("<div>回到搜尋結果</div>").attr({
+                                const return_result = $("<div>Return to Search</div>").attr({
                                     id: "return_result",
                                     class: "nav-item nav-link nav_title",
                                 });
@@ -3331,7 +3333,7 @@
                         id: "transmembrane_p",
                     });
                     div_transmembrane.append(transmembrane_display);
-                    const transmembrane_display_text = `共有${hits_arr.length}項符合搜尋條件的結果 `;
+                    const transmembrane_display_text = `${hits_arr.length} items that match the search`;
                     transmembrane_display.text(transmembrane_display_text);
                     $("#restaurant_container").append(div_membrane);
 
@@ -3492,7 +3494,7 @@
                                 "An error occurred, might haven't caught data weekday_text correctly:",
                                 err
                             );
-                            opening_hours = "無資料";
+                            opening_hours = "No Data";
                         }
                         // /*
                         // opening_hours is like:
@@ -3506,12 +3508,12 @@
                         // */
                         //console.log("opening_hours::", opening_hours);
                         let full_opening_hours_text =
-                            opening_hours === "無資料" ? [] : Array.from(opening_hours);
+                            opening_hours === "No Data" ? [] : Array.from(opening_hours);
 
                         //console.log("opening_hours::", opening_hours);
                         //console.log("full_opening_hours_text::", full_opening_hours_text);
 
-                        if (opening_hours === "無資料") {
+                        if (opening_hours === "No Data") {
                             //no data
                             opening_hours = [];
                         } else {
